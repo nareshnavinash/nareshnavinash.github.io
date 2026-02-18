@@ -1,21 +1,21 @@
 /* ============================================
    PORTFOLIO - Naresh Sekar
-   Light, Colorful, Playful Design
-   Inspired by cassie.codes
+   Dark Futuristic Theme · Three.js Integration
+   Neon Accents · Glassmorphism
    ============================================ */
 
-/* --- Custom Properties --- */
+/* --- Custom Properties (Dark with Neon Accents) --- */
 :root {
-  --bg-body: #f0eeeb;
-  --color-blue: #6c8ce0;
-  --color-peach: #e8a87c;
-  --color-mint: #9ad0c2;
-  --color-lavender: #c4a7e0;
-  --color-gold: #f0d78c;
-  --text-primary: #3a3a3a;
-  --text-secondary: #5a5a5a;
-  --bg-card: #ffffff;
-  --border-color: #3a3a3a;
+  --bg-body: #080818;
+  --color-blue: #4488ff;
+  --color-peach: #ff7744;
+  --color-mint: #00ffaa;
+  --color-lavender: #aa77ff;
+  --color-gold: #ffcc33;
+  --text-primary: #e0e0f0;
+  --text-secondary: #8888aa;
+  --bg-card: rgba(14, 14, 32, 0.7);
+  --border-color: rgba(100, 100, 180, 0.18);
   --font-heading: 'Poppins', system-ui, -apple-system, sans-serif;
   --font-script: 'Caveat', cursive;
   --font-body: -apple-system, system-ui, 'Segoe UI', Roboto, sans-serif;
@@ -25,20 +25,8 @@
   --radius: 12px;
   --radius-sm: 8px;
   --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* --- Dark Mode --- */
-[data-theme="dark"] {
-  --bg-body: #1a1a2e;
-  --color-blue: #2a3a6e;
-  --color-peach: #6e4a32;
-  --color-mint: #1a5a4a;
-  --color-lavender: #3a2a5e;
-  --color-gold: #6e5a2a;
-  --text-primary: #e0e0e8;
-  --text-secondary: #b0b0c0;
-  --bg-card: #2a2a3e;
-  --border-color: #555568;
+  --glow-sm: 0 0 15px;
+  --glow-md: 0 0 30px;
 }
 
 /* --- Reset & Base --- */
@@ -67,18 +55,19 @@ body {
 }
 
 ::selection {
-  background: rgba(154, 208, 194, 0.5);
-  color: #2a2a2a;
+  background: rgba(0, 255, 170, 0.25);
+  color: #fff;
 }
 
 a {
-  color: var(--text-primary);
+  color: var(--color-mint);
   text-decoration: none;
   transition: color var(--transition);
 }
 
 a:hover {
   text-decoration: underline;
+  color: #33ffbb;
 }
 
 img {
@@ -98,6 +87,21 @@ button {
   color: inherit;
 }
 
+/* --- Three.js Canvas Background --- */
+#three-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+#three-bg canvas {
+  display: block;
+}
+
 /* --- Utility --- */
 .container {
   max-width: var(--container-width);
@@ -114,6 +118,8 @@ button {
   line-height: 1.1;
   position: relative;
   display: inline-block;
+  color: var(--text-primary);
+  text-shadow: 0 0 40px rgba(100, 100, 220, 0.2);
 }
 
 .section-title::after {
@@ -123,11 +129,12 @@ button {
   left: 0;
   width: 48px;
   height: 3px;
-  background: var(--text-primary);
+  background: var(--color-mint);
   border-radius: 2px;
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.3s;
+  box-shadow: var(--glow-sm) rgba(0, 255, 170, 0.4);
 }
 
 .section-title.visible::after {
@@ -167,7 +174,6 @@ button {
 .reveal-group .reveal:nth-child(7) { transition-delay: 0.48s; }
 
 
-
 /* ============================================
    01. NAVIGATION
    ============================================ */
@@ -182,13 +188,9 @@ button {
 }
 
 .nav.scrolled {
-  background: rgba(240, 238, 235, 0.95);
-  box-shadow: 0 1px 0 rgba(58, 58, 58, 0.1);
-}
-
-[data-theme="dark"] .nav.scrolled {
-  background: rgba(26, 26, 46, 0.95);
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.08);
+  background: rgba(8, 8, 24, 0.88);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 1px 0 rgba(100, 100, 180, 0.1);
 }
 
 .nav-inner {
@@ -207,14 +209,12 @@ button {
   font-weight: 700;
   color: var(--color-mint);
   text-decoration: none;
+  text-shadow: var(--glow-sm) rgba(0, 255, 170, 0.3);
 }
 
 .nav-logo:hover {
   text-decoration: none;
-}
-
-[data-theme="dark"] .nav-logo {
-  color: #9ad0c2;
+  color: #33ffcc;
 }
 
 .nav-links {
@@ -224,11 +224,11 @@ button {
 }
 
 .nav-links a {
-  color: var(--text-primary);
+  color: var(--text-secondary);
   font-size: 0.9rem;
   font-weight: 600;
   text-transform: lowercase;
-  transition: color var(--transition);
+  transition: color var(--transition), text-shadow var(--transition);
   position: relative;
   text-decoration: none;
 }
@@ -240,67 +240,21 @@ button {
   left: 0;
   width: 0;
   height: 2px;
-  background: var(--text-primary);
+  background: var(--color-mint);
   transition: width var(--transition);
+  box-shadow: var(--glow-sm) rgba(0, 255, 170, 0.4);
 }
 
 .nav-links a:hover,
 .nav-links a.active {
   color: var(--text-primary);
   text-decoration: none;
+  text-shadow: 0 0 10px rgba(0, 255, 170, 0.2);
 }
 
 .nav-links a.active::after,
 .nav-links a:hover::after {
   width: 100%;
-}
-
-/* Theme Toggle */
-.theme-toggle {
-  width: 52px;
-  height: 28px;
-  border-radius: 14px;
-  background: var(--text-primary);
-  position: relative;
-  cursor: pointer;
-  border: none;
-  padding: 0;
-  flex-shrink: 0;
-  transition: background var(--transition);
-}
-
-.theme-toggle::before {
-  content: '';
-  position: absolute;
-  top: 3px;
-  left: 3px;
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  background: var(--bg-body);
-  transition: transform var(--transition);
-}
-
-[data-theme="dark"] .theme-toggle::before {
-  transform: translateX(24px);
-}
-
-.theme-toggle-icon {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 14px;
-  line-height: 1;
-}
-
-.theme-toggle .sun-icon {
-  left: 7px;
-  color: var(--bg-body);
-}
-
-.theme-toggle .moon-icon {
-  right: 6px;
-  color: var(--bg-body);
 }
 
 /* Hamburger */
@@ -339,7 +293,8 @@ button {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(240, 238, 235, 0.97);
+  background: rgba(8, 8, 24, 0.96);
+  backdrop-filter: blur(20px);
   z-index: 999;
   flex-direction: column;
   align-items: center;
@@ -347,10 +302,6 @@ button {
   gap: 28px;
   opacity: 0;
   transition: opacity var(--transition);
-}
-
-[data-theme="dark"] .mobile-menu {
-  background: rgba(26, 26, 46, 0.97);
 }
 
 .mobile-menu.open {
@@ -369,10 +320,11 @@ button {
 
 .mobile-menu a:hover {
   text-decoration: underline;
+  color: var(--color-mint);
 }
 
 /* ============================================
-   02. HERO - Desk Scene
+   02. HERO
    ============================================ */
 .hero {
   position: sticky;
@@ -380,9 +332,9 @@ button {
   z-index: 1;
   min-height: 100vh;
   overflow: hidden;
+  background: transparent;
 }
 
-/* Hero split layout */
 .hero-split {
   display: flex;
   min-height: 100vh;
@@ -394,7 +346,7 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--bg-body);
+  background: transparent;
   overflow: hidden;
 }
 
@@ -404,6 +356,8 @@ button {
   height: 120%;
   top: -10%;
   left: -10%;
+  opacity: 0.15;
+  filter: blur(2px);
 }
 
 .hero-photo {
@@ -413,8 +367,11 @@ button {
   height: 320px;
   border-radius: 50%;
   object-fit: cover;
-  border: 6px solid var(--bg-card);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  border: 3px solid rgba(0, 255, 170, 0.3);
+  box-shadow:
+    0 0 40px rgba(0, 255, 170, 0.15),
+    0 0 80px rgba(170, 119, 255, 0.08),
+    0 20px 60px rgba(0, 0, 0, 0.4);
 }
 
 .hero-right {
@@ -423,7 +380,9 @@ button {
   flex-direction: column;
   justify-content: center;
   padding: 80px 60px;
-  background: var(--color-blue);
+  background: rgba(20, 20, 50, 0.6);
+  backdrop-filter: blur(8px);
+  border-left: 1px solid rgba(68, 136, 255, 0.15);
 }
 
 .hero-greeting {
@@ -431,7 +390,8 @@ button {
   font-size: 1.8rem;
   font-weight: 700;
   margin-bottom: 16px;
-  color: #fff;
+  color: var(--color-mint);
+  text-shadow: var(--glow-sm) rgba(0, 255, 170, 0.3);
 }
 
 .hero-heading {
@@ -440,24 +400,15 @@ button {
   font-weight: 900;
   line-height: 1.15;
   letter-spacing: -1px;
-  color: #fff;
+  color: var(--text-primary);
 }
 
 .text-outline {
-  -webkit-text-stroke: 2px #fff;
+  -webkit-text-stroke: 2px var(--color-mint);
   -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 8px rgba(0, 255, 170, 0.3));
 }
 
-[data-theme="dark"] .hero-right {
-  background: var(--color-blue);
-}
-
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(24px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* --- Hero Entrance Sequence --- */
 @keyframes heroPhotoIn {
   from { opacity: 0; transform: scale(0.85); }
   to { opacity: 1; transform: scale(1); }
@@ -544,7 +495,9 @@ button {
    03. ABOUT
    ============================================ */
 #about {
-  background: var(--color-lavender);
+  background: rgba(28, 14, 48, 0.88);
+  backdrop-filter: blur(6px);
+  border-top: 1px solid rgba(170, 119, 255, 0.12);
 }
 
 .about {
@@ -555,7 +508,7 @@ button {
   font-size: 1.15rem;
   line-height: 1.9;
   color: var(--text-secondary);
-  border-left: 3px solid var(--text-primary);
+  border-left: 3px solid var(--color-lavender);
   padding-left: 24px;
   margin-bottom: 56px;
   max-width: 700px;
@@ -569,30 +522,30 @@ button {
 
 .about-card {
   background: var(--bg-card);
-  border: 2px solid var(--border-color);
+  border: 1px solid var(--border-color);
   border-radius: var(--radius);
   padding: 32px 28px;
-  transition: transform var(--transition);
+  transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
+  backdrop-filter: blur(10px);
 }
 
 .about-card:hover {
   transform: translateY(-4px);
+  border-color: rgba(170, 119, 255, 0.35);
+  box-shadow: 0 0 30px rgba(170, 119, 255, 0.08);
 }
 
 .about-card-icon {
   width: 48px;
   height: 48px;
   border-radius: 12px;
-  background: var(--color-lavender);
+  background: rgba(170, 119, 255, 0.15);
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 20px;
-  color: var(--text-primary);
-}
-
-[data-theme="dark"] .about-card-icon {
-  background: rgba(196, 167, 224, 0.3);
+  color: var(--color-lavender);
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .about-card h3 {
@@ -600,6 +553,7 @@ button {
   font-size: 1.1rem;
   font-weight: 700;
   margin-bottom: 10px;
+  color: var(--text-primary);
 }
 
 .about-card p {
@@ -609,10 +563,12 @@ button {
 }
 
 /* ============================================
-   04. CAREER - Browser-Window Cards
+   04. CAREER
    ============================================ */
 #career {
-  background: var(--color-peach);
+  background: rgba(38, 18, 10, 0.88);
+  backdrop-filter: blur(6px);
+  border-top: 1px solid rgba(255, 119, 68, 0.12);
 }
 
 .career {
@@ -647,7 +603,7 @@ button {
   margin-top: 24px;
   width: 120px;
   height: 3px;
-  background: rgba(0, 0, 0, 0.15);
+  background: rgba(255, 255, 255, 0.08);
   border-radius: 3px;
   overflow: hidden;
 }
@@ -655,12 +611,9 @@ button {
 .career-progress-track {
   height: 100%;
   width: 0%;
-  background: var(--text-primary);
+  background: var(--color-peach);
   border-radius: 3px;
-}
-
-[data-theme="dark"] .career-progress {
-  background: rgba(255, 255, 255, 0.15);
+  box-shadow: var(--glow-sm) rgba(255, 119, 68, 0.5);
 }
 
 .timeline-item {
@@ -669,14 +622,17 @@ button {
 
 .timeline-card {
   background: var(--bg-card);
-  border: 2px solid var(--border-color);
+  border: 1px solid var(--border-color);
   border-radius: var(--radius);
   overflow: hidden;
-  transition: transform var(--transition);
+  transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
+  backdrop-filter: blur(10px);
 }
 
 .timeline-card:hover {
   transform: translateY(-4px);
+  border-color: rgba(255, 119, 68, 0.3);
+  box-shadow: 0 0 25px rgba(255, 119, 68, 0.06);
 }
 
 /* Browser window top bar */
@@ -684,12 +640,12 @@ button {
   content: '';
   display: block;
   height: 32px;
-  background: var(--bg-card);
-  border-bottom: 2px solid var(--border-color);
+  background: rgba(20, 20, 40, 0.5);
+  border-bottom: 1px solid var(--border-color);
   background-image:
-    radial-gradient(circle at 16px 16px, var(--border-color) 5px, transparent 5px),
-    radial-gradient(circle at 34px 16px, var(--border-color) 5px, transparent 5px),
-    radial-gradient(circle at 52px 16px, var(--border-color) 5px, transparent 5px);
+    radial-gradient(circle at 16px 16px, var(--color-peach) 3px, transparent 3px),
+    radial-gradient(circle at 34px 16px, var(--color-gold) 3px, transparent 3px),
+    radial-gradient(circle at 52px 16px, var(--color-mint) 3px, transparent 3px);
   background-repeat: no-repeat;
 }
 
@@ -700,7 +656,7 @@ button {
 .timeline-date {
   font-size: 0.82rem;
   font-weight: 600;
-  color: var(--text-secondary);
+  color: var(--color-peach);
   margin-bottom: 8px;
 }
 
@@ -709,6 +665,7 @@ button {
   font-size: 1.15rem;
   font-weight: 700;
   margin-bottom: 4px;
+  color: var(--text-primary);
 }
 
 .timeline-company {
@@ -734,7 +691,7 @@ button {
 .timeline-expand-btn {
   font-size: 0.82rem;
   font-weight: 600;
-  color: var(--text-primary);
+  color: var(--color-mint);
   cursor: pointer;
   display: inline-flex;
   align-items: center;
@@ -784,7 +741,7 @@ button {
   content: '-';
   position: absolute;
   left: 0;
-  color: var(--text-primary);
+  color: var(--color-peach);
 }
 
 .timeline-tags {
@@ -798,16 +755,18 @@ button {
   font-weight: 600;
   padding: 4px 10px;
   background: transparent;
-  border: 1.5px solid var(--border-color);
+  border: 1px solid rgba(255, 119, 68, 0.3);
   border-radius: 20px;
-  color: var(--text-primary);
+  color: var(--color-peach);
 }
 
 /* ============================================
    05. TECHNICAL SKILLS
    ============================================ */
 #skills {
-  background: var(--color-mint);
+  background: rgba(6, 32, 26, 0.88);
+  backdrop-filter: blur(6px);
+  border-top: 1px solid rgba(0, 255, 170, 0.12);
 }
 
 .skills {
@@ -822,14 +781,17 @@ button {
 
 .skill-category {
   background: var(--bg-card);
-  border: 2px solid var(--border-color);
+  border: 1px solid var(--border-color);
   border-radius: var(--radius);
   padding: 32px;
-  transition: transform var(--transition);
+  transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
+  backdrop-filter: blur(10px);
 }
 
 .skill-category:hover {
   transform: translateY(-4px);
+  border-color: rgba(0, 255, 170, 0.3);
+  box-shadow: 0 0 25px rgba(0, 255, 170, 0.06);
 }
 
 .skill-category h3 {
@@ -840,12 +802,13 @@ button {
   display: flex;
   align-items: center;
   gap: 10px;
+  color: var(--text-primary);
 }
 
 .skill-category h3 svg {
   width: 20px;
   height: 20px;
-  color: var(--text-primary);
+  color: var(--color-mint);
 }
 
 .skill-item {
@@ -861,12 +824,18 @@ button {
   font-weight: 500;
   display: inline-block;
   padding: 4px 14px;
-  border: 1.5px solid var(--border-color);
+  border: 1px solid rgba(0, 255, 170, 0.25);
   border-radius: 20px;
   margin-bottom: 4px;
+  color: var(--color-mint);
+  transition: background var(--transition), box-shadow var(--transition);
 }
 
-/* Hide the progress bars */
+.skill-name:hover {
+  background: rgba(0, 255, 170, 0.08);
+  box-shadow: 0 0 15px rgba(0, 255, 170, 0.1);
+}
+
 .skill-bar {
   display: none;
 }
@@ -875,7 +844,9 @@ button {
    06. LEADERSHIP
    ============================================ */
 #leadership {
-  background: var(--color-gold);
+  background: rgba(36, 32, 8, 0.88);
+  backdrop-filter: blur(6px);
+  border-top: 1px solid rgba(255, 204, 51, 0.12);
 }
 
 .leadership {
@@ -890,30 +861,30 @@ button {
 
 .leadership-card {
   background: var(--bg-card);
-  border: 2px solid var(--border-color);
+  border: 1px solid var(--border-color);
   border-radius: var(--radius);
   padding: 32px 28px;
-  transition: transform var(--transition);
+  transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
+  backdrop-filter: blur(10px);
 }
 
 .leadership-card:hover {
   transform: translateY(-6px);
+  border-color: rgba(255, 204, 51, 0.3);
+  box-shadow: 0 0 25px rgba(255, 204, 51, 0.06);
 }
 
 .leadership-card-icon {
   width: 44px;
   height: 44px;
   border-radius: 10px;
-  background: var(--color-gold);
+  background: rgba(255, 204, 51, 0.12);
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 20px;
-  color: var(--text-primary);
-}
-
-[data-theme="dark"] .leadership-card-icon {
-  background: rgba(240, 215, 140, 0.3);
+  color: var(--color-gold);
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .leadership-card h3 {
@@ -921,6 +892,7 @@ button {
   font-size: 1.05rem;
   font-weight: 700;
   margin-bottom: 10px;
+  color: var(--text-primary);
 }
 
 .leadership-card p {
@@ -933,7 +905,9 @@ button {
    07. PUBLICATIONS
    ============================================ */
 #publications {
-  background: var(--color-blue);
+  background: rgba(10, 16, 42, 0.88);
+  backdrop-filter: blur(6px);
+  border-top: 1px solid rgba(68, 136, 255, 0.12);
 }
 
 .publications {
@@ -946,13 +920,12 @@ button {
   gap: 60px;
 }
 
-/* Flat book card (replacing 3D) */
 .book-card {
   flex-shrink: 0;
   width: 220px;
   height: 300px;
   background: var(--bg-card);
-  border: 2px solid var(--border-color);
+  border: 1px solid rgba(68, 136, 255, 0.25);
   border-radius: var(--radius);
   display: flex;
   flex-direction: column;
@@ -960,6 +933,13 @@ button {
   align-items: center;
   text-align: center;
   padding: 24px 20px;
+  backdrop-filter: blur(10px);
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow var(--transition);
+}
+
+.book-card:hover {
+  transform: rotate(-2deg) translateY(-4px);
+  box-shadow: 0 0 30px rgba(68, 136, 255, 0.1);
 }
 
 .book-card-title {
@@ -968,11 +948,12 @@ button {
   font-weight: 800;
   line-height: 1.3;
   margin-bottom: 12px;
+  color: var(--text-primary);
 }
 
 .book-card-author {
   font-size: 0.82rem;
-  color: var(--text-secondary);
+  color: var(--color-blue);
   font-family: var(--font-script);
   font-weight: 700;
   font-size: 1.1rem;
@@ -987,6 +968,7 @@ button {
   font-size: 1.3rem;
   font-weight: 700;
   margin-bottom: 8px;
+  color: var(--text-primary);
 }
 
 .pub-info .pub-author {
@@ -1010,13 +992,13 @@ button {
 
 .btn-primary {
   padding: 14px 32px;
-  background: var(--text-primary);
-  color: var(--bg-body);
+  background: var(--color-mint);
+  color: #080818;
   font-weight: 600;
   font-size: 0.95rem;
   border-radius: 50px;
-  border: 2px solid var(--text-primary);
-  transition: transform var(--transition), background var(--transition), color var(--transition);
+  border: 2px solid var(--color-mint);
+  transition: transform var(--transition), background var(--transition), color var(--transition), box-shadow var(--transition);
   text-decoration: none;
   display: inline-block;
 }
@@ -1024,8 +1006,9 @@ button {
 .btn-primary:hover {
   transform: translateY(-2px);
   background: transparent;
-  color: var(--text-primary);
+  color: var(--color-mint);
   text-decoration: none;
+  box-shadow: var(--glow-md) rgba(0, 255, 170, 0.2);
 }
 
 .btn-secondary {
@@ -1042,16 +1025,20 @@ button {
 }
 
 .btn-secondary:hover {
-  background: var(--text-primary);
-  color: var(--bg-body);
+  background: rgba(68, 136, 255, 0.15);
+  border-color: var(--color-blue);
+  color: var(--color-blue);
   text-decoration: none;
+  box-shadow: var(--glow-md) rgba(68, 136, 255, 0.15);
 }
 
 /* ============================================
    08. CERTIFICATIONS
    ============================================ */
 #certifications {
-  background: var(--color-lavender);
+  background: rgba(22, 10, 40, 0.88);
+  backdrop-filter: blur(6px);
+  border-top: 1px solid rgba(170, 119, 255, 0.12);
 }
 
 .certifications {
@@ -1066,25 +1053,36 @@ button {
 
 .cert-card {
   background: var(--bg-card);
-  border: 2px solid var(--border-color);
+  border: 1px solid var(--border-color);
   border-radius: var(--radius-sm);
   padding: 24px 28px;
   display: flex;
   align-items: center;
   gap: 20px;
-  transition: transform var(--transition);
+  transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
+  backdrop-filter: blur(10px);
 }
 
 .cert-card:hover {
   transform: translateY(-2px);
+  border-color: rgba(170, 119, 255, 0.3);
+  box-shadow: 0 0 20px rgba(170, 119, 255, 0.06);
 }
 
 .cert-accent {
   width: 4px;
   height: 48px;
   border-radius: 2px;
-  background: var(--text-primary);
+  background: var(--color-lavender);
   flex-shrink: 0;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 0 8px rgba(170, 119, 255, 0.3);
+}
+
+.cert-card:hover .cert-accent {
+  transform: scaleY(1.15);
+  box-shadow: 0 0 15px rgba(170, 119, 255, 0.5);
 }
 
 .cert-info h3 {
@@ -1092,6 +1090,7 @@ button {
   font-size: 0.95rem;
   font-weight: 700;
   margin-bottom: 4px;
+  color: var(--text-primary);
 }
 
 .cert-info p {
@@ -1103,7 +1102,9 @@ button {
    09. EDUCATION
    ============================================ */
 #education {
-  background: var(--bg-body);
+  background: rgba(8, 8, 24, 0.92);
+  backdrop-filter: blur(6px);
+  border-top: 1px solid rgba(100, 100, 180, 0.1);
 }
 
 .education {
@@ -1113,9 +1114,10 @@ button {
 .edu-card {
   max-width: 580px;
   background: var(--bg-card);
-  border: 2px solid var(--border-color);
+  border: 1px solid var(--border-color);
   border-radius: var(--radius);
   padding: 36px 40px;
+  backdrop-filter: blur(10px);
 }
 
 .edu-degree {
@@ -1123,6 +1125,7 @@ button {
   font-size: 1.2rem;
   font-weight: 700;
   margin-bottom: 6px;
+  color: var(--text-primary);
 }
 
 .edu-school {
@@ -1141,7 +1144,9 @@ button {
    10. CONTACT
    ============================================ */
 #contact {
-  background: var(--color-mint);
+  background: rgba(6, 28, 22, 0.88);
+  backdrop-filter: blur(6px);
+  border-top: 1px solid rgba(0, 255, 170, 0.12);
 }
 
 .contact {
@@ -1150,7 +1155,7 @@ button {
 
 .contact-main-card {
   background: var(--bg-card);
-  border: 2px solid var(--border-color);
+  border: 1px solid rgba(0, 255, 170, 0.2);
   border-radius: var(--radius);
   padding: 60px;
   max-width: 600px;
@@ -1158,6 +1163,7 @@ button {
   text-align: center;
   position: relative;
   overflow: hidden;
+  backdrop-filter: blur(10px);
 }
 
 .contact-main-card h3 {
@@ -1165,6 +1171,7 @@ button {
   font-size: 2rem;
   font-weight: 900;
   margin-bottom: 16px;
+  color: var(--text-primary);
 }
 
 .contact-email {
@@ -1172,6 +1179,8 @@ button {
   font-weight: 600;
   margin-bottom: 24px;
   display: block;
+  color: var(--color-mint);
+  text-shadow: var(--glow-sm) rgba(0, 255, 170, 0.2);
 }
 
 .contact-social-icons {
@@ -1184,21 +1193,23 @@ button {
 .contact-social-icons a {
   width: 48px;
   height: 48px;
-  border: 2px solid var(--border-color);
+  border: 1px solid var(--border-color);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--text-primary);
+  color: var(--text-secondary);
   transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   text-decoration: none;
 }
 
 .contact-social-icons a:hover {
-  background: var(--text-primary);
-  color: var(--bg-card);
+  background: var(--color-mint);
+  color: #080818;
+  border-color: var(--color-mint);
   transform: translateY(-4px) rotate(-5deg);
   text-decoration: none;
+  box-shadow: 0 0 20px rgba(0, 255, 170, 0.3);
 }
 
 .contact-social-icons a svg {
@@ -1212,7 +1223,11 @@ button {
   right: -30px;
   width: 180px;
   height: 180px;
-  opacity: 0.2;
+  opacity: 0.08;
+}
+
+.contact-blob path {
+  fill: var(--color-mint);
 }
 
 .contact-extra-links {
@@ -1226,16 +1241,21 @@ button {
 .contact-extra-links a {
   font-size: 0.88rem;
   font-weight: 600;
-  color: var(--text-primary);
+  color: var(--text-secondary);
   text-decoration: underline;
+}
+
+.contact-extra-links a:hover {
+  color: var(--color-mint);
 }
 
 /* ============================================
    FOOTER
    ============================================ */
 .footer {
-  background: var(--color-mint);
+  background: rgba(6, 28, 22, 0.95);
   padding: 60px 0 40px;
+  border-top: 1px solid rgba(0, 255, 170, 0.08);
 }
 
 .footer-greeting {
@@ -1244,6 +1264,8 @@ button {
   font-weight: 900;
   margin-bottom: 20px;
   text-align: center;
+  color: var(--text-primary);
+  text-shadow: 0 0 40px rgba(100, 100, 220, 0.15);
 }
 
 .footer-inner {
@@ -1273,17 +1295,18 @@ button {
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: var(--bg-card);
-  border: 2px solid var(--border-color);
+  background: rgba(14, 14, 32, 0.8);
+  border: 1px solid var(--border-color);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--text-primary);
+  color: var(--color-mint);
   opacity: 0;
   visibility: hidden;
   transform: translateY(10px);
   transition: all var(--transition);
   z-index: 100;
+  backdrop-filter: blur(10px);
 }
 
 .back-to-top.visible {
@@ -1293,8 +1316,9 @@ button {
 }
 
 .back-to-top:hover {
-  background: var(--text-primary);
-  color: var(--bg-card);
+  background: var(--color-mint);
+  color: #080818;
+  box-shadow: 0 0 20px rgba(0, 255, 170, 0.3);
 }
 
 .back-to-top svg {
@@ -1325,37 +1349,13 @@ button {
   background: var(--color-mint);
   z-index: 1001;
   pointer-events: none;
+  box-shadow: 0 0 10px rgba(0, 255, 170, 0.5);
 }
 
-/* --- Small Polish: Card icon rotation on parent hover --- */
+/* --- Card icon rotation on parent hover --- */
 .about-card:hover .about-card-icon,
 .leadership-card:hover .leadership-card-icon {
   transform: rotate(8deg) scale(1.05);
-}
-
-.about-card-icon,
-.leadership-card-icon {
-  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-/* --- Small Polish: Cert accent stretch on hover --- */
-.cert-accent {
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-              background 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.cert-card:hover .cert-accent {
-  transform: scaleY(1.15);
-  background: var(--color-lavender);
-}
-
-/* --- Small Polish: Book card tilt on hover --- */
-.book-card {
-  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.book-card:hover {
-  transform: rotate(-2deg) translateY(-4px);
 }
 
 /* --- Contact Blob Breathing --- */
@@ -1368,7 +1368,7 @@ button {
   animation: contactBlobFloat 12s ease-in-out infinite;
 }
 
-/* --- Stacked Section Scroll Reveal --- */
+/* --- Stacked Section Scroll --- */
 #about,
 #skills,
 #leadership,
@@ -1378,7 +1378,6 @@ button {
 #contact {
   position: sticky;
   top: 0;
-  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.08);
 }
 
 #about          { z-index: 2; }
@@ -1389,12 +1388,11 @@ button {
 #education      { z-index: 8; }
 #contact        { z-index: 9; }
 
-/* Career scroll zone — sticky wrapper for horizontal carousel */
+/* Career scroll zone */
 .career-scroll-zone {
   position: sticky;
   top: 0;
   z-index: 3;
-  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.08);
 }
 
 #career {
@@ -1411,7 +1409,7 @@ button {
    RESPONSIVE
    ============================================ */
 
-/* --- Tablet (≤1024px) --- */
+/* --- Tablet --- */
 @media (max-width: 1024px) {
   :root {
     --section-padding: 80px;
@@ -1443,7 +1441,7 @@ button {
   }
 }
 
-/* --- Mobile (≤768px) --- */
+/* --- Mobile --- */
 @media (max-width: 768px) {
   :root {
     --section-padding: 64px;
@@ -1499,7 +1497,7 @@ button {
     grid-template-columns: 1fr;
   }
 
-  /* Career — revert to vertical on mobile */
+  /* Career */
   .career-scroll-zone {
     position: static;
     z-index: auto;
@@ -1581,7 +1579,7 @@ button {
   }
 }
 
-/* --- Small Mobile (≤480px) --- */
+/* --- Small Mobile --- */
 @media (max-width: 480px) {
   :root {
     --section-padding: 48px;
@@ -1646,6 +1644,11 @@ button {
   }
 
   .scroll-progress {
+    display: none;
+  }
+
+  /* Hide Three.js canvas for reduced motion */
+  #three-bg {
     display: none;
   }
 }

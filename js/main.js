@@ -13,46 +13,12 @@
   var navLinks = document.querySelectorAll('.nav-links a, .mobile-menu a');
   var sections = document.querySelectorAll('section[id]');
   var backToTop = document.querySelector('.back-to-top');
-  var themeToggle = document.querySelector('.theme-toggle');
   var scrollProgress = document.querySelector('.scroll-progress');
   var careerZone = document.querySelector('.career-scroll-zone');
   var careerGrid = document.querySelector('.career-grid');
   var careerProgressTrack = document.querySelector('.career-progress-track');
 
-  // --- 1. Dark Mode Toggle ---
-  function getStoredTheme() {
-    try {
-      return localStorage.getItem('theme');
-    } catch (e) {
-      return null;
-    }
-  }
-
-  function setTheme(theme) {
-    document.documentElement.setAttribute('data-theme', theme);
-    try {
-      localStorage.setItem('theme', theme);
-    } catch (e) {
-      // localStorage not available
-    }
-  }
-
-  // Apply saved theme on load
-  var savedTheme = getStoredTheme();
-  if (savedTheme) {
-    setTheme(savedTheme);
-  }
-
-  function toggleThemeAction() {
-    var current = document.documentElement.getAttribute('data-theme');
-    setTheme(current === 'dark' ? 'light' : 'dark');
-  }
-
-  if (themeToggle) {
-    themeToggle.addEventListener('click', toggleThemeAction);
-  }
-
-  // --- 2. Navigation scroll effect ---
+  // --- 1. Navigation scroll effect ---
   function handleNavScroll() {
     nav.classList.toggle('scrolled', window.scrollY > 50);
   }
