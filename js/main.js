@@ -1,5 +1,5 @@
 /* ============================================
-   PORTFOLIO — Naresh Sekar
+   PORTFOLIO - Naresh Sekar
    Pure JS · Zero Dependencies
    ============================================ */
 
@@ -14,6 +14,10 @@
   var sections = document.querySelectorAll('section[id]');
   var backToTop = document.querySelector('.back-to-top');
   var themeToggle = document.querySelector('.theme-toggle');
+  var scrollProgress = document.querySelector('.scroll-progress');
+  var careerZone = document.querySelector('.career-scroll-zone');
+  var careerGrid = document.querySelector('.career-grid');
+  var careerProgressTrack = document.querySelector('.career-progress-track');
 
   // --- 1. Dark Mode Toggle ---
   function getStoredTheme() {
@@ -97,6 +101,15 @@
       entries.forEach(function (entry) {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
+
+          // Skill pill stagger: dynamically set transition delays
+          if (entry.target.classList.contains('skill-category')) {
+            var pills = entry.target.querySelectorAll('.skill-item');
+            pills.forEach(function (pill, i) {
+              pill.style.transitionDelay = (i * 0.06) + 's';
+            });
+          }
+
           revealObserver.unobserve(entry.target);
         }
       });
@@ -130,6 +143,74 @@
     backToTop.classList.toggle('visible', window.scrollY > 600);
   }
 
+  // --- 8. Scroll progress bar ---
+  function updateScrollProgress() {
+    if (!scrollProgress) return;
+    var scrollTop = window.scrollY;
+    var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    var progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    scrollProgress.style.width = progress + '%';
+  }
+
+  // --- 9. Career horizontal scroll carousel ---
+  var careerZoneFlowTop = 0;
+
+  function setupCareerCarousel() {
+    if (!careerZone || !careerGrid) return;
+
+    // Disable on mobile
+    if (window.innerWidth <= 768) {
+      careerZone.style.height = '';
+      careerGrid.style.transform = '';
+      return;
+    }
+
+    // Make all career items visible immediately (horizontal scroll reveals them)
+    careerGrid.querySelectorAll('.timeline-item.reveal').forEach(function (item) {
+      item.classList.add('visible');
+      revealObserver.unobserve(item);
+    });
+
+    // Measure flow position: temporarily un-stick so we get the real
+    // document-flow top, not the visual "stuck at 0" position.
+    careerZone.style.position = 'relative';
+    careerZoneFlowTop = careerZone.getBoundingClientRect().top + window.scrollY;
+    careerZone.style.position = '';  // restore CSS sticky
+
+    var gridWidth = careerGrid.scrollWidth;
+    var containerWidth = careerGrid.parentElement.offsetWidth;
+    var scrollDistance = gridWidth - containerWidth;
+
+    if (scrollDistance <= 0) {
+      careerZone.style.height = '';
+      return;
+    }
+
+    // Wrapper height = viewport + horizontal scroll distance
+    careerZone.style.height = (window.innerHeight + scrollDistance) + 'px';
+  }
+
+  function updateCareerCarousel() {
+    if (!careerZone || !careerGrid || window.innerWidth <= 768) return;
+
+    var scrollRoom = careerZone.offsetHeight - window.innerHeight;
+
+    if (scrollRoom <= 0) return;
+
+    var scrolled = window.scrollY - careerZoneFlowTop;
+    var progress = Math.max(0, Math.min(1, scrolled / scrollRoom));
+
+    var gridWidth = careerGrid.scrollWidth;
+    var containerWidth = careerGrid.parentElement.offsetWidth;
+    var maxTranslate = gridWidth - containerWidth;
+
+    careerGrid.style.transform = 'translateX(' + (-progress * maxTranslate) + 'px)';
+
+    if (careerProgressTrack) {
+      careerProgressTrack.style.width = (progress * 100) + '%';
+    }
+  }
+
   if (backToTop) {
     backToTop.addEventListener('click', function () {
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -144,6 +225,8 @@
         handleNavScroll();
         updateActiveNav();
         handleBackToTop();
+        updateScrollProgress();
+        updateCareerCarousel();
         ticking = false;
       });
       ticking = true;
@@ -155,6 +238,14 @@
   // --- Init ---
   handleNavScroll();
   handleBackToTop();
+  setupCareerCarousel();
+
+  // Recalculate career carousel on resize
+  var resizeTimer;
+  window.addEventListener('resize', function () {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(setupCareerCarousel, 150);
+  });
 
   // Close mobile menu on Escape key
   document.addEventListener('keydown', function (e) {

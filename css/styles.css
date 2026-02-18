@@ -1,5 +1,5 @@
 /* ============================================
-   PORTFOLIO — Naresh Sekar
+   PORTFOLIO - Naresh Sekar
    Light, Colorful, Playful Design
    Inspired by cassie.codes
    ============================================ */
@@ -112,6 +112,30 @@ button {
   margin-bottom: 16px;
   letter-spacing: -1px;
   line-height: 1.1;
+  position: relative;
+  display: inline-block;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 48px;
+  height: 3px;
+  background: var(--text-primary);
+  border-radius: 2px;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.3s;
+}
+
+.section-title.visible::after {
+  transform: scaleX(1);
+}
+
+.section-subtitle.reveal {
+  transition-delay: 0.12s;
 }
 
 .section-subtitle {
@@ -124,22 +148,25 @@ button {
 /* --- Scroll Reveal --- */
 .reveal {
   opacity: 0;
-  transform: translateY(32px);
+  transform: translateY(32px) scale(0.98);
   transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1),
               transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .reveal.visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
 }
 
 /* Stagger children */
-.reveal-group .reveal:nth-child(2) { transition-delay: 0.1s; }
-.reveal-group .reveal:nth-child(3) { transition-delay: 0.2s; }
-.reveal-group .reveal:nth-child(4) { transition-delay: 0.25s; }
-.reveal-group .reveal:nth-child(5) { transition-delay: 0.3s; }
-.reveal-group .reveal:nth-child(6) { transition-delay: 0.35s; }
+.reveal-group .reveal:nth-child(2) { transition-delay: 0.08s; }
+.reveal-group .reveal:nth-child(3) { transition-delay: 0.16s; }
+.reveal-group .reveal:nth-child(4) { transition-delay: 0.24s; }
+.reveal-group .reveal:nth-child(5) { transition-delay: 0.32s; }
+.reveal-group .reveal:nth-child(6) { transition-delay: 0.40s; }
+.reveal-group .reveal:nth-child(7) { transition-delay: 0.48s; }
+
+
 
 /* ============================================
    01. NAVIGATION
@@ -345,10 +372,12 @@ button {
 }
 
 /* ============================================
-   02. HERO — Desk Scene
+   02. HERO - Desk Scene
    ============================================ */
 .hero {
-  position: relative;
+  position: sticky;
+  top: 0;
+  z-index: 1;
   min-height: 100vh;
   overflow: hidden;
 }
@@ -428,6 +457,89 @@ button {
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* --- Hero Entrance Sequence --- */
+@keyframes heroPhotoIn {
+  from { opacity: 0; transform: scale(0.85); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes heroBlobIn {
+  from { opacity: 0; transform: scale(0.9) rotate(-5deg); }
+  to { opacity: 1; transform: scale(1) rotate(0deg); }
+}
+
+@keyframes heroTextIn {
+  from { opacity: 0; transform: translateX(30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.hero-photo {
+  animation: heroPhotoIn 0.7s cubic-bezier(0.4, 0, 0.2, 1) 0.3s both;
+}
+
+.hero-shapes path:nth-child(1) {
+  animation: heroBlobIn 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.1s both;
+}
+.hero-shapes path:nth-child(2) {
+  animation: heroBlobIn 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.2s both;
+}
+.hero-shapes path:nth-child(3) {
+  animation: heroBlobIn 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.3s both;
+}
+.hero-shapes path:nth-child(4) {
+  animation: heroBlobIn 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.4s both;
+}
+
+.hero-greeting {
+  animation: heroTextIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.4s both;
+}
+
+.hero-heading {
+  animation: heroTextIn 0.7s cubic-bezier(0.4, 0, 0.2, 1) 0.55s both;
+}
+
+/* --- SVG Blob Floating --- */
+@keyframes blobFloat1 {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  33% { transform: translate(6px, -5px) rotate(1deg); }
+  66% { transform: translate(-4px, 5px) rotate(-1deg); }
+}
+
+@keyframes blobFloat2 {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  33% { transform: translate(-5px, 7px) rotate(-1.5deg); }
+  66% { transform: translate(8px, -3px) rotate(2deg); }
+}
+
+@keyframes blobFloat3 {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  33% { transform: translate(7px, 4px) rotate(1.5deg); }
+  66% { transform: translate(-6px, -6px) rotate(-1deg); }
+}
+
+@keyframes blobFloat4 {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  33% { transform: translate(-8px, -5px) rotate(-2deg); }
+  66% { transform: translate(5px, 7px) rotate(1deg); }
+}
+
+.hero-shapes path:nth-child(1) {
+  animation: heroBlobIn 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.1s both,
+             blobFloat1 20s ease-in-out 1s infinite;
+}
+.hero-shapes path:nth-child(2) {
+  animation: heroBlobIn 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.2s both,
+             blobFloat2 23s ease-in-out 1.1s infinite;
+}
+.hero-shapes path:nth-child(3) {
+  animation: heroBlobIn 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.3s both,
+             blobFloat3 18s ease-in-out 1.2s infinite;
+}
+.hero-shapes path:nth-child(4) {
+  animation: heroBlobIn 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.4s both,
+             blobFloat4 25s ease-in-out 1.3s infinite;
+}
+
 /* ============================================
    03. ABOUT
    ============================================ */
@@ -497,26 +609,58 @@ button {
 }
 
 /* ============================================
-   04. CAREER — Browser-Window Cards
+   04. CAREER - Browser-Window Cards
    ============================================ */
 #career {
   background: var(--color-peach);
 }
 
 .career {
-  padding: var(--section-padding) 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+.career .container {
+  padding-top: var(--nav-height);
+  padding-bottom: 40px;
 }
 
 .career-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  display: flex;
   gap: 28px;
-  max-width: 900px;
-  margin: 0 auto;
+  align-items: flex-start;
+  will-change: transform;
+}
+
+.career-grid .timeline-item {
+  flex: 0 0 340px;
+  min-width: 340px;
 }
 
 .career-grid .timeline-item:nth-child(even) {
-  margin-top: 60px;
+  margin-top: 0;
+}
+
+/* Career progress indicator */
+.career-progress {
+  margin-top: 24px;
+  width: 120px;
+  height: 3px;
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.career-progress-track {
+  height: 100%;
+  width: 0%;
+  background: var(--text-primary);
+  border-radius: 3px;
+}
+
+[data-theme="dark"] .career-progress {
+  background: rgba(255, 255, 255, 0.15);
 }
 
 .timeline-item {
@@ -637,7 +781,7 @@ button {
 }
 
 .timeline-achievements li::before {
-  content: '—';
+  content: '-';
   position: absolute;
   left: 0;
   color: var(--text-primary);
@@ -1046,13 +1190,14 @@ button {
   align-items: center;
   justify-content: center;
   color: var(--text-primary);
-  transition: all var(--transition);
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   text-decoration: none;
 }
 
 .contact-social-icons a:hover {
   background: var(--text-primary);
   color: var(--bg-card);
+  transform: translateY(-4px) rotate(-5deg);
   text-decoration: none;
 }
 
@@ -1157,6 +1302,111 @@ button {
   height: 18px;
 }
 
+/* --- Skill Pill Cascade --- */
+.skill-category .skill-item {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.skill-category.visible .skill-item {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* --- Scroll Progress Bar --- */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 3px;
+  background: var(--color-mint);
+  z-index: 1001;
+  pointer-events: none;
+}
+
+/* --- Small Polish: Card icon rotation on parent hover --- */
+.about-card:hover .about-card-icon,
+.leadership-card:hover .leadership-card-icon {
+  transform: rotate(8deg) scale(1.05);
+}
+
+.about-card-icon,
+.leadership-card-icon {
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* --- Small Polish: Cert accent stretch on hover --- */
+.cert-accent {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              background 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cert-card:hover .cert-accent {
+  transform: scaleY(1.15);
+  background: var(--color-lavender);
+}
+
+/* --- Small Polish: Book card tilt on hover --- */
+.book-card {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.book-card:hover {
+  transform: rotate(-2deg) translateY(-4px);
+}
+
+/* --- Contact Blob Breathing --- */
+@keyframes contactBlobFloat {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-4px, -6px) scale(1.05); }
+}
+
+.contact-blob {
+  animation: contactBlobFloat 12s ease-in-out infinite;
+}
+
+/* --- Stacked Section Scroll Reveal --- */
+#about,
+#skills,
+#leadership,
+#publications,
+#certifications,
+#education,
+#contact {
+  position: sticky;
+  top: 0;
+  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.08);
+}
+
+#about          { z-index: 2; }
+#skills         { z-index: 4; }
+#leadership     { z-index: 5; }
+#publications   { z-index: 6; }
+#certifications { z-index: 7; }
+#education      { z-index: 8; }
+#contact        { z-index: 9; }
+
+/* Career scroll zone — sticky wrapper for horizontal carousel */
+.career-scroll-zone {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.08);
+}
+
+#career {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.footer {
+  position: relative;
+  z-index: 10;
+}
+
 /* ============================================
    RESPONSIVE
    ============================================ */
@@ -1185,10 +1435,6 @@ button {
   }
 
   .leadership-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .career-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 
@@ -1253,13 +1499,43 @@ button {
     grid-template-columns: 1fr;
   }
 
-  /* Career */
-  .career-grid {
-    grid-template-columns: 1fr;
+  /* Career — revert to vertical on mobile */
+  .career-scroll-zone {
+    position: static;
+    z-index: auto;
+    height: auto !important;
   }
 
-  .career-grid .timeline-item:nth-child(even) {
-    margin-top: 0;
+  #career {
+    position: relative;
+    height: auto;
+    overflow: visible;
+  }
+
+  .career {
+    display: block;
+    padding: var(--section-padding) 0;
+  }
+
+  .career .container {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .career-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    will-change: auto;
+    transform: none !important;
+  }
+
+  .career-grid .timeline-item {
+    flex: none;
+    min-width: auto;
+  }
+
+  .career-progress {
+    display: none;
   }
 
   /* Skills */
@@ -1357,5 +1633,19 @@ button {
   .reveal {
     opacity: 1;
     transform: none;
+  }
+
+  .hero-photo,
+  .hero-greeting,
+  .hero-heading,
+  .hero-shapes path,
+  .skill-category .skill-item {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+
+  .scroll-progress {
+    display: none;
   }
 }
