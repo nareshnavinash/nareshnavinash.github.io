@@ -1,6 +1,5 @@
 .playwright-mcp/
 node_modules/
-dist/
 .env
 .DS_Store
 folio-2025/
