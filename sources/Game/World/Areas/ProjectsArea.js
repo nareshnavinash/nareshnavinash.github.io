@@ -4,6 +4,7 @@ import { InteractivePoints } from '../../InteractivePoints.js'
 import gsap from 'gsap'
 import projectsData from '../../../data/projects.js'
 import { TextCanvas } from '../../TextCanvas.js'
+import { TerminalCanvasRenderer } from '../../TerminalCanvasRenderer.js'
 import { add, color, float, Fn, If, luminance, mix, mul, normalWorld, positionGeometry, sin, step, texture, uniform, uv, vec3, vec4 } from 'three/tsl'
 import { Inputs } from '../../Inputs/Inputs.js'
 import { MeshDefaultMaterial } from '../../Materials/MeshDefaultMaterial.js'
@@ -468,45 +469,116 @@ export class ProjectsArea extends Area
             const resource = this.images.getResourceAndLoad(key)
         }
 
-        // Get resource and load
+        // Get resource and load — renders terminal canvas instead of loading .ktx
         this.images.getResourceAndLoad = (key) =>
         {
-            const path = `projects/images/${key}`
-            
             // Try to retrieve resource
             let resource = this.images.resources.get(key)
 
-            // Resource not found => Create
+            // Resource not found => Create canvas texture
             if(!resource)
             {
                 resource = {}
-                resource.loaded = false
 
-                const loader = this.game.resourcesLoader.getLoader('textureKtx')
+                // Find page content for this key
+                const project = projectsData.find(p => p.images.includes(key))
+                const pageIndex = project ? project.images.indexOf(key) : 0
+                const pageContent = project && project.pages ? project.pages[pageIndex] : { header: key, subheader: '', points: [] }
 
-                loader.load(
-                    path,
-                    (loadedTexture) =>
-                    {
-                        resource.texture = loadedTexture
-                        resource.colorSpace = THREE.SRGBColorSpace
-                        resource.flipY = false
-                        resource.magFilter = THREE.LinearFilter
-                        resource.minFilter = THREE.LinearFilter
-                        resource.generateMipmaps = false
+                // Create canvas with background only (typing will reveal text)
+                const canvas = document.createElement('canvas')
+                canvas.width = this.images.width
+                canvas.height = this.images.height
+                TerminalCanvasRenderer.drawBackground(canvas)
 
-                        resource.loaded = true
-                        
-                        this.images.loadEnded(key)
-                    }
-                )
+                resource.canvas = canvas
+                resource.allLines = TerminalCanvasRenderer.buildLines(pageContent, this.images.width, this.images.height)
+                resource.typed = false
+
+                const canvasTexture = new THREE.CanvasTexture(canvas)
+                canvasTexture.colorSpace = THREE.SRGBColorSpace
+                canvasTexture.flipY = false
+                canvasTexture.magFilter = THREE.LinearFilter
+                canvasTexture.minFilter = THREE.LinearFilter
+                canvasTexture.generateMipmaps = false
+
+                resource.texture = canvasTexture
+                resource.loaded = true
 
                 // Save
                 this.images.resources.set(key, resource)
+
+                // Trigger load callback (async to match original flow)
+                setTimeout(() => this.images.loadEnded(key), 0)
             }
 
-
             return resource
+        }
+
+        // Typing animation system
+        this.images.typing = {}
+        this.images.typing.active = false
+        this.images.typing.timer = null
+        this.images.typing.currentLine = 0
+        this.images.typing.resource = null
+
+        this.images.typing.start = (resource) =>
+        {
+            this.images.typing.stop()
+
+            if(resource.typed)
+            {
+                // Already typed, show all instantly
+                TerminalCanvasRenderer.drawAll(resource.canvas, resource.allLines)
+                resource.texture.needsUpdate = true
+                if(this.images.textureNew) this.images.textureNew.needsUpdate = true
+                return
+            }
+
+            this.images.typing.active = true
+            this.images.typing.resource = resource
+            this.images.typing.currentLine = 0
+
+            // Reset to background only
+            TerminalCanvasRenderer.drawBackground(resource.canvas)
+            resource.texture.needsUpdate = true
+
+            this.images.typing.typeNext()
+        }
+
+        this.images.typing.typeNext = () =>
+        {
+            const resource = this.images.typing.resource
+            if(!this.images.typing.active || !resource) return
+            if(this.images.typing.currentLine >= resource.allLines.length)
+            {
+                resource.typed = true
+                this.images.typing.active = false
+                return
+            }
+
+            const lineData = resource.allLines[this.images.typing.currentLine]
+            TerminalCanvasRenderer.drawLine(resource.canvas, lineData)
+            this.images.typing.currentLine++
+
+            resource.texture.needsUpdate = true
+            if(this.images.textureNew) this.images.textureNew.needsUpdate = true
+
+            const delay = lineData.type === 'divider' ? 20
+                : lineData.type === 'cursor' ? 0
+                : 50 + Math.random() * 40
+
+            this.images.typing.timer = setTimeout(() => this.images.typing.typeNext(), delay)
+        }
+
+        this.images.typing.stop = () =>
+        {
+            this.images.typing.active = false
+            if(this.images.typing.timer)
+            {
+                clearTimeout(this.images.typing.timer)
+                this.images.typing.timer = null
+            }
         }
 
         // Update
@@ -544,6 +616,12 @@ export class ProjectsArea extends Area
             // Animate right away
             gsap.fromTo(this.images.animationProgress, { value: 0 }, { value: 1, duration: 1, ease: 'power2.inOut', overwrite: true })
             this.images.animationDirection.value = direction === ProjectsArea.DIRECTION_NEXT ? 1 : -1
+
+            // Start typing animation for the new page
+            if(resource && resource.allLines)
+            {
+                setTimeout(() => this.images.typing.start(resource), 150)
+            }
         }
     }
 

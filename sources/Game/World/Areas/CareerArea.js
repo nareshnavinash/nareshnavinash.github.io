@@ -5,6 +5,17 @@ import gsap from 'gsap'
 import { clamp } from 'three/src/math/MathUtils.js'
 import { Area } from './Area.js'
 
+// Career entries in chronological order (maps to sorted timeline bars)
+// start/end as fractional years (month/12) for proportional bar sizing
+const careerEntries = [
+    { company: 'Cognizant', role: 'Programmer Analyst', start: 2015 + 5/12, end: 2017 + 5/12 },
+    { company: 'Freshworks', role: 'Software Engineer', start: 2017 + 5/12, end: 2019 + 0/12 },
+    { company: 'WeInvest', role: 'SDET', start: 2019 + 0/12, end: 2020 + 1/12 },
+    { company: 'Vue.ai', role: 'SDET', start: 2020 + 2/12, end: 2021 + 1/12 },
+    { company: 'Hopin', role: 'Senior SDET', start: 2021 + 1/12, end: 2022 + 2/12 },
+    { company: 'TestGorilla', role: 'Lead SDET \u2192 EM', start: 2022 + 3/12, end: null },
+]
+
 export class CareerArea extends Area
 {
     constructor(references)
@@ -76,20 +87,56 @@ export class CareerArea extends Area
             green: uniform(color('#a2ffab'))
         }
 
+        // First pass: collect and sort lines by Z position to determine chronological order
+        const unsortedLines = []
         for(const group of lineGroups)
+        {
+            unsortedLines.push({
+                group,
+                originZ: group.position.z
+            })
+        }
+        unsortedLines.sort((a, b) => b.originZ - a.originZ)
+
+        // Compute Z-units per year for proportional bar sizing
+        const TIMELINE_Z = 17
+        const now = new Date()
+        const currentYearFrac = now.getFullYear() + now.getMonth() / 12
+        const careerStartFrac = careerEntries[0].start
+        const totalYears = currentYearFrac - careerStartFrac
+        const zPerYear = TIMELINE_Z / totalYears
+
+        // Second pass: create lines with correct career textures and sizes
+        let lineIndex = 0
+        for(const { group } of unsortedLines)
         {
             const line = {}
             line.group = group
-            line.size = parseFloat(line.group.userData.size)
-            line.hasEnd = line.group.userData.hasEnd
             line.color = line.group.userData.color
-            line.texture = this.game.resources[`${line.group.userData.texture}Texture`]
+            line.index = lineIndex
+
+            // Override size and texture with actual career data
+            if(lineIndex < careerEntries.length)
+            {
+                const entry = careerEntries[lineIndex]
+                const entryEnd = entry.end ?? currentYearFrac
+                const duration = entryEnd - entry.start
+                line.size = duration * zPerYear
+                line.hasEnd = entry.end !== null
+                line.texture = this.generateCareerTexture(entry.company, entry.role)
+            }
+            else
+            {
+                line.size = parseFloat(line.group.userData.size)
+                line.hasEnd = line.group.userData.hasEnd
+                line.texture = this.game.resources[`${line.group.userData.texture}Texture`]
+            }
 
             line.stone = line.group.children.find(child => child.name.startsWith('stone'))
             line.stone.position.y = 0
-            
+
             line.origin = line.group.position.clone()
-            
+
             line.isIn = false
             line.isUp = false
             line.elevationTarget = 0
@@ -100,7 +147,7 @@ export class CareerArea extends Area
                 line.textMesh = line.stone.children.find(child => child.name.startsWith('careerText'))
 
                 const material = new THREE.MeshLambertNodeMaterial({ transparent: true })
-                
+
                 const baseColor = colors[line.color]
 
                 material.outputNode = Fn(() =>
@@ -117,7 +164,7 @@ export class CareerArea extends Area
 
                     const maskColor = color('#251f2b')
                     const finalColor = mix(maskColor, emissiveColor, textureColor.r)
-                    
+
                     return vec4(finalColor, alpha)
                 })()
 
@@ -128,14 +175,7 @@ export class CareerArea extends Area
             }
 
             this.lines.items.push(line)
-        }
-
-        this.lines.items.sort((a, b) => b.origin.z - a.origin.z)
-
-        let i = 0
-        for(const line of this.lines.items)
-        {
-            line.index = i++
+            lineIndex++
         }
 
         // Debug
@@ -148,6 +188,43 @@ export class CareerArea extends Area
         }
     }
 
+    generateCareerTexture(company, role)
+    {
+        const width = 480
+        const height = 120
+        const canvas = document.createElement('canvas')
+        canvas.width = width
+        canvas.height = height
+        const ctx = canvas.getContext('2d')
+
+        // Black background (invisible in shader)
+        ctx.fillStyle = '#000000'
+        ctx.fillRect(0, 0, width, height)
+
+        ctx.textAlign = 'center'
+        ctx.textBaseline = 'middle'
+
+        // Company name in R channel → bright emissive colored text
+        ctx.font = "700 38px 'Nunito', Arial, sans-serif"
+        ctx.fillStyle = 'rgb(255, 0, 0)'
+        ctx.fillText(company, width / 2, height * 0.38)
+
+        // Role in G channel → dark subdued text
+        ctx.font = "400 22px 'Nunito', Arial, sans-serif"
+        ctx.fillStyle = 'rgb(0, 255, 0)'
+        ctx.fillText(role, width / 2, height * 0.72)
+
+        const tex = new THREE.CanvasTexture(canvas)
+        tex.flipY = false
+        tex.minFilter = THREE.LinearFilter
+        tex.magFilter = THREE.LinearFilter
+        tex.generateMipmaps = false
+        tex.wrapS = THREE.ClampToEdgeWrapping
+        tex.wrapT = THREE.ClampToEdgeWrapping
+
+        return tex
+    }
+
     setYears()
     {
         this.year = {}
@@ -156,6 +233,7 @@ export class CareerArea extends Area
         this.year.size = 17
         this.year.offsetTarget = 0
         this.year.start = 2015
+        this.year.end = new Date().getFullYear()
         this.year.current = this.year.start
 
         //    Digit indexes
@@ -365,7 +443,8 @@ export class CareerArea extends Area
         const finalPositionZ = this.year.originZ - this.year.offsetTarget
         this.year.group.position.z += (finalPositionZ - this.year.group.position.z) * this.game.ticker.deltaScaled * 10
 
-        const yearCurrent = this.year.start + Math.floor(this.year.offsetTarget)
+        const yearRange = this.year.end - this.year.start
+        const yearCurrent = this.year.start + Math.floor((this.year.offsetTarget / this.year.size) * yearRange)
 
         if(yearCurrent !== this.year.current)
         {

@@ -38,104 +38,140 @@ export const career = {
   subtitle: 'A decade of growth — from hands-on engineering to leading teams.',
   positions: [
     {
-      date: 'Jan 2023 — Present',
+      date: 'August 2023 — Present',
       role: 'Engineering Manager',
       company: 'TestGorilla',
-      location: 'Remote · Netherlands',
-      summary:
-        'Leading cross-functional engineering teams building AI-powered talent assessment products. Driving quality strategy and engineering excellence across the platform.',
-      achievements: [
-        'Managing multiple squads across AI assessment, platform infrastructure, and quality engineering',
-        'Spearheaded AI integration initiatives including LLM-powered test generation and automated evaluation',
-        'Established engineering quality metrics and observability practices, reducing production incidents by 40%',
-        'Built and scaled the QA engineering team, implementing shift-left testing strategy',
-        'Drove cross-team architectural decisions and technical roadmap planning',
+      location: 'Remote',
+      sections: [
+        {
+          title: 'AI Product Strategy & Monetization',
+          points: [
+            'Designed and launched a scalable credit-based pricing engine specifically engineered to measure and bill for Generative AI usage (tokens/compute) at the feature level, enabling flexible business models for AI-heavy tools.',
+            'Led the engineering of a cutting-edge AI Video Avatar platform Tavus (integrating video/audio generation APIs) to conduct real-time candidate interviews, significantly automating the assessment process.',
+            'Established a rigorous Evaluation (Evals) framework using LangFuse to score and monitor the performance of AI models and prompts. Created feedback loops to tweak prompts and model parameters in production, ensuring consistent high-quality output for the AI interviewer.',
+          ],
+        },
+        {
+          title: 'AI-Augmented Engineering (DevEx)',
+          points: [
+            'Integrated Claude Code sub-agents into the development workflow to automate code generation and Pull Request (PR) creation. Successfully reduced the cycle time for complex Epics to ~3 days by shifting developer focus from writing boilerplate to reviewing AI-generated architecture.',
+            'Deployed AI agents to autonomously generate unit and integration tests and conduct preliminary code reviews, ensuring strictly enforced coding standards and preventing architectural drift in AI-generated code.',
+            'Initiated a strategic refactor to treat Code-as-Documentation, optimizing the codebase structure for LLM context windows. This enabled AI agents to accurately analyze, document, and autonomously refactor legacy code with high precision.',
+          ],
+        },
+        {
+          title: 'Team Leadership & Core Operations',
+          points: [
+            'Led and mentored a high-performing team of 5 engineers, responsible for onboarding, payments, & subscriptions, by balancing ambitious AI technology goals with pragmatic delivery targets.',
+            'Owned critical integrations like Chargebee, HubSpot, 18 ATS platforms, and Stripe, ensuring seamless data flow alongside new AI capabilities.',
+            'Defined and tracked team OKRs and DORA metrics, adapting them to account for the increased velocity provided by AI-assisted development tools.',
+            'Collaborated with Product, Design, Sales, Marketing, GTM, and Finance to scope and prioritize projects aligned with business goals and advocated for engineering needs at the leadership level.',
+          ],
+        },
       ],
-      tags: ['Python', 'TypeScript', 'React', 'Django', 'AWS', 'LLMs', 'CI/CD', 'Datadog'],
     },
     {
-      date: 'Mar 2022 — Jan 2023',
-      role: 'Lead SDET',
+      date: 'April 2022 — August 2023',
+      role: 'Lead Software Development Engineer in Test',
       company: 'TestGorilla',
-      location: 'Remote · Netherlands',
-      summary:
-        'Led the quality engineering practice end-to-end — from test strategy to automation infrastructure. Built the SDET team from the ground up.',
-      achievements: [
-        'Designed and implemented the end-to-end test automation framework from scratch',
-        'Hired and mentored a team of SDETs across multiple geographies',
-        'Achieved 80% reduction in regression testing cycle time through parallelized automation',
-        'Established quality gates in CI/CD pipelines, preventing critical defects from reaching production',
+      location: 'Remote',
+      sections: [
+        {
+          title: null,
+          points: [
+            'Architected the CI/CD infrastructure that transformed release velocity from bi-weekly to 5x daily. This high-frequency deployment model established the necessary foundation for rapid A/B testing and iterative AI model tuning in production.',
+            'Developed sophisticated E2E API testing frameworks using Python (pytest). This deep Python infrastructure experience laid the technical groundwork for seamless integration with modern Python-centric AI/LLM libraries.',
+            'Led backend load testing using k6.io and frontend performance profiling with Lighthouse. Established performance baselines critical for later measuring the latency and compute impact of integrating LLM features.',
+            'Integrated Storybook with Playwright for Angular.js, enhancing CI visual and accessibility tests and implemented Playwright for UI E2E tests in the CD pipeline, ensuring rapid feedback.',
+          ],
+        },
       ],
-      tags: ['Python', 'Playwright', 'pytest', 'GitHub Actions', 'Docker'],
     },
     {
-      date: 'Jun 2021 — Mar 2022',
-      role: 'Senior SDET',
+      date: 'February 2021 — March 2022',
+      role: 'Senior Software Development Engineer in Test',
       company: 'Hopin',
-      location: 'Remote · London, UK',
-      summary:
-        "Drove quality engineering for the world's fastest-growing virtual events platform during hyper-growth phase.",
-      achievements: [
-        'Built robust test automation suites for real-time video streaming and event management features',
-        'Collaborated with 10+ engineering squads to embed quality practices in fast-paced agile workflows',
-        'Implemented performance testing framework to ensure platform scalability for 100K+ concurrent users',
+      location: 'Remote',
+      sections: [
+        {
+          title: null,
+          points: [
+            'Optimized release pipeline in GitLab, reducing execution time from 45 to ~15 mins, enabling ~20 daily releases.',
+            'Introduced Pact-Contract testing with self-hosted pact broker, ensuring stable pipeline and frequent deployments.',
+            'Implemented Browserstack for cross-browser testing, minimizing compatibility concerns.',
+            'Conducted interviews at Hopin and provided technical mentorship to test engineers.',
+            'Facilitated cross-functional collaboration via closed and open beta launch.',
+            'Deployed Visual Regression Tests with Testcafe and Percy in GitHub pre-merge state, empowering team autonomy.',
+          ],
+        },
       ],
-      tags: ['TypeScript', 'Cypress', 'WebRTC', 'Ruby', 'AWS'],
     },
     {
-      date: 'Jul 2020 — Jun 2021',
-      role: 'Lead SDET',
-      company: 'Vue.ai (Mad Street Den)',
+      date: 'March 2020 — February 2021',
+      role: 'Software Development Engineer in Test',
+      company: 'Vue.ai',
       location: 'Chennai, India',
-      summary:
-        'Led quality engineering for an AI-powered retail automation platform, building test frameworks for computer vision and ML pipelines.',
-      achievements: [
-        'Designed test strategies for AI/ML models including image recognition and product recommendation engines',
-        'Built automated regression suites reducing release validation from days to hours',
-        'Created open-source test automation frameworks published on npm, PyPI, and RubyGems',
+      sections: [
+        {
+          title: null,
+          points: [
+            'Developed Python packages for REST API & UI automation, supporting ML/AI use cases organization-wide.',
+            'Managed two teams in an 8:1 Dev to SDET ratio, implementing Agile release processes.',
+            'Configured CI/CD for ML/AI microservice using Jenkins, Bitbucket, AWS, and Spotinst, reducing infrastructure costs via IaC.',
+          ],
+        },
       ],
-      tags: ['Python', 'Ruby', 'Node.js', 'Selenium', 'AI/ML Testing'],
     },
     {
-      date: 'Oct 2019 — Jul 2020',
-      role: 'Senior SDET',
+      date: 'January 2019 — February 2020',
+      role: 'Software Development Engineer in Test',
       company: 'WeInvest',
       location: 'Chennai, India',
-      summary:
-        'Owned quality for a fintech robo-advisory platform, ensuring regulatory compliance and reliable financial workflows.',
-      achievements: [
-        'Implemented end-to-end API and UI test automation for investment portfolio management features',
-        'Established quality processes for regulatory compliance testing across multiple markets',
+      sections: [
+        {
+          title: null,
+          points: [
+            'As a first SDET hire, managed internal testing servers to accelerate testing cycles.',
+            'Reduced costs by leveraging a freemium version of Postman for ETL transformation support.',
+            'Modularized and transformed UI and GraphQL automation frameworks into Ruby gems.',
+            'Spearheaded robust CI/CD integration with GitHub, Jenkins, and Docker.',
+            'Utilized Cucumber alongside RSpec for effective Behavior Driven Development (BDD).',
+          ],
+        },
       ],
-      tags: ['Java', 'REST Assured', 'Selenium', 'Jenkins'],
     },
     {
-      date: 'Feb 2018 — Oct 2019',
+      date: 'June 2017 — January 2019',
       role: 'Software Engineer',
       company: 'Freshworks',
       location: 'Chennai, India',
-      summary:
-        "Delivered quality for Freshworks' SaaS suite serving 50K+ businesses, working across Freshdesk and Freshservice products.",
-      achievements: [
-        'Built and maintained UI and API automation suites for customer support and ITSM products',
-        'Contributed to cross-team quality standards and shared testing libraries',
-        'Mentored junior engineers on test design and automation best practices',
+      sections: [
+        {
+          title: null,
+          points: [
+            'Been part of the launch of Freshcaller product in beta and GA phases.',
+            'Strategized manual and automation test execution in pre-development stages through collaboration with Product Owner and Tech Leads, optimizing release processes.',
+            'Upheld code quality and comprehensive unit test coverage starting from the PR stage.',
+            'Achieved 100% regression automation coverage and managed Jenkins pipelines.',
+          ],
+        },
       ],
-      tags: ['Ruby', 'Selenium', 'Cucumber', 'Jenkins', 'AWS'],
     },
     {
-      date: 'Sep 2015 — Feb 2018',
+      date: 'June 2015 — June 2017',
       role: 'Programmer Analyst',
-      company: 'Cognizant Technology Solutions',
+      company: 'Cognizant',
       location: 'Chennai, India',
-      summary:
-        'Started career in enterprise quality engineering, building test automation for large-scale telecom and banking projects.',
-      achievements: [
-        'Developed automation frameworks for enterprise applications using Selenium and Java',
-        'Delivered regression and functional testing for telecom billing systems',
-        'Earned CCNA and CCNP certifications while working on network infrastructure projects',
+      sections: [
+        {
+          title: null,
+          points: [
+            'Ensured adherence to CMMI Level 5 practices across all projects.',
+            'Spearheaded web application automation using HP\'s UFT tool. Proactively automated tasks to streamline operations and save time.',
+            'Reduced testing costs in a data server migration project with an automation script, earning recognition as Best Automation Resource for the Year 2016.',
+          ],
+        },
       ],
-      tags: ['Java', 'Selenium', 'TestNG', 'SOAP UI', 'Oracle DB'],
     },
   ],
 }

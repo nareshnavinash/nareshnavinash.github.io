@@ -4,6 +4,7 @@ import { InteractivePoints } from '../../InteractivePoints.js'
 import gsap from 'gsap'
 import labData from '../../../data/lab.js'
 import { TextCanvas } from '../../TextCanvas.js'
+import { TerminalCanvasRenderer } from '../../TerminalCanvasRenderer.js'
 import { add, color, float, Fn, If, luminance, mix, mul, normalWorld, positionGeometry, positionWorld, sin, step, texture, uniform, uv, vec2, vec3, vec4 } from 'three/tsl'
 import { remapClamp, safeMod, signedModDelta } from '../../utilities/maths.js'
 import { Inputs } from '../../Inputs/Inputs.js'
@@ -114,10 +115,13 @@ export class LabArea extends Area
 
     setInputs()
     {
-        // this.game.inputs.events.on('backward', () =>
-        // {
-        //     this.close()
-        // })
+        // Direct keyboard listener for Escape — bypasses the game input system
+        // to guarantee lab close works regardless of ClosingManager state
+        window.addEventListener('keydown', (_event) =>
+        {
+            if(_event.code === 'Escape' && (this.state === LabArea.STATE_OPEN || this.state === LabArea.STATE_OPENING))
+                this.close()
+        })
 
         this.game.inputs.events.on('left', (action) =>
         {
@@ -451,45 +455,113 @@ export class LabArea extends Area
             const resource = this.images.getResourceAndLoad(key)
         }
 
-        // Get resource and load
+        // Get resource and load — renders terminal canvas instead of loading .ktx
         this.images.getResourceAndLoad = (key) =>
         {
-            const path = `lab/images/${key}`
-            
             // Try to retrieve resource
             let resource = this.images.resources.get(key)
 
-            // Resource not found => Create
+            // Resource not found => Create canvas texture
             if(!resource)
             {
                 resource = {}
-                resource.loaded = false
 
-                const loader = this.game.resourcesLoader.getLoader('textureKtx')
+                // Find content for this key
+                const labEntry = labData.find(p => p.image === key)
+                const pageContent = labEntry && labEntry.content ? labEntry.content : { header: key, subheader: '', points: [] }
 
-                loader.load(
-                    path,
-                    (loadedTexture) =>
-                    {
-                        resource.texture = loadedTexture
-                        resource.colorSpace = THREE.SRGBColorSpace
-                        resource.flipY = false
-                        resource.magFilter = THREE.LinearFilter
-                        resource.minFilter = THREE.LinearFilter
-                        resource.generateMipmaps = false
+                // Create canvas with background only (typing will reveal text)
+                const canvas = document.createElement('canvas')
+                canvas.width = this.images.width
+                canvas.height = this.images.height
+                TerminalCanvasRenderer.drawBackground(canvas)
 
-                        resource.loaded = true
-                        
-                        this.images.loadEnded(key)
-                    }
-                )
+                resource.canvas = canvas
+                resource.allLines = TerminalCanvasRenderer.buildLines(pageContent, this.images.width, this.images.height)
+                resource.typed = false
+
+                const canvasTexture = new THREE.CanvasTexture(canvas)
+                canvasTexture.colorSpace = THREE.SRGBColorSpace
+                canvasTexture.flipY = false
+                canvasTexture.magFilter = THREE.LinearFilter
+                canvasTexture.minFilter = THREE.LinearFilter
+                canvasTexture.generateMipmaps = false
+
+                resource.texture = canvasTexture
+                resource.loaded = true
 
                 // Save
                 this.images.resources.set(key, resource)
+
+                // Trigger load callback (async to match original flow)
+                setTimeout(() => this.images.loadEnded(key), 0)
             }
 
-
             return resource
+        }
+
+        // Typing animation system
+        this.images.typing = {}
+        this.images.typing.active = false
+        this.images.typing.timer = null
+        this.images.typing.currentLine = 0
+        this.images.typing.resource = null
+
+        this.images.typing.start = (resource) =>
+        {
+            this.images.typing.stop()
+
+            if(resource.typed)
+            {
+                TerminalCanvasRenderer.drawAll(resource.canvas, resource.allLines)
+                resource.texture.needsUpdate = true
+                if(this.images.textureNew) this.images.textureNew.needsUpdate = true
+                return
+            }
+
+            this.images.typing.active = true
+            this.images.typing.resource = resource
+            this.images.typing.currentLine = 0
+
+            TerminalCanvasRenderer.drawBackground(resource.canvas)
+            resource.texture.needsUpdate = true
+
+            this.images.typing.typeNext()
+        }
+
+        this.images.typing.typeNext = () =>
+        {
+            const resource = this.images.typing.resource
+            if(!this.images.typing.active || !resource) return
+            if(this.images.typing.currentLine >= resource.allLines.length)
+            {
+                resource.typed = true
+                this.images.typing.active = false
+                return
+            }
+
+            const lineData = resource.allLines[this.images.typing.currentLine]
+            TerminalCanvasRenderer.drawLine(resource.canvas, lineData)
+            this.images.typing.currentLine++
+
+            resource.texture.needsUpdate = true
+            if(this.images.textureNew) this.images.textureNew.needsUpdate = true
+
+            const delay = lineData.type === 'divider' ? 20
+                : lineData.type === 'cursor' ? 0
+                : 50 + Math.random() * 40
+
+            this.images.typing.timer = setTimeout(() => this.images.typing.typeNext(), delay)
+        }
+
+        this.images.typing.stop = () =>
+        {
+            this.images.typing.active = false
+            if(this.images.typing.timer)
+            {
+                clearTimeout(this.images.typing.timer)
+                this.images.typing.timer = null
+            }
         }
 
         // Update
@@ -525,6 +597,12 @@ export class LabArea extends Area
             // Animate right away
             gsap.fromTo(this.images.animationProgress, { value: 0 }, { value: 1, duration: 1, ease: 'power2.inOut', overwrite: true })
             this.images.animationDirection.value = this.navigation.direction === LabArea.DIRECTION_NEXT ? 1 : -1
+
+            // Start typing animation for the new entry
+            if(resource && resource.allLines)
+            {
+                setTimeout(() => this.images.typing.start(resource), 150)
+            }
         }
     }
 
@@ -838,47 +916,46 @@ export class LabArea extends Area
                         if(mini.startedLoading)
                             return
 
-                        const loader = this.game.resourcesLoader.getLoader('textureKtx')
-
-                        loader.load(
-                            `lab/images/${project.imageMini}`,
-                            (loadedTexture) =>
-                            {
-                                const alpha = uniform(0)
-                                const textureColor = texture(loadedTexture).rgb
-                                gsap.to(alpha, { value: 1, duration: 1, overwrite: true })
-
-                                loadedTexture.colorSpace = THREE.SRGBColorSpace
-                                loadedTexture.flipY = false
-                                loadedTexture.magFilter = THREE.LinearFilter
-                                loadedTexture.minFilter = THREE.LinearFilter
-                                loadedTexture.generateMipmaps = false
-
-                                const material = new MeshDefaultMaterial({
-                                    colorNode: textureColor,
-                                    hasWater: false,
-                                    hasLightBounce: false,
-                                    transparent: true
-                                })
-
-                                const baseOutput = material.outputNode
-                                
-                                material.outputNode = Fn(() =>
-                                {
-                                    return vec4(
-                                        mix(
-                                            baseOutput.rgb,
-                                            textureColor,
-                                            this.shadeMix.images.mixUniform
-                                        ),
-                                        alpha
-                                    )
-                                })()
-
-                                imageMesh.material = material
-                                imageMesh.visible = true
-                            }
+                        const miniCanvas = TerminalCanvasRenderer.renderMini(
+                            project.content,
+                            this.scroller.minis.width,
+                            this.scroller.minis.height
                         )
+
+                        const loadedTexture = new THREE.CanvasTexture(miniCanvas)
+                        loadedTexture.colorSpace = THREE.SRGBColorSpace
+                        loadedTexture.flipY = false
+                        loadedTexture.magFilter = THREE.LinearFilter
+                        loadedTexture.minFilter = THREE.LinearFilter
+                        loadedTexture.generateMipmaps = false
+
+                        const alpha = uniform(0)
+                        const textureColor = texture(loadedTexture).rgb
+                        gsap.to(alpha, { value: 1, duration: 1, overwrite: true })
+
+                        const material = new MeshDefaultMaterial({
+                            colorNode: textureColor,
+                            hasWater: false,
+                            hasLightBounce: false,
+                            transparent: true
+                        })
+
+                        const baseOutput = material.outputNode
+
+                        material.outputNode = Fn(() =>
+                        {
+                            return vec4(
+                                mix(
+                                    baseOutput.rgb,
+                                    textureColor,
+                                    this.shadeMix.images.mixUniform
+                                ),
+                                alpha
+                            )
+                        })()
+
+                        imageMesh.material = material
+                        imageMesh.visible = true
 
                         mini.startedLoading = true
                     }

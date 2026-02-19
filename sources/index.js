@@ -10,4 +10,4 @@ if(import.meta.env.VITE_LOG)
 if(import.meta.env.VITE_GAME_PUBLIC)
     window.game = new Game()
 else
-    new Game()
+    window.game = new Game() // temp: expose for testing
