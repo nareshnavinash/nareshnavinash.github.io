@@ -151,16 +151,11 @@ export class SocialArea extends Area
                 // Create replacement logo using the same material as existing statues
                 const logo = replacement.createLogo(statueMaterial)
 
-                // Position at the exact same spot as the original
-                logo.position.copy(origPos)
-                logo.rotation.copy(origRot)
-
-                // Set UVs to match existing statue palette color and enable shadows
+                // Override UVs to sample the same palette color as existing statues
                 logo.traverse((child) =>
                 {
                     if(child.isMesh)
                     {
-                        // Override UVs to sample the same palette color as existing statues
                         const uvAttr = child.geometry.attributes.uv
                         if(uvAttr)
                         {
@@ -168,13 +163,35 @@ export class SocialArea extends Area
                                 uvAttr.setXY(i, 0.421, 0.5)
                             uvAttr.needsUpdate = true
                         }
-                        child.castShadow = true
-                        child.receiveShadow = true
                     }
                 })
 
-                this.game.scene.add(logo)
-                this.objects.hideable.push(logo)
+                // Compute bounding box for collider size
+                const bbox = new THREE.Box3().setFromObject(logo)
+                const size = new THREE.Vector3()
+                bbox.getSize(size)
+
+                // Add as a physics-enabled object (like existing statues)
+                const origQuat = new THREE.Quaternion().setFromEuler(origRot)
+                const object = this.game.objects.add(
+                    {
+                        model: logo,
+                        updateMaterials: false,
+                        castShadow: true,
+                        receiveShadow: true,
+                    },
+                    {
+                        type: 'dynamic',
+                        position: origPos,
+                        rotation: origQuat,
+                        sleeping: true,
+                        mass: 0.5,
+                        colliders: [{ shape: 'cuboid', parameters: [size.x * 0.5, size.y * 0.5, size.z * 0.5] }],
+                    }
+                )
+
+                this.objects.items.push(object)
+                this.objects.hideable.push(object.visual.object3D)
 
                 break
             }

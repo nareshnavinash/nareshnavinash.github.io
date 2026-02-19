@@ -68,15 +68,16 @@ export class LandingArea extends Area
             const textOptions = {
                 font: font,
                 size: 1.8,
-                depth: 0.6,
+                depth: 0.15,
                 curveSegments: 6,
                 bevelEnabled: true,
-                bevelThickness: 0.05,
-                bevelSize: 0.04,
+                bevelThickness: 0.02,
+                bevelSize: 0.03,
                 bevelSegments: 3
             }
 
-            const letterSpacing = 0.15
+            const letterSpacing = 0.12
+            const spaceWidth = 0.8
 
             const createLetterRow = (word, rowCenterX, rowZ) =>
             {
@@ -86,6 +87,12 @@ export class LandingArea extends Area
 
                 for(const char of word)
                 {
+                    if(char === ' ')
+                    {
+                        letters.push({ char, geom: null, width: spaceWidth, height: 0, depth: 0 })
+                        totalWidth += spaceWidth + letterSpacing
+                        continue
+                    }
                     const geom = new TextGeometry(char, textOptions)
                     geom.computeBoundingBox()
                     const bb = geom.boundingBox
@@ -102,6 +109,13 @@ export class LandingArea extends Area
 
                 for(const data of letters)
                 {
+                    // Skip spaces (just advance position)
+                    if(data.char === ' ')
+                    {
+                        currentX += data.width + letterSpacing
+                        continue
+                    }
+
                     // Center geometry on X and Z, keep Y at bottom
                     data.geom.translate(-data.width / 2, 0, -data.depth / 2)
 
@@ -149,8 +163,7 @@ export class LandingArea extends Area
                 }
             }
 
-            createLetterRow('NARESH', centerX, centerZ - 1.2)
-            createLetterRow('SEKAR', centerX, centerZ + 1.2)
+            createLetterRow('NARESH SEKAR', centerX, centerZ + 1.5)
         })
     }
 

@@ -862,54 +862,14 @@ export class CircuitArea extends Area
                 // Clear
                 context.clearRect(0, 0, canvas.width, canvas.height)
 
-                if(scores === null)
-                {
-                    context.font = font
-                    context.fillStyle = '#ff87a2'
-                    context.textBaseline = 'middle'
-                    context.textAlign = 'center'
-                    context.fillText('OFFLINE', resolution * 0.5, resolution * 0.5)
-                }
-                else if(scores.length === 0)
-                {
-                    context.font = font
-                    context.fillStyle = '#ffffff'
-                    context.textBaseline = 'middle'
-                    context.textAlign = 'center'
-                    context.fillText('NO SCORE YET TODAY', resolution * 0.5, resolution * 0.5)
-                }
-                else
-                {
-                    context.font = font
-                    context.fillStyle = '#ffffff'
-                    context.textBaseline = 'middle'
+                // Static message
+                context.font = font
+                context.fillStyle = '#ffffff'
+                context.textBaseline = 'middle'
+                context.textAlign = 'center'
+                context.fillText('HAVE FUN AND', resolution * 0.5, resolution * 0.4)
+                context.fillText('PLAY A GAME', resolution * 0.5, resolution * 0.6)
 
-                    let rank = 1
-                    for(const score of scores)
-                    {
-                        context.textAlign = columsSettings[0].align
-                        context.fillText(rank, columsSettings[0].x, (rank + 0.5) * interline)
-
-                        const image = loadedFlags.get(score[1])
-
-                        if(image)
-                            context.drawImage(
-                                image,
-                                columsSettings[1].x,
-                                (rank + 0.4) * interline - flagsHeight / 2,
-                                flagsWidth,
-                                flagsHeight
-                            )
-
-                        context.textAlign = columsSettings[2].align
-                        context.fillText(score[0], columsSettings[2].x, (rank + 0.5) * interline)
-
-                        context.textAlign = columsSettings[2].align
-                        context.fillText(timeToRaceString(score[2] / 1000), columsSettings[3].x, (rank + 0.5) * interline)
-
-                        rank++
-                    }
-                }
                 textTexture.needsUpdate = true
             }
             const testFlagsLoaded = () =>
