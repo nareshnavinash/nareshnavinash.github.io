@@ -1,0 +1,29 @@
+/* Mobile-specific styles */
+/* Virtual joystick and controls are injected by MobileControls.js */
+
+@media (max-width: 768px) {
+  #hud .controls-hint {
+    display: none;
+  }
+
+  #interact-prompt {
+    bottom: 160px;
+    font-size: 0.9rem;
+  }
+
+  #content-panel .panel-inner {
+    padding: 16px;
+    width: calc(100% - 32px);
+  }
+
+  #menu-toggle {
+    width: 36px;
+    height: 36px;
+    font-size: 1rem;
+  }
+
+  #settings-panel {
+    width: calc(100% - 64px);
+    right: 16px;
+  }
+}

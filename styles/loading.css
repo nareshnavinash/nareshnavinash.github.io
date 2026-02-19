@@ -1,0 +1,35 @@
+/* Loading screen styles are injected by LoadingScreen.js */
+/* This file provides prefers-reduced-motion fallback */
+
+@media (prefers-reduced-motion: reduce) {
+  #loading-screen .ls-enter-btn {
+    animation: none;
+  }
+  #loading-screen .ls-btn-shimmer {
+    animation: none;
+    display: none;
+  }
+  #loading-screen .ls-title-letter {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  #loading-screen .ls-greeting,
+  #loading-screen .ls-role-tag,
+  #loading-screen .ls-role-dot,
+  #loading-screen .ls-ring-group,
+  #loading-screen .ls-status,
+  #loading-screen .ls-buttons {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  #loading-screen .ls-orb {
+    opacity: 1 !important;
+    animation: none;
+  }
+  #loading-screen .ls-grid {
+    opacity: 0.3 !important;
+  }
+  #loading-screen .ls-accent-line {
+    width: 80px !important;
+  }
+}
