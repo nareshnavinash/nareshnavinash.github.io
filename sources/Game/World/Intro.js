@@ -48,7 +48,7 @@ export class Intro
             const t = texture(canvasTexture, uv())
             t.a.lessThan(0.01).discard()
             uv().x.greaterThan(this.name.progress).discard()
-            return vec4(this.game.reveal.color.mul(this.game.reveal.intensity), t.a)
+            return vec4(vec3(0.88, 0.88, 0.94), t.a)
         })()
 
         // Geometry — sized to fill ~90% of the circle's apparent width from camera

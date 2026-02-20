@@ -94683,7 +94683,7 @@ https://github.com/browserify/crypto-browserify`);
       });
       o.outputNode = Fn$1(() => {
         const p = texture$1(s, uv$2());
-        return p.a.lessThan(0.01).discard(), uv$2().x.greaterThan(this.name.progress).discard(), vec4$1(this.game.reveal.color.mul(this.game.reveal.intensity), p.a);
+        return p.a.lessThan(0.01).discard(), uv$2().x.greaterThan(this.name.progress).discard(), vec4$1(vec3$1(0.88, 0.88, 0.94), p.a);
       })();
       const a = new PlaneGeometry(4.5, 2.25), h = new Mesh$1(a, o), c = Math.PI * (this.game.quality.level === 0 ? 0.31 : 0.27), d = Math.PI * 0.25;
       h.position.copy(this.center), h.position.y = 1e-3;
@@ -109049,7 +109049,7 @@ void main() {
           }
         ]
       ]), this.options = new Options(), this.respawns = new Respawns("landing"), this.view = new View(), this.rendering.setPostprocessing(), this.rendering.start(), this.reveal = new Reveal(), this.noises = new Noises(), this.weather = new Weather(), this.wind = new Wind(), this.tracks = new Tracks(), this.lighting = new Lighting(), this.fog = new Fog(), this.water = new Water(), this.materials = new Materials(), this.objects = new Objects(), this.explosions = new Explosions(), this.world = new World();
-      const e = __vitePreload(() => import("./rapier-CBaZP3lo.js").then(async (m) => {
+      const e = __vitePreload(() => import("./rapier-CXVanmM0.js").then(async (m) => {
         await m.__tla;
         return m;
       }), [], import.meta.url), r = this.resourcesLoader.load([
