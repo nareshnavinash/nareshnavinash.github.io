@@ -3,5 +3,17 @@
 echo "Running npm run build..."
 npm run build
 
-# Stage the updated docs/ folder
-git add docs/
+# Sync profile page files to static/ (Vite dev) and docs/ (deploy)
+echo "Syncing profile page to static/ and docs/..."
+for dest in static docs; do
+  cp profile.html "$dest/profile.html"
+  cp css/styles.css "$dest/css/styles.css"
+  cp js/main.js "$dest/js/main.js"
+  cp js/three-scene.js "$dest/js/three-scene.js"
+
+  # Fix asset paths: root uses public/assets/ but static/ and docs/ have them at root level
+  sed -i '' 's|src="public/assets/|src="|g' "$dest/profile.html"
+done
+
+# Stage the updated docs/ and static/ folders
+git add docs/ static/

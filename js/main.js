@@ -17,6 +17,55 @@
   var careerZone = document.querySelector('.career-scroll-zone');
   var careerGrid = document.querySelector('.career-grid');
   var careerProgressTrack = document.querySelector('.career-progress-track');
+  var themeToggles = document.querySelectorAll('.theme-toggle');
+  var metaThemeColor = document.querySelector('meta[name="theme-color"]');
+
+  // --- Theme toggle ---
+  var THEME_COLORS = { night: '#080818', day: '#e8e4f8' };
+
+  function getPreferredTheme() {
+    var stored = localStorage.getItem('theme');
+    if (stored) return stored;
+    return window.matchMedia('(prefers-color-scheme: light)').matches ? 'day' : 'night';
+  }
+
+  function setTheme(mode) {
+    document.documentElement.setAttribute('data-theme', mode);
+    localStorage.setItem('theme', mode);
+    if (metaThemeColor) metaThemeColor.setAttribute('content', THEME_COLORS[mode] || THEME_COLORS.night);
+    if (typeof window.setThreeTheme === 'function') window.setThreeTheme(mode);
+  }
+
+  function toggleTheme() {
+    var current = document.documentElement.getAttribute('data-theme') || 'night';
+    var next = current === 'night' ? 'day' : 'night';
+    document.documentElement.classList.add('theme-transitioning');
+    setTheme(next);
+    setTimeout(function () {
+      document.documentElement.classList.remove('theme-transitioning');
+    }, 600);
+  }
+
+  themeToggles.forEach(function (btn) {
+    btn.addEventListener('click', toggleTheme);
+  });
+
+  // OS preference change listener
+  window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', function (e) {
+    if (!localStorage.getItem('theme')) {
+      setTheme(e.matches ? 'day' : 'night');
+    }
+  });
+
+  // Cross-tab sync
+  window.addEventListener('storage', function (e) {
+    if (e.key === 'theme' && e.newValue) {
+      setTheme(e.newValue);
+    }
+  });
+
+  // Apply theme on load (already set by FOUC script, but sync meta/three)
+  setTheme(getPreferredTheme());
 
   // --- 1. Navigation scroll effect ---
   function handleNavScroll() {

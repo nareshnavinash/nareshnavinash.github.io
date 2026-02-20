@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Naresh Sekar -  Engineering Manager · AI · Quality</title>
   <meta name="description" content="Portfolio of Naresh Sekar -  Engineering Manager at the intersection of software engineering, AI, and quality. 10+ years building teams that ship at scale.">
-  <meta name="theme-color" content="#f0eeeb">
+  <meta name="theme-color" content="#080818">
 
   <!-- Open Graph -->
   <meta property="og:title" content="Naresh Sekar -  Engineering Manager">
@@ -16,9 +16,18 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&family=Caveat:wght@600;700&family=VT323&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="css/styles.css">
+
+  <!-- FOUC prevention: apply saved theme before paint -->
+  <script>
+    (function() {
+      var t = localStorage.getItem('theme');
+      if (!t) t = window.matchMedia('(prefers-color-scheme: light)').matches ? 'day' : 'night';
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
 </head>
 <body>
 
@@ -44,9 +53,15 @@
         </button>
       </div>
 
-      <button class="hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
+      <div class="nav-mobile-actions">
+        <button class="theme-toggle theme-toggle-mobile" aria-label="Toggle dark mode">
+          <span class="theme-toggle-icon sun-icon">☀</span>
+          <span class="theme-toggle-icon moon-icon">☾</span>
+        </button>
+        <button class="hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
     </div>
   </nav>
 
@@ -73,7 +88,7 @@
           <path d="M250,300 C300,250 400,270 420,350 C440,430 380,510 290,500 C200,490 150,420 170,350 C190,280 200,350 250,300Z" fill="var(--color-gold)" opacity="0.4"/>
         </svg>
         <!-- Profile photo -->
-        <img src="public/assets/profile.jpg" alt="Naresh Sekar" class="hero-photo">
+        <img src="profile.jpg" alt="Naresh Sekar" class="hero-photo">
       </div>
       <div class="hero-right">
         <p class="hero-greeting">Hey there, I'm Naresh -</p>
@@ -611,17 +626,17 @@
         </div>
       </div>
 
-      <div class="contact-extra-links reveal">
-        <a href="https://www.npmjs.com/~nareshnavinash" target="_blank" rel="noopener">npm</a>
-        <a href="https://pypi.org/user/nareshnavinash/" target="_blank" rel="noopener">PyPI</a>
-        <a href="https://rubygems.org/profiles/nareshnavinash" target="_blank" rel="noopener">RubyGems</a>
-      </div>
     </div>
   </section>
 
   <!-- ===================== FOOTER ===================== -->
   <footer class="footer">
     <div class="container">
+      <div class="contact-extra-links">
+        <a href="https://www.npmjs.com/~nareshnavinash" target="_blank" rel="noopener">npm</a>
+        <a href="https://pypi.org/user/nareshnavinash/" target="_blank" rel="noopener">PyPI</a>
+        <a href="https://rubygems.org/profiles/nareshnavinash" target="_blank" rel="noopener">RubyGems</a>
+      </div>
       <div class="footer-greeting">Have a Good Day!</div>
       <div class="footer-inner">
         <span class="footer-copy">&copy; 2026 Naresh Sekar. All rights reserved.</span>

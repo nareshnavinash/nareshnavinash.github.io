@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
+    "sync-profile": "cp profile.html static/profile.html && cp css/styles.css static/css/styles.css && cp js/main.js static/js/main.js && cp js/three-scene.js static/js/three-scene.js && cp public/assets/profile.jpg static/profile.jpg",
+    "predev": "npm run sync-profile",
     "dev": "vite --mode development",
+    "prebuild": "npm run sync-profile",
     "build": "vite build --mode production",
     "preview": "vite preview",
     "compress": "node scripts/compress.js static/",

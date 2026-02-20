@@ -18,6 +18,32 @@ const ACCENT = {
 };
 const accentArr = Object.values(ACCENT);
 
+/* ---- THEME COLOR MAPS (Night = default, Day = from 3D world Day preset) ---- */
+const THEME = {
+  night: {
+    ico:     new THREE.Color(0x00ffaa),
+    ring:    new THREE.Color(0xaa77ff),
+    ring2:   new THREE.Color(0x4488ff),
+    net:     new THREE.Color(0x4488ff),
+    grid:    new THREE.Color(0x1a1a5e),
+    ambient: new THREE.Color(0x222244),
+    bloomStrength: 0.7,
+  },
+  day: {
+    ico:     new THREE.Color(0x00b880),
+    ring:    new THREE.Color(0x9b89ff),
+    ring2:   new THREE.Color(0x5f7dff),
+    net:     new THREE.Color(0x5f7dff),
+    grid:    new THREE.Color(0x9b89ff),
+    ambient: new THREE.Color(0xffd2c2),
+    bloomStrength: 0.3,
+  },
+};
+
+let currentThemeColors = { ...THEME.night };
+let targetThemeColors  = { ...THEME.night };
+let themeLerp = 1; // 0..1  — 1 = arrived
+
 const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 const STAR_COUNT = isMobile ? 2500 : 6000;
 const NET_COUNT = isMobile ? 60 : 120;
@@ -26,7 +52,7 @@ const SHAPE_COUNT = isMobile ? 8 : 22;
 
 /* ---- RENDERER SETUP ---- */
 const container = document.getElementById('three-bg');
-if (!container) throw new Error('Missing #three-bg container');
+if (!container) { console.warn('Missing #three-bg container — skipping Three.js scene'); }
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(60, innerWidth / innerHeight, 0.1, 250);
@@ -308,13 +334,74 @@ window.addEventListener('scroll', () => {
 }, { passive: true });
 
 /* ============================================
+   THEME API
+   ============================================ */
+window.setThreeTheme = function (mode) {
+  const target = THEME[mode] || THEME.night;
+  for (const key in target) {
+    if (target[key] instanceof THREE.Color) {
+      targetThemeColors[key] = target[key].clone();
+    } else {
+      targetThemeColors[key] = target[key];
+    }
+  }
+  themeLerp = 0;
+};
+
+// Read initial theme from DOM
+(function () {
+  const initial = document.documentElement.getAttribute('data-theme') || 'night';
+  const src = THEME[initial] || THEME.night;
+  for (const key in src) {
+    if (src[key] instanceof THREE.Color) {
+      currentThemeColors[key] = src[key].clone();
+      targetThemeColors[key]  = src[key].clone();
+    } else {
+      currentThemeColors[key] = src[key];
+      targetThemeColors[key]  = src[key];
+    }
+  }
+  // Apply immediately
+  icoMat.color.copy(currentThemeColors.ico);
+  ringMat.color.copy(currentThemeColors.ring);
+  ring2Mat.color.copy(currentThemeColors.ring2);
+  netPoints.material.color.copy(currentThemeColors.net);
+  lineMat.color.copy(currentThemeColors.net);
+  gridMat.color.copy(currentThemeColors.grid);
+  ambientLight.color.copy(currentThemeColors.ambient);
+  bloom.strength = isMobile ? Math.min(currentThemeColors.bloomStrength, 0.4) : currentThemeColors.bloomStrength;
+})();
+
+/* ============================================
    ANIMATION LOOP
    ============================================ */
 const clock = new THREE.Clock();
+const _lerpColor = new THREE.Color();
 
 function animate() {
   requestAnimationFrame(animate);
   const t = clock.getElapsedTime();
+
+  // Theme color lerp
+  if (themeLerp < 1) {
+    themeLerp = Math.min(1, themeLerp + 0.02); // ~50 frames
+    const a = themeLerp;
+    for (const key in targetThemeColors) {
+      if (targetThemeColors[key] instanceof THREE.Color) {
+        currentThemeColors[key].lerp(targetThemeColors[key], a * 0.08 + 0.02);
+      } else {
+        currentThemeColors[key] += (targetThemeColors[key] - currentThemeColors[key]) * 0.05;
+      }
+    }
+    icoMat.color.copy(currentThemeColors.ico);
+    ringMat.color.copy(currentThemeColors.ring);
+    ring2Mat.color.copy(currentThemeColors.ring2);
+    netPoints.material.color.copy(currentThemeColors.net);
+    lineMat.color.copy(currentThemeColors.net);
+    gridMat.color.copy(currentThemeColors.grid);
+    ambientLight.color.copy(currentThemeColors.ambient);
+    bloom.strength = isMobile ? Math.min(currentThemeColors.bloomStrength, 0.4) : currentThemeColors.bloomStrength;
+  }
 
   // Mouse parallax (smooth)
   smoothMouse.x += (mouse.x * 3 - smoothMouse.x) * 0.025;

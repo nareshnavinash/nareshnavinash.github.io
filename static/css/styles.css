@@ -4,7 +4,7 @@
    Neon Accents · Glassmorphism
    ============================================ */
 
-/* --- Custom Properties (Dark with Neon Accents) --- */
+/* --- Custom Properties — Night (default) --- */
 :root {
   --bg-body: #080818;
   --color-blue: #4488ff;
@@ -14,11 +14,12 @@
   --color-gold: #ffcc33;
   --text-primary: #e0e0f0;
   --text-secondary: #8888aa;
-  --bg-card: rgba(14, 14, 32, 0.7);
+  --bg-card: #0e0e20;
   --border-color: rgba(100, 100, 180, 0.18);
   --font-heading: 'Poppins', system-ui, -apple-system, sans-serif;
   --font-script: 'Caveat', cursive;
   --font-body: -apple-system, system-ui, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'VT323', 'Courier New', monospace;
   --nav-height: 70px;
   --section-padding: 100px;
   --container-width: 1100px;
@@ -27,6 +28,125 @@
   --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   --glow-sm: 0 0 15px;
   --glow-md: 0 0 30px;
+
+  /* Glow colors */
+  --glow-mint: rgba(0, 255, 170, 0.4);
+  --glow-lavender: rgba(170, 119, 255, 0.35);
+  --glow-peach: rgba(255, 119, 68, 0.35);
+  --glow-gold: rgba(255, 204, 51, 0.3);
+  --glow-blue: rgba(68, 136, 255, 0.3);
+
+  /* UI backgrounds */
+  --bg-nav-scrolled: #080818;
+  --bg-mobile-menu: #080818;
+  --selection-bg: rgba(0, 255, 170, 0.25);
+  --selection-color: #fff;
+
+  /* Section backgrounds & borders */
+  --bg-about: #1c0e30;
+  --border-about: rgba(170, 119, 255, 0.12);
+  --bg-career: #26120a;
+  --border-career: rgba(255, 119, 68, 0.12);
+  --bg-skills: #06201a;
+  --border-skills: rgba(0, 255, 170, 0.12);
+  --bg-leadership: #242008;
+  --border-leadership: rgba(255, 204, 51, 0.12);
+  --bg-publications: #0a102a;
+  --border-publications: rgba(68, 136, 255, 0.12);
+  --bg-certifications: #160a28;
+  --border-certifications: rgba(170, 119, 255, 0.12);
+  --bg-education: #080818;
+  --border-education: rgba(100, 100, 180, 0.1);
+  --bg-contact: #061c16;
+  --border-contact: rgba(0, 255, 170, 0.12);
+  --bg-footer: #061c16;
+  --border-footer: rgba(0, 255, 170, 0.08);
+
+  /* Hero */
+  --hero-right-bg: #141432;
+  --hero-right-border: rgba(68, 136, 255, 0.15);
+  --hero-photo-border: rgba(0, 255, 170, 0.3);
+  --hero-photo-shadow: 0 0 40px rgba(0, 255, 170, 0.15), 0 0 80px rgba(170, 119, 255, 0.08), 0 20px 60px rgba(0, 0, 0, 0.4);
+
+  /* Buttons */
+  --btn-primary-text: #080818;
+
+  /* Component accents */
+  --about-icon-bg: rgba(170, 119, 255, 0.15);
+  --leadership-icon-bg: rgba(255, 204, 51, 0.12);
+  --timeline-card-bar-bg: #141428;
+  --back-to-top-bg: #0e0e20;
+}
+
+/* --- Day Mode (from 3D world Day preset) --- */
+[data-theme="day"] {
+  --bg-body: #e8e4f8;
+  --color-blue: #3366dd;
+  --color-peach: #e85a2a;
+  --color-mint: #00b880;
+  --color-lavender: #7744cc;
+  --color-gold: #d4a010;
+  --text-primary: #1a1640;
+  --text-secondary: #5a5680;
+  --bg-card: #ffffff;
+  --border-color: rgba(100, 80, 180, 0.15);
+
+  /* Glow colors (softer for light bg) */
+  --glow-mint: rgba(0, 184, 128, 0.25);
+  --glow-lavender: rgba(119, 68, 204, 0.2);
+  --glow-peach: rgba(232, 90, 42, 0.2);
+  --glow-gold: rgba(212, 160, 16, 0.2);
+  --glow-blue: rgba(51, 102, 221, 0.2);
+
+  /* UI backgrounds */
+  --bg-nav-scrolled: #e8e4f8;
+  --bg-mobile-menu: #e8e4f8;
+  --selection-bg: rgba(0, 184, 128, 0.2);
+  --selection-color: #1a1640;
+
+  /* Section backgrounds — solid washes from Day fog/light colors */
+  --bg-about: #dfd9f9;
+  --border-about: rgba(119, 68, 204, 0.18);
+  --bg-career: #ede0ed;
+  --border-career: rgba(232, 90, 42, 0.18);
+  --bg-skills: #d5e6f9;
+  --border-skills: rgba(0, 184, 128, 0.18);
+  --bg-leadership: #ebe2f2;
+  --border-leadership: rgba(212, 160, 16, 0.18);
+  --bg-publications: #dadaf9;
+  --border-publications: rgba(51, 102, 221, 0.18);
+  --bg-certifications: #e0dbf9;
+  --border-certifications: rgba(119, 68, 204, 0.18);
+  --bg-education: #e8e4f8;
+  --border-education: rgba(100, 80, 180, 0.12);
+  --bg-contact: #dae6f8;
+  --border-contact: rgba(0, 184, 128, 0.18);
+  --bg-footer: #e8e4f8;
+  --border-footer: rgba(0, 184, 128, 0.12);
+
+  /* Hero */
+  --hero-right-bg: #f1effb;
+  --hero-right-border: rgba(51, 102, 221, 0.2);
+  --hero-photo-border: rgba(0, 184, 128, 0.4);
+  --hero-photo-shadow: 0 0 40px rgba(0, 184, 128, 0.12), 0 0 80px rgba(119, 68, 204, 0.06), 0 20px 60px rgba(0, 0, 0, 0.1);
+
+  /* Buttons */
+  --btn-primary-text: #fff;
+
+  /* Component accents */
+  --about-icon-bg: rgba(119, 68, 204, 0.12);
+  --leadership-icon-bg: rgba(212, 160, 16, 0.12);
+  --timeline-card-bar-bg: #f4f2fc;
+  --back-to-top-bg: #f8f7fd;
+}
+
+/* --- Theme transition utility --- */
+html.theme-transitioning,
+html.theme-transitioning *,
+html.theme-transitioning *::before,
+html.theme-transitioning *::after {
+  transition: background-color 0.5s ease, color 0.4s ease,
+              border-color 0.4s ease, box-shadow 0.4s ease !important;
 }
 
 /* --- Reset & Base --- */
@@ -55,8 +175,8 @@ body {
 }
 
 ::selection {
-  background: rgba(0, 255, 170, 0.25);
-  color: #fff;
+  background: var(--selection-bg);
+  color: var(--selection-color);
 }
 
 a {
@@ -67,7 +187,7 @@ a {
 
 a:hover {
   text-decoration: underline;
-  color: #33ffbb;
+  color: var(--color-mint);
 }
 
 img {
@@ -134,7 +254,7 @@ button {
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.3s;
-  box-shadow: var(--glow-sm) rgba(0, 255, 170, 0.4);
+  box-shadow: var(--glow-sm) var(--glow-mint);
 }
 
 .section-title.visible::after {
@@ -188,9 +308,9 @@ button {
 }
 
 .nav.scrolled {
-  background: rgba(8, 8, 24, 0.88);
+  background: var(--bg-nav-scrolled);
   backdrop-filter: blur(12px);
-  box-shadow: 0 1px 0 rgba(100, 100, 180, 0.1);
+  box-shadow: 0 1px 0 var(--border-color);
 }
 
 .nav-inner {
@@ -209,12 +329,12 @@ button {
   font-weight: 700;
   color: var(--color-mint);
   text-decoration: none;
-  text-shadow: var(--glow-sm) rgba(0, 255, 170, 0.3);
+  text-shadow: var(--glow-sm) var(--glow-mint);
 }
 
 .nav-logo:hover {
   text-decoration: none;
-  color: #33ffcc;
+  color: var(--color-mint);
 }
 
 .nav-links {
@@ -227,7 +347,7 @@ button {
   color: var(--text-secondary);
   font-size: 0.9rem;
   font-weight: 600;
-  text-transform: lowercase;
+  text-transform: capitalize;
   transition: color var(--transition), text-shadow var(--transition);
   position: relative;
   text-decoration: none;
@@ -242,19 +362,30 @@ button {
   height: 2px;
   background: var(--color-mint);
   transition: width var(--transition);
-  box-shadow: var(--glow-sm) rgba(0, 255, 170, 0.4);
+  box-shadow: var(--glow-sm) var(--glow-mint);
 }
 
 .nav-links a:hover,
 .nav-links a.active {
   color: var(--text-primary);
   text-decoration: none;
-  text-shadow: 0 0 10px rgba(0, 255, 170, 0.2);
+  text-shadow: 0 0 10px var(--glow-mint);
 }
 
 .nav-links a.active::after,
 .nav-links a:hover::after {
   width: 100%;
+}
+
+/* Mobile nav actions (toggle + hamburger) */
+.nav-mobile-actions {
+  display: none;
+  align-items: center;
+  gap: 12px;
+}
+
+.theme-toggle-mobile {
+  display: none;
 }
 
 /* Hamburger */
@@ -293,7 +424,7 @@ button {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(8, 8, 24, 0.96);
+  background: var(--bg-mobile-menu);
   backdrop-filter: blur(20px);
   z-index: 999;
   flex-direction: column;
@@ -313,7 +444,7 @@ button {
   font-size: 1.4rem;
   font-weight: 600;
   color: var(--text-primary);
-  text-transform: lowercase;
+  text-transform: capitalize;
   transition: color var(--transition);
   text-decoration: none;
 }
@@ -367,11 +498,8 @@ button {
   height: 320px;
   border-radius: 50%;
   object-fit: cover;
-  border: 3px solid rgba(0, 255, 170, 0.3);
-  box-shadow:
-    0 0 40px rgba(0, 255, 170, 0.15),
-    0 0 80px rgba(170, 119, 255, 0.08),
-    0 20px 60px rgba(0, 0, 0, 0.4);
+  border: 3px solid var(--hero-photo-border);
+  box-shadow: var(--hero-photo-shadow);
 }
 
 .hero-right {
@@ -380,9 +508,9 @@ button {
   flex-direction: column;
   justify-content: center;
   padding: 80px 60px;
-  background: rgba(20, 20, 50, 0.6);
+  background: var(--hero-right-bg);
   backdrop-filter: blur(8px);
-  border-left: 1px solid rgba(68, 136, 255, 0.15);
+  border-left: 1px solid var(--hero-right-border);
 }
 
 .hero-greeting {
@@ -391,7 +519,7 @@ button {
   font-weight: 700;
   margin-bottom: 16px;
   color: var(--color-mint);
-  text-shadow: var(--glow-sm) rgba(0, 255, 170, 0.3);
+  text-shadow: var(--glow-sm) var(--glow-mint);
 }
 
 .hero-heading {
@@ -406,7 +534,7 @@ button {
 .text-outline {
   -webkit-text-stroke: 2px var(--color-mint);
   -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 0 8px rgba(0, 255, 170, 0.3));
+  filter: drop-shadow(0 0 8px var(--glow-mint));
 }
 
 @keyframes heroPhotoIn {
@@ -495,9 +623,8 @@ button {
    03. ABOUT
    ============================================ */
 #about {
-  background: rgba(28, 14, 48, 0.88);
-  backdrop-filter: blur(6px);
-  border-top: 1px solid rgba(170, 119, 255, 0.12);
+  background: var(--bg-about);
+  border-top: 1px solid var(--border-about);
 }
 
 .about {
@@ -531,15 +658,15 @@ button {
 
 .about-card:hover {
   transform: translateY(-4px);
-  border-color: rgba(170, 119, 255, 0.35);
-  box-shadow: 0 0 30px rgba(170, 119, 255, 0.08);
+  border-color: var(--color-lavender);
+  box-shadow: 0 0 30px var(--glow-lavender);
 }
 
 .about-card-icon {
   width: 48px;
   height: 48px;
   border-radius: 12px;
-  background: rgba(170, 119, 255, 0.15);
+  background: var(--about-icon-bg);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -566,9 +693,8 @@ button {
    04. CAREER
    ============================================ */
 #career {
-  background: rgba(38, 18, 10, 0.88);
-  backdrop-filter: blur(6px);
-  border-top: 1px solid rgba(255, 119, 68, 0.12);
+  background: var(--bg-career);
+  border-top: 1px solid var(--border-career);
 }
 
 .career {
@@ -613,7 +739,7 @@ button {
   width: 0%;
   background: var(--color-peach);
   border-radius: 3px;
-  box-shadow: var(--glow-sm) rgba(255, 119, 68, 0.5);
+  box-shadow: var(--glow-sm) var(--glow-peach);
 }
 
 .timeline-item {
@@ -631,8 +757,8 @@ button {
 
 .timeline-card:hover {
   transform: translateY(-4px);
-  border-color: rgba(255, 119, 68, 0.3);
-  box-shadow: 0 0 25px rgba(255, 119, 68, 0.06);
+  border-color: var(--color-peach);
+  box-shadow: 0 0 25px var(--glow-peach);
 }
 
 /* Browser window top bar */
@@ -640,7 +766,7 @@ button {
   content: '';
   display: block;
   height: 32px;
-  background: rgba(20, 20, 40, 0.5);
+  background: var(--timeline-card-bar-bg);
   border-bottom: 1px solid var(--border-color);
   background-image:
     radial-gradient(circle at 16px 16px, var(--color-peach) 3px, transparent 3px),
@@ -654,10 +780,12 @@ button {
 }
 
 .timeline-date {
-  font-size: 0.82rem;
-  font-weight: 600;
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  font-weight: 400;
   color: var(--color-peach);
   margin-bottom: 8px;
+  letter-spacing: 0.5px;
 }
 
 .timeline-role {
@@ -751,22 +879,23 @@ button {
 }
 
 .timeline-tag {
-  font-size: 0.72rem;
-  font-weight: 600;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 400;
   padding: 4px 10px;
   background: transparent;
-  border: 1px solid rgba(255, 119, 68, 0.3);
+  border: 1px solid var(--color-peach);
   border-radius: 20px;
   color: var(--color-peach);
+  letter-spacing: 0.5px;
 }
 
 /* ============================================
    05. TECHNICAL SKILLS
    ============================================ */
 #skills {
-  background: rgba(6, 32, 26, 0.88);
-  backdrop-filter: blur(6px);
-  border-top: 1px solid rgba(0, 255, 170, 0.12);
+  background: var(--bg-skills);
+  border-top: 1px solid var(--border-skills);
 }
 
 .skills {
@@ -790,8 +919,8 @@ button {
 
 .skill-category:hover {
   transform: translateY(-4px);
-  border-color: rgba(0, 255, 170, 0.3);
-  box-shadow: 0 0 25px rgba(0, 255, 170, 0.06);
+  border-color: var(--color-mint);
+  box-shadow: 0 0 25px var(--glow-mint);
 }
 
 .skill-category h3 {
@@ -820,20 +949,22 @@ button {
 }
 
 .skill-name {
-  font-size: 0.88rem;
-  font-weight: 500;
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  font-weight: 400;
   display: inline-block;
   padding: 4px 14px;
-  border: 1px solid rgba(0, 255, 170, 0.25);
+  border: 1px solid var(--color-mint);
   border-radius: 20px;
   margin-bottom: 4px;
   color: var(--color-mint);
+  letter-spacing: 0.5px;
   transition: background var(--transition), box-shadow var(--transition);
 }
 
 .skill-name:hover {
-  background: rgba(0, 255, 170, 0.08);
-  box-shadow: 0 0 15px rgba(0, 255, 170, 0.1);
+  background: var(--glow-mint);
+  box-shadow: 0 0 15px var(--glow-mint);
 }
 
 .skill-bar {
@@ -844,9 +975,8 @@ button {
    06. LEADERSHIP
    ============================================ */
 #leadership {
-  background: rgba(36, 32, 8, 0.88);
-  backdrop-filter: blur(6px);
-  border-top: 1px solid rgba(255, 204, 51, 0.12);
+  background: var(--bg-leadership);
+  border-top: 1px solid var(--border-leadership);
 }
 
 .leadership {
@@ -870,15 +1000,15 @@ button {
 
 .leadership-card:hover {
   transform: translateY(-6px);
-  border-color: rgba(255, 204, 51, 0.3);
-  box-shadow: 0 0 25px rgba(255, 204, 51, 0.06);
+  border-color: var(--color-gold);
+  box-shadow: 0 0 25px var(--glow-gold);
 }
 
 .leadership-card-icon {
   width: 44px;
   height: 44px;
   border-radius: 10px;
-  background: rgba(255, 204, 51, 0.12);
+  background: var(--leadership-icon-bg);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -905,9 +1035,8 @@ button {
    07. PUBLICATIONS
    ============================================ */
 #publications {
-  background: rgba(10, 16, 42, 0.88);
-  backdrop-filter: blur(6px);
-  border-top: 1px solid rgba(68, 136, 255, 0.12);
+  background: var(--bg-publications);
+  border-top: 1px solid var(--border-publications);
 }
 
 .publications {
@@ -925,7 +1054,7 @@ button {
   width: 220px;
   height: 300px;
   background: var(--bg-card);
-  border: 1px solid rgba(68, 136, 255, 0.25);
+  border: 1px solid var(--color-blue);
   border-radius: var(--radius);
   display: flex;
   flex-direction: column;
@@ -939,7 +1068,7 @@ button {
 
 .book-card:hover {
   transform: rotate(-2deg) translateY(-4px);
-  box-shadow: 0 0 30px rgba(68, 136, 255, 0.1);
+  box-shadow: 0 0 30px var(--glow-blue);
 }
 
 .book-card-title {
@@ -993,7 +1122,7 @@ button {
 .btn-primary {
   padding: 14px 32px;
   background: var(--color-mint);
-  color: #080818;
+  color: var(--btn-primary-text);
   font-weight: 600;
   font-size: 0.95rem;
   border-radius: 50px;
@@ -1008,7 +1137,7 @@ button {
   background: transparent;
   color: var(--color-mint);
   text-decoration: none;
-  box-shadow: var(--glow-md) rgba(0, 255, 170, 0.2);
+  box-shadow: var(--glow-md) var(--glow-mint);
 }
 
 .btn-secondary {
@@ -1025,20 +1154,19 @@ button {
 }
 
 .btn-secondary:hover {
-  background: rgba(68, 136, 255, 0.15);
+  background: var(--glow-blue);
   border-color: var(--color-blue);
   color: var(--color-blue);
   text-decoration: none;
-  box-shadow: var(--glow-md) rgba(68, 136, 255, 0.15);
+  box-shadow: var(--glow-md) var(--glow-blue);
 }
 
 /* ============================================
    08. CERTIFICATIONS
    ============================================ */
 #certifications {
-  background: rgba(22, 10, 40, 0.88);
-  backdrop-filter: blur(6px);
-  border-top: 1px solid rgba(170, 119, 255, 0.12);
+  background: var(--bg-certifications);
+  border-top: 1px solid var(--border-certifications);
 }
 
 .certifications {
@@ -1065,8 +1193,8 @@ button {
 
 .cert-card:hover {
   transform: translateY(-2px);
-  border-color: rgba(170, 119, 255, 0.3);
-  box-shadow: 0 0 20px rgba(170, 119, 255, 0.06);
+  border-color: var(--color-lavender);
+  box-shadow: 0 0 20px var(--glow-lavender);
 }
 
 .cert-accent {
@@ -1077,12 +1205,12 @@ button {
   flex-shrink: 0;
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
               box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 0 8px rgba(170, 119, 255, 0.3);
+  box-shadow: 0 0 8px var(--glow-lavender);
 }
 
 .cert-card:hover .cert-accent {
   transform: scaleY(1.15);
-  box-shadow: 0 0 15px rgba(170, 119, 255, 0.5);
+  box-shadow: 0 0 15px var(--glow-lavender);
 }
 
 .cert-info h3 {
@@ -1102,9 +1230,8 @@ button {
    09. EDUCATION
    ============================================ */
 #education {
-  background: rgba(8, 8, 24, 0.92);
-  backdrop-filter: blur(6px);
-  border-top: 1px solid rgba(100, 100, 180, 0.1);
+  background: var(--bg-education);
+  border-top: 1px solid var(--border-education);
 }
 
 .education {
@@ -1144,9 +1271,8 @@ button {
    10. CONTACT
    ============================================ */
 #contact {
-  background: rgba(6, 28, 22, 0.88);
-  backdrop-filter: blur(6px);
-  border-top: 1px solid rgba(0, 255, 170, 0.12);
+  background: var(--bg-contact);
+  border-top: 1px solid var(--border-contact);
 }
 
 .contact {
@@ -1155,7 +1281,7 @@ button {
 
 .contact-main-card {
   background: var(--bg-card);
-  border: 1px solid rgba(0, 255, 170, 0.2);
+  border: 1px solid var(--color-mint);
   border-radius: var(--radius);
   padding: 60px;
   max-width: 600px;
@@ -1180,7 +1306,7 @@ button {
   margin-bottom: 24px;
   display: block;
   color: var(--color-mint);
-  text-shadow: var(--glow-sm) rgba(0, 255, 170, 0.2);
+  text-shadow: var(--glow-sm) var(--glow-mint);
 }
 
 .contact-social-icons {
@@ -1205,11 +1331,11 @@ button {
 
 .contact-social-icons a:hover {
   background: var(--color-mint);
-  color: #080818;
+  color: var(--btn-primary-text);
   border-color: var(--color-mint);
   transform: translateY(-4px) rotate(-5deg);
   text-decoration: none;
-  box-shadow: 0 0 20px rgba(0, 255, 170, 0.3);
+  box-shadow: 0 0 20px var(--glow-mint);
 }
 
 .contact-social-icons a svg {
@@ -1234,7 +1360,7 @@ button {
   display: flex;
   justify-content: center;
   gap: 24px;
-  margin-top: 32px;
+  margin-bottom: 28px;
   flex-wrap: wrap;
 }
 
@@ -1253,9 +1379,9 @@ button {
    FOOTER
    ============================================ */
 .footer {
-  background: rgba(6, 28, 22, 0.95);
+  background: var(--bg-footer);
   padding: 60px 0 40px;
-  border-top: 1px solid rgba(0, 255, 170, 0.08);
+  border-top: 1px solid var(--border-footer);
 }
 
 .footer-greeting {
@@ -1295,7 +1421,7 @@ button {
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: rgba(14, 14, 32, 0.8);
+  background: var(--back-to-top-bg);
   border: 1px solid var(--border-color);
   display: flex;
   align-items: center;
@@ -1317,8 +1443,8 @@ button {
 
 .back-to-top:hover {
   background: var(--color-mint);
-  color: #080818;
-  box-shadow: 0 0 20px rgba(0, 255, 170, 0.3);
+  color: var(--btn-primary-text);
+  box-shadow: 0 0 20px var(--glow-mint);
 }
 
 .back-to-top svg {
@@ -1349,7 +1475,7 @@ button {
   background: var(--color-mint);
   z-index: 1001;
   pointer-events: none;
-  box-shadow: 0 0 10px rgba(0, 255, 170, 0.5);
+  box-shadow: 0 0 10px var(--glow-mint);
 }
 
 /* --- Card icon rotation on parent hover --- */
@@ -1406,6 +1532,59 @@ button {
 }
 
 /* ============================================
+   THEME TOGGLE
+   ============================================ */
+.theme-toggle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.theme-toggle:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 15px var(--glow-gold);
+}
+
+.theme-toggle-icon {
+  font-size: 1.1rem;
+  position: absolute;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Night mode (default): show sun, hide moon */
+.sun-icon {
+  opacity: 1;
+  transform: rotate(0deg);
+}
+
+.moon-icon {
+  opacity: 0;
+  transform: rotate(-90deg);
+}
+
+/* Day mode: show moon, hide sun */
+[data-theme="day"] .sun-icon {
+  opacity: 0;
+  transform: rotate(90deg);
+}
+
+[data-theme="day"] .moon-icon {
+  opacity: 1;
+  transform: rotate(0deg);
+}
+
+/* ============================================
    RESPONSIVE
    ============================================ */
 
@@ -1459,6 +1638,14 @@ button {
   /* Nav */
   .nav-links {
     display: none;
+  }
+
+  .nav-mobile-actions {
+    display: flex;
+  }
+
+  .theme-toggle-mobile {
+    display: flex;
   }
 
   .hamburger {
