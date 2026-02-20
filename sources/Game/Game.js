@@ -170,10 +170,6 @@ export class Game
             {
                 const progress = 1 - toLoad / total
                 this.world.intro.updateProgress(progress)
-
-                const percentEl = document.querySelector('.js-loading-percentage')
-                if(percentEl)
-                    percentEl.textContent = `${Math.round(progress * 100)}%`
             }
         )
 
@@ -203,10 +199,8 @@ export class Game
         if(this.quality.level === 0 && this.rendering.renderer.backend.isWebGPUBackend)
             PreRenderer.render()
 
-        this.ticker.wait(3, () =>
-        {
-            this.reveal.updateStep(0)
-        })
+        await this.world.intro.loadingComplete
+        this.reveal.updateStep(0)
 
         // Debug achievement
         if(this.debug.active)

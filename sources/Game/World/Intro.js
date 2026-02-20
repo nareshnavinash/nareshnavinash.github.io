@@ -15,9 +15,7 @@ export class Intro
 
         this.setCircle()
         this.setLabel()
-
-        this.update = this.update.bind(this)
-        this.game.ticker.events.on('tick', this.update, 8)
+        this.startLoadingAnimation()
     }
 
     setLabel()
@@ -303,6 +301,33 @@ export class Intro
         )
     }
 
+    startLoadingAnimation()
+    {
+        this.visualProgress = { value: 0 }
+
+        this.loadingComplete = new Promise((resolve) =>
+        {
+            gsap.to(this.visualProgress, {
+                value: 1,
+                duration: 5,
+                ease: 'none',
+                onUpdate: () =>
+                {
+                    const v = this.visualProgress.value
+
+                    // Update 3D circle
+                    this.circle.smoothedProgress.value = v
+
+                    // Update DOM percentage
+                    const percentEl = document.querySelector('.js-loading-percentage')
+                    if(percentEl)
+                        percentEl.textContent = `${Math.round(v * 100)}%`
+                },
+                onComplete: resolve
+            })
+        })
+    }
+
     updateProgress(progress)
     {
         this.circle.progress = progress
@@ -310,7 +335,7 @@ export class Intro
 
     update()
     {
-        this.circle.smoothedProgress.value += (this.circle.progress - this.circle.smoothedProgress.value) * this.game.ticker.delta * 10
+        // Visual progress handled by startLoadingAnimation()
     }
 
     destroy()
@@ -336,7 +361,6 @@ export class Intro
         })
         
         // Events
-        this.game.ticker.events.off('tick', this.update)
         this.game.inputs.gamepad.events.off('typeChange', this.text.updateTexture)
         this.game.inputs.events.off('modeChange', this.text.updateTexture)
     }

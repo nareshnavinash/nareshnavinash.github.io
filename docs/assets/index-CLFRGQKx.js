@@ -94803,7 +94803,7 @@ https://github.com/browserify/crypto-browserify`);
     constructor() {
       this.game = Game.getInstance();
       const e = this.game.respawns.getDefault();
-      this.center = e.position.clone(), this.setCircle(), this.setLabel(), this.update = this.update.bind(this), this.game.ticker.events.on("tick", this.update, 8);
+      this.center = e.position.clone(), this.setCircle(), this.setLabel(), this.startLoadingAnimation();
     }
     setLabel() {
       this.label = new Group(), this.label.position.copy(this.center), this.label.rotation.reorder("YXZ"), this.game.quality.level === 0 ? (this.label.position.x += 3.5, this.label.position.z -= 1, this.label.position.y = 3.3, this.label.rotation.y = 0.4) : (this.label.position.x += 2.3, this.label.position.z -= 1.8, this.label.position.y = 3.3, this.label.rotation.y = 0.4, this.label.rotation.x = -0.4), this.label.scale.setScalar(0.01), this.game.scene.add(this.label);
@@ -94926,16 +94926,33 @@ https://github.com/browserify/crypto-browserify`);
         }
       });
     }
+    startLoadingAnimation() {
+      this.visualProgress = {
+        value: 0
+      }, this.loadingComplete = new Promise((e) => {
+        gsapWithCSS.to(this.visualProgress, {
+          value: 1,
+          duration: 5,
+          ease: "none",
+          onUpdate: () => {
+            const r = this.visualProgress.value;
+            this.circle.smoothedProgress.value = r;
+            const s = document.querySelector(".js-loading-percentage");
+            s && (s.textContent = `${Math.round(r * 100)}%`);
+          },
+          onComplete: e
+        });
+      });
+    }
     updateProgress(e) {
       this.circle.progress = e;
     }
     update() {
-      this.circle.smoothedProgress.value += (this.circle.progress - this.circle.smoothedProgress.value) * this.game.ticker.delta * 10;
     }
     destroy() {
       this.label.removeFromParent(), this.circle.mesh.geometry.dispose(), this.soundButton.mesh.geometry.dispose(), this.text.mesh.geometry.dispose(), this.circle.mesh.material.dispose(), this.soundButton.mesh.material.dispose(), this.text.mesh.material.dispose(), this.game.resources.soundTexture.dispose(), this.text.textures.forEach((e, r) => {
         e.dispose();
-      }), this.game.ticker.events.off("tick", this.update), this.game.inputs.gamepad.events.off("typeChange", this.text.updateTexture), this.game.inputs.events.off("modeChange", this.text.updateTexture);
+      }), this.game.inputs.gamepad.events.off("typeChange", this.text.updateTexture), this.game.inputs.events.off("modeChange", this.text.updateTexture);
     }
   }
   class PoleLights {
@@ -109140,7 +109157,7 @@ void main() {
           }
         ]
       ]), this.options = new Options(), this.respawns = new Respawns("landing"), this.view = new View(), this.rendering.setPostprocessing(), this.rendering.start(), this.reveal = new Reveal(), this.noises = new Noises(), this.weather = new Weather(), this.wind = new Wind(), this.tracks = new Tracks(), this.lighting = new Lighting(), this.fog = new Fog(), this.water = new Water(), this.materials = new Materials(), this.objects = new Objects(), this.explosions = new Explosions(), this.world = new World();
-      const e = __vitePreload(() => import("./rapier-BYG84P2D.js").then(async (m) => {
+      const e = __vitePreload(() => import("./rapier-DBP94jgn.js").then(async (m) => {
         await m.__tla;
         return m;
       }), [], import.meta.url), r = this.resourcesLoader.load([
@@ -109404,8 +109421,6 @@ void main() {
       ], (a, h) => {
         const c = 1 - a / h;
         this.world.intro.updateProgress(c);
-        const d = document.querySelector(".js-loading-percentage");
-        d && (d.textContent = `${Math.round(c * 100)}%`);
       }), [s, o] = await Promise.all([
         r,
         e
@@ -109413,9 +109428,7 @@ void main() {
       this.RAPIER = o, this.resources = {
         ...s,
         ...this.resources
-      }, this.terrain = new Terrain(), this.physics = new Physics(), this.wireframe = new PhysicsWireframe(), this.physicalVehicle = new PhysicsVehicle(), this.zones = new Zones(), this.player = new Player(), this.closingManager = new ClosingManager(), this.interactivePoints = new InteractivePoints(), this.konamiCode = new KonamiCode(), this.achievements = new Achievements(), this.tornado = new Tornado(), this.map = new Map$1(), this.miniMap = new MiniMap(), this.title = new Title(), this.world.step(1), this.overlay = new Overlay(), this.quality.level === 0 && this.rendering.renderer.backend.isWebGPUBackend && PreRenderer.render(), this.ticker.wait(3, () => {
-        this.reveal.updateStep(0);
-      }), this.debug.active && this.achievements.setProgress("debug", 1);
+      }, this.terrain = new Terrain(), this.physics = new Physics(), this.wireframe = new PhysicsWireframe(), this.physicalVehicle = new PhysicsVehicle(), this.zones = new Zones(), this.player = new Player(), this.closingManager = new ClosingManager(), this.interactivePoints = new InteractivePoints(), this.konamiCode = new KonamiCode(), this.achievements = new Achievements(), this.tornado = new Tornado(), this.map = new Map$1(), this.miniMap = new MiniMap(), this.title = new Title(), this.world.step(1), this.overlay = new Overlay(), this.quality.level === 0 && this.rendering.renderer.backend.isWebGPUBackend && PreRenderer.render(), await this.world.intro.loadingComplete, this.reveal.updateStep(0), this.debug.active && this.achievements.setProgress("debug", 1);
     }
     reset() {
       this.inputs.interactiveButtons.clearItems(), this.player.respawn(null, () => {
