@@ -260,7 +260,7 @@ export class ProjectsArea extends Area
         this.texts = {}
         
         this.texts.density = 200
-        this.texts.fontFamily = 'Amatic SC'
+        this.texts.fontFamily = 'Caveat, cursive'
         this.texts.fontWeight = 700
         this.texts.fontSizeMultiplier = 1
         this.texts.baseColor = color('#ffffff')

@@ -28,7 +28,7 @@ export class Intro
         canvas.width = 1024
         canvas.height = 512
         const ctx = canvas.getContext('2d')
-        ctx.font = '700 320px "Amatic SC"'
+        ctx.font = '700 320px "Caveat", cursive'
         ctx.textAlign = 'center'
         ctx.textBaseline = 'middle'
         ctx.fillStyle = '#ffffff'
@@ -189,66 +189,79 @@ export class Intro
         const geometry = new THREE.PlaneGeometry(2 * scale, 1 * scale)
 
         // Texture
-        this.text.textures = new Map()
-        this.text.updateTexture = async () =>
+        this.text.updateTexture = () =>
         {
-            // Define name
-            let name = 'mouseKeyboard'
+            // Define text
+            let lines = ['Click to', 'Start']
             
             if(this.game.inputs.mode === Inputs.MODE_GAMEPAD)
             {
                 if(this.game.inputs.gamepad.type === 'xbox')
                 {
-                    name = 'gamepadXbox'
+                    lines = ['Press (A)', 'to Start']
                 }
                 else
                 {
-                    name = 'gamepadPlaystation'
+                    lines = ['Press (X)', 'to Start']
                 }
             }
             else if(this.game.inputs.mode === Inputs.MODE_TOUCH)
             {
-                name = 'touch'
+                lines = ['Tap to', 'Start']
             }
 
-            // Load, set and save texture
-            let cachedTexture = this.text.textures.get(name)
-            if(!cachedTexture)
+            // Canvas
+            const canvas = document.createElement('canvas')
+            canvas.width = 512
+            canvas.height = 256
+            const ctx = canvas.getContext('2d')
+            
+            ctx.clearRect(0, 0, canvas.width, canvas.height)
+            
+            // Text style
+            ctx.font = '700 85px "Caveat", cursive'
+            ctx.textAlign = 'center'
+            ctx.textBaseline = 'middle'
+            ctx.fillStyle = '#ffffff'
+            
+            // Draw text in two lines
+            ctx.fillText(lines[0], 256, 75)
+            ctx.fillText(lines[1], 256, 165)
+
+            // Arrow style
+            ctx.strokeStyle = '#ffffff'
+            ctx.lineWidth = 4
+            ctx.lineCap = 'round'
+            ctx.lineJoin = 'round'
+            
+            // Draw hand-drawn style arrow pointing from left to the text
+            ctx.beginPath()
+            ctx.moveTo(100, 140)
+            ctx.quadraticCurveTo(50, 150, 30, 210)
+            ctx.stroke()
+
+            // Arrow head
+            ctx.beginPath()
+            ctx.moveTo(15, 185)
+            ctx.lineTo(30, 210)
+            ctx.lineTo(55, 200)
+            ctx.stroke()
+
+            const canvasTexture = new THREE.CanvasTexture(canvas)
+            canvasTexture.minFilter = THREE.LinearFilter
+            canvasTexture.magFilter = THREE.LinearFilter
+            canvasTexture.generateMipmaps = false
+
+            // Update material
+            material.outputNode = Fn(() =>
             {
-                const loader = this.game.resourcesLoader.getLoader('textureKtx')
-                
-                const resourcePath = `intro/${name}Label.ktx`
-                loader.load(
-                    resourcePath,
-                    (loadedTexture) =>
-                    {
-                        this.text.textures.set(name, loadedTexture)
-
-                        // Update material and mesh
-                        material.outputNode = Fn(() =>
-                        {
-                            texture(loadedTexture, vec2(uv().x, uv().y.oneMinus())).r.lessThan(0.5).discard()
-                            return vec4(1)
-                        })()
-                        material.needsUpdate = true
-                        mesh.visible = true
-                    }
-                )
-            }
-            else
-            {
-                // Update material and mesh
-                material.outputNode = Fn(() =>
-                {
-                    texture(cachedTexture, vec2(uv().x, uv().y.oneMinus())).r.lessThan(0.5).discard()
-                    return vec4(1)
-                })()
-                material.needsUpdate = true
-            }
-
+                const t = texture(canvasTexture, uv())
+                t.a.lessThan(0.5).discard()
+                return vec4(1)
+            })()
+            material.needsUpdate = true
+            mesh.visible = true
         }
-
-        this.text.updateTexture()
 
         // Material
         const material = new THREE.MeshBasicNodeMaterial({
@@ -264,6 +277,8 @@ export class Intro
         this.label.add(mesh)
 
         this.text.mesh = mesh
+
+        this.text.updateTexture()
     }
 
     setSoundButton()
