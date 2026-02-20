@@ -65,7 +65,7 @@ export class Grid
         const defaultRespawn = this.game.respawns.getDefault()
         this.mesh.position.x = defaultRespawn.position.x
         this.mesh.position.z = defaultRespawn.position.z
-        
+
         this.game.scene.add(this.mesh)
 
         // Debug

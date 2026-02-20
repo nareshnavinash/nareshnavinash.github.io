@@ -1,0 +1,7 @@
+#!/bin/sh
+
+echo "Running npm run build..."
+npm run build
+
+# Stage the updated docs/ folder
+git add docs/

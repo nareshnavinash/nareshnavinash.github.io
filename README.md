@@ -22,4 +22,3 @@ Music by **Kounine** ([Linktree](https://linktr.ee/Kounine)), released under the
 npm install
 npm run dev
 ```
-

@@ -100033,64 +100033,67 @@ https://github.com/browserify/crypto-browserify`);
     }
     updateStep(e) {
       const r = location.hash.match(/skip/i) ? 4 : 1;
-      e === 0 ? this.game.world.intro.circle.hide(() => {
-        if (this.game.world.grid.show(), this.distance.value = 0, gsapWithCSS.to(this.distance, {
-          value: 3.5,
-          ease: "back.out(1.7)",
-          duration: 2 / r,
-          overwrite: true
-        }), this.game.view.zoom.smoothedRatio = 0.6, this.game.view.zoom.baseRatio = 0.6, gsapWithCSS.to(this.game.view.zoom, {
-          baseRatio: 0.3,
-          ease: "power1.inOut",
-          duration: 1.25 / r,
-          overwrite: true
-        }), this.game.world.intro.setText(), this.game.world.intro.setSoundButton(), this.game.ticker.wait(1, () => {
-          this.game.world.intro.showLabel();
-        }), this.game.world.cherryTrees && (this.game.world.cherryTrees.leaves.seeThroughMultiplier = 0.5), location.hash.match(/skip/i)) this.updateStep(1);
-        else {
-          const s = () => {
-            this.updateStep(1), this.game.inputs.events.off("introStart", o), this.game.rayCursor.removeIntersect(h);
-          }, o = () => {
-            s();
-          }, a = this.position.clone();
-          a.y = 0;
-          const h = this.game.rayCursor.addIntersect({
-            active: true,
-            shape: new Sphere$1(a, 3.5),
-            onClick: s,
-            onEnter: () => {
-              gsapWithCSS.to(this, {
-                intensityMultiplier: 1.22,
-                duration: 0.2,
-                overwrite: true
-              });
-            },
-            onLeave: () => {
-              gsapWithCSS.to(this, {
-                intensityMultiplier: 1,
-                duration: 0.2,
-                overwrite: true
-              });
-            }
-          });
-          this.game.inputs.addActions([
-            {
-              name: "introStart",
-              categories: [
-                "intro"
-              ],
-              keys: [
-                "Gamepad.cross",
-                "Keyboard.Enter",
-                "Keyboard.ArrowUp",
-                "Keyboard.ArrowDown",
-                "Keyboard.KeyW",
-                "Keyboard.KeyD"
-              ]
-            }
-          ]), this.game.inputs.events.on("introStart", o);
-        }
-      }) : e === 1 ? (this.game.audio.init(), this.sound.play(), this.game.world.areas && this.game.world.areas.landing && this.game.world.areas.landing.revealName(), gsapWithCSS.to(this.distance, {
+      if (e === 0) {
+        const s = document.querySelector(".js-loading-percentage");
+        s && s.classList.add("is-hidden"), this.game.world.intro.circle.hide(() => {
+          if (this.game.world.grid.show(), this.distance.value = 0, gsapWithCSS.to(this.distance, {
+            value: 3.5,
+            ease: "back.out(1.7)",
+            duration: 2 / r,
+            overwrite: true
+          }), this.game.view.zoom.smoothedRatio = 0.6, this.game.view.zoom.baseRatio = 0.6, gsapWithCSS.to(this.game.view.zoom, {
+            baseRatio: 0.3,
+            ease: "power1.inOut",
+            duration: 1.25 / r,
+            overwrite: true
+          }), this.game.world.intro.setText(), this.game.world.intro.setSoundButton(), this.game.ticker.wait(1, () => {
+            this.game.world.intro.showLabel();
+          }), this.game.world.cherryTrees && (this.game.world.cherryTrees.leaves.seeThroughMultiplier = 0.5), location.hash.match(/skip/i)) this.updateStep(1);
+          else {
+            const o = () => {
+              this.updateStep(1), this.game.inputs.events.off("introStart", a), this.game.rayCursor.removeIntersect(c);
+            }, a = () => {
+              o();
+            }, h = this.position.clone();
+            h.y = 0;
+            const c = this.game.rayCursor.addIntersect({
+              active: true,
+              shape: new Sphere$1(h, 3.5),
+              onClick: o,
+              onEnter: () => {
+                gsapWithCSS.to(this, {
+                  intensityMultiplier: 1.22,
+                  duration: 0.2,
+                  overwrite: true
+                });
+              },
+              onLeave: () => {
+                gsapWithCSS.to(this, {
+                  intensityMultiplier: 1,
+                  duration: 0.2,
+                  overwrite: true
+                });
+              }
+            });
+            this.game.inputs.addActions([
+              {
+                name: "introStart",
+                categories: [
+                  "intro"
+                ],
+                keys: [
+                  "Gamepad.cross",
+                  "Keyboard.Enter",
+                  "Keyboard.ArrowUp",
+                  "Keyboard.ArrowDown",
+                  "Keyboard.KeyW",
+                  "Keyboard.KeyD"
+                ]
+              }
+            ]), this.game.inputs.events.on("introStart", a);
+          }
+        });
+      } else e === 1 ? (this.game.audio.init(), this.sound.play(), this.game.world.areas && this.game.world.areas.landing && this.game.world.areas.landing.revealName(), gsapWithCSS.to(this.distance, {
         value: 30,
         ease: "back.in(1.3)",
         duration: 2 / r,
@@ -100111,7 +100114,8 @@ https://github.com/browserify/crypto-browserify`);
         ease: "power1.inOut",
         duration: 2 / r,
         overwrite: true
-      })) : e === 2 && (this.game.interactivePoints.recover(), this.game.world.step(2), this.game.world.grid.destroy(), this.game.world.intro.destroy(), this.game.world.intro = null, this.game.overlay.moveOnTop(), this.game.server.start(), this.game.ticker.events.off("tick", this.update)), this.step = e;
+      })) : e === 2 && (this.game.interactivePoints.recover(), this.game.world.step(2), this.game.world.grid.destroy(), this.game.world.intro.destroy(), this.game.world.intro = null, this.game.overlay.moveOnTop(), this.game.server.start(), this.game.ticker.events.off("tick", this.update));
+      this.step = e;
     }
     update() {
       this.color.value.copy(this.game.dayCycles.properties.revealColor.value), this.intensity.value = this.game.dayCycles.properties.revealIntensity.value * this.intensityMultiplier;
@@ -109136,7 +109140,7 @@ void main() {
           }
         ]
       ]), this.options = new Options(), this.respawns = new Respawns("landing"), this.view = new View(), this.rendering.setPostprocessing(), this.rendering.start(), this.reveal = new Reveal(), this.noises = new Noises(), this.weather = new Weather(), this.wind = new Wind(), this.tracks = new Tracks(), this.lighting = new Lighting(), this.fog = new Fog(), this.water = new Water(), this.materials = new Materials(), this.objects = new Objects(), this.explosions = new Explosions(), this.world = new World();
-      const e = __vitePreload(() => import("./rapier-DaDI9rzA.js").then(async (m) => {
+      const e = __vitePreload(() => import("./rapier-BYG84P2D.js").then(async (m) => {
         await m.__tla;
         return m;
       }), [], import.meta.url), r = this.resourcesLoader.load([
@@ -109398,7 +109402,10 @@ void main() {
           }
         ]
       ], (a, h) => {
-        this.world.intro.updateProgress(1 - a / h);
+        const c = 1 - a / h;
+        this.world.intro.updateProgress(c);
+        const d = document.querySelector(".js-loading-percentage");
+        d && (d.textContent = `${Math.round(c * 100)}%`);
       }), [s, o] = await Promise.all([
         r,
         e

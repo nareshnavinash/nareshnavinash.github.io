@@ -389,6 +389,23 @@ html:not(.is-server-offline) .offline-element
 html:not(.is-server-online) .online-element
     display none !important
 
+.loading-percentage
+    position fixed
+    bottom 28%
+    left 50%
+    transform translateX(-50%)
+    z-index 100
+    font-family "Amatic SC", sans-serif
+    font-size 2.4rem
+    font-weight 700
+    color alpha(#ffffff, 0.7)
+    pointer-events none
+    letter-spacing 0.15em
+    transition opacity 0.5s
+
+    &.is-hidden
+        opacity 0
+
 .intro-portfolio-link
     display none
     position fixed

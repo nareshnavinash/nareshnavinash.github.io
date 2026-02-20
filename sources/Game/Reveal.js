@@ -50,6 +50,11 @@ export class Reveal
         // Step 0
         if(step === 0)
         {
+            // Hide loading percentage
+            const percentEl = document.querySelector('.js-loading-percentage')
+            if(percentEl)
+                percentEl.classList.add('is-hidden')
+
             // Intro loader => Hide circle
             this.game.world.intro.circle.hide(() =>
             {

@@ -168,7 +168,12 @@ export class Game
             ],
             (toLoad, total) =>
             {
-                this.world.intro.updateProgress(1 - toLoad / total)
+                const progress = 1 - toLoad / total
+                this.world.intro.updateProgress(progress)
+
+                const percentEl = document.querySelector('.js-loading-percentage')
+                if(percentEl)
+                    percentEl.textContent = `${Math.round(progress * 100)}%`
             }
         )
 
