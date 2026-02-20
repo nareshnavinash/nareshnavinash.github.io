@@ -14,8 +14,76 @@ export class Intro
         this.center = respawn.position.clone()
 
         this.setCircle()
+        this.setName()
         this.setLabel()
         this.startLoadingAnimation()
+    }
+
+    setName()
+    {
+        this.name = {}
+
+        // Canvas
+        const canvas = document.createElement('canvas')
+        canvas.width = 1024
+        canvas.height = 512
+        const ctx = canvas.getContext('2d')
+        ctx.font = '700 320px "Amatic SC"'
+        ctx.textAlign = 'center'
+        ctx.textBaseline = 'middle'
+        ctx.fillStyle = '#ffffff'
+        ctx.fillText('Naresh', 512, 256)
+
+        // Texture
+        const canvasTexture = new THREE.CanvasTexture(canvas)
+        canvasTexture.minFilter = THREE.LinearFilter
+        canvasTexture.magFilter = THREE.LinearFilter
+        canvasTexture.generateMipmaps = false
+
+        // Material — uses reveal color to match the circle glow, alpha from canvas × opacity uniform
+        this.name.opacity = uniform(0)
+        const material = new THREE.MeshBasicNodeMaterial({ transparent: true, depthWrite: false, depthTest: false })
+        material.outputNode = Fn(() =>
+        {
+            const t = texture(canvasTexture, uv())
+            t.a.lessThan(0.01).discard()
+            return vec4(this.game.reveal.color.mul(this.game.reveal.intensity), t.a.mul(this.name.opacity))
+        })()
+
+        // Geometry — sized to fill ~90% of the circle's apparent width from camera
+        const geometry = new THREE.PlaneGeometry(4.5, 2.25)
+
+        // Mesh — oriented to face camera so text reads parallel to screen
+        const mesh = new THREE.Mesh(geometry, material)
+
+        // Use same spherical angles as View.js camera to orient the plane
+        const phi = Math.PI * (this.game.quality.level === 0 ? 0.31 : 0.27)
+        const theta = Math.PI * 0.25
+
+        mesh.position.copy(this.center)
+        mesh.position.y = 0.001
+
+        const cameraDirection = new THREE.Vector3()
+        cameraDirection.setFromSphericalCoords(1, phi, theta)
+        mesh.lookAt(
+            this.center.x + cameraDirection.x,
+            mesh.position.y + cameraDirection.y,
+            this.center.z + cameraDirection.z
+        )
+
+        this.game.scene.add(mesh)
+        this.name.mesh = mesh
+
+        // Hide — fade opacity to 0
+        this.name.hide = () =>
+        {
+            gsap.to(this.name.opacity, {
+                value: 0,
+                duration: 0.5,
+                ease: 'power2.in',
+                overwrite: true
+            })
+        }
     }
 
     setLabel()
@@ -318,6 +386,9 @@ export class Intro
                     // Update 3D circle
                     this.circle.smoothedProgress.value = v
 
+                    // Update name opacity (0 → 1 over the full duration)
+                    this.name.opacity.value = v
+
                     // Update DOM percentage
                     const percentEl = document.querySelector('.js-loading-percentage')
                     if(percentEl)
@@ -344,13 +415,18 @@ export class Intro
 
         // Geometries
         this.circle.mesh.geometry.dispose()
+        this.name.mesh.geometry.dispose()
         this.soundButton.mesh.geometry.dispose()
         this.text.mesh.geometry.dispose()
 
         // Materials
         this.circle.mesh.material.dispose()
+        this.name.mesh.material.dispose()
         this.soundButton.mesh.material.dispose()
         this.text.mesh.material.dispose()
+
+        // Remove name mesh from scene
+        this.name.mesh.removeFromParent()
 
         // Textures
         this.game.resources.soundTexture.dispose()

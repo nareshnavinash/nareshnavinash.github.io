@@ -55,6 +55,9 @@ export class Reveal
             if(percentEl)
                 percentEl.classList.add('is-hidden')
 
+            // Hide name
+            this.game.world.intro.name.hide()
+
             // Intro loader => Hide circle
             this.game.world.intro.circle.hide(() =>
             {

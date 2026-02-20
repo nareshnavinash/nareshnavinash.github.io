@@ -94803,7 +94803,36 @@ https://github.com/browserify/crypto-browserify`);
     constructor() {
       this.game = Game.getInstance();
       const e = this.game.respawns.getDefault();
-      this.center = e.position.clone(), this.setCircle(), this.setLabel(), this.startLoadingAnimation();
+      this.center = e.position.clone(), this.setCircle(), this.setName(), this.setLabel(), this.startLoadingAnimation();
+    }
+    setName() {
+      this.name = {};
+      const e = document.createElement("canvas");
+      e.width = 1024, e.height = 512;
+      const r = e.getContext("2d");
+      r.font = '700 320px "Amatic SC"', r.textAlign = "center", r.textBaseline = "middle", r.fillStyle = "#ffffff", r.fillText("Naresh", 512, 256);
+      const s = new CanvasTexture(e);
+      s.minFilter = LinearFilter$1, s.magFilter = LinearFilter$1, s.generateMipmaps = false, this.name.opacity = uniform$1(0);
+      const o = new MeshBasicNodeMaterial({
+        transparent: true,
+        depthWrite: false,
+        depthTest: false
+      });
+      o.outputNode = Fn$1(() => {
+        const p = texture$1(s, uv$2());
+        return p.a.lessThan(0.01).discard(), vec4$1(this.game.reveal.color.mul(this.game.reveal.intensity), p.a.mul(this.name.opacity));
+      })();
+      const a = new PlaneGeometry(4.5, 2.25), h = new Mesh$1(a, o), c = Math.PI * (this.game.quality.level === 0 ? 0.31 : 0.27), d = Math.PI * 0.25;
+      h.position.copy(this.center), h.position.y = 1e-3;
+      const f = new Vector3$1();
+      f.setFromSphericalCoords(1, c, d), h.lookAt(this.center.x + f.x, h.position.y + f.y, this.center.z + f.z), this.game.scene.add(h), this.name.mesh = h, this.name.hide = () => {
+        gsapWithCSS.to(this.name.opacity, {
+          value: 0,
+          duration: 0.5,
+          ease: "power2.in",
+          overwrite: true
+        });
+      };
     }
     setLabel() {
       this.label = new Group(), this.label.position.copy(this.center), this.label.rotation.reorder("YXZ"), this.game.quality.level === 0 ? (this.label.position.x += 3.5, this.label.position.z -= 1, this.label.position.y = 3.3, this.label.rotation.y = 0.4) : (this.label.position.x += 2.3, this.label.position.z -= 1.8, this.label.position.y = 3.3, this.label.rotation.y = 0.4, this.label.rotation.x = -0.4), this.label.scale.setScalar(0.01), this.game.scene.add(this.label);
@@ -94936,7 +94965,7 @@ https://github.com/browserify/crypto-browserify`);
           ease: "none",
           onUpdate: () => {
             const r = this.visualProgress.value;
-            this.circle.smoothedProgress.value = r;
+            this.circle.smoothedProgress.value = r, this.name.opacity.value = r;
             const s = document.querySelector(".js-loading-percentage");
             s && (s.textContent = `${Math.round(r * 100)}%`);
           },
@@ -94950,7 +94979,7 @@ https://github.com/browserify/crypto-browserify`);
     update() {
     }
     destroy() {
-      this.label.removeFromParent(), this.circle.mesh.geometry.dispose(), this.soundButton.mesh.geometry.dispose(), this.text.mesh.geometry.dispose(), this.circle.mesh.material.dispose(), this.soundButton.mesh.material.dispose(), this.text.mesh.material.dispose(), this.game.resources.soundTexture.dispose(), this.text.textures.forEach((e, r) => {
+      this.label.removeFromParent(), this.circle.mesh.geometry.dispose(), this.name.mesh.geometry.dispose(), this.soundButton.mesh.geometry.dispose(), this.text.mesh.geometry.dispose(), this.circle.mesh.material.dispose(), this.name.mesh.material.dispose(), this.soundButton.mesh.material.dispose(), this.text.mesh.material.dispose(), this.name.mesh.removeFromParent(), this.game.resources.soundTexture.dispose(), this.text.textures.forEach((e, r) => {
         e.dispose();
       }), this.game.inputs.gamepad.events.off("typeChange", this.text.updateTexture), this.game.inputs.events.off("modeChange", this.text.updateTexture);
     }
@@ -100052,7 +100081,7 @@ https://github.com/browserify/crypto-browserify`);
       const r = location.hash.match(/skip/i) ? 4 : 1;
       if (e === 0) {
         const s = document.querySelector(".js-loading-percentage");
-        s && s.classList.add("is-hidden"), this.game.world.intro.circle.hide(() => {
+        s && s.classList.add("is-hidden"), this.game.world.intro.name.hide(), this.game.world.intro.circle.hide(() => {
           if (this.game.world.grid.show(), this.distance.value = 0, gsapWithCSS.to(this.distance, {
             value: 3.5,
             ease: "back.out(1.7)",
@@ -109157,7 +109186,7 @@ void main() {
           }
         ]
       ]), this.options = new Options(), this.respawns = new Respawns("landing"), this.view = new View(), this.rendering.setPostprocessing(), this.rendering.start(), this.reveal = new Reveal(), this.noises = new Noises(), this.weather = new Weather(), this.wind = new Wind(), this.tracks = new Tracks(), this.lighting = new Lighting(), this.fog = new Fog(), this.water = new Water(), this.materials = new Materials(), this.objects = new Objects(), this.explosions = new Explosions(), this.world = new World();
-      const e = __vitePreload(() => import("./rapier-DBP94jgn.js").then(async (m) => {
+      const e = __vitePreload(() => import("./rapier-L-K5dVUa.js").then(async (m) => {
         await m.__tla;
         return m;
       }), [], import.meta.url), r = this.resourcesLoader.load([
