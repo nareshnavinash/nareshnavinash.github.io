@@ -94812,7 +94812,7 @@ https://github.com/browserify/crypto-browserify`);
       const r = e.getContext("2d");
       r.font = '700 320px "Amatic SC"', r.textAlign = "center", r.textBaseline = "middle", r.fillStyle = "#ffffff", r.fillText("Naresh", 512, 256);
       const s = new CanvasTexture(e);
-      s.minFilter = LinearFilter$1, s.magFilter = LinearFilter$1, s.generateMipmaps = false, this.name.opacity = uniform$1(0);
+      s.minFilter = LinearFilter$1, s.magFilter = LinearFilter$1, s.generateMipmaps = false, this.name.progress = uniform$1(0);
       const o = new MeshBasicNodeMaterial({
         transparent: true,
         depthWrite: false,
@@ -94820,13 +94820,13 @@ https://github.com/browserify/crypto-browserify`);
       });
       o.outputNode = Fn$1(() => {
         const p = texture$1(s, uv$2());
-        return p.a.lessThan(0.01).discard(), vec4$1(this.game.reveal.color.mul(this.game.reveal.intensity), p.a.mul(this.name.opacity));
+        return p.a.lessThan(0.01).discard(), uv$2().x.greaterThan(this.name.progress).discard(), vec4$1(this.game.reveal.color.mul(this.game.reveal.intensity), p.a);
       })();
       const a = new PlaneGeometry(4.5, 2.25), h = new Mesh$1(a, o), c = Math.PI * (this.game.quality.level === 0 ? 0.31 : 0.27), d = Math.PI * 0.25;
       h.position.copy(this.center), h.position.y = 1e-3;
       const f = new Vector3$1();
       f.setFromSphericalCoords(1, c, d), h.lookAt(this.center.x + f.x, h.position.y + f.y, this.center.z + f.z), this.game.scene.add(h), this.name.mesh = h, this.name.hide = () => {
-        gsapWithCSS.to(this.name.opacity, {
+        gsapWithCSS.to(this.name.progress, {
           value: 0,
           duration: 0.5,
           ease: "power2.in",
@@ -94965,7 +94965,7 @@ https://github.com/browserify/crypto-browserify`);
           ease: "none",
           onUpdate: () => {
             const r = this.visualProgress.value;
-            this.circle.smoothedProgress.value = r, this.name.opacity.value = r;
+            this.circle.smoothedProgress.value = r, this.name.progress.value = r;
             const s = document.querySelector(".js-loading-percentage");
             s && (s.textContent = `${Math.round(r * 100)}%`);
           },
@@ -109186,7 +109186,7 @@ void main() {
           }
         ]
       ]), this.options = new Options(), this.respawns = new Respawns("landing"), this.view = new View(), this.rendering.setPostprocessing(), this.rendering.start(), this.reveal = new Reveal(), this.noises = new Noises(), this.weather = new Weather(), this.wind = new Wind(), this.tracks = new Tracks(), this.lighting = new Lighting(), this.fog = new Fog(), this.water = new Water(), this.materials = new Materials(), this.objects = new Objects(), this.explosions = new Explosions(), this.world = new World();
-      const e = __vitePreload(() => import("./rapier-L-K5dVUa.js").then(async (m) => {
+      const e = __vitePreload(() => import("./rapier-CXwUweWN.js").then(async (m) => {
         await m.__tla;
         return m;
       }), [], import.meta.url), r = this.resourcesLoader.load([

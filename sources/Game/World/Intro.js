@@ -40,14 +40,15 @@ export class Intro
         canvasTexture.magFilter = THREE.LinearFilter
         canvasTexture.generateMipmaps = false
 
-        // Material — uses reveal color to match the circle glow, alpha from canvas × opacity uniform
-        this.name.opacity = uniform(0)
+        // Material — left-to-right reveal synced with loading progress
+        this.name.progress = uniform(0)
         const material = new THREE.MeshBasicNodeMaterial({ transparent: true, depthWrite: false, depthTest: false })
         material.outputNode = Fn(() =>
         {
             const t = texture(canvasTexture, uv())
             t.a.lessThan(0.01).discard()
-            return vec4(this.game.reveal.color.mul(this.game.reveal.intensity), t.a.mul(this.name.opacity))
+            uv().x.greaterThan(this.name.progress).discard()
+            return vec4(this.game.reveal.color.mul(this.game.reveal.intensity), t.a)
         })()
 
         // Geometry — sized to fill ~90% of the circle's apparent width from camera
@@ -74,10 +75,10 @@ export class Intro
         this.game.scene.add(mesh)
         this.name.mesh = mesh
 
-        // Hide — fade opacity to 0
+        // Hide — reverse the fill to 0
         this.name.hide = () =>
         {
-            gsap.to(this.name.opacity, {
+            gsap.to(this.name.progress, {
                 value: 0,
                 duration: 0.5,
                 ease: 'power2.in',
@@ -386,8 +387,8 @@ export class Intro
                     // Update 3D circle
                     this.circle.smoothedProgress.value = v
 
-                    // Update name opacity (0 → 1 over the full duration)
-                    this.name.opacity.value = v
+                    // Update name fill (left-to-right reveal)
+                    this.name.progress.value = v
 
                     // Update DOM percentage
                     const percentEl = document.querySelector('.js-loading-percentage')
