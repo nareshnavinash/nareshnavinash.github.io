@@ -51,7 +51,7 @@ export class ClosingManager
                     this.game.world.areas.lab.close()
 
                 // Nothing opened and used the keyboard Escape key => Open default modal
-                else if(action.activeKeys.has('Keyboard.Escape'))
+                else if(action.activeKeys.has('Keyboard.Escape') && this.game.menu.state !== Menu.CLOSING)
                     this.game.menu.open()
             }
         })
@@ -65,7 +65,7 @@ export class ClosingManager
                 {
                     this.game.menu.close()
                 }
-                else
+                else if(this.game.menu.state !== Menu.CLOSING)
                 {
                     this.game.menu.open('home')
                 }
@@ -91,7 +91,7 @@ export class ClosingManager
         {
             this.game.inputs.filters.clear()
 
-            if(this.game.reveal && this.game.reveal.step < 2)
+            if(this.game.reveal && this.game.reveal.step < 1)
             {
                 this.game.inputs.filters.add('intro')
             }
