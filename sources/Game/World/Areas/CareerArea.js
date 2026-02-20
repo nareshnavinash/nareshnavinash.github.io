@@ -5,16 +5,32 @@ import gsap from 'gsap'
 import { clamp } from 'three/src/math/MathUtils.js'
 import { Area } from './Area.js'
 
-// Career entries in chronological order (maps to sorted timeline bars)
-// start/end as fractional years (month/12) for proportional bar sizing
-const careerEntries = [
-    { company: 'Cognizant', role: 'Programmer Analyst', start: 2015 + 5/12, end: 2017 + 5/12 },
-    { company: 'Freshworks', role: 'Software Engineer', start: 2017 + 5/12, end: 2019 + 0/12 },
-    { company: 'WeInvest', role: 'SDET', start: 2019 + 0/12, end: 2020 + 1/12 },
-    { company: 'Vue.ai', role: 'SDET', start: 2020 + 2/12, end: 2021 + 1/12 },
-    { company: 'Hopin', role: 'Senior SDET', start: 2021 + 1/12, end: 2022 + 2/12 },
-    { company: 'TestGorilla', role: 'Lead SDET \u2192 EM', start: 2022 + 3/12, end: null },
-]
+// Career entries derived from centralized resume.json
+const resumeRes = await fetch('/data/resume.json')
+const resumeData = await resumeRes.json()
+
+const careerEntries = resumeData.career.positions
+    .map(company => {
+        const roles = company.roles
+        const earliest = roles.reduce((a, b) =>
+            (a.startYear + (a.startMonth - 1) / 12) < (b.startYear + (b.startMonth - 1) / 12) ? a : b
+        )
+        const latest = roles.reduce((a, b) => {
+            const aEnd = a.endYear ? a.endYear + (a.endMonth - 1) / 12 : Infinity
+            const bEnd = b.endYear ? b.endYear + (b.endMonth - 1) / 12 : Infinity
+            return aEnd > bEnd ? a : b
+        })
+        const role = roles.length > 1
+            ? roles.map(r => r.shortRole).join(' \u2192 ')
+            : roles[0].shortRole
+        return {
+            company: company.company,
+            role,
+            start: earliest.startYear + (earliest.startMonth - 1) / 12,
+            end: latest.endYear ? latest.endYear + (latest.endMonth - 1) / 12 : null,
+        }
+    })
+    .sort((a, b) => a.start - b.start)
 
 export class CareerArea extends Area
 {

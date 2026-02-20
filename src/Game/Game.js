@@ -27,6 +27,13 @@ export default class Game {
 
     this.canvas = canvas
 
+    // Fetch resume data early (used by LoadingScreen and other UI)
+    this.resumeData = null
+    fetch('/data/resume.json')
+      .then(r => r.json())
+      .then(data => { this.resumeData = data })
+      .catch(() => {})
+
     // Core systems
     this.time = new Time()
     this.viewport = new Viewport()

@@ -4,6 +4,10 @@
  * Each area has a position, radius, and accent color key.
  */
 
+const res = await fetch('/data/resume.json')
+const resume = await res.json()
+const firstName = resume.personal.firstName
+
 export const worldSize = 200
 
 export const areas = {
@@ -19,7 +23,7 @@ export const areas = {
     radius: 14,
     color: 'lavender',
     label: 'About',
-    description: 'Learn about Naresh',
+    description: `Learn about ${firstName}`,
   },
   career: {
     position: { x: -10, z: -40 },

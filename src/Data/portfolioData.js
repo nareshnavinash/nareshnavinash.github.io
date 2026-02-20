@@ -1,302 +1,81 @@
 /**
- * All portfolio content extracted from the original HTML.
+ * All portfolio content loaded from the centralized resume.json.
  * No content lives in the 3D code — everything renders from here.
  */
 
+const res = await fetch('/data/resume.json')
+const r = await res.json()
+
 export const hero = {
-  greeting: "Hey there, I'm Naresh —",
-  heading: 'I build teams that ship quality software, powered by AI.',
-  photo: '/assets/profile.jpg',
+  greeting: `Hey there, I'm ${r.personal.firstName} —`,
+  heading: r.personal.tagline,
+  photo: r.personal.photo,
 }
 
 export const about = {
-  title: 'About.',
-  subtitle: 'Engineering leader building at the intersection of AI and quality.',
-  mission:
-    "I'm an Engineering Manager who bridges the gap between cutting-edge AI and reliable software delivery. With over a decade of experience across startups and scale-ups, I specialize in building high-performing teams, designing quality-first engineering cultures, and leveraging AI to accelerate product development. I believe great engineering leadership is about multiplying the impact of every person on your team.",
-  cards: [
-    {
-      title: 'AI Product Strategy',
-      description:
-        'Integrating AI/ML capabilities into product workflows — from LLM-powered features to intelligent test generation and data-driven decision systems.',
-    },
-    {
-      title: 'Team Building',
-      description:
-        'Scaling engineering teams from 5 to 30+, establishing career frameworks, hiring pipelines, and fostering cultures of ownership and continuous improvement.',
-    },
-    {
-      title: 'Quality Engineering',
-      description:
-        'Designing end-to-end quality strategies — test automation frameworks, CI/CD pipelines, observability, and shift-left quality practices at scale.',
-    },
-  ],
+  title: r.about.title,
+  subtitle: r.about.subtitle,
+  mission: r.personal.mission,
+  cards: r.about.cards,
 }
 
 export const career = {
-  title: 'Experience.',
-  subtitle: 'A decade of growth — from hands-on engineering to leading teams.',
-  positions: [
-    {
-      date: 'August 2023 — Present',
-      role: 'Engineering Manager',
-      company: 'TestGorilla',
-      location: 'Remote',
-      sections: [
-        {
-          title: 'AI Product Strategy & Monetization',
-          points: [
-            'Designed and launched a scalable credit-based pricing engine specifically engineered to measure and bill for Generative AI usage (tokens/compute) at the feature level, enabling flexible business models for AI-heavy tools.',
-            'Led the engineering of a cutting-edge AI Video Avatar platform Tavus (integrating video/audio generation APIs) to conduct real-time candidate interviews, significantly automating the assessment process.',
-            'Established a rigorous Evaluation (Evals) framework using LangFuse to score and monitor the performance of AI models and prompts. Created feedback loops to tweak prompts and model parameters in production, ensuring consistent high-quality output for the AI interviewer.',
-          ],
-        },
-        {
-          title: 'AI-Augmented Engineering (DevEx)',
-          points: [
-            'Integrated Claude Code sub-agents into the development workflow to automate code generation and Pull Request (PR) creation. Successfully reduced the cycle time for complex Epics to ~3 days by shifting developer focus from writing boilerplate to reviewing AI-generated architecture.',
-            'Deployed AI agents to autonomously generate unit and integration tests and conduct preliminary code reviews, ensuring strictly enforced coding standards and preventing architectural drift in AI-generated code.',
-            'Initiated a strategic refactor to treat Code-as-Documentation, optimizing the codebase structure for LLM context windows. This enabled AI agents to accurately analyze, document, and autonomously refactor legacy code with high precision.',
-          ],
-        },
-        {
-          title: 'Team Leadership & Core Operations',
-          points: [
-            'Led and mentored a high-performing team of 5 engineers, responsible for onboarding, payments, & subscriptions, by balancing ambitious AI technology goals with pragmatic delivery targets.',
-            'Owned critical integrations like Chargebee, HubSpot, 18 ATS platforms, and Stripe, ensuring seamless data flow alongside new AI capabilities.',
-            'Defined and tracked team OKRs and DORA metrics, adapting them to account for the increased velocity provided by AI-assisted development tools.',
-            'Collaborated with Product, Design, Sales, Marketing, GTM, and Finance to scope and prioritize projects aligned with business goals and advocated for engineering needs at the leadership level.',
-          ],
-        },
-      ],
-    },
-    {
-      date: 'April 2022 — August 2023',
-      role: 'Lead Software Development Engineer in Test',
-      company: 'TestGorilla',
-      location: 'Remote',
-      sections: [
-        {
-          title: null,
-          points: [
-            'Architected the CI/CD infrastructure that transformed release velocity from bi-weekly to 5x daily. This high-frequency deployment model established the necessary foundation for rapid A/B testing and iterative AI model tuning in production.',
-            'Developed sophisticated E2E API testing frameworks using Python (pytest). This deep Python infrastructure experience laid the technical groundwork for seamless integration with modern Python-centric AI/LLM libraries.',
-            'Led backend load testing using k6.io and frontend performance profiling with Lighthouse. Established performance baselines critical for later measuring the latency and compute impact of integrating LLM features.',
-            'Integrated Storybook with Playwright for Angular.js, enhancing CI visual and accessibility tests and implemented Playwright for UI E2E tests in the CD pipeline, ensuring rapid feedback.',
-          ],
-        },
-      ],
-    },
-    {
-      date: 'February 2021 — March 2022',
-      role: 'Senior Software Development Engineer in Test',
-      company: 'Hopin',
-      location: 'Remote',
-      sections: [
-        {
-          title: null,
-          points: [
-            'Optimized release pipeline in GitLab, reducing execution time from 45 to ~15 mins, enabling ~20 daily releases.',
-            'Introduced Pact-Contract testing with self-hosted pact broker, ensuring stable pipeline and frequent deployments.',
-            'Implemented Browserstack for cross-browser testing, minimizing compatibility concerns.',
-            'Conducted interviews at Hopin and provided technical mentorship to test engineers.',
-            'Facilitated cross-functional collaboration via closed and open beta launch.',
-            'Deployed Visual Regression Tests with Testcafe and Percy in GitHub pre-merge state, empowering team autonomy.',
-          ],
-        },
-      ],
-    },
-    {
-      date: 'March 2020 — February 2021',
-      role: 'Software Development Engineer in Test',
-      company: 'Vue.ai',
-      location: 'Chennai, India',
-      sections: [
-        {
-          title: null,
-          points: [
-            'Developed Python packages for REST API & UI automation, supporting ML/AI use cases organization-wide.',
-            'Managed two teams in an 8:1 Dev to SDET ratio, implementing Agile release processes.',
-            'Configured CI/CD for ML/AI microservice using Jenkins, Bitbucket, AWS, and Spotinst, reducing infrastructure costs via IaC.',
-          ],
-        },
-      ],
-    },
-    {
-      date: 'January 2019 — February 2020',
-      role: 'Software Development Engineer in Test',
-      company: 'WeInvest',
-      location: 'Chennai, India',
-      sections: [
-        {
-          title: null,
-          points: [
-            'As a first SDET hire, managed internal testing servers to accelerate testing cycles.',
-            'Reduced costs by leveraging a freemium version of Postman for ETL transformation support.',
-            'Modularized and transformed UI and GraphQL automation frameworks into Ruby gems.',
-            'Spearheaded robust CI/CD integration with GitHub, Jenkins, and Docker.',
-            'Utilized Cucumber alongside RSpec for effective Behavior Driven Development (BDD).',
-          ],
-        },
-      ],
-    },
-    {
-      date: 'June 2017 — January 2019',
-      role: 'Software Engineer',
-      company: 'Freshworks',
-      location: 'Chennai, India',
-      sections: [
-        {
-          title: null,
-          points: [
-            'Been part of the launch of Freshcaller product in beta and GA phases.',
-            'Strategized manual and automation test execution in pre-development stages through collaboration with Product Owner and Tech Leads, optimizing release processes.',
-            'Upheld code quality and comprehensive unit test coverage starting from the PR stage.',
-            'Achieved 100% regression automation coverage and managed Jenkins pipelines.',
-          ],
-        },
-      ],
-    },
-    {
-      date: 'June 2015 — June 2017',
-      role: 'Programmer Analyst',
-      company: 'Cognizant',
-      location: 'Chennai, India',
-      sections: [
-        {
-          title: null,
-          points: [
-            'Ensured adherence to CMMI Level 5 practices across all projects.',
-            'Spearheaded web application automation using HP\'s UFT tool. Proactively automated tasks to streamline operations and save time.',
-            'Reduced testing costs in a data server migration project with an automation script, earning recognition as Best Automation Resource for the Year 2016.',
-          ],
-        },
-      ],
-    },
-  ],
+  title: r.career.title,
+  subtitle: r.career.subtitle,
+  positions: r.career.positions.flatMap(company =>
+    company.roles.map(role => ({
+      date: role.date,
+      role: role.role,
+      company: company.company,
+      location: role.location,
+      sections: role.sections,
+    }))
+  ),
 }
 
 export const skills = {
-  title: 'Skills.',
-  subtitle: 'A full-stack quality & engineering toolkit honed over a decade.',
-  categories: [
-    {
-      name: 'Languages',
-      items: ['Python', 'TypeScript', 'Ruby'],
-    },
-    {
-      name: 'AI Stack',
-      items: [
-        'AI Agents (Claude Code workflows)',
-        'Prompt Engineering',
-        'LLM Evals & RAG Architecture',
-        'Anthropic APIs · n8n · Zapier',
-      ],
-    },
-    {
-      name: 'Cloud & Infrastructure',
-      items: [
-        'AWS (Solutions Architect)',
-        'Serverless Architecture',
-        'Docker & Kubernetes',
-        'CI/CD (CircleCI, GitLab, GitHub)',
-      ],
-    },
-    {
-      name: 'Quality & Observability',
-      items: [
-        'Data Observability (Mixpanel, Holistics, Snowflake)',
-        'Performance Engineering (k6, Lighthouse)',
-        'Automation (Playwright, Cypress)',
-        'Contract Testing (Pact)',
-      ],
-    },
-  ],
+  title: r.skills.title,
+  subtitle: r.skills.subtitle,
+  categories: r.skills.categories,
 }
 
 export const leadership = {
-  title: 'Leadership.',
-  subtitle: 'How I build teams, ship products, and drive impact.',
-  cards: [
-    {
-      title: 'AI-Augmented Engineering',
-      description:
-        'Embedding AI tools and workflows into every stage of the SDLC — from code generation and review to intelligent testing and deployment.',
-    },
-    {
-      title: 'Team Growth',
-      description:
-        'Investing in people through mentorship, clear career ladders, and creating psychological safety that empowers engineers to take bold bets.',
-    },
-    {
-      title: 'Strategic Planning',
-      description:
-        'Translating business goals into engineering roadmaps with clear milestones, measurable outcomes, and adaptive execution.',
-    },
-    {
-      title: 'Cross-functional Collaboration',
-      description:
-        'Breaking silos between product, design, and engineering to align on shared outcomes. Building bridges across distributed teams and time zones.',
-    },
-    {
-      title: 'Operational Excellence',
-      description:
-        'Driving reliability through SLOs, incident management, runbooks, and a culture of blameless post-mortems and continuous improvement.',
-    },
-    {
-      title: 'Data-Driven Decisions',
-      description:
-        'Using engineering metrics, user data, and experimentation to prioritize ruthlessly and make confident product and technical decisions.',
-    },
-  ],
+  title: r.leadership.title,
+  subtitle: r.leadership.subtitle,
+  cards: r.leadership.cards,
 }
 
 export const publications = {
-  title: 'Publications.',
-  subtitle: 'Sharing knowledge through writing and open source.',
-  book: {
-    title: 'Management In Action',
-    author: 'Naresh Sekar',
-    publisher: 'Amazon Kindle',
-    description:
-      'A hands-on guide to effective engineering management — covering team building, decision-making, stakeholder alignment, and leadership practices that drive real impact in fast-paced technology organizations.',
-    amazonUrl: 'https://www.amazon.com/s?i=digital-text&rh=p_27%3ANaresh%2BSekar',
-    mediumUrl: 'https://medium.com/@nareshnavinash',
-  },
+  title: r.publications.title,
+  subtitle: r.publications.subtitle,
+  book: r.publications.book,
 }
 
 export const certifications = {
-  title: 'Certifications.',
-  subtitle: 'Continuous learning across engineering, cloud, and leadership.',
-  items: [
-    { name: 'AWS Solutions Architect Associate', issuer: 'Amazon Web Services' },
-    { name: 'Reforge — Engineering Management', issuer: 'Reforge' },
-    { name: 'CCNA & CCNP Routing and Switching', issuer: 'Cisco Systems' },
-    { name: 'Google Project Management Certificate', issuer: 'Google (Coursera)' },
-    { name: 'Strategic Leadership & Management', issuer: 'University of Illinois (Coursera)' },
-    { name: 'BEC Vantage (Business English)', issuer: 'Cambridge Assessment' },
-  ],
+  title: r.certifications.title,
+  subtitle: r.certifications.subtitle,
+  items: r.certifications.items,
 }
 
 export const education = {
-  degree: 'Bachelor of Engineering — Electronics & Communication',
-  school: 'Anna University',
-  period: '2011 — 2015',
-  location: 'Chennai, India',
+  degree: r.education.degree,
+  school: r.education.school,
+  period: r.education.period,
+  location: r.education.location,
 }
 
 export const contact = {
   title: "Let's connect.",
   subtitle: 'Open to conversations about engineering leadership, AI, and collaboration.',
-  email: 'nareshnavinash@gmail.com',
+  email: r.personal.email,
   social: {
-    linkedin: 'https://www.linkedin.com/in/nareshnavinash/',
-    github: 'https://github.com/nareshnavinash',
-    medium: 'https://medium.com/@nareshnavinash',
+    linkedin: r.social.linkedin.url,
+    github: r.social.github.url,
+    medium: r.social.medium.url,
   },
   extras: {
-    npm: 'https://www.npmjs.com/~nareshnavinash',
-    pypi: 'https://pypi.org/user/nareshnavinash/',
-    rubygems: 'https://rubygems.org/profiles/nareshnavinash',
+    npm: r.social.npm.url,
+    pypi: r.social.pypi.url,
+    rubygems: r.social.rubygems.url,
   },
 }

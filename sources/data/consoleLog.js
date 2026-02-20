@@ -1,5 +1,9 @@
 import * as THREE from 'three/webgpu'
 
+const res = await fetch('/data/resume.json')
+const resume = await res.json()
+
+// ASCII art is decorative and stays hardcoded
 const text = `
 ███╗   ██╗ █████╗ ██████╗ ███████╗███████╗██╗  ██╗██╗███████╗
 ████╗  ██║██╔══██╗██╔══██╗██╔════╝██╔════╝██║  ██║╚═╝██╔════╝
@@ -17,16 +21,16 @@ const text = `
 
 ╔═ Intro ═══════════════╗
 ║ Thank you for visiting my portfolio, you sneaky developer!
-║ I'm Naresh Sekar, an Engineering Manager building at the intersection of AI and quality.
+║ I'm ${resume.personal.name}, ${resume.personal.bio}.
 ╚═══════════════════════╝
 
 ╔═ Connect ═════════════╗
-║ Mail     ⇒ nareshnavinash@gmail.com
-║ LinkedIn ⇒ https://www.linkedin.com/in/nareshnavinash/
-║ GitHub   ⇒ https://github.com/nareshnavinash
-║ Medium   ⇒ https://medium.com/@nareshnavinash
-║ npm      ⇒ https://www.npmjs.com/~nareshnavinash
-║ PyPI     ⇒ https://pypi.org/user/nareshnavinash/
+║ Mail     ⇒ ${resume.personal.email}
+║ LinkedIn ⇒ ${resume.social.linkedin.url}
+║ GitHub   ⇒ ${resume.social.github.url}
+║ Medium   ⇒ ${resume.social.medium.url}
+║ npm      ⇒ ${resume.social.npm.url}
+║ PyPI     ⇒ ${resume.social.pypi.url}
 ╚═══════════════════════╝
 
 ╔═ Debug ═══════════════╗

@@ -15,7 +15,6 @@
   var backToTop = document.querySelector('.back-to-top');
   var scrollProgress = document.querySelector('.scroll-progress');
   var careerZone = document.querySelector('.career-scroll-zone');
-  var careerGrid = document.querySelector('.career-grid');
   var careerProgressTrack = document.querySelector('.career-progress-track');
 
   // --- 1. Navigation scroll effect ---
@@ -87,7 +86,7 @@
     revealObserver.observe(el);
   });
 
-  // --- 6. Timeline expand/collapse ---
+  // --- 6. Timeline expand/collapse (for statically rendered cards) ---
   document.querySelectorAll('.timeline-expand-btn').forEach(function (btn) {
     btn.addEventListener('click', function () {
       var card = btn.closest('.timeline-card-body') || btn.closest('.timeline-card');
@@ -122,6 +121,7 @@
   var careerZoneFlowTop = 0;
 
   function setupCareerCarousel() {
+    var careerGrid = document.querySelector('.career-grid');
     if (!careerZone || !careerGrid) return;
 
     // Disable on mobile
@@ -157,6 +157,7 @@
   }
 
   function updateCareerCarousel() {
+    var careerGrid = document.querySelector('.career-grid');
     if (!careerZone || !careerGrid || window.innerWidth <= 768) return;
 
     var scrollRoom = careerZone.offsetHeight - window.innerHeight;
@@ -205,6 +206,11 @@
   handleNavScroll();
   handleBackToTop();
   setupCareerCarousel();
+
+  // Re-setup career carousel when resume data finishes loading
+  document.addEventListener('resume-loaded', function () {
+    setupCareerCarousel();
+  });
 
   // Recalculate career carousel on resize
   var resizeTimer;

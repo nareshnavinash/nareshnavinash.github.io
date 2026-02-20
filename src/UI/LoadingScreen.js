@@ -83,11 +83,21 @@ export default class LoadingScreen {
   }
 
   _buildHTML() {
-    const nameLetters = 'Naresh Sekar'.split('').map(ch =>
+    const name = this.game.resumeData?.personal?.name || 'Naresh Sekar'
+    const roleTags = this.game.resumeData?.personal?.roleTags || ['Engineering Manager', 'AI', 'Builder']
+
+    const nameLetters = name.split('').map(ch =>
       ch === ' '
         ? '<span class="ls-title-letter">&nbsp;</span>'
         : `<span class="ls-title-letter">${ch}</span>`
     ).join('')
+
+    const roleTagsHTML = roleTags
+      .map((tag, i) => {
+        const dot = i < roleTags.length - 1 ? '<span class="ls-role-dot">·</span>' : ''
+        return `<span class="ls-role-tag">${tag}</span>${dot}`
+      })
+      .join('\n          ')
 
     return `
       <!-- Background layers -->
@@ -106,11 +116,7 @@ export default class LoadingScreen {
         <p class="ls-greeting">Welcome to the world of</p>
         <h1 class="ls-title">${nameLetters}</h1>
         <div class="ls-subtitle">
-          <span class="ls-role-tag">Engineering Manager</span>
-          <span class="ls-role-dot">·</span>
-          <span class="ls-role-tag">AI</span>
-          <span class="ls-role-dot">·</span>
-          <span class="ls-role-tag">Builder</span>
+          ${roleTagsHTML}
         </div>
 
         <!-- SVG Progress Ring -->
