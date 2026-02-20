@@ -2,27 +2,6 @@
    3D WORLD PORTFOLIO - UI Overlay Styles
    ============================================ */
 
-:root {
-  --bg-body: #080818;
-  --color-blue: #4488ff;
-  --color-peach: #ff7744;
-  --color-mint: #00ffaa;
-  --color-lavender: #aa77ff;
-  --color-gold: #ffcc33;
-  --text-primary: #e0e0f0;
-  --text-secondary: #8888aa;
-  --bg-card: rgba(14, 14, 32, 0.7);
-  --border-color: rgba(100, 100, 180, 0.18);
-  --font-heading: 'Poppins', system-ui, -apple-system, sans-serif;
-  --font-script: 'Caveat', cursive;
-  --font-body: -apple-system, system-ui, 'Segoe UI', Roboto, sans-serif;
-  --radius: 12px;
-  --radius-sm: 8px;
-  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  --glow-sm: 0 0 15px;
-  --glow-md: 0 0 30px;
-}
-
 *,
 *::before,
 *::after {
