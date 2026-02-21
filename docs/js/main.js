@@ -10,7 +10,7 @@
   var nav = document.querySelector('.nav');
   var hamburger = document.querySelector('.hamburger');
   var mobileMenu = document.querySelector('.mobile-menu');
-  var navLinks = document.querySelectorAll('.nav-links a, .mobile-menu a');
+  var navLinks = document.querySelectorAll('.nav-links a[href^="#"], .mobile-menu a[href^="#"]');
   var sections = document.querySelectorAll('section[id]');
   var backToTop = document.querySelector('.back-to-top');
   var scrollProgress = document.querySelector('.scroll-progress');
@@ -22,16 +22,17 @@
 
   // --- Theme toggle ---
   var THEME_COLORS = { night: '#080818', day: '#e8e4f8' };
+  var THEME_STORAGE_KEY = 'profile-theme';
 
   function getPreferredTheme() {
-    var stored = localStorage.getItem('theme');
+    var stored = localStorage.getItem(THEME_STORAGE_KEY);
     if (stored) return stored;
-    return window.matchMedia('(prefers-color-scheme: light)').matches ? 'day' : 'night';
+    return 'day';
   }
 
   function setTheme(mode) {
     document.documentElement.setAttribute('data-theme', mode);
-    localStorage.setItem('theme', mode);
+    localStorage.setItem(THEME_STORAGE_KEY, mode);
     if (metaThemeColor) metaThemeColor.setAttribute('content', THEME_COLORS[mode] || THEME_COLORS.night);
     if (typeof window.setThreeTheme === 'function') window.setThreeTheme(mode);
   }
@@ -52,14 +53,14 @@
 
   // OS preference change listener
   window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', function (e) {
-    if (!localStorage.getItem('theme')) {
+    if (!localStorage.getItem(THEME_STORAGE_KEY)) {
       setTheme(e.matches ? 'day' : 'night');
     }
   });
 
   // Cross-tab sync
   window.addEventListener('storage', function (e) {
-    if (e.key === 'theme' && e.newValue) {
+    if (e.key === THEME_STORAGE_KEY && e.newValue) {
       setTheme(e.newValue);
     }
   });
@@ -92,20 +93,25 @@
 
   // --- 4. Active section tracking ---
   function updateActiveNav() {
-    var scrollPos = window.scrollY + 200;
+    var marker = (nav ? nav.offsetHeight : 0) + 24;
+    var activeId = null;
 
     sections.forEach(function (section) {
-      var top = section.offsetTop;
-      var height = section.offsetHeight;
-      var id = section.getAttribute('id');
+      var rect = section.getBoundingClientRect();
+      if (rect.top <= marker && rect.bottom > marker) {
+        activeId = section.getAttribute('id');
+      }
+    });
 
-      if (scrollPos >= top && scrollPos < top + height) {
-        navLinks.forEach(function (link) {
-          link.classList.remove('active');
-          if (link.getAttribute('href') === '#' + id) {
-            link.classList.add('active');
-          }
-        });
+    navLinks.forEach(function (link) {
+      link.classList.remove('active');
+    });
+
+    if (!activeId || activeId === 'hero') return;
+
+    navLinks.forEach(function (link) {
+      if (link.getAttribute('href') === '#' + activeId) {
+        link.classList.add('active');
       }
     });
   }

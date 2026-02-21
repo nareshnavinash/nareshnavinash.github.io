@@ -7,8 +7,8 @@
     "title": "Engineering Manager",
     "tagline": "I build teams that ship quality software, powered by AI.",
     "roleTags": ["Engineering Manager", "AI", "Builder"],
-    "bio": "Engineering leader building at the intersection of AI and quality.",
-    "mission": "I'm an Engineering Manager who bridges the gap between cutting-edge AI and reliable software delivery. With over a decade of experience across startups and scale-ups, I specialize in building high-performing teams, designing quality-first engineering cultures, and leveraging AI to accelerate product development. I believe great engineering leadership is about multiplying the impact of every person on your team."
+    "bio": "Engineering leader focused on AI adoption strategy and quality.",
+    "mission": "I'm an Engineering Manager who bridges the gap between cutting-edge AI and reliable software delivery. With over a decade of experience across startups and scale-ups, I specialize in building high-performing teams, designing quality-first engineering cultures, and leveraging AI to accelerate product development. My focus includes AI governance, process optimization, stakeholder management, and risk-aware execution. I believe great engineering leadership is about multiplying the impact of every person on your team."
   },
   "social": {
     "linkedin": {
@@ -42,19 +42,19 @@
   },
   "about": {
     "title": "About.",
-    "subtitle": "Engineering leader building at the intersection of AI and quality.",
+    "subtitle": "Engineering Manager focused on AI adoption strategy, AI literacy, and quality engineering at scale.",
     "cards": [
       {
-        "title": "AI Product Strategy",
-        "description": "Integrating AI/ML capabilities into product workflows — from LLM-powered features to intelligent test generation and data-driven decision systems."
+        "title": "AI Adoption Strategy",
+        "description": "Integrating AI/ML capabilities into product workflows — from generative AI implementation to AI governance, intelligent test generation, and data-driven decision systems."
       },
       {
         "title": "Team Building",
-        "description": "Scaling engineering teams from 5 to 30+, establishing career frameworks, hiring pipelines, and fostering cultures of ownership and continuous improvement."
+        "description": "Scaling engineering teams from 5 to 30+, establishing career frameworks, hiring pipelines, and fostering cultures of ownership, AI literacy, and continuous improvement."
       },
       {
         "title": "Quality Engineering",
-        "description": "Designing end-to-end quality strategies — test automation frameworks, CI/CD pipelines, observability, and shift-left quality practices at scale."
+        "description": "Designing end-to-end quality strategies — test automation frameworks, CI/CD pipelines, observability, and risk assessment with shift-left quality practices at scale."
       }
     ]
   },

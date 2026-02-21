@@ -241,6 +241,55 @@ button {
   width: 100%;
 }
 
+/* Persistent CTA for the interactive 3D profile world */
+.nav-links .nav-3d-link {
+  padding: 8px 12px 8px 28px;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 184, 128, 0.32);
+  background: linear-gradient(135deg, rgba(0, 184, 128, 0.12), rgba(119, 68, 204, 0.14));
+  color: var(--text-primary);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.03) inset;
+}
+
+.nav-links .nav-3d-link::after {
+  display: none;
+}
+
+.nav-links .nav-3d-link::before {
+  content: '';
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-mint);
+  transform: translateY(-50%);
+  box-shadow: 0 0 14px var(--glow-mint);
+  animation: navWorldPulse 1.8s ease-in-out infinite;
+}
+
+.nav-links .nav-3d-link:hover {
+  color: var(--text-primary);
+  text-shadow: none;
+  transform: translateY(-1px);
+  border-color: rgba(0, 184, 128, 0.55);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15), 0 0 20px rgba(0, 184, 128, 0.12);
+}
+
+.mobile-menu .nav-3d-link {
+  margin-top: 8px;
+  padding: 10px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 184, 128, 0.4);
+  background: linear-gradient(135deg, rgba(0, 184, 128, 0.12), rgba(119, 68, 204, 0.12));
+}
+
+@keyframes navWorldPulse {
+  0%, 100% { opacity: 0.6; transform: translateY(-50%) scale(1); }
+  50% { opacity: 1; transform: translateY(-50%) scale(1.15); }
+}
+
 /* Mobile nav actions (toggle + hamburger) */
 .nav-mobile-actions {
   display: none;
