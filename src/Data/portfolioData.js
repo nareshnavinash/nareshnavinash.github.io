@@ -5,9 +5,11 @@
 
 const res = await fetch('/data/resume.json')
 const r = await res.json()
+const site = r.site || {}
+const heroConfig = site.hero || {}
 
 export const hero = {
-  greeting: `Hey there, I'm ${r.personal.firstName} —`,
+  greeting: `${heroConfig.greetingPrefix || ''}${r.personal.firstName || ''}${heroConfig.greetingSuffix || ''}`,
   heading: r.personal.tagline,
   photo: r.personal.photo,
 }
@@ -65,8 +67,8 @@ export const education = {
 }
 
 export const contact = {
-  title: "Let's connect.",
-  subtitle: 'Open to conversations about engineering leadership, AI, and collaboration.',
+  title: r.contact.title,
+  subtitle: r.contact.subtitle,
   email: r.personal.email,
   social: {
     linkedin: r.social.linkedin.url,

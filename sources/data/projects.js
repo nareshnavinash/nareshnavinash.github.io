@@ -20,14 +20,15 @@ const companyEntries = resume.career.positions.map(company => {
     const pages = roles.flatMap(role =>
         role.sections.map(section => ({
             header: role.role,
+            role: role.shortRole || role.role,
             subheader: `${company.company}  |  ${role.date}  |  ${role.location}`,
             section: section.title,
             points: section.points,
         }))
     )
 
-    // Collect short roles for the attribute display
-    const roleAttrs = roles.length === 1 ? roles[0].shortRole : roles.map(r => r.shortRole)
+    // Default role shown before page-level role swapping (latest role first)
+    const roleAttrs = roles[0]?.shortRole || roles[0]?.role || ''
 
     return {
         title: company.company,
@@ -51,6 +52,7 @@ const openSourceEntry = {
     pages: [
         {
             header: 'Open Source Contributor',
+            role: 'Open Source Contributor',
             subheader: resume.openSource.platforms.join('  |  '),
             section: resume.openSource.section,
             points: resume.openSource.points,
@@ -69,6 +71,7 @@ const blogEntry = {
     pages: [
         {
             header: 'Writer & Author',
+            role: 'Writer & Author',
             subheader: `${resume.publications.book.publisher}  |  Medium`,
             section: resume.blog.section,
             points: resume.blog.points,

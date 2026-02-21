@@ -261,6 +261,21 @@
   handleBackToTop();
   setupCareerCarousel();
 
+  document.addEventListener('resume-loaded', function () {
+    navLinks = document.querySelectorAll('.nav-links a[href^="#"], .mobile-menu a[href^="#"]');
+    sections = document.querySelectorAll('section[id]');
+    careerZone = document.querySelector('.career-scroll-zone');
+    careerGrid = document.querySelector('.career-grid');
+    careerProgressTrack = document.querySelector('.career-progress-track');
+
+    document.querySelectorAll('.reveal:not(.visible)').forEach(function (el) {
+      revealObserver.observe(el);
+    });
+
+    setupCareerCarousel();
+    onScroll();
+  });
+
   // Recalculate career carousel on resize
   var resizeTimer;
   window.addEventListener('resize', function () {

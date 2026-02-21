@@ -3,12 +3,87 @@
     "name": "Naresh Sekar",
     "firstName": "Naresh",
     "email": "nareshnavinash@gmail.com",
-    "photo": "/assets/profile.jpg",
+    "photo": "/profile.jpg",
     "title": "Engineering Manager",
     "tagline": "I build teams that ship quality software, powered by AI.",
     "roleTags": ["Engineering Manager", "AI", "Builder"],
     "bio": "Engineering leader focused on AI adoption strategy and quality.",
     "mission": "I'm an Engineering Manager who bridges the gap between cutting-edge AI and reliable software delivery. With over a decade of experience across startups and scale-ups, I specialize in building high-performing teams, designing quality-first engineering cultures, and leveraging AI to accelerate product development. My focus includes AI governance, process optimization, stakeholder management, and risk-aware execution. I believe great engineering leadership is about multiplying the impact of every person on your team."
+  },
+  "site": {
+    "seo": {
+      "title": "Naresh Sekar | Engineering Manager | Software Engineering Manager | AI Adoption Strategy",
+      "description": "Naresh Sekar is an Engineering Manager and Software Engineering Manager specializing in AI adoption strategy, AI governance, AI implementation, and quality engineering leadership.",
+      "keywords": "Engineering Manager, Software Engineering Manager, AI adoption strategy, AI governance, AI literacy, AI implementation and application, Generative AI strategy, Process optimization, Stakeholder management, Risk assessment, Quality engineering, Team leadership",
+      "author": "Naresh Sekar",
+      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+      "themeColor": "#080818",
+      "canonicalUrl": "https://nareshnavinash.github.io/profile.html",
+      "imageUrl": "https://nareshnavinash.github.io/social/share-image.png",
+      "twitterCard": "summary_large_image",
+      "ogType": "profile",
+      "ogSiteName": "Naresh Sekar",
+      "ogLocale": "en_US",
+      "ogUrl": "https://nareshnavinash.github.io/profile.html",
+      "schemaProfileName": "Naresh Sekar | Engineering Manager Portfolio",
+      "schemaJobTitle": "Software Engineering Manager",
+      "schemaPersonDescription": "Engineering Manager focused on AI adoption strategy, AI governance, AI implementation, and quality engineering.",
+      "schemaKnowsAbout": [
+        "Engineering Management",
+        "Software Engineering Management",
+        "AI Adoption Strategy",
+        "AI Literacy",
+        "LLM Development and Application",
+        "AI Governance",
+        "Process Optimization",
+        "Stakeholder Management",
+        "Risk Assessment",
+        "Quality Engineering"
+      ]
+    },
+    "navigation": {
+      "mainAriaLabel": "Main navigation",
+      "mobileAriaLabel": "Mobile navigation",
+      "logoText": "naresh",
+      "logoAriaLabel": "Naresh Sekar - Home",
+      "logoHref": "#hero",
+      "themeToggleAriaLabel": "Toggle dark mode",
+      "hamburgerAriaLabel": "Toggle navigation menu",
+      "items": [
+        { "key": "about", "label": "about", "href": "#about" },
+        { "key": "experience", "label": "experience", "href": "#career" },
+        { "key": "skills", "label": "skills", "href": "#skills" },
+        { "key": "leadership", "label": "leadership", "href": "#leadership" },
+        { "key": "publications", "label": "publications", "href": "#publications" },
+        { "key": "certifications", "label": "certifications", "href": "#certifications" },
+        { "key": "contact", "label": "contact", "href": "#contact" }
+      ],
+      "worldLink": {
+        "label": "3D World",
+        "href": "/",
+        "ariaLabel": "Explore the 3D world"
+      }
+    },
+    "hero": {
+      "greetingPrefix": "Hey there, I'm ",
+      "greetingSuffix": " -",
+      "headingHtml": "I build <span class=\"text-outline\">teams</span> that ship quality software, powered by <span class=\"text-outline\">AI.</span>"
+    },
+    "contact": {
+      "primarySocialKeys": ["linkedin", "github", "medium"]
+    },
+    "footer": {
+      "extraSocialKeys": ["npm", "pypi", "rubygems"]
+    },
+    "labels": {
+      "viewDetails": "View details",
+      "publicationsAmazonCta": "View on Amazon",
+      "publicationsMediumCta": "Read on Medium",
+      "footerGreeting": "Have a Good Day!",
+      "footerTagline": "Built with vanilla HTML, CSS & JS",
+      "footerCopyrightTemplate": "&copy; {year} {name}. All rights reserved.",
+      "backToTopAriaLabel": "Back to top"
+    }
   },
   "social": {
     "linkedin": {
@@ -161,7 +236,7 @@
         "roles": [
           {
             "role": "Software Development Engineer in Test",
-            "shortRole": "Lead SDET",
+            "shortRole": "Senior SDET",
             "date": "March 2020 — February 2021",
             "startYear": 2020,
             "startMonth": 3,
@@ -361,6 +436,7 @@
       "title": "Management In Action",
       "author": "Naresh Sekar",
       "publisher": "Amazon Kindle",
+      "bylineTemplate": "by {author} · Published on {publisher}",
       "description": "A hands-on guide to effective engineering management — covering team building, decision-making, stakeholder alignment, and leadership practices that drive real impact in fast-paced technology organizations.",
       "amazonUrl": "https://www.amazon.com/s?i=digital-text&rh=p_27%3ANaresh%2BSekar",
       "mediumUrl": "https://medium.com/@nareshnavinash"
@@ -379,10 +455,16 @@
     ]
   },
   "education": {
+    "title": "Education.",
     "degree": "Bachelor of Engineering — Electronics & Communication",
     "school": "Anna University",
     "period": "2011 — 2015",
     "location": "Chennai, India"
+  },
+  "contact": {
+    "title": "Let's connect.",
+    "subtitle": "Open to conversations about engineering leadership, AI, and collaboration.",
+    "intro": "Say hello."
   },
   "projects": [
     {
@@ -403,7 +485,7 @@
       "title": "Vue.ai",
       "titleSmall": ["Vue.ai"],
       "url": "https://vue.ai",
-      "shortRole": "Lead SDET",
+      "shortRole": "Senior SDET",
       "images": ["vueai-1"]
     },
     {

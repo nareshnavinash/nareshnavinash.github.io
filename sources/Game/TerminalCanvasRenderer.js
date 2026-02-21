@@ -17,6 +17,8 @@ export class TerminalCanvasRenderer
     static MARGIN_X = 40
     static MARGIN_TOP = 40
     static MARGIN_BOTTOM = 30
+    static MAX_POINTS = 3
+    static MAX_LINES_PER_POINT = 2
 
     /**
      * Build an array of drawable line objects from page content
@@ -27,38 +29,42 @@ export class TerminalCanvasRenderer
         const lines = []
         const mx = this.MARGIN_X
         let y = this.MARGIN_TOP
-        const usableWidth = width - mx * 2 - 20
+        const usableWidth = width - mx * 2
 
         // Temp canvas for text measurement
         const measure = document.createElement('canvas').getContext('2d')
 
         // ── Command prompt ──
-        const promptFont = `400 18px ${this.FONT_FAMILY}`
+        const promptFont = `400 20px ${this.FONT_FAMILY}`
         measure.font = promptFont
         lines.push({ text: '$ cat experience.log', font: promptFont, color: this.PROMPT_COLOR, alpha: 0.7, x: mx, y })
-        y += 30
+        y += 34
 
         // ── Header (role) ──
         if(content.header)
         {
-            const font = `400 30px ${this.FONT_FAMILY}`
+            const font = `400 40px ${this.FONT_FAMILY}`
             measure.font = font
             const wrapped = this._wordWrap(measure, content.header, usableWidth)
             for(const line of wrapped)
             {
                 lines.push({ text: line, font, color: this.HEADER_COLOR, alpha: 1, x: mx, y })
-                y += 36
+                y += 42
             }
-            y += 4
+            y += 8
         }
 
         // ── Subheader (company · date · location) ──
         if(content.subheader)
         {
-            const font = `400 20px ${this.FONT_FAMILY}`
+            const font = `400 24px ${this.FONT_FAMILY}`
             measure.font = font
-            lines.push({ text: content.subheader, font, color: this.META_COLOR, alpha: 1, x: mx, y })
-            y += 28
+            const wrapped = this._wordWrap(measure, content.subheader, usableWidth)
+            for(const line of wrapped.slice(0, 2))
+            {
+                lines.push({ text: line, font, color: this.META_COLOR, alpha: 1, x: mx, y })
+                y += 28
+            }
         }
 
         // ── Divider ──
@@ -69,30 +75,40 @@ export class TerminalCanvasRenderer
         // ── Section title ──
         if(content.section)
         {
-            const font = `400 22px ${this.FONT_FAMILY}`
+            const font = `400 28px ${this.FONT_FAMILY}`
             measure.font = font
             lines.push({ text: `[ ${content.section} ]`, font, color: this.SECTION_COLOR, alpha: 1, x: mx, y })
-            y += 30
+            y += 34
         }
 
         // ── Points ──
         if(content.points)
         {
-            const font = `400 18px ${this.FONT_FAMILY}`
+            const font = `400 24px ${this.FONT_FAMILY}`
             measure.font = font
 
-            for(const point of content.points)
+            for(const point of content.points.slice(0, this.MAX_POINTS))
             {
                 const fullText = `> ${point}`
                 const wrapped = this._wordWrap(measure, fullText, usableWidth)
+                const visibleLines = wrapped.slice(0, this.MAX_LINES_PER_POINT)
 
-                for(let i = 0; i < wrapped.length; i++)
+                if(wrapped.length > this.MAX_LINES_PER_POINT)
+                {
+                    visibleLines[this.MAX_LINES_PER_POINT - 1] = this._trimToWidth(
+                        measure,
+                        `${visibleLines[this.MAX_LINES_PER_POINT - 1]}...`,
+                        usableWidth
+                    )
+                }
+
+                for(let i = 0; i < visibleLines.length; i++)
                 {
                     if(y > height - this.MARGIN_BOTTOM - 10) break
-                    lines.push({ text: wrapped[i], font, color: this.POINT_COLOR, alpha: 1, x: mx + 8, y })
-                    y += 22
+                    lines.push({ text: visibleLines[i], font, color: this.POINT_COLOR, alpha: 1, x: mx + 8, y })
+                    y += 28
                 }
-                y += 6
+                y += 10
             }
         }
 
@@ -255,5 +271,15 @@ export class TerminalCanvasRenderer
         if(current) result.push(current)
 
         return result
+    }
+
+    static _trimToWidth(ctx, text, maxWidth)
+    {
+        let output = text
+
+        while(output.length > 0 && ctx.measureText(output).width > maxWidth)
+            output = output.slice(0, -1)
+
+        return output
     }
 }

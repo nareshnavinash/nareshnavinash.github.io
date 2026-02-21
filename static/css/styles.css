@@ -765,6 +765,18 @@ button {
   padding-top: 16px;
 }
 
+.timeline-section:not(:last-child) {
+  margin-bottom: 12px;
+}
+
+.timeline-section-title {
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: var(--color-mint);
+  letter-spacing: 0.02em;
+  margin-bottom: 8px;
+}
+
 .timeline-achievements {
   margin-bottom: 12px;
 }

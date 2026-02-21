@@ -777,6 +777,75 @@ export class ProjectsArea extends Area
         this.attributes.items = {}
         this.attributes.status = 'hidden'
         this.attributes.originalY = this.attributes.group.position.y
+        this.attributes.maxLines = 3
+
+        this.attributes.wrapText = (textCanvas, value) =>
+        {
+            const lines = Array.isArray(value) ? value.map((line) => String(line)) : [String(value)]
+            const maxWidth = textCanvas.width * 0.88
+            const wrapped = []
+
+            for(const line of lines)
+            {
+                const words = line.trim().split(/\s+/).filter(Boolean)
+                if(words.length === 0)
+                    continue
+
+                let current = ''
+
+                for(const word of words)
+                {
+                    const test = current ? `${current} ${word}` : word
+                    if(textCanvas.context.measureText(test).width > maxWidth && current)
+                    {
+                        wrapped.push(current)
+                        current = word
+
+                        if(wrapped.length >= this.attributes.maxLines)
+                            break
+                    }
+                    else
+                    {
+                        current = test
+                    }
+                }
+
+                if(wrapped.length >= this.attributes.maxLines)
+                    break
+
+                if(current)
+                    wrapped.push(current)
+
+                if(wrapped.length >= this.attributes.maxLines)
+                    break
+            }
+
+            if(wrapped.length > this.attributes.maxLines)
+                wrapped.length = this.attributes.maxLines
+
+            return wrapped.length > 0 ? wrapped : ['']
+        }
+
+        this.attributes.getRoleForImage = (imageIndex = this.images.index) =>
+        {
+            const pageRole = this.navigation.current?.pages?.[imageIndex]?.role
+            if(pageRole)
+                return pageRole
+
+            const role = this.navigation.current?.attributes?.role
+            if(role instanceof Array)
+                return role[0]
+
+            return role
+        }
+
+        this.attributes.getValue = (name, imageIndex = this.images.index) =>
+        {
+            if(name === 'role')
+                return this.attributes.getRoleForImage(imageIndex)
+
+            return this.navigation.current?.attributes?.[name]
+        }
 
         for(const child of this.attributes.group.children)
         {
@@ -789,12 +858,12 @@ export class ProjectsArea extends Area
             item.textCanvas = new TextCanvas(
                 this.texts.fontFamily,
                 this.texts.fontWeight,
-                this.texts.fontSizeMultiplier * 0.23,
-                1.4,
-                0.45,
+                this.texts.fontSizeMultiplier * 0.22,
+                1.8,
+                0.55,
                 this.texts.density,
                 'center',
-                0.2
+                0.18
             )
 
             this.texts.createMaterialOnMesh(textMesh, item.textCanvas.texture)
@@ -802,7 +871,7 @@ export class ProjectsArea extends Area
             this.attributes.items[child.name] = item
         }
 
-        this.attributes.update = () =>
+        this.attributes.update = (imageIndex = this.images.index) =>
         {
             if(this.attributes.status === 'hiding')
                 return
@@ -825,14 +894,14 @@ export class ProjectsArea extends Area
                 for(const name of this.attributes.names)
                 {
                     const item = this.attributes.items[name]
-                    const attribute = this.navigation.current.attributes[name]
+                    const attribute = this.attributes.getValue(name, imageIndex)
 
                     if(attribute)
                     {
                         item.group.visible = true
                         gsap.to(item.group.scale, { x: 1, y: 1, z: 1, duration: 1, delay: 0.2 * i, ease: 'back.out(2)', overwrite: true })
 
-                        item.textCanvas.updateText(attribute)
+                        item.textCanvas.updateText(this.attributes.wrapText(item.textCanvas, attribute))
 
                         item.group.position.y = - i * 0.75
                         
@@ -1030,6 +1099,53 @@ export class ProjectsArea extends Area
             'center'
         )
         this.url.mixStrength = uniform(0)
+        this.url.maxTextWidth = this.url.textCanvas.width * 0.9
+        this.url.maxPanelScaleX = 4.1
+        this.url.minPanelScaleX = 1.1
+
+        this.url.fitDisplayText = (text = '') =>
+        {
+            const input = String(text)
+            const maxWidth = this.url.maxTextWidth
+            const context = this.url.textCanvas.context
+            const ellipsis = '...'
+
+            if(context.measureText(input).width <= maxWidth)
+                return input
+
+            let left = Math.ceil((input.length - ellipsis.length) * 0.5)
+            let right = input.length - left
+            let output = `${input.slice(0, left)}${ellipsis}${input.slice(input.length - right)}`
+
+            while(left > 3 && right > 3 && context.measureText(output).width > maxWidth)
+            {
+                if(left >= right)
+                    left--
+                else
+                    right--
+
+                output = `${input.slice(0, left)}${ellipsis}${input.slice(input.length - right)}`
+            }
+
+            if(context.measureText(output).width <= maxWidth)
+                return output
+
+            let endTrimmed = input
+            while(endTrimmed.length > 0 && context.measureText(`${endTrimmed}${ellipsis}`).width > maxWidth)
+                endTrimmed = endTrimmed.slice(0, -1)
+
+            return `${endTrimmed}${ellipsis}`
+        }
+
+        this.url.updateDisplay = (url = '') =>
+        {
+            const rawText = String(url).replace(/https?:\/\//, '')
+            const fittedText = this.url.fitDisplayText(rawText)
+            this.url.textCanvas.updateText(fittedText)
+
+            const ratio = this.url.textCanvas.getMeasure().width / this.texts.density
+            this.url.panel.scale.x = THREE.MathUtils.clamp(ratio + 0.25, this.url.minPanelScaleX, this.url.maxPanelScaleX)
+        }
 
         // Material
         const material = new MeshDefaultMaterial({
@@ -1100,10 +1216,7 @@ export class ProjectsArea extends Area
 
                 gsap.to(this.url.inner.rotation, { x: Math.PI * 2 * rotationDirection, duration: 1, delay: 0, ease: 'back.out(2)', overwrite: true })
 
-                this.url.textCanvas.updateText(this.navigation.current.url.replace(/https?:\/\//, ''))
-
-                const ratio = this.url.textCanvas.getMeasure().width / this.texts.density
-                this.url.panel.scale.x = ratio + 0.2
+                this.url.updateDisplay(this.navigation.current.url)
 
             } })
         }
@@ -1566,19 +1679,18 @@ export class ProjectsArea extends Area
         this.navigation.previous = projectsData[(this.navigation.index - 1) < 0 ? projectsData.length - 1 : this.navigation.index - 1]
         this.navigation.next = projectsData[(this.navigation.index + 1) % projectsData.length]
 
-        // Update components
-        this.attributes.update()
-        this.adjacents.update()
-        this.title.update(direction)
-        this.url.update(direction)
-        this.distinctions.update()
-
         // Change image
         let imageIndex = null
         if(firstImage)
             imageIndex = 0
         else
             imageIndex = direction === ProjectsArea.DIRECTION_NEXT ? 0 : this.navigation.current.images.length - 1
+
+        // Update components
+        this.adjacents.update()
+        this.title.update(direction)
+        this.url.update(direction)
+        this.distinctions.update()
 
         // Sound
         if(!silent)
@@ -1602,6 +1714,7 @@ export class ProjectsArea extends Area
         this.images.index = imageIndex
 
         // Update components
+        this.attributes.update(this.images.index)
         this.images.update(direction)
         this.pagination.update()
 

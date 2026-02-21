@@ -87941,6 +87941,7 @@ https://github.com/browserify/crypto-browserify`);
       ]
     }
   }, companyEntries = resume$2.career.positions.map((l) => {
+    var _a2, _b;
     const e = companyDisplay[l.company] || {
       titleSmall: [
         l.company
@@ -87948,10 +87949,11 @@ https://github.com/browserify/crypto-browserify`);
       images: []
     }, r = l.roles, s = r.flatMap((a) => a.sections.map((h) => ({
       header: a.role,
+      role: a.shortRole || a.role,
       subheader: `${l.company}  |  ${a.date}  |  ${a.location}`,
       section: h.title,
       points: h.points
-    }))), o = r.length === 1 ? r[0].shortRole : r.map((a) => a.shortRole);
+    }))), o = ((_a2 = r[0]) == null ? void 0 : _a2.shortRole) || ((_b = r[0]) == null ? void 0 : _b.role) || "";
     return {
       title: l.company,
       titleSmall: e.titleSmall,
@@ -87980,6 +87982,7 @@ https://github.com/browserify/crypto-browserify`);
     pages: [
       {
         header: "Open Source Contributor",
+        role: "Open Source Contributor",
         subheader: resume$2.openSource.platforms.join("  |  "),
         section: resume$2.openSource.section,
         points: resume$2.openSource.points
@@ -88005,6 +88008,7 @@ https://github.com/browserify/crypto-browserify`);
     pages: [
       {
         header: "Writer & Author",
+        role: "Writer & Author",
         subheader: `${resume$2.publications.book.publisher}  |  Medium`,
         section: resume$2.blog.section,
         points: resume$2.blog.points
@@ -88053,7 +88057,7 @@ https://github.com/browserify/crypto-browserify`);
     static buildLines(e, r, s) {
       const o = [], a = this.MARGIN_X;
       let h = this.MARGIN_TOP;
-      const c = r - a * 2 - 20, d = document.createElement("canvas").getContext("2d"), f = `400 18px ${this.FONT_FAMILY}`;
+      const c = r - a * 2, d = document.createElement("canvas").getContext("2d"), f = `400 20px ${this.FONT_FAMILY}`;
       if (d.font = f, o.push({
         text: "$ cat experience.log",
         font: f,
@@ -88061,8 +88065,8 @@ https://github.com/browserify/crypto-browserify`);
         alpha: 0.7,
         x: a,
         y: h
-      }), h += 30, e.header) {
-        const p = `400 30px ${this.FONT_FAMILY}`;
+      }), h += 34, e.header) {
+        const p = `400 40px ${this.FONT_FAMILY}`;
         d.font = p;
         const m = this._wordWrap(d, e.header, c);
         for (const b of m) o.push({
@@ -88072,13 +88076,15 @@ https://github.com/browserify/crypto-browserify`);
           alpha: 1,
           x: a,
           y: h
-        }), h += 36;
-        h += 4;
+        }), h += 42;
+        h += 8;
       }
       if (e.subheader) {
-        const p = `400 20px ${this.FONT_FAMILY}`;
-        d.font = p, o.push({
-          text: e.subheader,
+        const p = `400 24px ${this.FONT_FAMILY}`;
+        d.font = p;
+        const m = this._wordWrap(d, e.subheader, c);
+        for (const b of m.slice(0, 2)) o.push({
+          text: b,
           font: p,
           color: this.META_COLOR,
           alpha: 1,
@@ -88092,7 +88098,7 @@ https://github.com/browserify/crypto-browserify`);
         y: h,
         width: r - a * 2
       }), h += 15, e.section) {
-        const p = `400 22px ${this.FONT_FAMILY}`;
+        const p = `400 28px ${this.FONT_FAMILY}`;
         d.font = p, o.push({
           text: `[ ${e.section} ]`,
           font: p,
@@ -88100,22 +88106,23 @@ https://github.com/browserify/crypto-browserify`);
           alpha: 1,
           x: a,
           y: h
-        }), h += 30;
+        }), h += 34;
       }
       if (e.points) {
-        const p = `400 18px ${this.FONT_FAMILY}`;
+        const p = `400 24px ${this.FONT_FAMILY}`;
         d.font = p;
-        for (const m of e.points) {
-          const b = `> ${m}`, w = this._wordWrap(d, b, c);
-          for (let M = 0; M < w.length && !(h > s - this.MARGIN_BOTTOM - 10); M++) o.push({
-            text: w[M],
+        for (const m of e.points.slice(0, this.MAX_POINTS)) {
+          const b = `> ${m}`, w = this._wordWrap(d, b, c), M = w.slice(0, this.MAX_LINES_PER_POINT);
+          w.length > this.MAX_LINES_PER_POINT && (M[this.MAX_LINES_PER_POINT - 1] = this._trimToWidth(d, `${M[this.MAX_LINES_PER_POINT - 1]}...`, c));
+          for (let R = 0; R < M.length && !(h > s - this.MARGIN_BOTTOM - 10); R++) o.push({
+            text: M[R],
             font: p,
             color: this.POINT_COLOR,
             alpha: 1,
             x: a + 8,
             y: h
-          }), h += 22;
-          h += 6;
+          }), h += 28;
+          h += 10;
         }
       }
       return o.push({
@@ -88173,6 +88180,11 @@ https://github.com/browserify/crypto-browserify`);
       }
       return h && a.push(h), a;
     }
+    static _trimToWidth(e, r, s) {
+      let o = r;
+      for (; o.length > 0 && e.measureText(o).width > s; ) o = o.slice(0, -1);
+      return o;
+    }
   }
   __publicField(TerminalCanvasRenderer, "BG_COLOR", "#050510");
   __publicField(TerminalCanvasRenderer, "PROMPT_COLOR", "#00ffaa");
@@ -88186,6 +88198,8 @@ https://github.com/browserify/crypto-browserify`);
   __publicField(TerminalCanvasRenderer, "MARGIN_X", 40);
   __publicField(TerminalCanvasRenderer, "MARGIN_TOP", 40);
   __publicField(TerminalCanvasRenderer, "MARGIN_BOTTOM", 30);
+  __publicField(TerminalCanvasRenderer, "MAX_POINTS", 3);
+  __publicField(TerminalCanvasRenderer, "MAX_LINES_PER_POINT", 2);
   const _ProjectsArea = class _ProjectsArea extends Area {
     constructor(e) {
       super(e), this.game.debug.active && (this.debugPanel = this.game.debug.panel.addFolder({
@@ -88526,45 +88540,73 @@ https://github.com/browserify/crypto-browserify`);
         "role",
         "at",
         "with"
-      ], this.attributes.items = {}, this.attributes.status = "hidden", this.attributes.originalY = this.attributes.group.position.y;
+      ], this.attributes.items = {}, this.attributes.status = "hidden", this.attributes.originalY = this.attributes.group.position.y, this.attributes.maxLines = 3, this.attributes.wrapText = (e, r) => {
+        const s = Array.isArray(r) ? r.map((h) => String(h)) : [
+          String(r)
+        ], o = e.width * 0.88, a = [];
+        for (const h of s) {
+          const c = h.trim().split(/\s+/).filter(Boolean);
+          if (c.length === 0) continue;
+          let d = "";
+          for (const f of c) {
+            const p = d ? `${d} ${f}` : f;
+            if (e.context.measureText(p).width > o && d) {
+              if (a.push(d), d = f, a.length >= this.attributes.maxLines) break;
+            } else d = p;
+          }
+          if (a.length >= this.attributes.maxLines || (d && a.push(d), a.length >= this.attributes.maxLines)) break;
+        }
+        return a.length > this.attributes.maxLines && (a.length = this.attributes.maxLines), a.length > 0 ? a : [
+          ""
+        ];
+      }, this.attributes.getRoleForImage = (e = this.images.index) => {
+        var _a2, _b, _c, _d, _e;
+        const r = (_c = (_b = (_a2 = this.navigation.current) == null ? void 0 : _a2.pages) == null ? void 0 : _b[e]) == null ? void 0 : _c.role;
+        if (r) return r;
+        const s = (_e = (_d = this.navigation.current) == null ? void 0 : _d.attributes) == null ? void 0 : _e.role;
+        return s instanceof Array ? s[0] : s;
+      }, this.attributes.getValue = (e, r = this.images.index) => {
+        var _a2, _b;
+        return e === "role" ? this.attributes.getRoleForImage(r) : (_b = (_a2 = this.navigation.current) == null ? void 0 : _a2.attributes) == null ? void 0 : _b[e];
+      };
       for (const e of this.attributes.group.children) {
         const r = {};
         r.group = e, r.visible = false, r.group.visible = false;
         const s = r.group.children.find((o) => o.name.startsWith("text"));
-        r.textCanvas = new TextCanvas(this.texts.fontFamily, this.texts.fontWeight, this.texts.fontSizeMultiplier * 0.23, 1.4, 0.45, this.texts.density, "center", 0.2), this.texts.createMaterialOnMesh(s, r.textCanvas.texture), this.attributes.items[e.name] = r;
+        r.textCanvas = new TextCanvas(this.texts.fontFamily, this.texts.fontWeight, this.texts.fontSizeMultiplier * 0.22, 1.8, 0.55, this.texts.density, "center", 0.18), this.texts.createMaterialOnMesh(s, r.textCanvas.texture), this.attributes.items[e.name] = r;
       }
-      this.attributes.update = () => {
+      this.attributes.update = (e = this.images.index) => {
         if (this.attributes.status === "hiding") return;
         this.attributes.status = "hiding";
-        let e = 0;
-        for (const r of this.attributes.names) {
-          const s = this.attributes.items[r];
-          gsapWithCSS.to(s.group.scale, {
+        let r = 0;
+        for (const s of this.attributes.names) {
+          const o = this.attributes.items[s];
+          gsapWithCSS.to(o.group.scale, {
             x: 0.01,
             y: 0.01,
             z: 0.01,
             duration: 0.5,
-            delay: 0.1 * e,
+            delay: 0.1 * r,
             ease: "power2.in",
             overwrite: true
-          }), e++;
+          }), r++;
         }
         gsapWithCSS.delayedCall(1, () => {
           this.attributes.status = "visible";
-          let r = 0;
-          for (const s of this.attributes.names) {
-            const o = this.attributes.items[s], a = this.navigation.current.attributes[s];
-            a && (o.group.visible = true, gsapWithCSS.to(o.group.scale, {
+          let s = 0;
+          for (const o of this.attributes.names) {
+            const a = this.attributes.items[o], h = this.attributes.getValue(o, e);
+            h && (a.group.visible = true, gsapWithCSS.to(a.group.scale, {
               x: 1,
               y: 1,
               z: 1,
               duration: 1,
-              delay: 0.2 * r,
+              delay: 0.2 * s,
               ease: "back.out(2)",
               overwrite: true
-            }), o.textCanvas.updateText(a), o.group.position.y = -r * 0.75, r++);
+            }), a.textCanvas.updateText(this.attributes.wrapText(a.textCanvas, h)), a.group.position.y = -s * 0.75, s++);
           }
-          this.attributes.group.position.y = this.attributes.originalY + (r - 1) * 0.75 / 2;
+          this.attributes.group.position.y = this.attributes.originalY + (s - 1) * 0.75 / 2;
         });
       };
     }
@@ -88655,7 +88697,21 @@ https://github.com/browserify/crypto-browserify`);
       };
     }
     setUrl() {
-      this.url = {}, this.url.status = "hidden", this.url.group = this.references.items.get("url")[0], this.url.inner = this.url.group.children[0], this.url.textMesh = this.url.inner.children.find((o) => o.name.startsWith("text")), this.url.panel = this.url.inner.children.find((o) => o.name.startsWith("panel")), this.url.textCanvas = new TextCanvas(this.texts.fontFamily, this.texts.fontWeight, this.texts.fontSizeMultiplier * 0.23, 4, 0.2, this.texts.density, "center"), this.url.mixStrength = uniform$1(0);
+      this.url = {}, this.url.status = "hidden", this.url.group = this.references.items.get("url")[0], this.url.inner = this.url.group.children[0], this.url.textMesh = this.url.inner.children.find((o) => o.name.startsWith("text")), this.url.panel = this.url.inner.children.find((o) => o.name.startsWith("panel")), this.url.textCanvas = new TextCanvas(this.texts.fontFamily, this.texts.fontWeight, this.texts.fontSizeMultiplier * 0.23, 4, 0.2, this.texts.density, "center"), this.url.mixStrength = uniform$1(0), this.url.maxTextWidth = this.url.textCanvas.width * 0.9, this.url.maxPanelScaleX = 4.1, this.url.minPanelScaleX = 1.1, this.url.fitDisplayText = (o = "") => {
+        const a = String(o), h = this.url.maxTextWidth, c = this.url.textCanvas.context, d = "...";
+        if (c.measureText(a).width <= h) return a;
+        let f = Math.ceil((a.length - d.length) * 0.5), p = a.length - f, m = `${a.slice(0, f)}${d}${a.slice(a.length - p)}`;
+        for (; f > 3 && p > 3 && c.measureText(m).width > h; ) f >= p ? f-- : p--, m = `${a.slice(0, f)}${d}${a.slice(a.length - p)}`;
+        if (c.measureText(m).width <= h) return m;
+        let b = a;
+        for (; b.length > 0 && c.measureText(`${b}${d}`).width > h; ) b = b.slice(0, -1);
+        return `${b}${d}`;
+      }, this.url.updateDisplay = (o = "") => {
+        const a = String(o).replace(/https?:\/\//, ""), h = this.url.fitDisplayText(a);
+        this.url.textCanvas.updateText(h);
+        const c = this.url.textCanvas.getMeasure().width / this.texts.density;
+        this.url.panel.scale.x = MathUtils$1.clamp(c + 0.25, this.url.minPanelScaleX, this.url.maxPanelScaleX);
+      };
       const e = new MeshDefaultMaterial({
         colorNode: this.texts.baseColor,
         hasWater: false,
@@ -88693,9 +88749,7 @@ https://github.com/browserify/crypto-browserify`);
               delay: 0,
               ease: "back.out(2)",
               overwrite: true
-            }), this.url.textCanvas.updateText(this.navigation.current.url.replace(/https?:\/\//, ""));
-            const h = this.url.textCanvas.getMeasure().width / this.texts.density;
-            this.url.panel.scale.x = h + 0.2;
+            }), this.url.updateDisplay(this.navigation.current.url);
           }
         });
       }, this.url.open = () => {
@@ -88933,12 +88987,12 @@ https://github.com/browserify/crypto-browserify`);
     }
     changeProject(e = 0, r = _ProjectsArea.DIRECTION_NEXT, s = false, o = false) {
       let a = e;
-      a > projectsData.length - 1 ? a = 0 : a < 0 && (a = projectsData.length - 1), this.navigation.index = a, this.navigation.current = projectsData[this.navigation.index], this.navigation.previous = projectsData[this.navigation.index - 1 < 0 ? projectsData.length - 1 : this.navigation.index - 1], this.navigation.next = projectsData[(this.navigation.index + 1) % projectsData.length], this.attributes.update(), this.adjacents.update(), this.title.update(r), this.url.update(r), this.distinctions.update();
+      a > projectsData.length - 1 ? a = 0 : a < 0 && (a = projectsData.length - 1), this.navigation.index = a, this.navigation.current = projectsData[this.navigation.index], this.navigation.previous = projectsData[this.navigation.index - 1 < 0 ? projectsData.length - 1 : this.navigation.index - 1], this.navigation.next = projectsData[(this.navigation.index + 1) % projectsData.length];
       let h = null;
-      s ? h = 0 : h = r === _ProjectsArea.DIRECTION_NEXT ? 0 : this.navigation.current.images.length - 1, o || (this.game.audio.groups.get("click").play(), this.game.audio.groups.get("assemble").play()), this.changeImage(h, r, o), this.state === _ProjectsArea.STATE_OPEN && this.game.achievements.setProgress("projects", this.navigation.current.title);
+      s ? h = 0 : h = r === _ProjectsArea.DIRECTION_NEXT ? 0 : this.navigation.current.images.length - 1, this.adjacents.update(), this.title.update(r), this.url.update(r), this.distinctions.update(), o || (this.game.audio.groups.get("click").play(), this.game.audio.groups.get("assemble").play()), this.changeImage(h, r, o), this.state === _ProjectsArea.STATE_OPEN && this.game.achievements.setProgress("projects", this.navigation.current.title);
     }
     changeImage(e = 0, r = null, s = false) {
-      r === null && (r = e > this.images.index ? _ProjectsArea.DIRECTION_NEXT : _ProjectsArea.DIRECTION_PREVIOUS), this.images.index = e, this.images.update(r), this.pagination.update(), s || (this.game.audio.groups.get("click").play(), this.game.audio.groups.get("slide").play());
+      r === null && (r = e > this.images.index ? _ProjectsArea.DIRECTION_NEXT : _ProjectsArea.DIRECTION_PREVIOUS), this.images.index = e, this.attributes.update(this.images.index), this.images.update(r), this.pagination.update(), s || (this.game.audio.groups.get("click").play(), this.game.audio.groups.get("slide").play());
     }
     update() {
       this.oven.blower.scale.y = Math.sin(this.game.ticker.elapsedScaled) * 0.2 + 0.8, this.oven.thresholdBinding.update(), this.grinder.rotation.z = -this.game.ticker.elapsedScaled * 0.75;
@@ -89500,7 +89554,21 @@ https://github.com/browserify/crypto-browserify`);
       };
     }
     setUrl() {
-      this.url = {}, this.url.status = "hidden", this.url.group = this.references.items.get("url")[0], this.url.inner = this.url.group.children[0], this.url.textMesh = this.url.inner.children.find((o) => o.name.startsWith("text")), this.url.panel = this.url.inner.children.find((o) => o.name.startsWith("panel")), this.url.textCanvas = new TextCanvas(this.texts.fontFamily, this.texts.fontWeight, this.texts.fontSizeMultiplier * 0.23, 4, 0.2, this.texts.density, "center"), this.url.mixStrength = uniform$1(0);
+      this.url = {}, this.url.status = "hidden", this.url.group = this.references.items.get("url")[0], this.url.inner = this.url.group.children[0], this.url.textMesh = this.url.inner.children.find((o) => o.name.startsWith("text")), this.url.panel = this.url.inner.children.find((o) => o.name.startsWith("panel")), this.url.textCanvas = new TextCanvas(this.texts.fontFamily, this.texts.fontWeight, this.texts.fontSizeMultiplier * 0.23, 4, 0.2, this.texts.density, "center"), this.url.mixStrength = uniform$1(0), this.url.maxTextWidth = this.url.textCanvas.width * 0.9, this.url.maxPanelScaleX = 4.1, this.url.minPanelScaleX = 1.1, this.url.fitDisplayText = (o = "") => {
+        const a = String(o), h = this.url.maxTextWidth, c = this.url.textCanvas.context, d = "...";
+        if (c.measureText(a).width <= h) return a;
+        let f = Math.ceil((a.length - d.length) * 0.5), p = a.length - f, m = `${a.slice(0, f)}${d}${a.slice(a.length - p)}`;
+        for (; f > 3 && p > 3 && c.measureText(m).width > h; ) f >= p ? f-- : p--, m = `${a.slice(0, f)}${d}${a.slice(a.length - p)}`;
+        if (c.measureText(m).width <= h) return m;
+        let b = a;
+        for (; b.length > 0 && c.measureText(`${b}${d}`).width > h; ) b = b.slice(0, -1);
+        return `${b}${d}`;
+      }, this.url.updateDisplay = (o = "") => {
+        const a = String(o).replace(/https?:\/\//, ""), h = this.url.fitDisplayText(a);
+        this.url.textCanvas.updateText(h);
+        const c = this.url.textCanvas.getMeasure().width / this.texts.density;
+        this.url.panel.scale.x = MathUtils$1.clamp(c + 0.25, this.url.minPanelScaleX, this.url.maxPanelScaleX);
+      };
       const e = new MeshDefaultMaterial({
         colorNode: this.texts.baseColor,
         hasWater: false,
@@ -89538,9 +89606,7 @@ https://github.com/browserify/crypto-browserify`);
               delay: 0,
               ease: "back.out(2)",
               overwrite: true
-            }), this.url.textCanvas.updateText(this.navigation.current.url.replace(/https?:\/\//, ""));
-            const h = this.url.textCanvas.getMeasure().width / this.texts.density;
-            this.url.panel.scale.x = h + 0.2;
+            }), this.url.updateDisplay(this.navigation.current.url);
           }
         });
       }, this.url.open = () => {
@@ -109154,7 +109220,7 @@ ${e.tab}if ( ${m} ) {
           }
         ]
       ]), this.options = new Options(), this.respawns = new Respawns("landing"), this.view = new View(), this.rendering.setPostprocessing(), this.rendering.start(), this.reveal = new Reveal(), this.noises = new Noises(), this.weather = new Weather(), this.wind = new Wind(), this.tracks = new Tracks(), this.lighting = new Lighting(), this.fog = new Fog(), this.water = new Water(), this.materials = new Materials(), this.objects = new Objects(), this.explosions = new Explosions(), this.world = new World();
-      const e = __vitePreload(() => import("./rapier-CGaIlVnF.js").then(async (m) => {
+      const e = __vitePreload(() => import("./rapier-EG8dniHG.js").then(async (m) => {
         await m.__tla;
         return m;
       }), [], import.meta.url), r = this.resourcesLoader.load([

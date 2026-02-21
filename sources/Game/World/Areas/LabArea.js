@@ -729,6 +729,53 @@ export class LabArea extends Area
             'center'
         )
         this.url.mixStrength = uniform(0)
+        this.url.maxTextWidth = this.url.textCanvas.width * 0.9
+        this.url.maxPanelScaleX = 4.1
+        this.url.minPanelScaleX = 1.1
+
+        this.url.fitDisplayText = (text = '') =>
+        {
+            const input = String(text)
+            const maxWidth = this.url.maxTextWidth
+            const context = this.url.textCanvas.context
+            const ellipsis = '...'
+
+            if(context.measureText(input).width <= maxWidth)
+                return input
+
+            let left = Math.ceil((input.length - ellipsis.length) * 0.5)
+            let right = input.length - left
+            let output = `${input.slice(0, left)}${ellipsis}${input.slice(input.length - right)}`
+
+            while(left > 3 && right > 3 && context.measureText(output).width > maxWidth)
+            {
+                if(left >= right)
+                    left--
+                else
+                    right--
+
+                output = `${input.slice(0, left)}${ellipsis}${input.slice(input.length - right)}`
+            }
+
+            if(context.measureText(output).width <= maxWidth)
+                return output
+
+            let endTrimmed = input
+            while(endTrimmed.length > 0 && context.measureText(`${endTrimmed}${ellipsis}`).width > maxWidth)
+                endTrimmed = endTrimmed.slice(0, -1)
+
+            return `${endTrimmed}${ellipsis}`
+        }
+
+        this.url.updateDisplay = (url = '') =>
+        {
+            const rawText = String(url).replace(/https?:\/\//, '')
+            const fittedText = this.url.fitDisplayText(rawText)
+            this.url.textCanvas.updateText(fittedText)
+
+            const ratio = this.url.textCanvas.getMeasure().width / this.texts.density
+            this.url.panel.scale.x = THREE.MathUtils.clamp(ratio + 0.25, this.url.minPanelScaleX, this.url.maxPanelScaleX)
+        }
 
         // Material
         const material = new MeshDefaultMaterial({
@@ -799,10 +846,7 @@ export class LabArea extends Area
 
                 gsap.to(this.url.inner.rotation, { x: Math.PI * 2 * rotationDirection, duration: 1, delay: 0, ease: 'back.out(2)', overwrite: true })
 
-                this.url.textCanvas.updateText(this.navigation.current.url.replace(/https?:\/\//, ''))
-
-                const ratio = this.url.textCanvas.getMeasure().width / this.texts.density
-                this.url.panel.scale.x = ratio + 0.2
+                this.url.updateDisplay(this.navigation.current.url)
 
             } })
         }
