@@ -58739,13 +58739,14 @@ body:has(#profiler-panel:not(.visible)) .detached-tab-panel {
       });
     }
     async setRenderer() {
+      const e = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
       return this.renderer = new WebGPURenderer({
         canvas: this.game.canvasElement,
         powerPreference: "high-performance",
-        forceWebGL: false,
+        forceWebGL: e,
         antialias: this.game.viewport.pixelRatio < 2
-      }), this.renderer.setSize(this.game.viewport.width, this.game.viewport.height), this.renderer.setPixelRatio(this.game.viewport.pixelRatio), this.renderer.sortObjects = false, this.renderer.domElement.classList.add("experience"), this.renderer.shadowMap.enabled = true, this.renderer.setOpaqueSort((e, r) => e.renderOrder - r.renderOrder), this.renderer.setTransparentSort((e, r) => e.renderOrder - r.renderOrder), location.hash.match(/inspector/i) && (this.renderer.inspector = new Inspector()), this.renderer.setAnimationLoop((e) => {
-        this.game.ticker.update(e);
+      }), this.renderer.setSize(this.game.viewport.width, this.game.viewport.height), this.renderer.setPixelRatio(this.game.viewport.pixelRatio), this.renderer.sortObjects = false, this.renderer.domElement.classList.add("experience"), this.renderer.shadowMap.enabled = true, this.renderer.setOpaqueSort((r, s) => r.renderOrder - s.renderOrder), this.renderer.setTransparentSort((r, s) => r.renderOrder - s.renderOrder), location.hash.match(/inspector/i) && (this.renderer.inspector = new Inspector()), this.renderer.setAnimationLoop((r) => {
+        this.game.ticker.update(r);
       }), this.renderer.init();
     }
     setPostprocessing() {
@@ -109222,7 +109223,7 @@ ${e.tab}if ( ${m} ) {
           }
         ]
       ]), this.options = new Options(), this.respawns = new Respawns("landing"), this.view = new View(), this.rendering.setPostprocessing(), this.rendering.start(), this.reveal = new Reveal(), this.noises = new Noises(), this.weather = new Weather(), this.wind = new Wind(), this.tracks = new Tracks(), this.lighting = new Lighting(), this.fog = new Fog(), this.water = new Water(), this.materials = new Materials(), this.objects = new Objects(), this.explosions = new Explosions(), this.world = new World();
-      const e = __vitePreload(() => import("./rapier-DaCmz-eC.js").then(async (m) => {
+      const e = __vitePreload(() => import("./rapier-DEta4vhK.js").then(async (m) => {
         await m.__tla;
         return m;
       }), [], import.meta.url), r = this.resourcesLoader.load([
