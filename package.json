@@ -10,6 +10,7 @@
     "build": "vite build --mode production",
     "preview": "vite preview",
     "compress": "node scripts/compress.js static/",
+    "test": "vitest run --coverage",
     "prepare": "git config core.hooksPath .githooks"
   },
   "dependencies": {
@@ -41,5 +42,10 @@
     "vite-plugin-restart": "^2.0.0",
     "vite-plugin-top-level-await": "^1.6.0",
     "vite-plugin-wasm": "^3.5.0"
+  },
+  "devDependencies": {
+    "@vitest/coverage-v8": "^4.0.18",
+    "jsdom": "^28.1.0",
+    "vitest": "^4.0.18"
   }
 }

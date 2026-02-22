@@ -371,9 +371,7 @@ button {
    02. HERO
    ============================================ */
 .hero {
-  position: sticky;
-  top: 0;
-  z-index: 1;
+  position: relative;
   min-height: 100vh;
   overflow: hidden;
   background: transparent;
@@ -611,49 +609,15 @@ button {
 }
 
 .career {
-  padding: 0;
-  display: flex;
-  align-items: center;
-}
-
-.career .container {
-  padding-top: var(--nav-height);
-  padding-bottom: 40px;
+  padding: var(--section-padding) 0;
 }
 
 .career-grid {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 28px;
-  align-items: flex-start;
-  will-change: transform;
 }
 
-.career-grid .timeline-item {
-  flex: 0 0 340px;
-  min-width: 340px;
-}
-
-.career-grid .timeline-item:nth-child(even) {
-  margin-top: 0;
-}
-
-/* Career progress indicator */
-.career-progress {
-  margin-top: 24px;
-  width: 120px;
-  height: 3px;
-  background: rgba(255, 255, 255, 0.08);
-  border-radius: 3px;
-  overflow: hidden;
-}
-
-.career-progress-track {
-  height: 100%;
-  width: 0%;
-  background: var(--color-peach);
-  border-radius: 3px;
-  box-shadow: var(--glow-sm) var(--glow-peach);
-}
 
 .timeline-item {
   position: relative;
@@ -1419,7 +1383,7 @@ button {
   animation: contactBlobFloat 12s ease-in-out infinite;
 }
 
-/* --- Stacked Section Scroll --- */
+/* --- Section positions --- */
 #about,
 #skills,
 #leadership,
@@ -1427,33 +1391,11 @@ button {
 #certifications,
 #education,
 #contact {
-  position: sticky;
-  top: 0;
-}
-
-#about          { z-index: 2; }
-#skills         { z-index: 4; }
-#leadership     { z-index: 5; }
-#publications   { z-index: 6; }
-#certifications { z-index: 7; }
-#education      { z-index: 8; }
-#contact        { z-index: 9; }
-
-/* Career scroll zone */
-.career-scroll-zone {
-  position: sticky;
-  top: 0;
-  z-index: 3;
+  position: relative;
 }
 
 #career {
-  height: 100vh;
-  overflow: hidden;
-}
-
-.footer {
   position: relative;
-  z-index: 10;
 }
 
 /* ============================================
@@ -1610,42 +1552,8 @@ button {
   }
 
   /* Career */
-  .career-scroll-zone {
-    position: static;
-    z-index: auto;
-    height: auto !important;
-  }
-
-  #career {
-    position: relative;
-    height: auto;
-    overflow: visible;
-  }
-
-  .career {
-    display: block;
-    padding: var(--section-padding) 0;
-  }
-
-  .career .container {
-    padding-top: 0;
-    padding-bottom: 0;
-  }
-
   .career-grid {
-    display: grid;
     grid-template-columns: 1fr;
-    will-change: auto;
-    transform: none !important;
-  }
-
-  .career-grid .timeline-item {
-    flex: none;
-    min-width: auto;
-  }
-
-  .career-progress {
-    display: none;
   }
 
   /* Skills */
