@@ -31,8 +31,10 @@ export class TerminalCanvasRenderer
         let y = this.MARGIN_TOP
         const usableWidth = width - mx * 2
 
-        // Temp canvas for text measurement
-        const measure = document.createElement('canvas').getContext('2d')
+        // Cached canvas for text measurement (avoids exceeding mobile context limits)
+        if(!this._measureCtx)
+            this._measureCtx = document.createElement('canvas').getContext('2d')
+        const measure = this._measureCtx
 
         // ── Command prompt ──
         const promptFont = `400 20px ${this.FONT_FAMILY}`

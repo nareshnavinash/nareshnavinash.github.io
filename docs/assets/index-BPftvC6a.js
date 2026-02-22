@@ -88057,7 +88057,9 @@ https://github.com/browserify/crypto-browserify`);
     static buildLines(e, r, s) {
       const o = [], a = this.MARGIN_X;
       let h = this.MARGIN_TOP;
-      const c = r - a * 2, d = document.createElement("canvas").getContext("2d"), f = `400 20px ${this.FONT_FAMILY}`;
+      const c = r - a * 2;
+      this._measureCtx || (this._measureCtx = document.createElement("canvas").getContext("2d"));
+      const d = this._measureCtx, f = `400 20px ${this.FONT_FAMILY}`;
       if (d.font = f, o.push({
         text: "$ cat experience.log",
         font: f,
@@ -109220,7 +109222,7 @@ ${e.tab}if ( ${m} ) {
           }
         ]
       ]), this.options = new Options(), this.respawns = new Respawns("landing"), this.view = new View(), this.rendering.setPostprocessing(), this.rendering.start(), this.reveal = new Reveal(), this.noises = new Noises(), this.weather = new Weather(), this.wind = new Wind(), this.tracks = new Tracks(), this.lighting = new Lighting(), this.fog = new Fog(), this.water = new Water(), this.materials = new Materials(), this.objects = new Objects(), this.explosions = new Explosions(), this.world = new World();
-      const e = __vitePreload(() => import("./rapier-EG8dniHG.js").then(async (m) => {
+      const e = __vitePreload(() => import("./rapier-DaCmz-eC.js").then(async (m) => {
         await m.__tla;
         return m;
       }), [], import.meta.url), r = this.resourcesLoader.load([
