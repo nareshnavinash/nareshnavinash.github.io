@@ -86512,7 +86512,7 @@ https://github.com/browserify/crypto-browserify`);
   }
   class Grass {
     constructor() {
-      this.game = Game.getInstance(), this.subdivisions = 280;
+      this.game = Game.getInstance(), this.subdivisions = this.game.quality.level === 1 ? 100 : 280;
       const e = this.game.view.optimalArea.radius;
       this.size = e * 2, this.count = this.subdivisions * this.subdivisions, this.fragmentSize = this.size / this.subdivisions, this.surface = this.size * this.size, this.surfaceIdeal = 2e3, this.surfaceOverflow = Math.max(0, this.surface - this.surfaceIdeal) / this.surfaceIdeal, this.setGeometry(), this.setMaterial(), this.setMesh(), this.game.ticker.events.on("tick", () => {
         this.update();
@@ -93111,8 +93111,8 @@ https://github.com/browserify/crypto-browserify`);
   class Leaves {
     constructor() {
       this.game = Game.getInstance();
-      const e = Math.round(remap$2(this.game.yearCycles.properties.leaves.value, 0.25, 1, 7, 11));
-      this.count = Math.pow(2, e), this.game.debug.active && (this.debugPanel = this.game.debug.panel.addFolder({
+      const e = this.game.quality.level === 1 ? 9 : 11, r = Math.round(remap$2(this.game.yearCycles.properties.leaves.value, 0.25, 1, 7, e));
+      this.count = Math.pow(2, r), this.game.debug.active && (this.debugPanel = this.game.debug.panel.addFolder({
         title: "\u{1F343} Leaves",
         expanded: false
       })), this.setGeometry(), this.setMaterial(), this.setMesh(), this.game.ticker.events.on("tick", () => {
@@ -93492,7 +93492,7 @@ https://github.com/browserify/crypto-browserify`);
   class Snow {
     constructor() {
       var _a2;
-      this.game = Game.getInstance(), this.achievementAchieved = (_a2 = this.game.achievements.groups.get("weatherSnow")) == null ? void 0 : _a2.items[0].achieved, this.size = this.game.view.optimalArea.radius * 2, this.halfSize = this.size * 0.5, this.subdivisions = 256, this.subdivisionSize = this.size / this.subdivisions, this.game.debug.active && (this.debugPanel = this.game.debug.panel.addFolder({
+      this.game = Game.getInstance(), this.achievementAchieved = (_a2 = this.game.achievements.groups.get("weatherSnow")) == null ? void 0 : _a2.items[0].achieved, this.size = this.game.view.optimalArea.radius * 2, this.halfSize = this.size * 0.5, this.subdivisions = this.game.quality.level === 1 ? 128 : 256, this.subdivisionSize = this.size / this.subdivisions, this.game.debug.active && (this.debugPanel = this.game.debug.panel.addFolder({
         title: "\u26C7 Snow",
         expanded: false
       })), this.setNodes(), this.setSnowElevation(), this.setGeometry(), this.setMaterial(), this.setMesh(), this.game.ticker.events.on("tick", () => {
@@ -94755,7 +94755,7 @@ https://github.com/browserify/crypto-browserify`);
   class RainLines {
     constructor() {
       var _a2;
-      this.game = Game.getInstance(), this.count = Math.pow(2, 11), this.speed = 0.25, this.achievementAchieved = (_a2 = this.game.achievements.groups.get("weatherRain")) == null ? void 0 : _a2.items[0].achieved, this.setGeometry(), this.setMaterial(), this.setMesh(), this.game.ticker.events.on("tick", () => {
+      this.game = Game.getInstance(), this.count = Math.pow(2, this.game.quality.level === 1 ? 9 : 11), this.speed = 0.25, this.achievementAchieved = (_a2 = this.game.achievements.groups.get("weatherRain")) == null ? void 0 : _a2.items[0].achieved, this.setGeometry(), this.setMaterial(), this.setMesh(), this.game.ticker.events.on("tick", () => {
         this.update();
       }, 10), this.game.viewport.events.on("throttleChange", () => {
         this.size.value = this.game.view.optimalArea.radius * 2;
@@ -94847,7 +94847,7 @@ https://github.com/browserify/crypto-browserify`);
       this.game = Game.getInstance(), this.game.debug.active && (this.debugPanel = this.game.debug.panel.addFolder({
         title: "\u{1F389} Confetti",
         expanded: false
-      })), this.pool = [], this.poolSize = 4, this.count = 500, this.geometry = new PlaneGeometry(0.1, 0.2), this.colorsUniform = uniformArray$1([
+      })), this.pool = [], this.poolSize = this.game.quality.level === 1 ? 2 : 4, this.count = this.game.quality.level === 1 ? 200 : 500, this.geometry = new PlaneGeometry(0.1, 0.2), this.colorsUniform = uniformArray$1([
         new Color$1("#ffbde7"),
         new Color$1("#eeff95"),
         new Color$1("#84ffb5")
@@ -100834,14 +100834,12 @@ https://github.com/browserify/crypto-browserify`);
   let Notifications = _Notifications;
   class Quality {
     constructor() {
-      this.game = Game.getInstance(), this.events = new Events();
-      const e = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-      if (this.level = e ? 1 : 0, this.game.debug.active) {
-        const r = this.game.debug.panel.addFolder({
+      if (this.game = Game.getInstance(), this.events = new Events(), this.isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent), this.level = this.isMobile ? 1 : 0, this.game.debug.active) {
+        const e = this.game.debug.panel.addFolder({
           title: "\u2699\uFE0F Quality",
           expanded: false
         });
-        this.game.debug.addButtons(r, {
+        this.game.debug.addButtons(e, {
           low: () => {
             this.changeLevel(1);
           },
@@ -109223,7 +109221,7 @@ ${e.tab}if ( ${m} ) {
           }
         ]
       ]), this.options = new Options(), this.respawns = new Respawns("landing"), this.view = new View(), this.rendering.setPostprocessing(), this.rendering.start(), this.reveal = new Reveal(), this.noises = new Noises(), this.weather = new Weather(), this.wind = new Wind(), this.tracks = new Tracks(), this.lighting = new Lighting(), this.fog = new Fog(), this.water = new Water(), this.materials = new Materials(), this.objects = new Objects(), this.explosions = new Explosions(), this.world = new World();
-      const e = __vitePreload(() => import("./rapier-DEta4vhK.js").then(async (m) => {
+      const e = __vitePreload(() => import("./rapier-C0PAV2-X.js").then(async (m) => {
         await m.__tla;
         return m;
       }), [], import.meta.url), r = this.resourcesLoader.load([

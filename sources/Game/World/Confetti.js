@@ -20,8 +20,8 @@ export class Confetti
         }
 
         this.pool = []
-        this.poolSize = 4
-        this.count = 500
+        this.poolSize = this.game.quality.level === 1 ? 2 : 4
+        this.count = this.game.quality.level === 1 ? 200 : 500
         this.geometry = new THREE.PlaneGeometry(0.1, 0.2)
 
         this.colorsUniform = uniformArray([
