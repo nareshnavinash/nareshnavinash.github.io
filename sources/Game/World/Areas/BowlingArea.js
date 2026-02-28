@@ -3,22 +3,37 @@ import { Game } from '../../Game.js'
 import { InteractivePoints } from '../../InteractivePoints.js'
 import { clamp, lerp, remapClamp } from '../../utilities/maths.js'
 import gsap from 'gsap'
-import { color, float, Fn, instancedBufferAttribute, instanceIndex, max, min, mix, positionGeometry, sin, step, texture, uniform, uv, vec2, vec3, vec4 } from 'three/tsl'
+import {
+    color,
+    float,
+    Fn,
+    instancedBufferAttribute,
+    instanceIndex,
+    max,
+    min,
+    mix,
+    positionGeometry,
+    sin,
+    step,
+    texture,
+    uniform,
+    uv,
+    vec2,
+    vec3,
+    vec4
+} from 'three/tsl'
 import { InstancedGroup } from '../../InstancedGroup.js'
 import { Area } from './Area.js'
 
-export class BowlingArea extends Area
-{
-    constructor(model)
-    {
+export class BowlingArea extends Area {
+    constructor(model) {
         super(model)
 
         // Debug
-        if(this.game.debug.active)
-        {
+        if (this.game.debug.active) {
             this.debugPanel = this.game.debug.panel.addFolder({
                 title: '🎳 Bowling',
-                expanded: false,
+                expanded: false
             })
         }
         this.won = false
@@ -34,8 +49,7 @@ export class BowlingArea extends Area
         this.setAchievement()
     }
 
-    setSounds()
-    {
+    setSounds() {
         this.sounds = {}
 
         this.sounds.pin = this.game.audio.register({
@@ -45,8 +59,7 @@ export class BowlingArea extends Area
             antiSpam: 0.05,
             positions: new THREE.Vector3(),
             distanceFade: 35,
-            onPlay: (item, force, position) =>
-            {
+            onPlay: (item, force, position) => {
                 item.positions[0].copy(position)
                 const forceRemaped = remapClamp(force, 3, 10, 0, 1)
                 item.volume = forceRemaped * 0.5
@@ -62,23 +75,23 @@ export class BowlingArea extends Area
             rate: 0.8,
             positions: new THREE.Vector3(),
             distanceFade: 25,
-            onPlaying: (item) =>
-            {
+            onPlaying: (item) => {
                 item.positions[0].copy(this.ball.position)
                 item.volume = remapClamp(this.ball.speed, 0, 5, 0, 0.6)
             }
         })
     }
 
-    setPins()
-    {
+    setPins() {
         this.pins = {}
         this.pins.items = []
         this.pins.allSleeping = true
         this.pins.boundingUpdateTime = 0
-        
+
         // References
-        const references = InstancedGroup.getReferencesFromChildren(this.references.items.get('pinPositions')[0].children)
+        const references = InstancedGroup.getReferencesFromChildren(
+            this.references.items.get('pinPositions')[0].children
+        )
 
         // Instances
         const basePin = this.references.items.get('pinPhysicalDynamic')[0]
@@ -87,14 +100,13 @@ export class BowlingArea extends Area
         basePin.position.set(0, 0, 0)
         basePin.rotation.set(0, 0, 0)
 
-        // Update materials 
+        // Update materials
         this.game.materials.updateObject(basePin)
-        
+
         const descriptions = this.game.objects.getFromModel(basePin, {}, {}) // To extract colliders
 
         let i = 0
-        for(const reference of references)
-        {
+        for (const reference of references) {
             const pin = {}
             pin.index = i
             pin.isDown = false
@@ -106,7 +118,7 @@ export class BowlingArea extends Area
                 {
                     model: reference,
                     updateMaterials: false,
-                    parent: null,
+                    parent: null
                 },
                 {
                     type: 'dynamic',
@@ -118,14 +130,13 @@ export class BowlingArea extends Area
                     angularDamping: 0.5,
                     sleeping: true,
                     colliders: descriptions[1].colliders,
-                    waterGravityMultiplier: - 1,
+                    waterGravityMultiplier: -1,
                     mass: 0.02,
                     contactThreshold: 5,
-                    onCollision: (force, position) =>
-                    {
+                    onCollision: (force, position) => {
                         this.sounds.pin.play(force, position)
                     }
-                },
+                }
             )
 
             pin.body = pin.object.physical.body
@@ -140,7 +151,6 @@ export class BowlingArea extends Area
             i++
         }
 
-
         // this.game.objects.add(
         //     {
         //         model: basePin,
@@ -153,12 +163,10 @@ export class BowlingArea extends Area
         this.pins.instancedGroup = new InstancedGroup(references, basePin)
 
         // Reset
-        this.pins.reset = () =>
-        {
-            for(const pin of this.pins.items)
-            {
+        this.pins.reset = () => {
+            for (const pin of this.pins.items) {
                 pin.isDown = false
-                
+
                 pin.body.setTranslation(pin.basePosition)
                 pin.body.setRotation(pin.baseRotation)
                 pin.body.resetForces()
@@ -166,16 +174,14 @@ export class BowlingArea extends Area
                 pin.body.setLinvel({ x: 0, y: 0, z: 0 })
                 pin.body.setAngvel({ x: 0, y: 0, z: 0 })
                 // pin.body.setEnabled(true)
-                this.game.ticker.wait(2, () =>
-                {
+                this.game.ticker.wait(2, () => {
                     pin.body.sleep()
                 })
             }
         }
     }
 
-    setBall()
-    {
+    setBall() {
         const baseBall = this.references.items.get('ball')[0]
 
         this.ball = {}
@@ -186,23 +192,20 @@ export class BowlingArea extends Area
         this.ball.speed = 0
         // this.ball.basePosition.y += 1
 
-        this.ball.reset = () =>
-        {
+        this.ball.reset = () => {
             this.ball.body.setTranslation(this.ball.basePosition)
             this.ball.body.resetForces()
             this.ball.body.resetTorques()
             this.ball.body.setLinvel({ x: 0, y: 0, z: 0 })
             this.ball.body.setAngvel({ x: 0, y: 0, z: 0 })
             // this.ball.body.setEnabled(true)
-            this.game.ticker.wait(2, () =>
-            {
+            this.game.ticker.wait(2, () => {
                 this.ball.body.sleep()
             })
         }
     }
 
-    restart()
-    {
+    restart() {
         this.won = false
 
         this.pins.reset()
@@ -211,45 +214,37 @@ export class BowlingArea extends Area
 
         this.pins.instancedGroup.needsUpdate = true
 
-        this.game.ticker.wait(1, () =>
-        {
+        this.game.ticker.wait(1, () => {
             this.restartInteractivePoint.hide()
         })
 
         // Sound
         const sound = this.game.audio.groups.get('click')
-        if(sound)
-            sound.play(true)
+        if (sound) sound.play(true)
     }
 
-    setRestart()
-    {
+    setRestart() {
         this.restartInteractivePoint = this.game.interactivePoints.create(
             this.references.items.get('restartInteractivePoint')[0].position,
             'Restart',
             InteractivePoints.ALIGN_RIGHT,
             InteractivePoints.STATE_HIDDEN,
-            () =>
-            {
+            () => {
                 this.restart()
             },
-            () =>
-            {
+            () => {
                 this.game.inputs.interactiveButtons.addItems(['interact'])
             },
-            () =>
-            {
+            () => {
                 this.game.inputs.interactiveButtons.removeItems(['interact'])
             },
-            () =>
-            {
+            () => {
                 this.game.inputs.interactiveButtons.removeItems(['interact'])
             }
         )
     }
 
-    setScreen()
-    {
+    setScreen() {
         this.screen = {}
         this.screen.group = this.references.items.get('screen')[0]
         this.screen.object = this.screen.group.userData.object
@@ -275,10 +270,9 @@ export class BowlingArea extends Area
         this.dataTexture.needsUpdate = true
 
         // Offset position according to data texture
-        const offsetPosition = Fn(([threshold]) =>
-        {
+        const offsetPosition = Fn(([threshold]) => {
             const active = step(texture(this.dataTexture, uv()).r.sub(threshold).abs(), 0.1)
-            
+
             const newPosition = positionGeometry.toVar()
             newPosition.z.subAssign(active.oneMinus().mul(0.1))
             return newPosition
@@ -308,8 +302,7 @@ export class BowlingArea extends Area
         {
             const material = new THREE.MeshBasicNodeMaterial()
             const labelTexture = this.screen.labelStrike.material.map
-            material.outputNode = Fn(() =>
-            {
+            material.outputNode = Fn(() => {
                 texture(labelTexture).r.lessThan(0.5).discard()
                 return vec4(vec3(2), 1)
             })()
@@ -318,21 +311,18 @@ export class BowlingArea extends Area
         }
 
         // Reset
-        this.screen.reset = () =>
-        {
-            for(const pin of this.pins.items)
-            {
+        this.screen.reset = () => {
+            for (const pin of this.pins.items) {
                 this.dataTexture.source.data.data[pin.index] = 0
                 this.dataTexture.needsUpdate = true
             }
         }
 
         // Debug
-        if(this.game.debug.active)
-        {
+        if (this.game.debug.active) {
             const debugPanel = this.debugPanel.addFolder({
                 title: 'Screen',
-                expanded: false,
+                expanded: false
             })
             this.game.debug.addThreeColorBinding(debugPanel, discsColor.value, 'discsColor')
             debugPanel.addBinding(discsStrength, 'value', { label: 'discsStrength', min: 0, max: 10, step: 0.001 })
@@ -341,8 +331,7 @@ export class BowlingArea extends Area
         }
     }
 
-    setBumpers()
-    {
+    setBumpers() {
         this.bumpers = {}
         this.bumpers.mesh = this.references.items.get('bumpers')[0]
         this.bumpers.object = this.bumpers.mesh.userData.object
@@ -357,28 +346,23 @@ export class BowlingArea extends Area
         this.bumpers.object.physical.body.collider(1).setFriction(0)
 
         // Toggle
-        this.bumpers.toggle = () =>
-        {
+        this.bumpers.toggle = () => {
             this.bumpers.active = !this.bumpers.active
 
             const progress = this.bumpers.active ? 1 : 0
-            gsap.to(
-                this.bumpers,
-                {
-                    progress: progress,
-                    duration: 1,
-                    overwrite: true,
-                    onUpdate: () =>
-                    {
-                        this.bumpers.object.physical.body.setNextKinematicTranslation({
-                            x: this.bumpers.mesh.position.x,
-                            y: - (1 - this.bumpers.progress) * this.bumpers.height,
-                            z: this.bumpers.mesh.position.z,
-                        })
-                        this.bumpers.object.needsUpdate = true
-                    },
+            gsap.to(this.bumpers, {
+                progress: progress,
+                duration: 1,
+                overwrite: true,
+                onUpdate: () => {
+                    this.bumpers.object.physical.body.setNextKinematicTranslation({
+                        x: this.bumpers.mesh.position.x,
+                        y: -(1 - this.bumpers.progress) * this.bumpers.height,
+                        z: this.bumpers.mesh.position.z
+                    })
+                    this.bumpers.object.needsUpdate = true
                 }
-            )
+            })
 
             this.game.player.sounds.suspensions.play()
         }
@@ -389,33 +373,27 @@ export class BowlingArea extends Area
             'Bumpers',
             InteractivePoints.ALIGN_LEFT,
             InteractivePoints.STATE_CONCEALED,
-            () =>
-            {
+            () => {
                 this.bumpers.toggle()
             },
-            () =>
-            {
+            () => {
                 this.game.inputs.interactiveButtons.addItems(['interact'])
             },
-            () =>
-            {
+            () => {
                 this.game.inputs.interactiveButtons.removeItems(['interact'])
             },
-            () =>
-            {
+            () => {
                 this.game.inputs.interactiveButtons.removeItems(['interact'])
             }
         )
     }
 
-    setJukebox()
-    {
+    setJukebox() {
         const count = 8
 
         // Notes > Base position
         const positionsArray = new Float32Array(count * 3)
-        for(let i = 0; i < count; i++)
-        {
+        for (let i = 0; i < count; i++) {
             const i3 = i * 3
             positionsArray[i3 + 0] = (Math.random() - 0.5) * 1
             positionsArray[i3 + 1] = (Math.random() - 0.5) * 1
@@ -425,19 +403,21 @@ export class BowlingArea extends Area
         const positionAttribute = new THREE.InstancedBufferAttribute(positionsArray, 3)
 
         // Notes > Material
-        const progress = this.game.ticker.elapsedScaledUniform.mul(0.2).add(instanceIndex.toFloat().div(count)).fract().toVarying()
+        const progress = this.game.ticker.elapsedScaledUniform
+            .mul(0.2)
+            .add(instanceIndex.toFloat().div(count))
+            .fract()
+            .toVarying()
         const notesColor = uniform(color('#ff994d'))
         const notesStrength = uniform(3.5)
 
-        const outputNode = Fn(() =>
-        {
+        const outputNode = Fn(() => {
             const baseUv = vec2(uv().x, uv().y.oneMinus())
             const noteMask = texture(this.game.resources.jukeboxMusicNotes, baseUv).r
             return vec4(notesColor.mul(notesStrength), noteMask)
         })()
 
-        const positionNode = Fn(() =>
-        {
+        const positionNode = Fn(() => {
             const newPosition = instancedBufferAttribute(positionAttribute).toVar()
 
             newPosition.z.addAssign(progress.oneMinus().pow(3).oneMinus())
@@ -445,13 +425,15 @@ export class BowlingArea extends Area
             return newPosition
         })()
 
-        const rotationNode = Fn(() =>
-        {
-            return sin(this.game.ticker.elapsedScaledUniform.mul(4).add(instanceIndex.toFloat())).add(1).mul(0.5).pow(2).oneMinus()
+        const rotationNode = Fn(() => {
+            return sin(this.game.ticker.elapsedScaledUniform.mul(4).add(instanceIndex.toFloat()))
+                .add(1)
+                .mul(0.5)
+                .pow(2)
+                .oneMinus()
         })()
-        
-        const scaleNode = Fn(() =>
-        {
+
+        const scaleNode = Fn(() => {
             return progress.sub(0.5).abs().mul(2).oneMinus().mul(3).min(1)
         })()
 
@@ -466,7 +448,7 @@ export class BowlingArea extends Area
             size: 1.5, // in pixels units
             // vertexColors: true,
             sizeAttenuation: true,
-            alphaToCoverage: true,
+            alphaToCoverage: true
         })
 
         // Notes > Mesh
@@ -482,51 +464,42 @@ export class BowlingArea extends Area
             'Change song',
             InteractivePoints.ALIGN_LEFT,
             InteractivePoints.STATE_CONCEALED,
-            () =>
-            {
-                if(this.game.audio.mute.active)
-                    this.game.audio.mute.deactivate()
+            () => {
+                if (this.game.audio.mute.active) this.game.audio.mute.deactivate()
 
                 this.game.audio.playlist.next()
             },
-            () =>
-            {
+            () => {
                 this.game.inputs.interactiveButtons.addItems(['interact'])
             },
-            () =>
-            {
+            () => {
                 this.game.inputs.interactiveButtons.removeItems(['interact'])
             },
-            () =>
-            {
+            () => {
                 this.game.inputs.interactiveButtons.removeItems(['interact'])
             }
         )
 
         // Debug
-        if(this.game.debug.active)
-        {
+        if (this.game.debug.active) {
             const debugPanel = this.debugPanel.addFolder({
                 title: 'Jukebox',
-                expanded: false,
+                expanded: false
             })
             this.game.debug.addThreeColorBinding(debugPanel, notesColor.value, 'notesColor')
             debugPanel.addBinding(notesStrength, 'value', { label: 'notesStrength', min: 0, max: 10, step: 0.001 })
         }
     }
 
-    setAchievement()
-    {
-        this.events.on('boundingIn', () =>
-        {
+    setAchievement() {
+        this.events.on('boundingIn', () => {
             this.game.achievements.setProgress('areas', 'bowling')
         })
     }
 
-    update()
-    {
+    update() {
         let showRestartInteractivePoint = false
-        
+
         // Screen position
         const targetX = clamp(this.game.player.position.x, this.screen.min, this.screen.max)
         this.screen.x += (targetX - this.screen.x) * this.game.ticker.deltaScaled * 2
@@ -540,63 +513,56 @@ export class BowlingArea extends Area
         this.screen.object.needsUpdate = true
 
         // Screen strike label
-        if(this.won)
-            this.screen.labelStrike.visible = (this.game.ticker.elapsedScaled - this.wonTime) % 3 < 1.5
-        else
-            this.screen.labelStrike.visible = false
+        if (this.won) this.screen.labelStrike.visible = (this.game.ticker.elapsedScaled - this.wonTime) % 3 < 1.5
+        else this.screen.labelStrike.visible = false
 
         // Pins > Update
         this.pins.allSleeping = true
         let pinStateChanged = false
-        for(const pin of this.pins.items)
-        {
+        for (const pin of this.pins.items) {
             const pinUp = new THREE.Vector3(0, 1, 0)
             pinUp.applyQuaternion(pin.group.quaternion)
             const isDown = pinUp.y < 0.5
 
             // Wasn't down but is now down
-            if(isDown && pin.isDown === false)
-            {
+            if (isDown && pin.isDown === false) {
                 pin.isDown = isDown
 
                 pinStateChanged = true
-                
+
                 this.dataTexture.source.data.data[pin.index] = pin.isDown ? 128 : 0
             }
 
             const isSleeping = pin.body.isSleeping()
-            this.pins.allSleeping = this.pins.allSleeping && isSleeping 
-            if(isSleeping !== pin.isSleeping)
-            {
+            this.pins.allSleeping = this.pins.allSleeping && isSleeping
+            if (isSleeping !== pin.isSleeping) {
                 pin.isSleeping = isSleeping
 
-                if(!pin.isSleeping)
-                    showRestartInteractivePoint = true
+                if (!pin.isSleeping) showRestartInteractivePoint = true
             }
 
-            if(!isSleeping)
-                pin.object.visual.object3D.needsUpdate = true
+            if (!isSleeping) pin.object.visual.object3D.needsUpdate = true
         }
 
         // Pins > Texture update if needed and won event
-        if(pinStateChanged)
-        {
+        if (pinStateChanged) {
             this.dataTexture.needsUpdate = true
 
             // Haven't won since reset
-            if(!this.won)
-            {
+            if (!this.won) {
                 const allDown = this.pins.items.reduce((accumulator, pin) => accumulator && pin.isDown, true)
-                if(allDown)
-                {
+                if (allDown) {
                     this.won = true
                     this.wonTime = this.game.ticker.elapsedScaled
 
-                    if(this.game.world.confetti)
-                    {
+                    if (this.game.world.confetti) {
                         this.game.world.confetti.pop(this.game.player.position.clone())
-                        this.game.world.confetti.pop(this.screen.group.position.clone().add(new THREE.Vector3(- 1, - 1, 0)))
-                        this.game.world.confetti.pop(this.screen.group.position.clone().add(new THREE.Vector3(- 3.4, - 1, 0)))
+                        this.game.world.confetti.pop(
+                            this.screen.group.position.clone().add(new THREE.Vector3(-1, -1, 0))
+                        )
+                        this.game.world.confetti.pop(
+                            this.screen.group.position.clone().add(new THREE.Vector3(-3.4, -1, 0))
+                        )
                     }
 
                     this.game.achievements.sounds.achieve.play()
@@ -607,39 +573,31 @@ export class BowlingArea extends Area
         }
 
         // Pins > Update bounding at a fixed rate
-        if(this.game.ticker.elapsed > this.pins.boundingUpdateTime + 0.2)
-        {
+        if (this.game.ticker.elapsed > this.pins.boundingUpdateTime + 0.2) {
             this.pins.boundingUpdateTime = this.game.ticker.elapsed
 
-            if(!this.pins.allSleeping)
-                this.pins.instancedGroup.updateBoundings()
+            if (!this.pins.allSleeping) this.pins.instancedGroup.updateBoundings()
         }
 
         // Ball
         const ballIsSleeping = this.ball.body.isSleeping()
-        if(ballIsSleeping !== this.ball.isSleeping)
-        {
+        if (ballIsSleeping !== this.ball.isSleeping) {
             this.ball.isSleeping = ballIsSleeping
 
-            if(!this.ball.isSleeping)
-                showRestartInteractivePoint = true
+            if (!this.ball.isSleeping) showRestartInteractivePoint = true
         }
-        if(!ballIsSleeping)
-        {
+        if (!ballIsSleeping) {
             const ballPosition = new THREE.Vector3().copy(this.ball.body.translation())
             const delta = ballPosition.clone().sub(this.ball.position)
-            
+
             this.ball.position.copy(ballPosition)
             this.ball.speed = delta.length() / this.game.ticker.delta
-        }
-        else
-        {
+        } else {
             this.ball.speed = 0
         }
 
         // Restart interactive point
-        if(showRestartInteractivePoint && this.restartInteractivePoint.state === InteractivePoints.STATE_HIDDEN)
+        if (showRestartInteractivePoint && this.restartInteractivePoint.state === InteractivePoints.STATE_HIDDEN)
             this.restartInteractivePoint.show()
-
     }
 }

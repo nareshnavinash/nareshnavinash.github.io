@@ -1,12 +1,38 @@
 import * as THREE from 'three/webgpu'
 import { Game } from '../Game.js'
-import { mul, max, step, output, color, sin, smoothstep, mix, matcapUV, float, mod, texture, transformNormalToView, uniformArray, varying, vertexIndex, rotateUV, cameraPosition, vec4, atan, vec3, vec2, modelWorldMatrix, Fn, attribute, uniform, normalWorld } from 'three/tsl'
+import {
+    mul,
+    max,
+    step,
+    output,
+    color,
+    sin,
+    smoothstep,
+    mix,
+    matcapUV,
+    float,
+    mod,
+    texture,
+    transformNormalToView,
+    uniformArray,
+    varying,
+    vertexIndex,
+    rotateUV,
+    cameraPosition,
+    vec4,
+    atan,
+    vec3,
+    vec2,
+    modelWorldMatrix,
+    Fn,
+    attribute,
+    uniform,
+    normalWorld
+} from 'three/tsl'
 import { MeshDefaultMaterial } from '../Materials/MeshDefaultMaterial.js'
 
-export class Grass
-{
-    constructor()
-    {
+export class Grass {
+    constructor() {
         this.game = Game.getInstance()
 
         this.subdivisions = this.game.quality.level === 1 ? 100 : 280
@@ -23,43 +49,46 @@ export class Grass
         this.setMaterial()
         this.setMesh()
 
-        this.game.ticker.events.on('tick', () =>
-        {
-            this.update()
-        }, 10)
+        this.game.ticker.events.on(
+            'tick',
+            () => {
+                this.update()
+            },
+            10
+        )
 
         // Resize
-        this.game.viewport.events.on('throttleChange', () =>
-        {
-            const halfExtent = this.game.view.optimalArea.radius
-            this.size = halfExtent * 2
-            this.surface = this.size * this.size
-            this.surfaceOverflow = Math.max(0, this.surface - this.surfaceIdeal) / this.surfaceIdeal
-            
-            this.sizeUniform.value = this.size
-            this.bladeWidth.value = 0.1 * (1 + this.surfaceOverflow * 0.4)
-            this.bladeHeight.value = 0.6 * (1 + this.surfaceOverflow * 0.4)
+        this.game.viewport.events.on(
+            'throttleChange',
+            () => {
+                const halfExtent = this.game.view.optimalArea.radius
+                this.size = halfExtent * 2
+                this.surface = this.size * this.size
+                this.surfaceOverflow = Math.max(0, this.surface - this.surfaceIdeal) / this.surfaceIdeal
 
-            this.geometry.dispose()
-            this.setGeometry()
-            this.mesh.geometry = this.geometry
-        }, 2)
+                this.sizeUniform.value = this.size
+                this.bladeWidth.value = 0.1 * (1 + this.surfaceOverflow * 0.4)
+                this.bladeHeight.value = 0.6 * (1 + this.surfaceOverflow * 0.4)
+
+                this.geometry.dispose()
+                this.setGeometry()
+                this.mesh.geometry = this.geometry
+            },
+            2
+        )
     }
 
-    setGeometry()
-    {
+    setGeometry() {
         const position = new Float32Array(this.count * 3 * 2)
         const heightRandomness = new Float32Array(this.count * 3)
 
-        for(let iX = 0; iX < this.subdivisions; iX++)
-        {
+        for (let iX = 0; iX < this.subdivisions; iX++) {
             const fragmentX = (iX / this.subdivisions - 0.5) * this.size + this.fragmentSize * 0.5
-            
-            for(let iZ = 0; iZ < this.subdivisions; iZ++)
-            {
+
+            for (let iZ = 0; iZ < this.subdivisions; iZ++) {
                 const fragmentZ = (iZ / this.subdivisions - 0.5) * this.size + this.fragmentSize * 0.5
 
-                const i = (iX * this.subdivisions + iZ)
+                const i = iX * this.subdivisions + iZ
                 const i3 = i * 3
                 const i6 = i * 6
 
@@ -67,7 +96,7 @@ export class Grass
                 const positionX = fragmentX + (Math.random() - 0.5) * this.fragmentSize
                 const positionZ = fragmentZ + (Math.random() - 0.5) * this.fragmentSize
 
-                position[i6    ] = positionX
+                position[i6] = positionX
                 position[i6 + 1] = positionZ
 
                 position[i6 + 2] = positionX
@@ -77,20 +106,19 @@ export class Grass
                 position[i6 + 5] = positionZ
 
                 // Randomness
-                heightRandomness[i3    ] = Math.random()
+                heightRandomness[i3] = Math.random()
                 heightRandomness[i3 + 1] = Math.random()
                 heightRandomness[i3 + 2] = Math.random()
             }
         }
-        
+
         this.geometry = new THREE.BufferGeometry()
         this.geometry.boundingSphere = new THREE.Sphere(new THREE.Vector3(), 1)
         this.geometry.setAttribute('position', new THREE.Float32BufferAttribute(position, 2))
         this.geometry.setAttribute('heightRandomness', new THREE.Float32BufferAttribute(heightRandomness, 1))
     }
 
-    setMaterial()
-    {
+    setMaterial() {
         this.center = uniform(new THREE.Vector2())
         // this.tracksDelta = uniform(new THREE.Vector2())
 
@@ -105,18 +133,14 @@ export class Grass
         this.sizeUniform = uniform(this.size)
 
         const bladeShape = uniformArray([
+            // Tip
+            0, 1,
 
-                // Tip
-                0,
-                1,
+            // Left side
+            1, 0,
 
-                // Left side
-                1,
-                0,
-
-                // Right side
-                - 1,
-                0,
+            // Right side
+            -1, 0
         ])
 
         const hiddenThreshold = 0.1
@@ -136,8 +160,7 @@ export class Grass
             shadowNode: tipnessShadowMix
         })
 
-        this.material.positionNode = Fn(() =>
-        {
+        this.material.positionNode = Fn(() => {
             // Blade position
             const position = attribute('position')
 
@@ -153,7 +176,11 @@ export class Grass
             // Height
             const heightVariation = texture(this.game.noises.perlin, bladePosition.mul(0.0321)).r.add(0.5)
             const height = this.bladeHeight
-                .mul(this.bladeHeightRandomness.mul(attribute('heightRandomness')).add(this.bladeHeightRandomness.oneMinus()))
+                .mul(
+                    this.bladeHeightRandomness
+                        .mul(attribute('heightRandomness'))
+                        .add(this.bladeHeightRandomness.oneMinus())
+                )
                 .mul(heightVariation)
                 .mul(terrainDataGrass)
 
@@ -168,7 +195,10 @@ export class Grass
             const vertexPosition = position3.add(shape)
 
             // Vertex rotation
-            const angleToCamera = atan(worldPosition.z.sub(cameraPosition.z), worldPosition.x.sub(cameraPosition.x)).add(- Math.PI * 0.5)
+            const angleToCamera = atan(
+                worldPosition.z.sub(cameraPosition.z),
+                worldPosition.x.sub(cameraPosition.x)
+            ).add(-Math.PI * 0.5)
             vertexPosition.xz.assign(rotateUV(vertexPosition.xz, angleToCamera, worldPosition.xz))
 
             // Wind
@@ -182,21 +212,24 @@ export class Grass
         })()
 
         // Debug
-        if(this.game.debug.active)
-        {
+        if (this.game.debug.active) {
             const debugPanel = this.game.debug.panel.addFolder({
                 title: '🌱 Grass',
-                expanded: false,
+                expanded: false
             })
 
             debugPanel.addBinding(this.bladeWidth, 'value', { label: 'bladeWidth', min: 0, max: 1, step: 0.001 })
             debugPanel.addBinding(this.bladeHeight, 'value', { label: 'bladeHeight', min: 0, max: 2, step: 0.001 })
-            debugPanel.addBinding(this.bladeHeightRandomness, 'value', { label: 'bladeHeightRandomness', min: 0, max: 1, step: 0.001 })
+            debugPanel.addBinding(this.bladeHeightRandomness, 'value', {
+                label: 'bladeHeightRandomness',
+                min: 0,
+                max: 1,
+                step: 0.001
+            })
         }
     }
 
-    setMesh()
-    {
+    setMesh() {
         this.mesh = new THREE.Mesh(this.geometry, this.material)
         this.mesh.frustumCulled = false
         this.mesh.receiveShadow = true
@@ -204,8 +237,7 @@ export class Grass
         this.game.scene.add(this.mesh)
     }
 
-    update()
-    {
+    update() {
         this.center.value.set(this.game.view.optimalArea.position.x, this.game.view.optimalArea.position.z)
     }
 }

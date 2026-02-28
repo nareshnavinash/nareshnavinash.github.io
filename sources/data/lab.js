@@ -4,8 +4,7 @@ export default [
         url: 'https://github.com/nareshnavinash/PyRest-Python',
         image: 'pyrest-python',
         imageMini: 'pyrest-python-mini',
-        content:
-        {
+        content: {
             title: 'PyRest-Python',
             subtitle: 'Python  \u2605 19',
             header: 'PyRest-Python',
@@ -14,7 +13,7 @@ export default [
             points: [
                 'REST API automation framework with snap mode.',
                 'Includes comparing image files for visual validation.',
-                'Published on PyPI for easy installation and distribution.',
+                'Published on PyPI for easy installation and distribution.'
             ]
         }
     },
@@ -23,8 +22,7 @@ export default [
         url: 'https://github.com/nareshnavinash/newman-run',
         image: 'newman-run',
         imageMini: 'newman-run-mini',
-        content:
-        {
+        content: {
             title: 'newman-run',
             subtitle: 'JavaScript  \u2605 18',
             header: 'newman-run',
@@ -33,7 +31,7 @@ export default [
             points: [
                 'Run multiple Postman collections with a single feed file.',
                 'Reduces command-line arguments with embedded reporting.',
-                'Supports Allure, JSON, CLI, and HTML reports out of the box.',
+                'Supports Allure, JSON, CLI, and HTML reports out of the box.'
             ]
         }
     },
@@ -42,8 +40,7 @@ export default [
         url: 'https://github.com/nareshnavinash/Cypress-PageObjectModel',
         image: 'cypress-pom',
         imageMini: 'cypress-pom-mini',
-        content:
-        {
+        content: {
             title: 'Cypress-POM',
             subtitle: 'JavaScript  \u2605 12',
             header: 'Cypress-PageObjectModel',
@@ -52,7 +49,7 @@ export default [
             points: [
                 'Page Object Model framework built on top of Cypress.',
                 'Clean separation of test logic and page interactions.',
-                'Scalable architecture for large test suites.',
+                'Scalable architecture for large test suites.'
             ]
         }
     },
@@ -61,8 +58,7 @@ export default [
         url: 'https://github.com/nareshnavinash/Postman-Newman-Framework',
         image: 'postman-newman',
         imageMini: 'postman-newman-mini',
-        content:
-        {
+        content: {
             title: 'Postman-Newman',
             subtitle: 'JavaScript  \u2605 7',
             header: 'Postman-Newman-Framework',
@@ -71,7 +67,7 @@ export default [
             points: [
                 'Framework to manage and run multiple Postman collections.',
                 'Single run execution with integrated Allure reports.',
-                'Simplifies API testing pipeline configuration.',
+                'Simplifies API testing pipeline configuration.'
             ]
         }
     },
@@ -80,8 +76,7 @@ export default [
         url: 'https://github.com/nareshnavinash/Selpy-Python',
         image: 'selpy-python',
         imageMini: 'selpy-python-mini',
-        content:
-        {
+        content: {
             title: 'Selpy-Python',
             subtitle: 'Python  \u2605 6',
             header: 'Selpy-Python',
@@ -90,7 +85,7 @@ export default [
             points: [
                 'Page Object Model framework for Selenium in pytest.',
                 'Integrated with Allure reporting and snapshot feature.',
-                'Published on PyPI for the Python testing community.',
+                'Published on PyPI for the Python testing community.'
             ]
         }
     },
@@ -99,8 +94,7 @@ export default [
         url: 'https://github.com/nareshnavinash/playwright-TS-pom',
         image: 'playwright-ts',
         imageMini: 'playwright-ts-mini',
-        content:
-        {
+        content: {
             title: 'Playwright-TS',
             subtitle: 'TypeScript  \u2605 5',
             header: 'playwright-TS-pom',
@@ -109,7 +103,7 @@ export default [
             points: [
                 'Playwright Page Object Model written in TypeScript.',
                 'Integrated with GitLab CI for continuous testing.',
-                'DataDog integration for test observability.',
+                'DataDog integration for test observability.'
             ]
         }
     },
@@ -118,8 +112,7 @@ export default [
         url: 'https://github.com/nareshnavinash/SnaPyRest',
         image: 'snapyrest',
         imageMini: 'snapyrest-mini',
-        content:
-        {
+        content: {
             title: 'SnaPyRest',
             subtitle: 'Python  \u2605 5',
             header: 'SnaPyRest',
@@ -128,7 +121,7 @@ export default [
             points: [
                 'PyPI module for REST API automation in snap mode.',
                 'Includes image validating module for visual checks.',
-                'Lightweight and easy to integrate into test suites.',
+                'Lightweight and easy to integrate into test suites.'
             ]
         }
     },
@@ -137,8 +130,7 @@ export default [
         url: 'https://github.com/nareshnavinash/Teber-Ruby',
         image: 'teber-ruby',
         imageMini: 'teber-ruby-mini',
-        content:
-        {
+        content: {
             title: 'Teber-Ruby',
             subtitle: 'Ruby  \u2605 4',
             header: 'Teber-Ruby',
@@ -147,7 +139,7 @@ export default [
             points: [
                 'Selenium + Ruby + Cucumber framework with Page Object Model.',
                 'Allure reporting integration for detailed test results.',
-                'BDD approach for readable and maintainable tests.',
+                'BDD approach for readable and maintainable tests.'
             ]
         }
     },
@@ -156,8 +148,7 @@ export default [
         url: 'https://github.com/nareshnavinash/selenium-ruby-handcrafted-framework',
         image: 'selenium-ruby',
         imageMini: 'selenium-ruby-mini',
-        content:
-        {
+        content: {
             title: 'Selenium-Ruby',
             subtitle: 'Ruby  \u2605 3',
             header: 'Selenium Ruby Handcrafted Framework',
@@ -166,7 +157,7 @@ export default [
             points: [
                 'Custom-crafted test automation using ruby and selenium-webdriver.',
                 'All core structures are hand-built to meet specific requirements.',
-                'Scalable architecture that can grow with project needs.',
+                'Scalable architecture that can grow with project needs.'
             ]
         }
     },
@@ -175,8 +166,7 @@ export default [
         url: 'https://github.com/nareshnavinash/webdriverio-mocha-chai-framework',
         image: 'webdriverio',
         imageMini: 'webdriverio-mini',
-        content:
-        {
+        content: {
             title: 'WebdriverIO',
             subtitle: 'JavaScript  \u2605 3',
             header: 'WebdriverIO Mocha Chai Framework',
@@ -185,7 +175,7 @@ export default [
             points: [
                 'Web automation using WebdriverIO, Mocha, and Chai.',
                 'Page Object Model with Allure reporting.',
-                'RSA encryption for passwords stored in repo.',
+                'RSA encryption for passwords stored in repo.'
             ]
         }
     },
@@ -194,8 +184,7 @@ export default [
         url: 'https://github.com/nareshnavinash/Graber-Ruby',
         image: 'graber-ruby',
         imageMini: 'graber-ruby-mini',
-        content:
-        {
+        content: {
             title: 'Graber-Ruby',
             subtitle: 'Ruby  \u2605 2',
             header: 'Graber-Ruby',
@@ -204,7 +193,7 @@ export default [
             points: [
                 'Automation framework for GraphQL APIs.',
                 'Snapshot feature for response validation.',
-                'Ruby-based, lightweight, and easy to extend.',
+                'Ruby-based, lightweight, and easy to extend.'
             ]
         }
     },
@@ -213,8 +202,7 @@ export default [
         url: 'https://github.com/nareshnavinash/Docker-Jenkins-Setup',
         image: 'docker-jenkins',
         imageMini: 'docker-jenkins-mini',
-        content:
-        {
+        content: {
             title: 'Docker-Jenkins',
             subtitle: 'Docker  \u2605 1',
             header: 'Docker Jenkins Setup',
@@ -223,7 +211,7 @@ export default [
             points: [
                 'Docker setup to run UI automation in Jenkins.',
                 'Containerized test execution environment.',
-                'Reproducible CI/CD pipeline for Selenium tests.',
+                'Reproducible CI/CD pipeline for Selenium tests.'
             ]
         }
     },
@@ -232,8 +220,7 @@ export default [
         url: 'https://www.amazon.com/s?i=digital-text&rh=p_27%3ANaresh%2BSekar',
         image: 'management-book',
         imageMini: 'management-book-mini',
-        content:
-        {
+        content: {
             title: 'Management Book',
             subtitle: 'Amazon Kindle',
             header: 'Management In Action',
@@ -242,7 +229,7 @@ export default [
             points: [
                 'A hands-on guide to effective engineering management.',
                 'Covers team building, decision-making, and stakeholder alignment.',
-                'Leadership practices for fast-paced technology organizations.',
+                'Leadership practices for fast-paced technology organizations.'
             ]
         }
     }

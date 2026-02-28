@@ -1,9 +1,7 @@
 import { Game } from './Game.js'
 
-export class Options
-{
-    constructor()
-    {
+export class Options {
+    constructor() {
         this.game = Game.getInstance()
         this.element = this.game.menu.items.get('options').contentElement
 
@@ -14,56 +12,46 @@ export class Options
         this.setRenderer()
     }
 
-    setSound()
-    {
+    setSound() {
         const element = this.element.querySelector('.js-audio-toggle')
 
         element.addEventListener('click', this.game.audio.mute.toggle)
     }
 
-    setQuality()
-    {
+    setQuality() {
         const element = this.element.querySelector('.js-quality-toggle')
         const text = element.querySelector('span')
         text.textContent = this.game.quality.level === 0 ? 'High' : 'Low'
 
-        element.addEventListener('click', () =>
-        {
+        element.addEventListener('click', () => {
             this.game.quality.changeLevel(this.game.quality.level === 0 ? 1 : 0)
         })
 
-        this.game.quality.events.on('change', () =>
-        {
+        this.game.quality.events.on('change', () => {
             text.textContent = this.game.quality.level === 0 ? 'High' : 'Low'
         })
     }
 
-    setRespawn()
-    {
+    setRespawn() {
         const element = this.element.querySelector('.js-respawn')
 
-        element.addEventListener('click', () =>
-        {
+        element.addEventListener('click', () => {
             this.game.player.respawn()
             this.game.menu.close()
         })
     }
 
-    setReset()
-    {
+    setReset() {
         const element = this.element.querySelector('.js-reset')
 
-        element.addEventListener('click', () =>
-        {
+        element.addEventListener('click', () => {
             this.game.reset()
             this.game.menu.close()
         })
     }
 
-    setRenderer()
-    {        
-        if(this.game.rendering.renderer.backend.isWebGLBackend)
-        {
+    setRenderer() {
+        if (this.game.rendering.renderer.backend.isWebGLBackend) {
             const element = this.element.querySelector('.js-renderer')
             element.classList.remove('is-success')
             element.classList.add('is-danger')
@@ -72,8 +60,7 @@ export class Options
             text.textContent = 'WebGL'
 
             const tooltip = element.querySelector('.js-tooltip')
-            tooltip.innerHTML = /* html */`Your browser is <strong>not compatible</strong> with WebGPU resulting in performance loss`
+            tooltip.innerHTML = /* html */ `Your browser is <strong>not compatible</strong> with WebGPU resulting in performance loss`
         }
     }
-
 }

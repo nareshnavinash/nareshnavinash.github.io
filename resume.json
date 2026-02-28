@@ -1,513 +1,513 @@
 {
-  "personal": {
-    "name": "Naresh Sekar",
-    "firstName": "Naresh",
-    "email": "nareshnavinash@gmail.com",
-    "photo": "/profile.jpg",
-    "title": "Engineering Manager",
-    "tagline": "I build teams that ship quality software, powered by AI.",
-    "roleTags": ["Engineering Manager", "AI", "Builder"],
-    "bio": "Engineering leader focused on AI adoption strategy and quality.",
-    "mission": "I'm an Engineering Manager who bridges the gap between cutting-edge AI and reliable software delivery. With over a decade of experience across startups and scale-ups, I specialize in building high-performing teams, designing quality-first engineering cultures, and leveraging AI to accelerate product development. My focus includes AI governance, process optimization, stakeholder management, and risk-aware execution. I believe great engineering leadership is about multiplying the impact of every person on your team."
-  },
-  "site": {
-    "seo": {
-      "title": "Naresh Sekar | Engineering Manager | Software Engineering Manager | AI Adoption Strategy",
-      "description": "Naresh Sekar is an Engineering Manager and Software Engineering Manager specializing in AI adoption strategy, AI governance, AI implementation, and quality engineering leadership.",
-      "keywords": "Engineering Manager, Software Engineering Manager, AI adoption strategy, AI governance, AI literacy, AI implementation and application, Generative AI strategy, Process optimization, Stakeholder management, Risk assessment, Quality engineering, Team leadership",
-      "author": "Naresh Sekar",
-      "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
-      "themeColor": "#080818",
-      "canonicalUrl": "https://nareshnavinash.github.io/profile.html",
-      "imageUrl": "https://nareshnavinash.github.io/social/share-image.png",
-      "twitterCard": "summary_large_image",
-      "ogType": "profile",
-      "ogSiteName": "Naresh Sekar",
-      "ogLocale": "en_US",
-      "ogUrl": "https://nareshnavinash.github.io/profile.html",
-      "schemaProfileName": "Naresh Sekar | Engineering Manager Portfolio",
-      "schemaJobTitle": "Software Engineering Manager",
-      "schemaPersonDescription": "Engineering Manager focused on AI adoption strategy, AI governance, AI implementation, and quality engineering.",
-      "schemaKnowsAbout": [
-        "Engineering Management",
-        "Software Engineering Management",
-        "AI Adoption Strategy",
-        "AI Literacy",
-        "LLM Development and Application",
-        "AI Governance",
-        "Process Optimization",
-        "Stakeholder Management",
-        "Risk Assessment",
-        "Quality Engineering"
-      ]
+    "personal": {
+        "name": "Naresh Sekar",
+        "firstName": "Naresh",
+        "email": "nareshnavinash@gmail.com",
+        "photo": "/profile.jpg",
+        "title": "Engineering Manager",
+        "tagline": "I build teams that ship quality software, powered by AI.",
+        "roleTags": ["Engineering Manager", "AI", "Builder"],
+        "bio": "Engineering leader focused on AI adoption strategy and quality.",
+        "mission": "I'm an Engineering Manager who bridges the gap between cutting-edge AI and reliable software delivery. With over a decade of experience across startups and scale-ups, I specialize in building high-performing teams, designing quality-first engineering cultures, and leveraging AI to accelerate product development. My focus includes AI governance, process optimization, stakeholder management, and risk-aware execution. I believe great engineering leadership is about multiplying the impact of every person on your team."
     },
-    "navigation": {
-      "mainAriaLabel": "Main navigation",
-      "mobileAriaLabel": "Mobile navigation",
-      "logoText": "naresh",
-      "logoAriaLabel": "Naresh Sekar - Home",
-      "logoHref": "#hero",
-      "themeToggleAriaLabel": "Toggle dark mode",
-      "hamburgerAriaLabel": "Toggle navigation menu",
-      "items": [
-        { "key": "about", "label": "about", "href": "#about" },
-        { "key": "experience", "label": "experience", "href": "#career" },
-        { "key": "skills", "label": "skills", "href": "#skills" },
-        { "key": "leadership", "label": "leadership", "href": "#leadership" },
-        { "key": "publications", "label": "publications", "href": "#publications" },
-        { "key": "certifications", "label": "certifications", "href": "#certifications" },
-        { "key": "contact", "label": "contact", "href": "#contact" }
-      ],
-      "worldLink": {
-        "label": "3D World",
-        "href": "/",
-        "ariaLabel": "Explore the 3D world"
-      }
+    "site": {
+        "seo": {
+            "title": "Naresh Sekar | Engineering Manager | Software Engineering Manager | AI Adoption Strategy",
+            "description": "Naresh Sekar is an Engineering Manager and Software Engineering Manager specializing in AI adoption strategy, AI governance, AI implementation, and quality engineering leadership.",
+            "keywords": "Engineering Manager, Software Engineering Manager, AI adoption strategy, AI governance, AI literacy, AI implementation and application, Generative AI strategy, Process optimization, Stakeholder management, Risk assessment, Quality engineering, Team leadership",
+            "author": "Naresh Sekar",
+            "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+            "themeColor": "#080818",
+            "canonicalUrl": "https://nareshnavinash.github.io/profile.html",
+            "imageUrl": "https://nareshnavinash.github.io/social/share-image.png",
+            "twitterCard": "summary_large_image",
+            "ogType": "profile",
+            "ogSiteName": "Naresh Sekar",
+            "ogLocale": "en_US",
+            "ogUrl": "https://nareshnavinash.github.io/profile.html",
+            "schemaProfileName": "Naresh Sekar | Engineering Manager Portfolio",
+            "schemaJobTitle": "Software Engineering Manager",
+            "schemaPersonDescription": "Engineering Manager focused on AI adoption strategy, AI governance, AI implementation, and quality engineering.",
+            "schemaKnowsAbout": [
+                "Engineering Management",
+                "Software Engineering Management",
+                "AI Adoption Strategy",
+                "AI Literacy",
+                "LLM Development and Application",
+                "AI Governance",
+                "Process Optimization",
+                "Stakeholder Management",
+                "Risk Assessment",
+                "Quality Engineering"
+            ]
+        },
+        "navigation": {
+            "mainAriaLabel": "Main navigation",
+            "mobileAriaLabel": "Mobile navigation",
+            "logoText": "naresh",
+            "logoAriaLabel": "Naresh Sekar - Home",
+            "logoHref": "#hero",
+            "themeToggleAriaLabel": "Toggle dark mode",
+            "hamburgerAriaLabel": "Toggle navigation menu",
+            "items": [
+                { "key": "about", "label": "about", "href": "#about" },
+                { "key": "experience", "label": "experience", "href": "#career" },
+                { "key": "skills", "label": "skills", "href": "#skills" },
+                { "key": "leadership", "label": "leadership", "href": "#leadership" },
+                { "key": "publications", "label": "publications", "href": "#publications" },
+                { "key": "certifications", "label": "certifications", "href": "#certifications" },
+                { "key": "contact", "label": "contact", "href": "#contact" }
+            ],
+            "worldLink": {
+                "label": "3D World",
+                "href": "/",
+                "ariaLabel": "Explore the 3D world"
+            }
+        },
+        "hero": {
+            "greetingPrefix": "Hey there, I'm ",
+            "greetingSuffix": " -",
+            "headingHtml": "I build <span class=\"text-outline\">teams</span> that ship quality software, powered by <span class=\"text-outline\">AI.</span>"
+        },
+        "contact": {
+            "primarySocialKeys": ["linkedin", "github", "medium"]
+        },
+        "footer": {
+            "extraSocialKeys": ["npm", "pypi", "rubygems"]
+        },
+        "labels": {
+            "viewDetails": "View details",
+            "publicationsAmazonCta": "View on Amazon",
+            "publicationsMediumCta": "Read on Medium",
+            "footerGreeting": "Have a Good Day!",
+            "footerTagline": "Built with vanilla HTML, CSS & JS",
+            "footerCopyrightTemplate": "&copy; {year} {name}. All rights reserved.",
+            "backToTopAriaLabel": "Back to top"
+        }
     },
-    "hero": {
-      "greetingPrefix": "Hey there, I'm ",
-      "greetingSuffix": " -",
-      "headingHtml": "I build <span class=\"text-outline\">teams</span> that ship quality software, powered by <span class=\"text-outline\">AI.</span>"
+    "social": {
+        "linkedin": {
+            "name": "LinkedIn",
+            "url": "https://www.linkedin.com/in/nareshnavinash/"
+        },
+        "github": {
+            "name": "GitHub",
+            "url": "https://github.com/nareshnavinash"
+        },
+        "medium": {
+            "name": "Medium",
+            "url": "https://medium.com/@nareshnavinash"
+        },
+        "x": {
+            "name": "X",
+            "url": "https://x.com/navinashnaresh"
+        },
+        "npm": {
+            "name": "npm",
+            "url": "https://www.npmjs.com/~nareshnavinash"
+        },
+        "pypi": {
+            "name": "PyPI",
+            "url": "https://pypi.org/user/nareshnavinash/"
+        },
+        "rubygems": {
+            "name": "RubyGems",
+            "url": "https://rubygems.org/profiles/nareshnavinash"
+        }
+    },
+    "about": {
+        "title": "About.",
+        "subtitle": "Engineering Manager focused on AI adoption strategy, AI literacy, and quality engineering at scale.",
+        "cards": [
+            {
+                "title": "AI Adoption Strategy",
+                "description": "Integrating AI/ML capabilities into product workflows — from generative AI implementation to AI governance, intelligent test generation, and data-driven decision systems."
+            },
+            {
+                "title": "Team Building",
+                "description": "Scaling engineering teams from 5 to 30+, establishing career frameworks, hiring pipelines, and fostering cultures of ownership, AI literacy, and continuous improvement."
+            },
+            {
+                "title": "Quality Engineering",
+                "description": "Designing end-to-end quality strategies — test automation frameworks, CI/CD pipelines, observability, and risk assessment with shift-left quality practices at scale."
+            }
+        ]
+    },
+    "career": {
+        "title": "Experience.",
+        "subtitle": "A decade of growth — from hands-on engineering to leading teams.",
+        "positions": [
+            {
+                "company": "TestGorilla",
+                "url": "https://www.testgorilla.com",
+                "roles": [
+                    {
+                        "role": "Engineering Manager",
+                        "shortRole": "Engineering Manager",
+                        "date": "August 2023 — Present",
+                        "startYear": 2023,
+                        "startMonth": 8,
+                        "endYear": null,
+                        "endMonth": null,
+                        "location": "Remote",
+                        "sections": [
+                            {
+                                "title": "AI Product Strategy & Monetization",
+                                "points": [
+                                    "Designed and launched a scalable credit-based pricing engine specifically engineered to measure and bill for Generative AI usage (tokens/compute) at the feature level, enabling flexible business models for AI-heavy tools.",
+                                    "Led the engineering of a cutting-edge AI Video Avatar platform Tavus (integrating video/audio generation APIs) to conduct real-time candidate interviews, significantly automating the assessment process.",
+                                    "Established a rigorous Evaluation (Evals) framework using LangFuse to score and monitor the performance of AI models and prompts. Created feedback loops to tweak prompts and model parameters in production, ensuring consistent high-quality output for the AI interviewer."
+                                ]
+                            },
+                            {
+                                "title": "AI-Augmented Engineering (DevEx)",
+                                "points": [
+                                    "Integrated Claude Code sub-agents into the development workflow to automate code generation and Pull Request (PR) creation. Successfully reduced the cycle time for complex Epics to ~3 days by shifting developer focus from writing boilerplate to reviewing AI-generated architecture.",
+                                    "Deployed AI agents to autonomously generate unit and integration tests and conduct preliminary code reviews, ensuring strictly enforced coding standards and preventing architectural drift in AI-generated code.",
+                                    "Initiated a strategic refactor to treat Code-as-Documentation, optimizing the codebase structure for LLM context windows. This enabled AI agents to accurately analyze, document, and autonomously refactor legacy code with high precision."
+                                ]
+                            },
+                            {
+                                "title": "Team Leadership & Core Operations",
+                                "points": [
+                                    "Led and mentored a high-performing team of 5 engineers, responsible for onboarding, payments, & subscriptions, by balancing ambitious AI technology goals with pragmatic delivery targets.",
+                                    "Owned critical integrations like Chargebee, HubSpot, 18 ATS platforms, and Stripe, ensuring seamless data flow alongside new AI capabilities.",
+                                    "Defined and tracked team OKRs and DORA metrics, adapting them to account for the increased velocity provided by AI-assisted development tools.",
+                                    "Collaborated with Product, Design, Sales, Marketing, GTM, and Finance to scope and prioritize projects aligned with business goals and advocated for engineering needs at the leadership level."
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "role": "Lead Software Development Engineer in Test",
+                        "shortRole": "Lead SDET",
+                        "date": "April 2022 — August 2023",
+                        "startYear": 2022,
+                        "startMonth": 4,
+                        "endYear": 2023,
+                        "endMonth": 8,
+                        "location": "Remote",
+                        "sections": [
+                            {
+                                "title": null,
+                                "points": [
+                                    "Architected the CI/CD infrastructure that transformed release velocity from bi-weekly to 5x daily. This high-frequency deployment model established the necessary foundation for rapid A/B testing and iterative AI model tuning in production.",
+                                    "Developed sophisticated E2E API testing frameworks using Python (pytest). This deep Python infrastructure experience laid the technical groundwork for seamless integration with modern Python-centric AI/LLM libraries.",
+                                    "Led backend load testing using k6.io and frontend performance profiling with Lighthouse. Established performance baselines critical for later measuring the latency and compute impact of integrating LLM features.",
+                                    "Integrated Storybook with Playwright for Angular.js, enhancing CI visual and accessibility tests and implemented Playwright for UI E2E tests in the CD pipeline, ensuring rapid feedback."
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "company": "Hopin",
+                "url": "https://hopin.com",
+                "roles": [
+                    {
+                        "role": "Senior Software Development Engineer in Test",
+                        "shortRole": "Senior SDET",
+                        "date": "February 2021 — March 2022",
+                        "startYear": 2021,
+                        "startMonth": 2,
+                        "endYear": 2022,
+                        "endMonth": 3,
+                        "location": "Remote",
+                        "sections": [
+                            {
+                                "title": null,
+                                "points": [
+                                    "Optimized release pipeline in GitLab, reducing execution time from 45 to ~15 mins, enabling ~20 daily releases.",
+                                    "Introduced Pact-Contract testing with self-hosted pact broker, ensuring stable pipeline and frequent deployments.",
+                                    "Implemented Browserstack for cross-browser testing, minimizing compatibility concerns.",
+                                    "Conducted interviews at Hopin and provided technical mentorship to test engineers.",
+                                    "Facilitated cross-functional collaboration via closed and open beta launch.",
+                                    "Deployed Visual Regression Tests with Testcafe and Percy in GitHub pre-merge state, empowering team autonomy."
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "company": "Vue.ai",
+                "url": "https://vue.ai",
+                "roles": [
+                    {
+                        "role": "Software Development Engineer in Test",
+                        "shortRole": "Senior SDET",
+                        "date": "March 2020 — February 2021",
+                        "startYear": 2020,
+                        "startMonth": 3,
+                        "endYear": 2021,
+                        "endMonth": 2,
+                        "location": "Chennai, India",
+                        "sections": [
+                            {
+                                "title": null,
+                                "points": [
+                                    "Developed Python packages for REST API & UI automation, supporting ML/AI use cases organization-wide.",
+                                    "Managed two teams in an 8:1 Dev to SDET ratio, implementing Agile release processes.",
+                                    "Configured CI/CD for ML/AI microservice using Jenkins, Bitbucket, AWS, and Spotinst, reducing infrastructure costs via IaC."
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "company": "WeInvest",
+                "url": "https://weinvest.net",
+                "roles": [
+                    {
+                        "role": "Software Development Engineer in Test",
+                        "shortRole": "Senior SDET",
+                        "date": "January 2019 — February 2020",
+                        "startYear": 2019,
+                        "startMonth": 1,
+                        "endYear": 2020,
+                        "endMonth": 2,
+                        "location": "Chennai, India",
+                        "sections": [
+                            {
+                                "title": null,
+                                "points": [
+                                    "As a first SDET hire, managed internal testing servers to accelerate testing cycles.",
+                                    "Reduced costs by leveraging a freemium version of Postman for ETL transformation support.",
+                                    "Modularized and transformed UI and GraphQL automation frameworks into Ruby gems.",
+                                    "Spearheaded robust CI/CD integration with GitHub, Jenkins, and Docker.",
+                                    "Utilized Cucumber alongside RSpec for effective Behavior Driven Development (BDD)."
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "company": "Freshworks",
+                "url": "https://www.freshworks.com",
+                "roles": [
+                    {
+                        "role": "Software Engineer",
+                        "shortRole": "Software Engineer",
+                        "date": "June 2017 — January 2019",
+                        "startYear": 2017,
+                        "startMonth": 6,
+                        "endYear": 2019,
+                        "endMonth": 1,
+                        "location": "Chennai, India",
+                        "sections": [
+                            {
+                                "title": null,
+                                "points": [
+                                    "Been part of the launch of Freshcaller product in beta and GA phases.",
+                                    "Strategized manual and automation test execution in pre-development stages through collaboration with Product Owner and Tech Leads, optimizing release processes.",
+                                    "Upheld code quality and comprehensive unit test coverage starting from the PR stage.",
+                                    "Achieved 100% regression automation coverage and managed Jenkins pipelines."
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "company": "Cognizant",
+                "url": "https://www.cognizant.com",
+                "roles": [
+                    {
+                        "role": "Programmer Analyst",
+                        "shortRole": "Programmer Analyst",
+                        "date": "June 2015 — June 2017",
+                        "startYear": 2015,
+                        "startMonth": 6,
+                        "endYear": 2017,
+                        "endMonth": 6,
+                        "location": "Chennai, India",
+                        "sections": [
+                            {
+                                "title": null,
+                                "points": [
+                                    "Ensured adherence to CMMI Level 5 practices across all projects.",
+                                    "Spearheaded web application automation using HP's UFT tool. Proactively automated tasks to streamline operations and save time.",
+                                    "Reduced testing costs in a data server migration project with an automation script, earning recognition as Best Automation Resource for the Year 2016."
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    "openSource": {
+        "url": "https://github.com/nareshnavinash",
+        "platforms": ["npm", "PyPI", "RubyGems", "GitHub"],
+        "section": "Published Packages & Frameworks",
+        "points": [
+            "PyRest-Python: REST API automation framework with snap mode and image comparison.",
+            "newman-run: Run multiple Postman collections with single feed file, embedded reporting.",
+            "Cypress-PageObjectModel: Page Object Model framework for Cypress.",
+            "Selpy & SnaPyRest: Python modules for Selenium POM and REST API automation.",
+            "Teber: Multi-language test automation framework (Ruby, Java) with Allure reporting.",
+            "playwright-TS-pom: Playwright POM with GitLab CI and DataDog integration."
+        ]
+    },
+    "blog": {
+        "url": "https://medium.com/@nareshnavinash",
+        "section": "Publications",
+        "points": [
+            "Management In Action: A hands-on guide to effective engineering management.",
+            "Covers team building, decision-making, stakeholder alignment, and leadership.",
+            "Regular contributor on Medium about engineering management and quality.",
+            "Topics include AI in engineering, test automation, and leadership practices."
+        ]
+    },
+    "skills": {
+        "title": "Skills.",
+        "subtitle": "A full-stack quality & engineering toolkit honed over a decade.",
+        "categories": [
+            {
+                "name": "Languages",
+                "items": ["Python", "TypeScript", "Ruby"]
+            },
+            {
+                "name": "AI Stack",
+                "items": [
+                    "AI Agents (Claude Code workflows)",
+                    "Prompt Engineering",
+                    "LLM Evals & RAG Architecture",
+                    "Anthropic APIs · n8n · Zapier"
+                ]
+            },
+            {
+                "name": "Cloud & Infrastructure",
+                "items": [
+                    "AWS (Solutions Architect)",
+                    "Serverless Architecture",
+                    "Docker & Kubernetes",
+                    "CI/CD (CircleCI, GitLab, GitHub)"
+                ]
+            },
+            {
+                "name": "Quality & Observability",
+                "items": [
+                    "Data Observability (Mixpanel, Holistics, Snowflake)",
+                    "Performance Engineering (k6, Lighthouse)",
+                    "Automation (Playwright, Cypress)",
+                    "Contract Testing (Pact)"
+                ]
+            }
+        ]
+    },
+    "leadership": {
+        "title": "Leadership.",
+        "subtitle": "How I build teams, ship products, and drive impact.",
+        "cards": [
+            {
+                "title": "AI-Augmented Engineering",
+                "description": "Embedding AI tools and workflows into every stage of the SDLC — from code generation and review to intelligent testing and deployment."
+            },
+            {
+                "title": "Team Growth",
+                "description": "Investing in people through mentorship, clear career ladders, and creating psychological safety that empowers engineers to take bold bets."
+            },
+            {
+                "title": "Strategic Planning",
+                "description": "Translating business goals into engineering roadmaps with clear milestones, measurable outcomes, and adaptive execution."
+            },
+            {
+                "title": "Cross-functional Collaboration",
+                "description": "Breaking silos between product, design, and engineering to align on shared outcomes. Building bridges across distributed teams and time zones."
+            },
+            {
+                "title": "Operational Excellence",
+                "description": "Driving reliability through SLOs, incident management, runbooks, and a culture of blameless post-mortems and continuous improvement."
+            },
+            {
+                "title": "Data-Driven Decisions",
+                "description": "Using engineering metrics, user data, and experimentation to prioritize ruthlessly and make confident product and technical decisions."
+            }
+        ]
+    },
+    "publications": {
+        "title": "Publications.",
+        "subtitle": "Sharing knowledge through writing and open source.",
+        "book": {
+            "title": "Management In Action",
+            "author": "Naresh Sekar",
+            "publisher": "Amazon Kindle",
+            "bylineTemplate": "by {author} · Published on {publisher}",
+            "description": "A hands-on guide to effective engineering management — covering team building, decision-making, stakeholder alignment, and leadership practices that drive real impact in fast-paced technology organizations.",
+            "amazonUrl": "https://www.amazon.com/s?i=digital-text&rh=p_27%3ANaresh%2BSekar",
+            "mediumUrl": "https://medium.com/@nareshnavinash"
+        }
+    },
+    "certifications": {
+        "title": "Certifications.",
+        "subtitle": "Continuous learning across engineering, cloud, and leadership.",
+        "items": [
+            { "name": "AWS Solutions Architect Associate", "issuer": "Amazon Web Services" },
+            { "name": "Reforge — Engineering Management", "issuer": "Reforge" },
+            { "name": "CCNA & CCNP Routing and Switching", "issuer": "Cisco Systems" },
+            { "name": "Google Project Management Certificate", "issuer": "Google (Coursera)" },
+            { "name": "Strategic Leadership & Management", "issuer": "University of Illinois (Coursera)" },
+            { "name": "BEC Vantage (Business English)", "issuer": "Cambridge Assessment" }
+        ]
+    },
+    "education": {
+        "title": "Education.",
+        "degree": "Bachelor of Engineering — Electronics & Communication",
+        "school": "Anna University",
+        "period": "2011 — 2015",
+        "location": "Chennai, India"
     },
     "contact": {
-      "primarySocialKeys": ["linkedin", "github", "medium"]
+        "title": "Let's connect.",
+        "subtitle": "Open to conversations about engineering leadership, AI, and collaboration.",
+        "intro": "Say hello."
     },
-    "footer": {
-      "extraSocialKeys": ["npm", "pypi", "rubygems"]
-    },
-    "labels": {
-      "viewDetails": "View details",
-      "publicationsAmazonCta": "View on Amazon",
-      "publicationsMediumCta": "Read on Medium",
-      "footerGreeting": "Have a Good Day!",
-      "footerTagline": "Built with vanilla HTML, CSS & JS",
-      "footerCopyrightTemplate": "&copy; {year} {name}. All rights reserved.",
-      "backToTopAriaLabel": "Back to top"
-    }
-  },
-  "social": {
-    "linkedin": {
-      "name": "LinkedIn",
-      "url": "https://www.linkedin.com/in/nareshnavinash/"
-    },
-    "github": {
-      "name": "GitHub",
-      "url": "https://github.com/nareshnavinash"
-    },
-    "medium": {
-      "name": "Medium",
-      "url": "https://medium.com/@nareshnavinash"
-    },
-    "x": {
-      "name": "X",
-      "url": "https://x.com/navinashnaresh"
-    },
-    "npm": {
-      "name": "npm",
-      "url": "https://www.npmjs.com/~nareshnavinash"
-    },
-    "pypi": {
-      "name": "PyPI",
-      "url": "https://pypi.org/user/nareshnavinash/"
-    },
-    "rubygems": {
-      "name": "RubyGems",
-      "url": "https://rubygems.org/profiles/nareshnavinash"
-    }
-  },
-  "about": {
-    "title": "About.",
-    "subtitle": "Engineering Manager focused on AI adoption strategy, AI literacy, and quality engineering at scale.",
-    "cards": [
-      {
-        "title": "AI Adoption Strategy",
-        "description": "Integrating AI/ML capabilities into product workflows — from generative AI implementation to AI governance, intelligent test generation, and data-driven decision systems."
-      },
-      {
-        "title": "Team Building",
-        "description": "Scaling engineering teams from 5 to 30+, establishing career frameworks, hiring pipelines, and fostering cultures of ownership, AI literacy, and continuous improvement."
-      },
-      {
-        "title": "Quality Engineering",
-        "description": "Designing end-to-end quality strategies — test automation frameworks, CI/CD pipelines, observability, and risk assessment with shift-left quality practices at scale."
-      }
-    ]
-  },
-  "career": {
-    "title": "Experience.",
-    "subtitle": "A decade of growth — from hands-on engineering to leading teams.",
-    "positions": [
-      {
-        "company": "TestGorilla",
-        "url": "https://www.testgorilla.com",
-        "roles": [
-          {
-            "role": "Engineering Manager",
-            "shortRole": "Engineering Manager",
-            "date": "August 2023 — Present",
-            "startYear": 2023,
-            "startMonth": 8,
-            "endYear": null,
-            "endMonth": null,
-            "location": "Remote",
-            "sections": [
-              {
-                "title": "AI Product Strategy & Monetization",
-                "points": [
-                  "Designed and launched a scalable credit-based pricing engine specifically engineered to measure and bill for Generative AI usage (tokens/compute) at the feature level, enabling flexible business models for AI-heavy tools.",
-                  "Led the engineering of a cutting-edge AI Video Avatar platform Tavus (integrating video/audio generation APIs) to conduct real-time candidate interviews, significantly automating the assessment process.",
-                  "Established a rigorous Evaluation (Evals) framework using LangFuse to score and monitor the performance of AI models and prompts. Created feedback loops to tweak prompts and model parameters in production, ensuring consistent high-quality output for the AI interviewer."
-                ]
-              },
-              {
-                "title": "AI-Augmented Engineering (DevEx)",
-                "points": [
-                  "Integrated Claude Code sub-agents into the development workflow to automate code generation and Pull Request (PR) creation. Successfully reduced the cycle time for complex Epics to ~3 days by shifting developer focus from writing boilerplate to reviewing AI-generated architecture.",
-                  "Deployed AI agents to autonomously generate unit and integration tests and conduct preliminary code reviews, ensuring strictly enforced coding standards and preventing architectural drift in AI-generated code.",
-                  "Initiated a strategic refactor to treat Code-as-Documentation, optimizing the codebase structure for LLM context windows. This enabled AI agents to accurately analyze, document, and autonomously refactor legacy code with high precision."
-                ]
-              },
-              {
-                "title": "Team Leadership & Core Operations",
-                "points": [
-                  "Led and mentored a high-performing team of 5 engineers, responsible for onboarding, payments, & subscriptions, by balancing ambitious AI technology goals with pragmatic delivery targets.",
-                  "Owned critical integrations like Chargebee, HubSpot, 18 ATS platforms, and Stripe, ensuring seamless data flow alongside new AI capabilities.",
-                  "Defined and tracked team OKRs and DORA metrics, adapting them to account for the increased velocity provided by AI-assisted development tools.",
-                  "Collaborated with Product, Design, Sales, Marketing, GTM, and Finance to scope and prioritize projects aligned with business goals and advocated for engineering needs at the leadership level."
-                ]
-              }
-            ]
-          },
-          {
-            "role": "Lead Software Development Engineer in Test",
-            "shortRole": "Lead SDET",
-            "date": "April 2022 — August 2023",
-            "startYear": 2022,
-            "startMonth": 4,
-            "endYear": 2023,
-            "endMonth": 8,
-            "location": "Remote",
-            "sections": [
-              {
-                "title": null,
-                "points": [
-                  "Architected the CI/CD infrastructure that transformed release velocity from bi-weekly to 5x daily. This high-frequency deployment model established the necessary foundation for rapid A/B testing and iterative AI model tuning in production.",
-                  "Developed sophisticated E2E API testing frameworks using Python (pytest). This deep Python infrastructure experience laid the technical groundwork for seamless integration with modern Python-centric AI/LLM libraries.",
-                  "Led backend load testing using k6.io and frontend performance profiling with Lighthouse. Established performance baselines critical for later measuring the latency and compute impact of integrating LLM features.",
-                  "Integrated Storybook with Playwright for Angular.js, enhancing CI visual and accessibility tests and implemented Playwright for UI E2E tests in the CD pipeline, ensuring rapid feedback."
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "company": "Hopin",
-        "url": "https://hopin.com",
-        "roles": [
-          {
-            "role": "Senior Software Development Engineer in Test",
+    "projects": [
+        {
+            "title": "TestGorilla",
+            "titleSmall": ["Test", "Gorilla"],
+            "url": "https://www.testgorilla.com",
+            "shortRole": ["Engineering Manager", "Lead SDET"],
+            "images": ["tg-em-ai", "tg-em-devex", "tg-em-lead", "tg-lead-sdet"]
+        },
+        {
+            "title": "Hopin",
+            "titleSmall": ["Hopin"],
+            "url": "https://hopin.com",
             "shortRole": "Senior SDET",
-            "date": "February 2021 — March 2022",
-            "startYear": 2021,
-            "startMonth": 2,
-            "endYear": 2022,
-            "endMonth": 3,
-            "location": "Remote",
-            "sections": [
-              {
-                "title": null,
-                "points": [
-                  "Optimized release pipeline in GitLab, reducing execution time from 45 to ~15 mins, enabling ~20 daily releases.",
-                  "Introduced Pact-Contract testing with self-hosted pact broker, ensuring stable pipeline and frequent deployments.",
-                  "Implemented Browserstack for cross-browser testing, minimizing compatibility concerns.",
-                  "Conducted interviews at Hopin and provided technical mentorship to test engineers.",
-                  "Facilitated cross-functional collaboration via closed and open beta launch.",
-                  "Deployed Visual Regression Tests with Testcafe and Percy in GitHub pre-merge state, empowering team autonomy."
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "company": "Vue.ai",
-        "url": "https://vue.ai",
-        "roles": [
-          {
-            "role": "Software Development Engineer in Test",
+            "images": ["hopin-1"]
+        },
+        {
+            "title": "Vue.ai",
+            "titleSmall": ["Vue.ai"],
+            "url": "https://vue.ai",
             "shortRole": "Senior SDET",
-            "date": "March 2020 — February 2021",
-            "startYear": 2020,
-            "startMonth": 3,
-            "endYear": 2021,
-            "endMonth": 2,
-            "location": "Chennai, India",
-            "sections": [
-              {
-                "title": null,
-                "points": [
-                  "Developed Python packages for REST API & UI automation, supporting ML/AI use cases organization-wide.",
-                  "Managed two teams in an 8:1 Dev to SDET ratio, implementing Agile release processes.",
-                  "Configured CI/CD for ML/AI microservice using Jenkins, Bitbucket, AWS, and Spotinst, reducing infrastructure costs via IaC."
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "company": "WeInvest",
-        "url": "https://weinvest.net",
-        "roles": [
-          {
-            "role": "Software Development Engineer in Test",
+            "images": ["vueai-1"]
+        },
+        {
+            "title": "WeInvest",
+            "titleSmall": ["WeInvest"],
+            "url": "https://weinvest.net",
             "shortRole": "Senior SDET",
-            "date": "January 2019 — February 2020",
-            "startYear": 2019,
-            "startMonth": 1,
-            "endYear": 2020,
-            "endMonth": 2,
-            "location": "Chennai, India",
-            "sections": [
-              {
-                "title": null,
-                "points": [
-                  "As a first SDET hire, managed internal testing servers to accelerate testing cycles.",
-                  "Reduced costs by leveraging a freemium version of Postman for ETL transformation support.",
-                  "Modularized and transformed UI and GraphQL automation frameworks into Ruby gems.",
-                  "Spearheaded robust CI/CD integration with GitHub, Jenkins, and Docker.",
-                  "Utilized Cucumber alongside RSpec for effective Behavior Driven Development (BDD)."
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "company": "Freshworks",
-        "url": "https://www.freshworks.com",
-        "roles": [
-          {
-            "role": "Software Engineer",
+            "images": ["weinvest-1"]
+        },
+        {
+            "title": "Freshworks",
+            "titleSmall": ["Fresh", "works"],
+            "url": "https://www.freshworks.com",
             "shortRole": "Software Engineer",
-            "date": "June 2017 — January 2019",
-            "startYear": 2017,
-            "startMonth": 6,
-            "endYear": 2019,
-            "endMonth": 1,
-            "location": "Chennai, India",
-            "sections": [
-              {
-                "title": null,
-                "points": [
-                  "Been part of the launch of Freshcaller product in beta and GA phases.",
-                  "Strategized manual and automation test execution in pre-development stages through collaboration with Product Owner and Tech Leads, optimizing release processes.",
-                  "Upheld code quality and comprehensive unit test coverage starting from the PR stage.",
-                  "Achieved 100% regression automation coverage and managed Jenkins pipelines."
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "company": "Cognizant",
-        "url": "https://www.cognizant.com",
-        "roles": [
-          {
-            "role": "Programmer Analyst",
+            "images": ["freshworks-1"]
+        },
+        {
+            "title": "Cognizant",
+            "titleSmall": ["Cogni", "zant"],
+            "url": "https://www.cognizant.com",
             "shortRole": "Programmer Analyst",
-            "date": "June 2015 — June 2017",
-            "startYear": 2015,
-            "startMonth": 6,
-            "endYear": 2017,
-            "endMonth": 6,
-            "location": "Chennai, India",
-            "sections": [
-              {
-                "title": null,
-                "points": [
-                  "Ensured adherence to CMMI Level 5 practices across all projects.",
-                  "Spearheaded web application automation using HP's UFT tool. Proactively automated tasks to streamline operations and save time.",
-                  "Reduced testing costs in a data server migration project with an automation script, earning recognition as Best Automation Resource for the Year 2016."
-                ]
-              }
-            ]
-          }
-        ]
-      }
+            "images": ["cognizant-1"]
+        }
     ]
-  },
-  "openSource": {
-    "url": "https://github.com/nareshnavinash",
-    "platforms": ["npm", "PyPI", "RubyGems", "GitHub"],
-    "section": "Published Packages & Frameworks",
-    "points": [
-      "PyRest-Python: REST API automation framework with snap mode and image comparison.",
-      "newman-run: Run multiple Postman collections with single feed file, embedded reporting.",
-      "Cypress-PageObjectModel: Page Object Model framework for Cypress.",
-      "Selpy & SnaPyRest: Python modules for Selenium POM and REST API automation.",
-      "Teber: Multi-language test automation framework (Ruby, Java) with Allure reporting.",
-      "playwright-TS-pom: Playwright POM with GitLab CI and DataDog integration."
-    ]
-  },
-  "blog": {
-    "url": "https://medium.com/@nareshnavinash",
-    "section": "Publications",
-    "points": [
-      "Management In Action: A hands-on guide to effective engineering management.",
-      "Covers team building, decision-making, stakeholder alignment, and leadership.",
-      "Regular contributor on Medium about engineering management and quality.",
-      "Topics include AI in engineering, test automation, and leadership practices."
-    ]
-  },
-  "skills": {
-    "title": "Skills.",
-    "subtitle": "A full-stack quality & engineering toolkit honed over a decade.",
-    "categories": [
-      {
-        "name": "Languages",
-        "items": ["Python", "TypeScript", "Ruby"]
-      },
-      {
-        "name": "AI Stack",
-        "items": [
-          "AI Agents (Claude Code workflows)",
-          "Prompt Engineering",
-          "LLM Evals & RAG Architecture",
-          "Anthropic APIs · n8n · Zapier"
-        ]
-      },
-      {
-        "name": "Cloud & Infrastructure",
-        "items": [
-          "AWS (Solutions Architect)",
-          "Serverless Architecture",
-          "Docker & Kubernetes",
-          "CI/CD (CircleCI, GitLab, GitHub)"
-        ]
-      },
-      {
-        "name": "Quality & Observability",
-        "items": [
-          "Data Observability (Mixpanel, Holistics, Snowflake)",
-          "Performance Engineering (k6, Lighthouse)",
-          "Automation (Playwright, Cypress)",
-          "Contract Testing (Pact)"
-        ]
-      }
-    ]
-  },
-  "leadership": {
-    "title": "Leadership.",
-    "subtitle": "How I build teams, ship products, and drive impact.",
-    "cards": [
-      {
-        "title": "AI-Augmented Engineering",
-        "description": "Embedding AI tools and workflows into every stage of the SDLC — from code generation and review to intelligent testing and deployment."
-      },
-      {
-        "title": "Team Growth",
-        "description": "Investing in people through mentorship, clear career ladders, and creating psychological safety that empowers engineers to take bold bets."
-      },
-      {
-        "title": "Strategic Planning",
-        "description": "Translating business goals into engineering roadmaps with clear milestones, measurable outcomes, and adaptive execution."
-      },
-      {
-        "title": "Cross-functional Collaboration",
-        "description": "Breaking silos between product, design, and engineering to align on shared outcomes. Building bridges across distributed teams and time zones."
-      },
-      {
-        "title": "Operational Excellence",
-        "description": "Driving reliability through SLOs, incident management, runbooks, and a culture of blameless post-mortems and continuous improvement."
-      },
-      {
-        "title": "Data-Driven Decisions",
-        "description": "Using engineering metrics, user data, and experimentation to prioritize ruthlessly and make confident product and technical decisions."
-      }
-    ]
-  },
-  "publications": {
-    "title": "Publications.",
-    "subtitle": "Sharing knowledge through writing and open source.",
-    "book": {
-      "title": "Management In Action",
-      "author": "Naresh Sekar",
-      "publisher": "Amazon Kindle",
-      "bylineTemplate": "by {author} · Published on {publisher}",
-      "description": "A hands-on guide to effective engineering management — covering team building, decision-making, stakeholder alignment, and leadership practices that drive real impact in fast-paced technology organizations.",
-      "amazonUrl": "https://www.amazon.com/s?i=digital-text&rh=p_27%3ANaresh%2BSekar",
-      "mediumUrl": "https://medium.com/@nareshnavinash"
-    }
-  },
-  "certifications": {
-    "title": "Certifications.",
-    "subtitle": "Continuous learning across engineering, cloud, and leadership.",
-    "items": [
-      { "name": "AWS Solutions Architect Associate", "issuer": "Amazon Web Services" },
-      { "name": "Reforge — Engineering Management", "issuer": "Reforge" },
-      { "name": "CCNA & CCNP Routing and Switching", "issuer": "Cisco Systems" },
-      { "name": "Google Project Management Certificate", "issuer": "Google (Coursera)" },
-      { "name": "Strategic Leadership & Management", "issuer": "University of Illinois (Coursera)" },
-      { "name": "BEC Vantage (Business English)", "issuer": "Cambridge Assessment" }
-    ]
-  },
-  "education": {
-    "title": "Education.",
-    "degree": "Bachelor of Engineering — Electronics & Communication",
-    "school": "Anna University",
-    "period": "2011 — 2015",
-    "location": "Chennai, India"
-  },
-  "contact": {
-    "title": "Let's connect.",
-    "subtitle": "Open to conversations about engineering leadership, AI, and collaboration.",
-    "intro": "Say hello."
-  },
-  "projects": [
-    {
-      "title": "TestGorilla",
-      "titleSmall": ["Test", "Gorilla"],
-      "url": "https://www.testgorilla.com",
-      "shortRole": ["Engineering Manager", "Lead SDET"],
-      "images": ["tg-em-ai", "tg-em-devex", "tg-em-lead", "tg-lead-sdet"]
-    },
-    {
-      "title": "Hopin",
-      "titleSmall": ["Hopin"],
-      "url": "https://hopin.com",
-      "shortRole": "Senior SDET",
-      "images": ["hopin-1"]
-    },
-    {
-      "title": "Vue.ai",
-      "titleSmall": ["Vue.ai"],
-      "url": "https://vue.ai",
-      "shortRole": "Senior SDET",
-      "images": ["vueai-1"]
-    },
-    {
-      "title": "WeInvest",
-      "titleSmall": ["WeInvest"],
-      "url": "https://weinvest.net",
-      "shortRole": "Senior SDET",
-      "images": ["weinvest-1"]
-    },
-    {
-      "title": "Freshworks",
-      "titleSmall": ["Fresh", "works"],
-      "url": "https://www.freshworks.com",
-      "shortRole": "Software Engineer",
-      "images": ["freshworks-1"]
-    },
-    {
-      "title": "Cognizant",
-      "titleSmall": ["Cogni", "zant"],
-      "url": "https://www.cognizant.com",
-      "shortRole": "Programmer Analyst",
-      "images": ["cognizant-1"]
-    }
-  ]
 }

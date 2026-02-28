@@ -1,15 +1,39 @@
 import * as THREE from 'three/webgpu'
 import { Game } from '../Game.js'
-import { blendOverlay, color, float, Fn, hash, linearDepth, max, mix, output, positionGeometry, positionLocal, positionWorld, screenUV, select, sin, smoothstep, step, texture, uniform, uv, vec2, vec3, vec4, viewportLinearDepth, viewportSharedTexture } from 'three/tsl'
+import {
+    blendOverlay,
+    color,
+    float,
+    Fn,
+    hash,
+    linearDepth,
+    max,
+    mix,
+    output,
+    positionGeometry,
+    positionLocal,
+    positionWorld,
+    screenUV,
+    select,
+    sin,
+    smoothstep,
+    step,
+    texture,
+    uniform,
+    uv,
+    vec2,
+    vec3,
+    vec4,
+    viewportLinearDepth,
+    viewportSharedTexture
+} from 'three/tsl'
 import { lerp, remap, remapClamp } from '../utilities/maths.js'
 import { hashBlur } from 'three/examples/jsm/tsl/display/hashBlur.js'
 import { MeshDefaultMaterial } from '../Materials/MeshDefaultMaterial.js'
 import { boxBlur } from 'three/examples/jsm/tsl/display/boxBlur.js'
 
-export class WaterSurface
-{
-    constructor()
-    {
+export class WaterSurface {
+    constructor() {
         this.game = Game.getInstance()
 
         this.hasRipples = false
@@ -17,36 +41,35 @@ export class WaterSurface
         this.hasSplashes = false
 
         // Debug
-        if(this.game.debug.active)
-        {
+        if (this.game.debug.active) {
             this.debugPanel = this.game.debug.panel.addFolder({
                 title: '🌊 Water surface',
-                expanded: false,
+                expanded: false
             })
 
             this.ripplesDebugPanel = this.debugPanel.addFolder({
                 title: 'Ripples',
-                expanded: true,
+                expanded: true
             })
 
             this.iceDebugPanel = this.debugPanel.addFolder({
                 title: 'Ice',
-                expanded: true,
+                expanded: true
             })
 
             this.splashesDebugPanel = this.debugPanel.addFolder({
                 title: 'Splashes',
-                expanded: true,
+                expanded: true
             })
 
             this.shoreDebugPanel = this.debugPanel.addFolder({
                 title: 'shore',
-                expanded: true,
+                expanded: true
             })
 
             this.blurDebugPanel = this.debugPanel.addFolder({
                 title: 'blur',
-                expanded: true,
+                expanded: true
             })
         }
 
@@ -56,20 +79,21 @@ export class WaterSurface
         this.setMesh()
         this.setIce()
 
-        this.game.ticker.events.on('tick', () =>
-        {
-            this.update()
-        }, 10)
+        this.game.ticker.events.on(
+            'tick',
+            () => {
+                this.update()
+            },
+            10
+        )
     }
 
-    setGeometry()
-    {
+    setGeometry() {
         this.geometry = new THREE.PlaneGeometry(1, 1, 1, 1)
-        this.geometry.rotateX(- Math.PI * 0.5)
+        this.geometry.rotateX(-Math.PI * 0.5)
     }
 
-    setNodes()
-    {
+    setNodes() {
         /**
          * Ripples
          */
@@ -83,14 +107,12 @@ export class WaterSurface
             this.ripplesRatio,
             'value',
             { label: 'ripplesRatio', min: 0, max: 1, step: 0.001 },
-            () =>
-            {
+            () => {
                 return remapClamp(this.game.weather.temperature.value, 0, -3, 1, 0)
             }
         )
 
-        const ripplesNode = Fn(([terrainData]) =>
-        {           
+        const ripplesNode = Fn(([terrainData]) => {
             const baseRipple = terrainData.b.add(this.game.wind.localTime.mul(0.5)).mul(ripplesSlopeFrequency)
             const rippleIndex = baseRipple.floor()
 
@@ -98,7 +120,7 @@ export class WaterSurface
                 this.game.noises.perlin,
                 positionWorld.xz.add(rippleIndex.div(ripplesNoiseOffset)).mul(ripplesNoiseFrequency)
             ).r
-            
+
             const ripples = terrainData.b
                 .add(this.game.wind.localTime.mul(0.5))
                 .mul(ripplesSlopeFrequency)
@@ -112,11 +134,25 @@ export class WaterSurface
         })
 
         // Debug
-        if(this.game.debug.active)
-        {
-            this.ripplesDebugPanel.addBinding(ripplesSlopeFrequency, 'value', { label: 'ripplesSlopeFrequency', min: 0, max: 50, step: 0.01 })
-            this.ripplesDebugPanel.addBinding(ripplesNoiseFrequency, 'value', { label: 'ripplesNoiseFrequency', min: 0, max: 1, step: 0.01 })
-            this.ripplesDebugPanel.addBinding(ripplesNoiseOffset, 'value', { label: 'ripplesNoiseOffset', min: 0, max: 1, step: 0.001 })
+        if (this.game.debug.active) {
+            this.ripplesDebugPanel.addBinding(ripplesSlopeFrequency, 'value', {
+                label: 'ripplesSlopeFrequency',
+                min: 0,
+                max: 50,
+                step: 0.01
+            })
+            this.ripplesDebugPanel.addBinding(ripplesNoiseFrequency, 'value', {
+                label: 'ripplesNoiseFrequency',
+                min: 0,
+                max: 1,
+                step: 0.01
+            })
+            this.ripplesDebugPanel.addBinding(ripplesNoiseOffset, 'value', {
+                label: 'ripplesNoiseOffset',
+                min: 0,
+                max: 1,
+                step: 0.001
+            })
         }
 
         /**
@@ -130,18 +166,13 @@ export class WaterSurface
             this.iceRatio,
             'value',
             { label: 'iceRatio', min: 0, max: 1, step: 0.001 },
-            () =>
-            {
+            () => {
                 return remapClamp(this.game.weather.temperature.value, 0, -5, 0, 1)
             }
         )
 
-        const iceNode = Fn(([terrainData]) =>
-        {
-            const iceVoronoi = texture(
-                this.game.noises.voronoi,
-                positionWorld.xz.mul(iceNoiseFrequency)
-            ).g
+        const iceNode = Fn(([terrainData]) => {
+            const iceVoronoi = texture(this.game.noises.voronoi, positionWorld.xz.mul(iceNoiseFrequency)).g
 
             const ice = terrainData.b.remapClamp(0, this.iceRatio, 0, 1).toVar()
             ice.assign(iceVoronoi.step(ice))
@@ -150,9 +181,13 @@ export class WaterSurface
         })
 
         // Debug
-        if(this.game.debug.active)
-        {
-            this.iceDebugPanel.addBinding(iceNoiseFrequency, 'value', { label: 'iceNoiseFrequency', min: 0, max: 1, step: 0.01 })
+        if (this.game.debug.active) {
+            this.iceDebugPanel.addBinding(iceNoiseFrequency, 'value', {
+                label: 'iceNoiseFrequency',
+                min: 0,
+                max: 1,
+                step: 0.01
+            })
         }
 
         /**
@@ -170,19 +205,14 @@ export class WaterSurface
             this.splashesRatio,
             'value',
             { label: 'splashesRatio', min: 0, max: 1, step: 0.001 },
-            () =>
-            {
+            () => {
                 return Math.pow(this.game.weather.rain.value, 2)
             }
         )
 
-        const splashesNode = Fn(() =>
-        {
+        const splashesNode = Fn(() => {
             // Noises
-            const splashesVoronoi = texture(
-                this.game.noises.voronoi,
-                positionWorld.xz.mul(splashesNoiseFrequency)
-            )
+            const splashesVoronoi = texture(this.game.noises.voronoi, positionWorld.xz.mul(splashesNoiseFrequency))
             const splashPerlin = texture(
                 this.game.noises.perlin,
                 positionWorld.xz.mul(splashesNoiseFrequency.mul(0.25))
@@ -195,70 +225,92 @@ export class WaterSurface
             const splashTimeRandom = hash(splashesVoronoi.b.mul(123456)).add(splashPerlin)
             const splashTime = this.game.wind.localTime.mul(splashesTimeFrequency).add(splashTimeRandom)
             splash.assign(splash.sub(splashTime).mod(1))
-            
+
             // Thickness
-            const edgeMutliplier = splashesVoronoi.g.remapClamp(splashesEdgeAttenuationLow, splashesEdgeAttenuationHigh, 0, 1)
+            const edgeMutliplier = splashesVoronoi.g.remapClamp(
+                splashesEdgeAttenuationLow,
+                splashesEdgeAttenuationHigh,
+                0,
+                1
+            )
             const thickness = splashesThickness.mul(edgeMutliplier)
             splash.assign(splash.step(thickness).oneMinus())
-            
+
             // Visibility
             const splashVisibilityRandom = hash(splashesVoronoi.b.mul(654321))
             const visible = splashVisibilityRandom.add(splashPerlin).mod(1)
             visible.assign(this.splashesRatio.step(visible))
             splash.assign(splash.mul(visible))
-            
+
             return splash
         })
 
         // Debug
-        if(this.game.debug.active)
-        {
-            this.splashesDebugPanel.addBinding(splashesNoiseFrequency, 'value', { label: 'splashesNoiseFrequency', min: 0, max: 1, step: 0.01 })
-            this.splashesDebugPanel.addBinding(splashesTimeFrequency, 'value', { label: 'splashesTimeFrequency', min: 0, max: 100, step: 0.1 })
-            this.splashesDebugPanel.addBinding(splashesThickness, 'value', { label: 'splashesThickness', min: 0, max: 1, step: 0.01 })
-            this.splashesDebugPanel.addBinding(splashesEdgeAttenuationLow, 'value', { label: 'splashesEdgeAttenuationLow', min: 0, max: 1, step: 0.01 })
-            this.splashesDebugPanel.addBinding(splashesEdgeAttenuationHigh, 'value', { label: 'splashesEdgeAttenuationHigh', min: 0, max: 1, step: 0.01 })
+        if (this.game.debug.active) {
+            this.splashesDebugPanel.addBinding(splashesNoiseFrequency, 'value', {
+                label: 'splashesNoiseFrequency',
+                min: 0,
+                max: 1,
+                step: 0.01
+            })
+            this.splashesDebugPanel.addBinding(splashesTimeFrequency, 'value', {
+                label: 'splashesTimeFrequency',
+                min: 0,
+                max: 100,
+                step: 0.1
+            })
+            this.splashesDebugPanel.addBinding(splashesThickness, 'value', {
+                label: 'splashesThickness',
+                min: 0,
+                max: 1,
+                step: 0.01
+            })
+            this.splashesDebugPanel.addBinding(splashesEdgeAttenuationLow, 'value', {
+                label: 'splashesEdgeAttenuationLow',
+                min: 0,
+                max: 1,
+                step: 0.01
+            })
+            this.splashesDebugPanel.addBinding(splashesEdgeAttenuationHigh, 'value', {
+                label: 'splashesEdgeAttenuationHigh',
+                min: 0,
+                max: 1,
+                step: 0.01
+            })
         }
 
         /**
          * Shore
          */
         const shoreEdge = uniform(0.17)
-        
-        const shoreNode = Fn(([terrainData]) =>
-        {
+
+        const shoreNode = Fn(([terrainData]) => {
             return shoreEdge.step(terrainData.b)
         })
 
         // Debug
-        if(this.game.debug.active)
-        {
+        if (this.game.debug.active) {
             this.shoreDebugPanel.addBinding(shoreEdge, 'value', { label: 'shoreEdge', min: 0, max: 0.3, step: 0.001 })
         }
 
         /**
          * Details mask
          */
-        this.detailsMask = () =>
-        {
-            return Fn(() =>
-            {
+        this.detailsMask = () => {
+            return Fn(() => {
                 // Terrain data
                 // const terrainUv = this.game.terrain.worldPositionToUvNode(positionWorld.xz)
                 const terrainData = this.game.terrain.terrainNode(positionWorld.xz)
                 const value = float(0)
 
                 // Ripples
-                if(this.hasRipples)
-                    value.assign(max(value, ripplesNode(terrainData)))
+                if (this.hasRipples) value.assign(max(value, ripplesNode(terrainData)))
 
                 // Ice
-                if(this.hasIce)
-                    value.assign(max(value, iceNode(terrainData)))
-            
+                if (this.hasIce) value.assign(max(value, iceNode(terrainData)))
+
                 // Splashes
-                if(this.hasSplashes)
-                    value.assign(max(value, splashesNode()))
+                if (this.hasSplashes) value.assign(max(value, splashesNode()))
 
                 // Shore
                 value.assign(max(value, shoreNode(terrainData)))
@@ -270,14 +322,13 @@ export class WaterSurface
         /**
          * Blur Output
          */
-         const blurStrength = uniform(0.01)
+        const blurStrength = uniform(0.01)
 
-         this.blurOutputNode = Fn(() =>
-         {
+        this.blurOutputNode = Fn(() => {
             // const blurOutput = boxBlur(viewportSharedTexture(screenUV), {
-			// 	size: 1.5,
-			// 	separation: 3
-			// }).rgb
+            // 	size: 1.5,
+            // 	separation: 3
+            // }).rgb
 
             // Hash blur
             const blurOutput = hashBlur(viewportSharedTexture(screenUV), 0.01, {
@@ -286,17 +337,15 @@ export class WaterSurface
             })
 
             return vec3(blurOutput)
-         })
+        })
 
         // Debug
-        if(this.game.debug.active)
-        {
+        if (this.game.debug.active) {
             this.blurDebugPanel.addBinding(blurStrength, 'value', { label: 'blurStrength', min: 0, max: 0.1 })
         }
     }
 
-    setMaterial()
-    {
+    setMaterial() {
         const material = new MeshDefaultMaterial({
             depthWrite: false,
             colorNode: color(0xffffff),
@@ -311,38 +360,28 @@ export class WaterSurface
         })
 
         const baseOutput = material.outputNode
-        const blurredOutput = Fn(() =>
-        {
+        const blurredOutput = Fn(() => {
             const blurOutput = this.blurOutputNode()
             const surfaceAlpha = baseOutput.a
             const surfaceOutput = vec4(baseOutput.rgb, 1)
 
-            const finalOuput = select(
-                surfaceAlpha.lessThan(0.5),
-                blurOutput,
-                surfaceOutput
-            )
+            const finalOuput = select(surfaceAlpha.lessThan(0.5), blurOutput, surfaceOutput)
 
             return finalOuput
         })()
 
         // Quality
-        const qualityChange = (level) =>
-        {
-            if(level === 0)
-            {
+        const qualityChange = (level) => {
+            if (level === 0) {
                 material.outputNode = blurredOutput
-            }
-            else if(level === 1)
-            {
+            } else if (level === 1) {
                 material.outputNode = baseOutput
             }
-            
+
             material.needsUpdate = true
         }
         qualityChange(this.game.quality.level)
         this.game.quality.events.on('change', qualityChange)
-
 
         // const baseOutput = material.outputNode
         // material.outputNode = Fn(() =>
@@ -359,33 +398,29 @@ export class WaterSurface
 
         //     return finalOuput
         // })()
-        
-        material.castShadowNode = Fn(() =>
-        {
+
+        material.castShadowNode = Fn(() => {
             this.detailsMask().lessThan(0.5).discard()
 
             return vec4(0, 1, 1, 1)
         })()
 
         // Already exist
-        if(this.material)
-        {
+        if (this.material) {
             this.material.dispose()
             this.material = material
             this.mesh.material = this.material
         }
 
         // Don't exist yet
-        else
-        {
+        else {
             this.material = material
         }
     }
 
-    setMesh()
-    {
+    setMesh() {
         this.mesh = new THREE.Mesh(this.geometry, this.material)
-        
+
         const halfExtent = this.game.view.optimalArea.radius
         this.mesh.scale.setScalar(halfExtent * 2)
 
@@ -395,15 +430,17 @@ export class WaterSurface
         // this.mesh.renderOrder = -1
         this.game.scene.children.unshift(this.mesh)
 
-        this.game.viewport.events.on('throttleChange', () =>
-        {
-            const halfExtent = this.game.view.optimalArea.radius
-            this.mesh.scale.setScalar(halfExtent * 2)
-        }, 2)
+        this.game.viewport.events.on(
+            'throttleChange',
+            () => {
+                const halfExtent = this.game.view.optimalArea.radius
+                this.mesh.scale.setScalar(halfExtent * 2)
+            },
+            2
+        )
     }
 
-    setIce()
-    {
+    setIce() {
         this.ice = {}
 
         this.ice.halfThickness = 0.5
@@ -413,15 +450,11 @@ export class WaterSurface
             frictionRule: 'min',
             friction: 0.02,
             enabled: false,
-            colliders:
-            [
-                { shape: 'cuboid', parameters: [ 256, this.ice.halfThickness, 256 ] },
-            ]
+            colliders: [{ shape: 'cuboid', parameters: [256, this.ice.halfThickness, 256] }]
         })
     }
 
-    update()
-    {
+    update() {
         // Apply weather
         this.ripplesRatioBinding.update()
         this.iceRatioBinding.update()
@@ -437,35 +470,33 @@ export class WaterSurface
         const hasIce = this.iceRatio.value > 0.0001
         const hasSplashes = this.splashesRatio.value > 0.0001
 
-        if(
-            hasRipples !== this.hasRipples ||
-            hasIce !== this.hasIce ||
-            hasSplashes !== this.hasSplashes
-        )
-        {
+        if (hasRipples !== this.hasRipples || hasIce !== this.hasIce || hasSplashes !== this.hasSplashes) {
             this.hasRipples = hasRipples
             this.hasIce = hasIce
             this.hasSplashes = hasSplashes
-            
+
             this.setMaterial()
         }
 
         // Ice
         const friction = lerp(0.5, 0.02, this.iceRatio.value)
         this.ice.physical.body.collider(0).setFriction(friction)
-        this.ice.physical.body.setNextKinematicTranslation({ x: 0, y: lerp(- 1.5 - this.ice.halfThickness, this.game.water.surfaceElevation - this.ice.halfThickness, this.iceRatio.value), z: 0})
+        this.ice.physical.body.setNextKinematicTranslation({
+            x: 0,
+            y: lerp(
+                -1.5 - this.ice.halfThickness,
+                this.game.water.surfaceElevation - this.ice.halfThickness,
+                this.iceRatio.value
+            ),
+            z: 0
+        })
 
-        if(this.iceRatio.value > 0)
-        {
-            if(!this.ice.physical.body.isEnabled())
-            {
+        if (this.iceRatio.value > 0) {
+            if (!this.ice.physical.body.isEnabled()) {
                 this.game.objects.enable(this.ice)
             }
-        }
-        else
-        {
-            if(this.ice.physical.body.isEnabled())
-            {
+        } else {
+            if (this.ice.physical.body.isEnabled()) {
                 this.game.objects.disable(this.ice)
             }
         }

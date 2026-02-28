@@ -10,40 +10,35 @@ const resumeRes = await fetch('/data/resume.json')
 const resumeData = await resumeRes.json()
 
 const careerEntries = resumeData.career.positions
-    .map(company => {
+    .map((company) => {
         const roles = company.roles
         const earliest = roles.reduce((a, b) =>
-            (a.startYear + (a.startMonth - 1) / 12) < (b.startYear + (b.startMonth - 1) / 12) ? a : b
+            a.startYear + (a.startMonth - 1) / 12 < b.startYear + (b.startMonth - 1) / 12 ? a : b
         )
         const latest = roles.reduce((a, b) => {
             const aEnd = a.endYear ? a.endYear + (a.endMonth - 1) / 12 : Infinity
             const bEnd = b.endYear ? b.endYear + (b.endMonth - 1) / 12 : Infinity
             return aEnd > bEnd ? a : b
         })
-        const role = roles.length > 1
-            ? roles.map(r => r.shortRole).join(' \u2192 ')
-            : roles[0].shortRole
+        const role = roles.length > 1 ? roles.map((r) => r.shortRole).join(' \u2192 ') : roles[0].shortRole
         return {
             company: company.company,
             role,
             start: earliest.startYear + (earliest.startMonth - 1) / 12,
-            end: latest.endYear ? latest.endYear + (latest.endMonth - 1) / 12 : null,
+            end: latest.endYear ? latest.endYear + (latest.endMonth - 1) / 12 : null
         }
     })
     .sort((a, b) => a.start - b.start)
 
-export class CareerArea extends Area
-{
-    constructor(references)
-    {
+export class CareerArea extends Area {
+    constructor(references) {
         super(references)
 
         // Debug
-        if(this.game.debug.active)
-        {
+        if (this.game.debug.active) {
             this.debugPanel = this.game.debug.panel.addFolder({
                 title: '💼 Career',
-                expanded: false,
+                expanded: false
             })
         }
 
@@ -53,8 +48,7 @@ export class CareerArea extends Area
         this.setAchievement()
     }
 
-    setSounds()
-    {
+    setSounds() {
         this.sounds = {}
         this.sounds.stoneOut = this.game.audio.register({
             path: 'sounds/stoneSlides/stoneSlideOut.mp3',
@@ -64,8 +58,7 @@ export class CareerArea extends Area
             antiSpam: 0.1,
             positions: new THREE.Vector3(),
             distanceFade: 14,
-            onPlay: (item, line) =>
-            {
+            onPlay: (item, line) => {
                 item.positions[0].copy(line.origin)
                 item.rate = 1.2 + line.index * 0.1
             }
@@ -79,21 +72,19 @@ export class CareerArea extends Area
             antiSpam: 0.1,
             positions: new THREE.Vector3(),
             distanceFade: 14,
-            onPlay: (item, line) =>
-            {
+            onPlay: (item, line) => {
                 item.positions[0].copy(line.origin)
                 // item.rate = 0.9 + Math.random() * 0.2
             }
         })
     }
 
-    setLines()
-    {
+    setLines() {
         this.lines = {}
         this.lines.items = []
         this.lines.activeElevation = 2.5
         this.lines.padding = 0.25
-        
+
         const lineGroups = this.references.items.get('line')
 
         const colors = {
@@ -105,8 +96,7 @@ export class CareerArea extends Area
 
         // First pass: collect and sort lines by Z position to determine chronological order
         const unsortedLines = []
-        for(const group of lineGroups)
-        {
+        for (const group of lineGroups) {
             unsortedLines.push({
                 group,
                 originZ: group.position.z
@@ -124,31 +114,27 @@ export class CareerArea extends Area
 
         // Second pass: create lines with correct career textures and sizes
         let lineIndex = 0
-        for(const { group } of unsortedLines)
-        {
+        for (const { group } of unsortedLines) {
             const line = {}
             line.group = group
             line.color = line.group.userData.color
             line.index = lineIndex
 
             // Override size and texture with actual career data
-            if(lineIndex < careerEntries.length)
-            {
+            if (lineIndex < careerEntries.length) {
                 const entry = careerEntries[lineIndex]
                 const entryEnd = entry.end ?? currentYearFrac
                 const duration = entryEnd - entry.start
                 line.size = duration * zPerYear
                 line.hasEnd = entry.end !== null
                 line.texture = this.generateCareerTexture(entry.company, entry.role)
-            }
-            else
-            {
+            } else {
                 line.size = parseFloat(line.group.userData.size)
                 line.hasEnd = line.group.userData.hasEnd
                 line.texture = this.game.resources[`${line.group.userData.texture}Texture`]
             }
 
-            line.stone = line.group.children.find(child => child.name.startsWith('stone'))
+            line.stone = line.group.children.find((child) => child.name.startsWith('stone'))
             line.stone.position.y = 0
 
             line.origin = line.group.position.clone()
@@ -160,14 +146,13 @@ export class CareerArea extends Area
             line.labelReveal = uniform(0)
 
             {
-                line.textMesh = line.stone.children.find(child => child.name.startsWith('careerText'))
+                line.textMesh = line.stone.children.find((child) => child.name.startsWith('careerText'))
 
                 const material = new THREE.MeshLambertNodeMaterial({ transparent: true })
 
                 const baseColor = colors[line.color]
 
-                material.outputNode = Fn(() =>
-                {
+                material.outputNode = Fn(() => {
                     const baseUv = uv().toVar()
 
                     step(baseUv.x, line.labelReveal).lessThan(0.5).discard()
@@ -195,8 +180,7 @@ export class CareerArea extends Area
         }
 
         // Debug
-        if(this.game.debug.active)
-        {
+        if (this.game.debug.active) {
             this.game.debug.addThreeColorBinding(this.debugPanel, colors.blue.value, 'blue')
             this.game.debug.addThreeColorBinding(this.debugPanel, colors.orange.value, 'orange')
             this.game.debug.addThreeColorBinding(this.debugPanel, colors.purple.value, 'purple')
@@ -204,8 +188,7 @@ export class CareerArea extends Area
         }
     }
 
-    generateCareerTexture(company, role)
-    {
+    generateCareerTexture(company, role) {
         const width = 480
         const height = 120
         const canvas = document.createElement('canvas')
@@ -241,8 +224,7 @@ export class CareerArea extends Area
         return tex
     }
 
-    setYears()
-    {
+    setYears() {
         this.year = {}
         this.year.group = this.references.items.get('year')[0]
         this.year.originZ = this.year.group.position.z
@@ -258,7 +240,7 @@ export class CareerArea extends Area
         //    |           |
         //    5           1
         //    |           |
-        //      --- 6 --- 
+        //      --- 6 ---
         //    |           |
         //    4           2
         //    |           |
@@ -267,16 +249,76 @@ export class CareerArea extends Area
         const a = 255
 
         const digitData = new Uint8Array([
-            a, a, a, a, a, a, 0, // 0
-            0, a, a, 0, 0, 0, 0, // 1
-            a, a, 0, a, a, 0, a, // 2
-            a, a, a, a, 0, 0, a, // 3
-            0, a, a, 0, 0, a, a, // 4
-            a, 0, a, a, 0, a, a, // 5
-            a, 0, a, a, a, a, a, // 6
-            a, a, a, 0, 0, 0, 0, // 7
-            a, a, a, a, a, a, a, // 8
-            a, a, a, a, 0, a, a, // 9
+            a,
+            a,
+            a,
+            a,
+            a,
+            a,
+            0, // 0
+            0,
+            a,
+            a,
+            0,
+            0,
+            0,
+            0, // 1
+            a,
+            a,
+            0,
+            a,
+            a,
+            0,
+            a, // 2
+            a,
+            a,
+            a,
+            a,
+            0,
+            0,
+            a, // 3
+            0,
+            a,
+            a,
+            0,
+            0,
+            a,
+            a, // 4
+            a,
+            0,
+            a,
+            a,
+            0,
+            a,
+            a, // 5
+            a,
+            0,
+            a,
+            a,
+            a,
+            a,
+            a, // 6
+            a,
+            a,
+            a,
+            0,
+            0,
+            0,
+            0, // 7
+            a,
+            a,
+            a,
+            a,
+            a,
+            a,
+            a, // 8
+            a,
+            a,
+            a,
+            a,
+            0,
+            a,
+            a // 9
         ])
 
         this.year.digitsTexture = new THREE.DataTexture(
@@ -296,19 +338,17 @@ export class CareerArea extends Area
 
         this.year.digits = []
 
-        const digitMeshes = this.year.group.children.filter(child => child.name.startsWith('digit'))
+        const digitMeshes = this.year.group.children.filter((child) => child.name.startsWith('digit'))
 
-        for(const mesh of digitMeshes)
-        {
+        for (const mesh of digitMeshes) {
             const digit = {}
             digit.mesh = mesh
             digit.indexUniform = uniform(0)
-            
+
             const material = new THREE.MeshBasicNodeMaterial()
             material.outputNode = vec4(1.7)
 
-            material.positionNode = Fn(() =>
-            {
+            material.positionNode = Fn(() => {
                 const barUv = uv(1).toVar()
 
                 const uvY = digit.indexUniform.div(10).add(float(0.5).div(10))
@@ -327,12 +367,10 @@ export class CareerArea extends Area
             this.year.digits.push(digit)
         }
 
-        this.year.updateDigits = (year = 2025) =>
-        {
+        this.year.updateDigits = (year = 2025) => {
             const yearString = `${year}`
             let i = 0
-            for(const digit of this.year.digits)
-            {
+            for (const digit of this.year.digits) {
                 digit.indexUniform.value = parseInt(yearString[i])
                 i++
             }
@@ -351,73 +389,59 @@ export class CareerArea extends Area
         // this.game.scene.add(mesh)
     }
 
-    setAchievement()
-    {
-        this.events.on('boundingIn', () =>
-        {
+    setAchievement() {
+        this.events.on('boundingIn', () => {
             this.game.achievements.setProgress('areas', 'career')
         })
     }
 
-    update()
-    {
+    update() {
         // Lines
-        for(const line of this.lines.items)
-        {
+        for (const line of this.lines.items) {
             const delta = line.origin.z - this.game.player.position.z
 
             // Is in
-            if(delta > - this.lines.padding && delta < line.size + this.lines.padding * 2)
-            {
-                if(!line.isIn)
-                {
+            if (delta > -this.lines.padding && delta < line.size + this.lines.padding * 2) {
+                if (!line.isIn) {
                     line.isIn = true
-                    gsap.to(line.labelReveal, { value: 1, duration: 1, delay: 0.3, overwrite: true, ease: 'power2.inOut' })
+                    gsap.to(line.labelReveal, {
+                        value: 1,
+                        duration: 1,
+                        delay: 0.3,
+                        overwrite: true,
+                        ease: 'power2.inOut'
+                    })
                 }
             }
 
             // Is out
-            else
-            {
-                if(line.isIn)
-                {
+            else {
+                if (line.isIn) {
                     line.isIn = false
                     gsap.to(line.labelReveal, { value: 0, duration: 1, overwrite: true, ease: 'power2.inOut' })
                 }
             }
 
             // Elevation
-            if(line.isIn)
-            {
-                if(!line.isUp)
-                {
+            if (line.isIn) {
+                if (!line.isUp) {
                     line.isUp = true
                     this.sounds.stoneOut.play(line)
                 }
-            }
-            else
-            {
-                if(delta > line.size)
-                {
-                    if(line.hasEnd)
-                    {
-                        if(line.isUp)
-                        {
+            } else {
+                if (delta > line.size) {
+                    if (line.hasEnd) {
+                        if (line.isUp) {
                             line.isUp = false
-                            gsap.delayedCall(0.3, () =>
-                            {
+                            gsap.delayedCall(0.3, () => {
                                 this.sounds.stoneIn.play(line)
                             })
                         }
                     }
-                }
-                else
-                {
-                    if(line.isUp)
-                    {
+                } else {
+                    if (line.isUp) {
                         line.isUp = false
-                        gsap.delayedCall(0.3, () =>
-                        {
+                        gsap.delayedCall(0.3, () => {
                             this.sounds.stoneIn.play(line)
                         })
                     }
@@ -428,19 +452,13 @@ export class CareerArea extends Area
             line.stone.position.y += (line.elevationTarget - line.stone.position.y) * this.game.ticker.deltaScaled * 3
 
             // Position
-            if(line.isIn)
-            {
-                if(line.stone.position.y > 1)
-                    line.offsetTarget = - clamp(delta, 0, line.size)
-            }
-            else
-            {
+            if (line.isIn) {
+                if (line.stone.position.y > 1) line.offsetTarget = -clamp(delta, 0, line.size)
+            } else {
                 // End
-                if(delta > line.size)
-                    line.offsetTarget = - line.size
+                if (delta > line.size) line.offsetTarget = -line.size
                 // Start
-                else
-                    line.offsetTarget = 0
+                else line.offsetTarget = 0
             }
 
             line.stone.position.z += (line.offsetTarget - line.stone.position.z) * this.game.ticker.deltaScaled * 10
@@ -449,12 +467,9 @@ export class CareerArea extends Area
         // Year
         const delta = this.year.originZ - this.game.player.position.z
 
-        if(delta > this.year.size)
-            this.year.offsetTarget = this.year.size
-        else if(delta < 0)
-            this.year.offsetTarget = 0
-        else
-            this.year.offsetTarget = delta
+        if (delta > this.year.size) this.year.offsetTarget = this.year.size
+        else if (delta < 0) this.year.offsetTarget = 0
+        else this.year.offsetTarget = delta
 
         const finalPositionZ = this.year.originZ - this.year.offsetTarget
         this.year.group.position.z += (finalPositionZ - this.year.group.position.z) * this.game.ticker.deltaScaled * 10
@@ -462,8 +477,7 @@ export class CareerArea extends Area
         const yearRange = this.year.end - this.year.start
         const yearCurrent = this.year.start + Math.floor((this.year.offsetTarget / this.year.size) * yearRange)
 
-        if(yearCurrent !== this.year.current)
-        {
+        if (yearCurrent !== this.year.current) {
             this.year.current = yearCurrent
             this.year.updateDigits(this.year.current)
         }

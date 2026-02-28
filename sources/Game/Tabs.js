@@ -1,9 +1,7 @@
 import { Game } from './Game.js'
 
-export class Tabs
-{
-    constructor(element)
-    {
+export class Tabs {
+    constructor(element) {
         this.game = Game.getInstance()
         this.element = element
 
@@ -11,45 +9,37 @@ export class Tabs
         // this.setResize()
     }
 
-    setItems()
-    {
+    setItems() {
         this.items = {}
-        
+
         this.items.navigationContainer = this.element.querySelector('.js-tabs-navigation')
-        this.items.navigationItems = [ ...this.items.navigationContainer.querySelectorAll('.js-tabs-navigation-item') ]
+        this.items.navigationItems = [...this.items.navigationContainer.querySelectorAll('.js-tabs-navigation-item')]
         this.items.contentContainer = this.element.querySelector('.js-tabs-content')
-        this.items.contentItems = [ ...this.items.contentContainer.querySelectorAll('.js-tabs-content-item') ]
+        this.items.contentItems = [...this.items.contentContainer.querySelectorAll('.js-tabs-content-item')]
 
         this.items.list = new Map()
         this.items.current = null
 
         let defaultItem = null
 
-        for(const navigationElement of this.items.navigationItems)
-        {
+        for (const navigationElement of this.items.navigationItems) {
             const item = {}
             item.name = navigationElement.dataset.tabsName
             item.navigationElement = navigationElement
-            item.contentElement = this.items.contentItems.find(element => element.classList.contains(item.name))
+            item.contentElement = this.items.contentItems.find((element) => element.classList.contains(item.name))
             item.innerElement = item.contentElement.querySelector('.js-tabs-content-inner')
 
-            item.navigationElement.addEventListener('click', () =>
-            {
+            item.navigationElement.addEventListener('click', () => {
                 this.goTo(item.name)
             })
 
-            if(typeof item.contentElement.dataset.tabsDefault !== 'undefined')
-                defaultItem = item
+            if (typeof item.contentElement.dataset.tabsDefault !== 'undefined') defaultItem = item
 
-            this.items.list.set(
-                item.name,
-                item
-            )
+            this.items.list.set(item.name, item)
         }
 
         // Default
-        if(defaultItem)
-            this.goTo(defaultItem.name)
+        if (defaultItem) this.goTo(defaultItem.name)
     }
 
     // setResize()
@@ -69,7 +59,7 @@ export class Tabs
     //     this.items.list.forEach((item) =>
     //     {
     //         const bounding = item.innerElement.getBoundingClientRect()
-            
+
     //         if(bounding.height > height)
     //             height = bounding.height
     //     })
@@ -80,20 +70,16 @@ export class Tabs
     //     }
     // }
 
-    goTo(itemName)
-    {
+    goTo(itemName) {
         // Same
-        if(itemName === this.items.current?.name)
-            return
+        if (itemName === this.items.current?.name) return
 
         // Couldn't find content
         const contentItem = this.items.list.get(itemName)
-        if(!contentItem)
-            return
+        if (!contentItem) return
 
         // Old content
-        if(this.items.current)
-        {
+        if (this.items.current) {
             this.items.current.contentElement.classList.remove('is-active')
             this.items.current.navigationElement.classList.remove('is-active')
         }

@@ -1,10 +1,8 @@
 import { clamp } from 'three/src/math/MathUtils.js'
 import { Game } from './Game.js'
 
-export class Map
-{
-    constructor()
-    {
+export class Map {
+    constructor() {
         this.game = Game.getInstance()
 
         this.initiated = false
@@ -14,31 +12,30 @@ export class Map
         this.setTrigger()
         this.setInputs()
 
-        this.modal.events.on('open', () =>
-        {
-            if(!this.initiated)
-                this.init()
+        this.modal.events.on('open', () => {
+            if (!this.initiated) this.init()
 
             this.texture.update()
         })
     }
 
-    init()
-    {
+    init() {
         this.initiated = true
-        
+
         this.setLocations()
         this.setPlayer()
         this.setTexture()
 
-        this.game.ticker.events.on('tick', () =>
-        {
-            this.update()
-        }, 14)
+        this.game.ticker.events.on(
+            'tick',
+            () => {
+                this.update()
+            },
+            14
+        )
     }
 
-    setLocations()
-    {
+    setLocations() {
         this.locations = {}
         this.locations.items = [
             { name: 'Achievements', respawnName: 'achievements', offset: { x: 0, y: -0.01 } },
@@ -52,16 +49,15 @@ export class Map
             { name: 'Landing', respawnName: 'landing', offset: { x: 0.02, y: 0 } },
             { name: 'Projects', respawnName: 'projects', offset: { x: 0, y: -0.02 } },
             { name: 'Social', respawnName: 'social', offset: { x: -0.01, y: -0.04 } },
-            { name: 'Time Machine', respawnName: 'timeMachine', offset: { x: 0, y: 0 } },
+            { name: 'Time Machine', respawnName: 'timeMachine', offset: { x: 0, y: 0 } }
         ]
 
-        for(const item of this.locations.items)
-        {
+        for (const item of this.locations.items) {
             const respawn = this.game.respawns.getByName(item.respawnName)
             const mapPosition = this.worldToMap(respawn.position)
 
             // HTML
-            const html = /* html */`
+            const html = /* html */ `
                 <div class="pin"></div>
                 <div class="name-container">
                     <div class="name">${item.name}</div>
@@ -71,47 +67,42 @@ export class Map
             const element = document.createElement('div')
             element.classList.add('location')
             element.innerHTML = html
-            element.style.left = `${(mapPosition.x + item.offset.x)* 100}%`
-            element.style.top = `${(mapPosition.y + item.offset.y)* 100}%`
+            element.style.left = `${(mapPosition.x + item.offset.x) * 100}%`
+            element.style.top = `${(mapPosition.y + item.offset.y) * 100}%`
             element.style.zIndex = Math.round(mapPosition.y * 1000)
-            
+
             this.element.append(element)
 
-            element.addEventListener('click', () =>
-            {
-                this.game.player.respawn(item.respawnName, () =>
-                {
+            element.addEventListener('click', () => {
+                this.game.player.respawn(item.respawnName, () => {
                     this.game.view.focusPoint.isTracking = true
                 })
                 this.game.modals.close()
             })
         }
     }
-    
-    setPlayer()
-    {
+
+    setPlayer() {
         this.player = {}
         this.player.element = this.element.querySelector('.js-player')
         this.player.roundedPosition = { x: 0, y: 0 }
     }
-    
-    setTexture()
-    {
+
+    setTexture() {
         this.texture = {}
         this.texture.element = this.element.querySelector('.js-texture')
         this.texture.previousUrl = null
 
-        this.texture.element.addEventListener('load', () =>
-        {
+        this.texture.element.addEventListener('load', () => {
             this.texture.element.classList.add('is-visible')
         })
-        
-        this.texture.update = () =>
-        {
-            const url = this.game.dayCycles.intervalEvents.get('night').inInterval ? 'ui/map/map-night.webp' : 'ui/map/map-day.webp'
 
-            if(url !== this.texture.previousUrl)
-            {
+        this.texture.update = () => {
+            const url = this.game.dayCycles.intervalEvents.get('night').inInterval
+                ? 'ui/map/map-night.webp'
+                : 'ui/map/map-day.webp'
+
+            if (url !== this.texture.previousUrl) {
                 this.texture.element.classList.remove('is-visible')
                 this.texture.previousUrl = url
                 this.texture.element.src = url
@@ -119,40 +110,31 @@ export class Map
         }
     }
 
-    setTrigger()
-    {
+    setTrigger() {
         const element = this.game.domElement.querySelector('.js-map-trigger')
-        
-        element.addEventListener('click', (event) =>
-        {
+
+        element.addEventListener('click', (event) => {
             this.game.modals.open('map')
         })
-        element.addEventListener('keydown', (event) =>
-        {
+        element.addEventListener('keydown', (event) => {
             event.preventDefault()
         })
     }
 
-    setInputs()
-    {
+    setInputs() {
         // Inputs keyboard
         this.game.inputs.addActions([
-            { name: 'map', categories: [ 'modal', 'menu', 'wandering' ], keys: [ 'Keyboard.m', 'Keyboard.KeyM' ] },
+            { name: 'map', categories: ['modal', 'menu', 'wandering'], keys: ['Keyboard.m', 'Keyboard.KeyM'] }
         ])
-        this.game.inputs.events.on('map', (action) =>
-        {
-            if(action.active)
-            {
-                if(!this.modal.isOpen)
-                    this.game.modals.open('map')
-                else
-                    this.game.modals.close()
+        this.game.inputs.events.on('map', (action) => {
+            if (action.active) {
+                if (!this.modal.isOpen) this.game.modals.open('map')
+                else this.game.modals.close()
             }
         })
     }
 
-    worldToMap(coordinates)
-    {
+    worldToMap(coordinates) {
         let x = coordinates.x
         let y = typeof coordinates.z !== 'undefined' ? coordinates.z : coordinates.y
 
@@ -168,16 +150,13 @@ export class Map
         return { x, y }
     }
 
-    update()
-    {
-        if(!this.modal.isOpen)
-            return
+    update() {
+        if (!this.modal.isOpen) return
 
         const playerRoundedX = Math.round(this.game.player.position.x)
         const playerRoundedY = Math.round(this.game.player.position.z)
 
-        if(playerRoundedX !== this.player.roundedPosition.x || playerRoundedY !== this.player.roundedPosition.y)
-        {
+        if (playerRoundedX !== this.player.roundedPosition.x || playerRoundedY !== this.player.roundedPosition.y) {
             this.player.roundedPosition.x = playerRoundedX
             this.player.roundedPosition.y = playerRoundedY
 

@@ -4,10 +4,8 @@ import { atan, float, Fn, PI, PI2, positionGeometry, texture, uniform, uv, vec2,
 import gsap from 'gsap'
 import { Inputs } from '../Inputs/Inputs.js'
 
-export class Intro
-{
-    constructor()
-    {
+export class Intro {
+    constructor() {
         this.game = Game.getInstance()
 
         const respawn = this.game.respawns.getDefault()
@@ -19,8 +17,7 @@ export class Intro
         this.startLoadingAnimation()
     }
 
-    setName()
-    {
+    setName() {
         this.name = {}
 
         // Canvas
@@ -43,8 +40,7 @@ export class Intro
         // Material — left-to-right reveal synced with loading progress
         this.name.progress = uniform(0)
         const material = new THREE.MeshBasicNodeMaterial({ transparent: true, depthWrite: false, depthTest: false })
-        material.outputNode = Fn(() =>
-        {
+        material.outputNode = Fn(() => {
             const t = texture(canvasTexture, uv())
             t.a.lessThan(0.01).discard()
             uv().x.greaterThan(this.name.progress).discard()
@@ -76,8 +72,7 @@ export class Intro
         this.name.mesh = mesh
 
         // Hide — reverse the fill to 0
-        this.name.hide = () =>
-        {
+        this.name.hide = () => {
             gsap.to(this.name.progress, {
                 value: 0,
                 duration: 0.5,
@@ -87,22 +82,18 @@ export class Intro
         }
     }
 
-    setLabel()
-    {
+    setLabel() {
         this.label = new THREE.Group()
         this.label.position.copy(this.center)
         this.label.rotation.reorder('YXZ')
-        
-        if(this.game.quality.level === 0)
-        {
+
+        if (this.game.quality.level === 0) {
             this.label.position.x += 3.5
             this.label.position.z -= 1
             this.label.position.y = 3.3
-            
+
             this.label.rotation.y = 0.4
-        }
-        else
-        {
+        } else {
             this.label.position.x += 2.3
             this.label.position.z -= 1.8
             this.label.position.y = 3.3
@@ -110,15 +101,14 @@ export class Intro
             this.label.rotation.y = 0.4
             this.label.rotation.x = -0.4
         }
-        
+
         this.label.scale.setScalar(0.01)
         this.game.scene.add(this.label)
     }
 
-    setCircle()
-    {
+    setCircle() {
         this.circle = {}
-        
+
         const radius = 3.5
         const thickness = 0.04
         this.circle.progress = 0
@@ -129,8 +119,7 @@ export class Intro
 
         // Material
         const material = new THREE.MeshBasicNodeMaterial()
-        material.outputNode = Fn(() =>
-        {
+        material.outputNode = Fn(() => {
             const angle = atan(positionGeometry.y, positionGeometry.x)
             const angleProgress = angle.div(PI2).add(0.5).oneMinus()
 
@@ -141,47 +130,39 @@ export class Intro
 
         // Mesh
         const mesh = new THREE.Mesh(geometry, material)
-        
+
         mesh.position.copy(this.center)
         mesh.position.y = 0.001
-        mesh.rotation.x = - Math.PI * 0.5
+        mesh.rotation.x = -Math.PI * 0.5
         mesh.rotation.z = Math.PI * 0.5
-        
+
         this.game.scene.add(mesh)
 
         this.circle.mesh = mesh
 
         // Hide
-        this.circle.hide = (callback = null) =>
-        {
+        this.circle.hide = (callback = null) => {
             const dummy = { scale: 1 }
             const speedMultiplier = this.game.debug.active ? 4 : 1
-            gsap.to(
-                dummy,
-                {
-                    scale: 0,
-                    duration: 1.5 / speedMultiplier,
-                    // ease: 'back.in(1.7)',
-                    ease: 'power4.in',
-                    overwrite: true,
-                    onUpdate: () =>
-                    {
-                        mesh.scale.setScalar(dummy.scale)
-                    },
-                    onComplete: () =>
-                    {
-                        if(typeof callback === 'function')
-                            callback()
+            gsap.to(dummy, {
+                scale: 0,
+                duration: 1.5 / speedMultiplier,
+                // ease: 'back.in(1.7)',
+                ease: 'power4.in',
+                overwrite: true,
+                onUpdate: () => {
+                    mesh.scale.setScalar(dummy.scale)
+                },
+                onComplete: () => {
+                    if (typeof callback === 'function') callback()
 
-                        mesh.removeFromParent()
-                    }
+                    mesh.removeFromParent()
                 }
-            )
+            })
         }
     }
 
-    setText()
-    {
+    setText() {
         this.text = {}
 
         // Geometry
@@ -189,24 +170,17 @@ export class Intro
         const geometry = new THREE.PlaneGeometry(2 * scale, 1 * scale)
 
         // Texture
-        this.text.updateTexture = () =>
-        {
+        this.text.updateTexture = () => {
             // Define text
             let lines = ['Click to', 'Start']
-            
-            if(this.game.inputs.mode === Inputs.MODE_GAMEPAD)
-            {
-                if(this.game.inputs.gamepad.type === 'xbox')
-                {
+
+            if (this.game.inputs.mode === Inputs.MODE_GAMEPAD) {
+                if (this.game.inputs.gamepad.type === 'xbox') {
                     lines = ['Press (A)', 'to Start']
-                }
-                else
-                {
+                } else {
                     lines = ['Press (X)', 'to Start']
                 }
-            }
-            else if(this.game.inputs.mode === Inputs.MODE_TOUCH)
-            {
+            } else if (this.game.inputs.mode === Inputs.MODE_TOUCH) {
                 lines = ['Tap to', 'Start']
             }
 
@@ -215,15 +189,15 @@ export class Intro
             canvas.width = 512
             canvas.height = 256
             const ctx = canvas.getContext('2d')
-            
+
             ctx.clearRect(0, 0, canvas.width, canvas.height)
-            
+
             // Text style
             ctx.font = '700 85px "Caveat", cursive'
             ctx.textAlign = 'center'
             ctx.textBaseline = 'middle'
             ctx.fillStyle = '#ffffff'
-            
+
             // Draw text in two lines
             ctx.fillText(lines[0], 256, 75)
             ctx.fillText(lines[1], 256, 165)
@@ -233,7 +207,7 @@ export class Intro
             ctx.lineWidth = 4
             ctx.lineCap = 'round'
             ctx.lineJoin = 'round'
-            
+
             // Draw hand-drawn style arrow pointing from left to the text
             ctx.beginPath()
             ctx.moveTo(100, 140)
@@ -253,8 +227,7 @@ export class Intro
             canvasTexture.generateMipmaps = false
 
             // Update material
-            material.outputNode = Fn(() =>
-            {
+            material.outputNode = Fn(() => {
                 const t = texture(canvasTexture, uv())
                 t.a.lessThan(0.5).discard()
                 return vec4(1)
@@ -281,19 +254,17 @@ export class Intro
         this.text.updateTexture()
     }
 
-    setSoundButton()
-    {
+    setSoundButton() {
         this.soundButton = {}
 
         // Texture
         const texture = this.game.resources.soundTexture
-        
-        if(this.game.audio.mute.active)
-            texture.offset.x = 0.5
+
+        if (this.game.audio.mute.active) texture.offset.x = 0.5
 
         // Geometry
         const scale = 0.5
-        const geometry = new THREE.PlaneGeometry(50 / 38 * scale, 1 * scale)
+        const geometry = new THREE.PlaneGeometry((50 / 38) * scale, 1 * scale)
 
         // Material
         const intensity = uniform(1)
@@ -307,96 +278,78 @@ export class Intro
         // Mesh
         const mesh = new THREE.Mesh(geometry, material)
         mesh.position.x = 0.38
-        mesh.position.y = - 1
+        mesh.position.y = -1
         this.label.add(mesh)
 
         // Intersect
         const position = this.label.position.clone()
         position.x += 0.38
-        position.y += - 1
+        position.y += -1
 
         this.soundButton.intersect = this.game.rayCursor.addIntersect({
             active: true,
             shape: new THREE.Sphere(position, 0.5),
-            onClick: () =>
-            {
+            onClick: () => {
                 this.game.audio.mute.toggle()
             },
-            onEnter: () =>
-            {
+            onEnter: () => {
                 gsap.to(intensity, { value: 1.5, duration: 0.3, overwrite: true })
             },
-            onLeave: () =>
-            {
+            onLeave: () => {
                 gsap.to(intensity, { value: 1, duration: 0.3, overwrite: true })
             }
         })
 
-        this.game.audio.events.on('muteChange', (active) =>
-        {
+        this.game.audio.events.on('muteChange', (active) => {
             texture.offset.x = active ? 0.5 : 0
         })
 
         this.soundButton.mesh = mesh
     }
 
-    showLabel()
-    {
+    showLabel() {
         const dummy = { scale: 0 }
         const speedMultiplier = this.game.debug.active ? 4 : 1
-        gsap.to(
-            dummy,
-            {
-                scale: 1,
-                duration: 2 / speedMultiplier,
-                delay: 1 / speedMultiplier,
-                ease: 'elastic.out(0.5)',
-                overwrite: true,
-                onUpdate: () =>
-                {
-                    this.label.scale.setScalar(dummy.scale)
-                }
+        gsap.to(dummy, {
+            scale: 1,
+            duration: 2 / speedMultiplier,
+            delay: 1 / speedMultiplier,
+            ease: 'elastic.out(0.5)',
+            overwrite: true,
+            onUpdate: () => {
+                this.label.scale.setScalar(dummy.scale)
             }
-        )
+        })
     }
 
-    hideLabel()
-    {
+    hideLabel() {
         const speedMultiplier = this.game.debug.active ? 4 : 1
         const dummy = { scale: 1 }
-        gsap.to(
-            dummy,
-            {
-                scale: 0,
-                duration: 0.3 / speedMultiplier,
-                ease: 'power2.in',
-                overwrite: true,
-                onUpdate: () =>
-                {
-                    this.label.scale.setScalar(dummy.scale)
-                },
-                onComplete: () =>
-                {
-                    this.text.mesh.removeFromParent()
-                    this.soundButton.mesh.removeFromParent()
-                    this.game.rayCursor.removeIntersect(this.soundButton.intersect)
-                }
+        gsap.to(dummy, {
+            scale: 0,
+            duration: 0.3 / speedMultiplier,
+            ease: 'power2.in',
+            overwrite: true,
+            onUpdate: () => {
+                this.label.scale.setScalar(dummy.scale)
+            },
+            onComplete: () => {
+                this.text.mesh.removeFromParent()
+                this.soundButton.mesh.removeFromParent()
+                this.game.rayCursor.removeIntersect(this.soundButton.intersect)
             }
-        )
+        })
     }
 
-    startLoadingAnimation()
-    {
+    startLoadingAnimation() {
         this.visualProgress = { value: 0 }
 
-        this.loadingComplete = new Promise((resolve) =>
-        {
+        this.loadingComplete = new Promise((resolve) => {
             gsap.to(this.visualProgress, {
                 value: 1,
                 duration: 5,
                 ease: 'none',
-                onUpdate: () =>
-                {
+                onUpdate: () => {
                     const v = this.visualProgress.value
 
                     // Update 3D circle
@@ -407,26 +360,22 @@ export class Intro
 
                     // Update DOM percentage
                     const percentEl = document.querySelector('.js-loading-percentage')
-                    if(percentEl)
-                        percentEl.textContent = `${Math.round(v * 100)}%`
+                    if (percentEl) percentEl.textContent = `${Math.round(v * 100)}%`
                 },
                 onComplete: resolve
             })
         })
     }
 
-    updateProgress(progress)
-    {
+    updateProgress(progress) {
         this.circle.progress = progress
     }
 
-    update()
-    {
+    update() {
         // Visual progress handled by startLoadingAnimation()
     }
 
-    destroy()
-    {
+    destroy() {
         this.label.removeFromParent()
 
         // Geometries
@@ -447,11 +396,10 @@ export class Intro
         // Textures
         this.game.resources.soundTexture.dispose()
 
-        this.text.textures.forEach((value, key) =>
-        {
+        this.text.textures.forEach((value, key) => {
             value.dispose()
         })
-        
+
         // Events
         this.game.inputs.gamepad.events.off('typeChange', this.text.updateTexture)
         this.game.inputs.events.off('modeChange', this.text.updateTexture)

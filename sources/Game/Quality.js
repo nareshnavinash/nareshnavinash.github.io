@@ -1,10 +1,8 @@
 import { Events } from './Events.js'
 import { Game } from './Game.js'
 
-export class Quality
-{
-    constructor()
-    {
+export class Quality {
+    constructor() {
         this.game = Game.getInstance()
 
         this.events = new Events()
@@ -13,37 +11,32 @@ export class Quality
         this.level = this.isMobile ? 1 : 0 // 0 = highest quality
 
         // Debug
-        if(this.game.debug.active)
-        {
+        if (this.game.debug.active) {
             const debugPanel = this.game.debug.panel.addFolder({
                 title: '⚙️ Quality',
-                expanded: false,
+                expanded: false
             })
 
             this.game.debug.addButtons(
                 debugPanel,
                 {
-                    low: () =>
-                    {
+                    low: () => {
                         this.changeLevel(1)
                     },
-                    high: () =>
-                    {
+                    high: () => {
                         this.changeLevel(0)
-                    },
+                    }
                 },
                 'change'
             )
         }
     }
 
-    changeLevel(level = 0)
-    {
+    changeLevel(level = 0) {
         // Same
-        if(level === this.level)
-            return
-            
+        if (level === this.level) return
+
         this.level = level
-        this.events.trigger('change', [ this.level ])
+        this.events.trigger('change', [this.level])
     }
 }

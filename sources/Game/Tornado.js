@@ -1,14 +1,12 @@
 import * as THREE from 'three/webgpu'
 import { LineGeometry } from 'three/addons/lines/LineGeometry.js'
-import { Line2 } from 'three/addons/lines/webgpu/Line2.js';
+import { Line2 } from 'three/addons/lines/webgpu/Line2.js'
 import { Game } from './Game.js'
 import gsap from 'gsap'
-import { remapClamp } from './utilities/maths.js';
+import { remapClamp } from './utilities/maths.js'
 
-export class Tornado
-{
-    constructor()
-    {
+export class Tornado {
+    constructor() {
         this.game = Game.getInstance()
 
         this.running = false
@@ -18,8 +16,7 @@ export class Tornado
         this.achievementAchieved = this.game.achievements.groups.get('cataclysm')?.items[0].achieved
 
         // Debug
-        if(this.game.debug.active)
-        {
+        if (this.game.debug.active) {
             this.debugPanel = this.game.debug.panel.addFolder({
                 title: '🌪️ Tornado',
                 expanded: false
@@ -31,42 +28,39 @@ export class Tornado
         this.setData()
 
         // Update
-        this.game.ticker.events.on('tick', () =>
-        {
-            this.update()
-        }, 9)
+        this.game.ticker.events.on(
+            'tick',
+            () => {
+                this.update()
+            },
+            9
+        )
 
         // Debug
-        if(this.game.debug.active)
-        {
-            this.debugPanel.addButton({ title: 'start' }).on('click', () => { this.start() })
-            this.debugPanel.addButton({ title: 'stop' }).on('click', () => { this.stop() })
+        if (this.game.debug.active) {
+            this.debugPanel.addButton({ title: 'start' }).on('click', () => {
+                this.start()
+            })
+            this.debugPanel.addButton({ title: 'stop' }).on('click', () => {
+                this.stop()
+            })
         }
     }
 
-    setPath()
-    {
+    setPath() {
         const points = []
 
         const children = [...this.game.resources.tornadoPathReferencesModel.scene.children]
-        children.sort((a, b) =>
-        {
-            if ( a.name < b.name )
-                return -1
-            
-            if ( a.name > b.name )
-                return 1
-            
+        children.sort((a, b) => {
+            if (a.name < b.name) return -1
+
+            if (a.name > b.name) return 1
+
             return 0
         })
-        
-        for(const child of children)
-        {
-            const point = new THREE.Vector3(
-                child.position.x, 
-                0, 
-                child.position.z
-            )
+
+        for (const child of children) {
+            const point = new THREE.Vector3(child.position.x, 0, child.position.z)
 
             points.push(point)
         }
@@ -75,8 +69,7 @@ export class Tornado
         // this.path = points
     }
 
-    setPreviews()
-    {
+    setPreviews() {
         this.previews = {}
 
         const boxGeometry = new THREE.BoxGeometry(0.1, 1, 0.1)
@@ -89,61 +82,50 @@ export class Tornado
         this.game.scene.add(this.previews.eased)
 
         const positions = []
-        for(const point of this.path)
-        {
+        for (const point of this.path) {
             positions.push(point.x, point.y, point.z)
         }
         const lineGeometry = new LineGeometry()
         lineGeometry.setPositions(positions)
-        
+
         const lineMaterial = new THREE.Line2NodeMaterial({
-		    color: '#00ff00',
+            color: '#00ff00',
             linewidth: 5, // in world units with size attenuation, pixels otherwise
             // vertexColors: true,
             dashed: true,
             dashSize: 0.2,
             gapSize: 0.4,
-            alphaToCoverage: true,
+            alphaToCoverage: true
         })
-        
+
         this.previews.line = new Line2(lineGeometry, lineMaterial)
         this.previews.line.computeLineDistances()
-        this.previews.line.scale.set( 1, 1, 1 );
+        this.previews.line.scale.set(1, 1, 1)
         this.previews.line.position.y += 0.5
         this.game.scene.add(this.previews.line)
     }
 
-    setData()
-    {
+    setData() {
         this.data = {}
-        
+
         // Server message event
-        this.game.server.events.on('message', (data) =>
-        {
+        this.game.server.events.on('message', (data) => {
             // Init and insert
-            if(data.type === 'init' || data.type === 'cataclysmUpdate')
-            {
-                if(data.cataclysmRunning)
-                    this.start()
-                else
-                    this.stop()
+            if (data.type === 'init' || data.type === 'cataclysmUpdate') {
+                if (data.cataclysmRunning) this.start()
+                else this.stop()
             }
         })
 
         // Init message already received
-        if(this.game.server.initData)
-        {
-            if(this.game.server.initData.cataclysmRunning)
-                this.start()
-            else
-                this.stop()
+        if (this.game.server.initData) {
+            if (this.game.server.initData.cataclysmRunning) this.start()
+            else this.stop()
         }
     }
 
-    start()
-    {
-        if(this.running)
-            return
+    start() {
+        if (this.running) return
 
         // Move to position to prevent easing
         const progress = this.game.dayCycles.absoluteProgress * 2
@@ -151,7 +133,7 @@ export class Tornado
 
         // Strength
         gsap.to(this, { strength: 1, duration: 20, ease: 'linear', overwrite: true })
-        
+
         // Weather
         this.game.weather.override.start(
             {
@@ -181,10 +163,8 @@ export class Tornado
         this.running = true
     }
 
-    stop()
-    {
-        if(!this.running)
-            return
+    stop() {
+        if (!this.running) return
 
         // Strength
         gsap.to(this, { strength: 0, duration: 20, ease: 'linear', overwrite: true })
@@ -199,8 +179,7 @@ export class Tornado
         this.running = false
     }
 
-    getPosition(progress)
-    {
+    getPosition(progress) {
         const loopProgress = progress % 1
         const prevIndex = Math.floor(loopProgress * this.resolution)
         const nextIndex = (prevIndex + 1) % this.resolution
@@ -212,20 +191,17 @@ export class Tornado
         return position
     }
 
-    update()
-    {
-        if(this.strength === 0)
-            return
+    update() {
+        if (this.strength === 0) return
 
         // Position on path
         const progress = this.game.dayCycles.absoluteProgress * 1
         const newPosition = this.getPosition(progress)
-        
+
         this.position.lerp(newPosition, 0.3 * this.game.ticker.deltaScaled)
 
         // Previews
-        if(this.previews)
-        {
+        if (this.previews) {
             this.previews.target.position.copy(newPosition)
             this.previews.eased.position.copy(this.position)
         }
@@ -233,10 +209,9 @@ export class Tornado
         // Physics vehicle
         const toTornado = this.position.clone().sub(this.game.physicalVehicle.position)
         const distance = toTornado.length()
-        
+
         const strength = remapClamp(distance, 20, 2, 0, 1)
-        if(!this.achievementAchieved && strength > 0.5)
-        {
+        if (!this.achievementAchieved && strength > 0.5) {
             this.achievementAchieved = true
             this.game.achievements.setProgress('cataclysm', 1)
         }

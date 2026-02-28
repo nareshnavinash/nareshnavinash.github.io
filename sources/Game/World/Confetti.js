@@ -1,21 +1,39 @@
 import * as THREE from 'three/webgpu'
 import { Game } from '../Game.js'
 import { MeshDefaultMaterial } from '../Materials/MeshDefaultMaterial.js'
-import { add, cameraProjectionMatrix, cameraViewMatrix, color, cos, float, Fn, instance, instancedArray, instanceIndex, modelWorldMatrix, positionGeometry, positionLocal, positionWorld, remapClamp, sin, uniform, uniformArray, vec3, vec4 } from 'three/tsl'
+import {
+    add,
+    cameraProjectionMatrix,
+    cameraViewMatrix,
+    color,
+    cos,
+    float,
+    Fn,
+    instance,
+    instancedArray,
+    instanceIndex,
+    modelWorldMatrix,
+    positionGeometry,
+    positionLocal,
+    positionWorld,
+    remapClamp,
+    sin,
+    uniform,
+    uniformArray,
+    vec3,
+    vec4
+} from 'three/tsl'
 import gsap from 'gsap'
 
-export class Confetti
-{
-    constructor()
-    {
+export class Confetti {
+    constructor() {
         this.game = Game.getInstance()
 
         // Debug
-        if(this.game.debug.active)
-        {
+        if (this.game.debug.active) {
             this.debugPanel = this.game.debug.panel.addFolder({
                 title: '🎉 Confetti',
-                expanded: false,
+                expanded: false
             })
         }
 
@@ -27,43 +45,40 @@ export class Confetti
         this.colorsUniform = uniformArray([
             new THREE.Color('#ffbde7'),
             new THREE.Color('#eeff95'),
-            new THREE.Color('#84ffb5'),
+            new THREE.Color('#84ffb5')
         ])
 
         this.createPool()
 
         // Debug
-        if(this.game.debug.active)
-        {
+        if (this.game.debug.active) {
             this.game.debug.addThreeColorBinding(this.debugPanel, this.colorsUniform.array[0], 'color0')
             this.game.debug.addThreeColorBinding(this.debugPanel, this.colorsUniform.array[1], 'color1')
             this.game.debug.addThreeColorBinding(this.debugPanel, this.colorsUniform.array[2], 'color2')
-            this.debugPanel.addButton({ title: 'pop' }).on('click', () => { this.pop(this.game.player.position) })
+            this.debugPanel.addButton({ title: 'pop' }).on('click', () => {
+                this.pop(this.game.player.position)
+            })
         }
     }
 
-    createPool()
-    {
-        for(let i = 0; i < this.poolSize; i++)
-        {
+    createPool() {
+        for (let i = 0; i < this.poolSize; i++) {
             const confetti = {}
             confetti.available = true
 
             const randomProgressArray = new Float32Array(this.count)
             const angleArray = new Float32Array(this.count)
-            for(let i = 0; i < this.count; i++)
-            {
+            for (let i = 0; i < this.count; i++) {
                 randomProgressArray[i] = Math.random()
                 angleArray[i] = Math.random() * Math.PI * 2
             }
             const randomProgressBuffer = instancedArray(randomProgressArray, 'float').toAttribute()
             const angleBuffer = instancedArray(angleArray, 'float').toAttribute()
 
-            const colorNode = Fn(() =>
-            {
+            const colorNode = Fn(() => {
                 return this.colorsUniform.element(instanceIndex.mod(3))
             })()
-            
+
             const material = new MeshDefaultMaterial({
                 colorNode: colorNode,
                 hasCoreShadows: true,
@@ -79,8 +94,7 @@ export class Confetti
             confetti.elevationUniform = uniform(6)
             const rest = confetti.amplitudeUniform.oneMinus()
 
-            material.positionNode = Fn(() =>
-            {
+            material.positionNode = Fn(() => {
                 // Realize nodes so that the shadow updates too
                 instance(this.count, instanceMatrix).toStack()
 
@@ -117,14 +131,13 @@ export class Confetti
 
             const instanceMatrix = new THREE.InstancedBufferAttribute(new Float32Array(this.count * 16), 16)
             instanceMatrix.setUsage(THREE.StaticDrawUsage)
-    
-            for(let i = 0; i < this.count; i++)
-            {
+
+            for (let i = 0; i < this.count; i++) {
                 const matrix = new THREE.Matrix4()
 
                 const position = new THREE.Vector3(0, 0, 0)
                 const quaternion = new THREE.Quaternion().random()
-                const scale = new THREE.Vector3(1, 1, 1)//.setScalar(0.5 + Math.random() * 0.5)
+                const scale = new THREE.Vector3(1, 1, 1) //.setScalar(0.5 + Math.random() * 0.5)
 
                 matrix.compose(position, quaternion, scale)
 
@@ -135,18 +148,21 @@ export class Confetti
 
             this.game.scene.add(confetti.mesh)
 
-            if(this.game.debug.active)
-            {
-                this.debugPanel.addBinding(confetti.progressUniform, 'value', { label: 'confetti.progressUniform', min: 0, max: 1, step: 0.001 })
+            if (this.game.debug.active) {
+                this.debugPanel.addBinding(confetti.progressUniform, 'value', {
+                    label: 'confetti.progressUniform',
+                    min: 0,
+                    max: 1,
+                    step: 0.001
+                })
             }
 
-            confetti.pop = (position, radius, elevation) =>
-            {
+            confetti.pop = (position, radius, elevation) => {
                 confetti.available = false
 
                 confetti.mesh.visible = true
                 confetti.mesh.position.copy(position)
-                
+
                 confetti.radiusUniform.value = radius
                 confetti.elevationUniform.value = elevation
 
@@ -158,8 +174,7 @@ export class Confetti
                     {
                         value: 1,
                         duration: 5,
-                        onComplete: () =>
-                        {
+                        onComplete: () => {
                             confetti.available = true
                             confetti.mesh.visible = false
                         }
@@ -171,12 +186,10 @@ export class Confetti
         }
     }
 
-    pop(position = new THREE.Vector3(), radius = 4, elevation = 6)
-    {
-        const availableConfetti = this.pool.find(confetti => confetti.available)
+    pop(position = new THREE.Vector3(), radius = 4, elevation = 6) {
+        const availableConfetti = this.pool.find((confetti) => confetti.available)
 
-        if(availableConfetti)
-            availableConfetti.pop(position, radius, elevation)
+        if (availableConfetti) availableConfetti.pop(position, radius, elevation)
 
         return availableConfetti
     }

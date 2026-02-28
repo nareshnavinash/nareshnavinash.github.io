@@ -3,38 +3,37 @@ import gsap from 'gsap'
 import { Game } from '../Game.js'
 import { InstancedGroup } from '../InstancedGroup.js'
 
-export class ExplosiveCrates
-{
-    constructor()
-    {
+export class ExplosiveCrates {
+    constructor() {
         this.game = Game.getInstance()
 
         // Base and references
-        const [ base, references ] = InstancedGroup.getBaseAndReferencesFromInstances(this.game.resources.explosiveCratesModel.scene.children)
+        const [base, references] = InstancedGroup.getBaseAndReferencesFromInstances(
+            this.game.resources.explosiveCratesModel.scene.children
+        )
         this.references = references
-        
+
         // Setup base
         base.castShadow = true
         base.receiveShadow = true
 
-        // Update materials 
+        // Update materials
         this.game.materials.updateObject(base)
 
         // Create instanced group
         this.instancedGroup = new InstancedGroup(this.references, base)
 
         this.items = []
-        
+
         let i = 0
-        for(const reference of this.references)
-        {
+        for (const reference of this.references) {
             const crate = {}
             crate.id = i
             crate.exploded = false
             crate.reference = reference.clone()
             crate.object = this.game.objects.add(
                 {
-                    model: reference,
+                    model: reference
                 },
                 {
                     type: 'dynamic',
@@ -43,14 +42,13 @@ export class ExplosiveCrates
                     friction: 0.7,
                     mass: 0.02,
                     sleeping: true,
-                    colliders: [ { shape: 'cuboid', parameters: [ 0.5, 0.5, 0.5 ], category: 'object' } ],
-                    waterGravityMultiplier: - 1,
+                    colliders: [{ shape: 'cuboid', parameters: [0.5, 0.5, 0.5], category: 'object' }],
+                    waterGravityMultiplier: -1,
                     contactThreshold: 0,
-                    onCollision: () =>
-                    {
+                    onCollision: () => {
                         this.explode(crate)
                     }
-                },
+                }
             )
 
             this.items.push(crate)
@@ -61,18 +59,19 @@ export class ExplosiveCrates
         this.setSounds()
 
         // Tick update
-        this.game.ticker.events.on('tick', () =>
-        {
-            for(const crate of this.items)
-            {
-                if(!crate.object.physical.body.isSleeping() && crate.object.physical.body.isEnabled())
-                    crate.object.visual.object3D.needsUpdate = true
-            }
-        }, 10)
+        this.game.ticker.events.on(
+            'tick',
+            () => {
+                for (const crate of this.items) {
+                    if (!crate.object.physical.body.isSleeping() && crate.object.physical.body.isEnabled())
+                        crate.object.visual.object3D.needsUpdate = true
+                }
+            },
+            10
+        )
     }
 
-    setSounds()
-    {
+    setSounds() {
         this.sounds = {}
 
         // Click sound
@@ -83,8 +82,7 @@ export class ExplosiveCrates
             volume: 0.4,
             antiSpam: 0.1,
             positions: new THREE.Vector3(),
-            onPlay: (item, coordinates) =>
-            {
+            onPlay: (item, coordinates) => {
                 item.positions[0].copy(coordinates)
                 item.volume = 1
                 item.rate = 0.7 + Math.random() * 1.3
@@ -98,8 +96,7 @@ export class ExplosiveCrates
 
         this.sounds.explosions = []
 
-        for(const path of paths)
-        {
+        for (const path of paths) {
             this.sounds.explosions.push(
                 this.game.audio.register({
                     path: path,
@@ -109,8 +106,7 @@ export class ExplosiveCrates
                     antiSpam: 0.2,
                     positions: new THREE.Vector3(),
                     distanceFade: 25,
-                    onPlay: (item, coordinates) =>
-                    {
+                    onPlay: (item, coordinates) => {
                         item.positions[0].copy(coordinates)
                         item.volume = 1
                         item.rate = 0.9 + Math.random() * 0.3
@@ -120,19 +116,18 @@ export class ExplosiveCrates
         }
     }
 
-    explode(crate)
-    {
-        if(crate.exploded)
-            return
+    explode(crate) {
+        if (crate.exploded) return
 
         crate.exploded = true
 
         this.sounds.triggerClick.play(crate.reference.position)
 
-        gsap.delayedCall(0.4, () =>
-        {
+        gsap.delayedCall(0.4, () => {
             // Sound
-            this.sounds.explosions[Math.floor(Math.random() * this.sounds.explosions.length)].play(crate.reference.position)
+            this.sounds.explosions[Math.floor(Math.random() * this.sounds.explosions.length)].play(
+                crate.reference.position
+            )
 
             // Explode
             this.game.world.fireballs.create(crate.object.physical.body.translation())
@@ -147,42 +142,34 @@ export class ExplosiveCrates
         })
     }
 
-    reset()
-    {
-        for(const crate of this.items)
-        {
+    reset() {
+        for (const crate of this.items) {
             this.game.objects.resetObject(crate.object)
             crate.exploded = false
 
-            this.game.ticker.wait(2, () =>
-            {
+            this.game.ticker.wait(2, () => {
                 crate.object.physical.body.setEnabled(true)
             })
         }
-        
+
         this.instancedGroup.needsUpdate = true
 
         // Disable every other object to prevent explosion trigger
-        this.game.objects.list.forEach((object) =>
-        {
+        this.game.objects.list.forEach((object) => {
             // console.log(this.game.objects)
-            if(
+            if (
                 object.physical &&
                 (object.physical.type === 'dynamic' || object.physical.type === 'kinematicPositionBased') &&
                 object.physical.body.isEnabled()
-            )
-            {
+            ) {
                 object.physical.body.setEnabled(false)
 
                 // Wait a second and reactivate
-                this.game.ticker.wait(1, () =>
-                {
+                this.game.ticker.wait(1, () => {
                     object.physical.body.setEnabled(true)
 
                     // Sleep
-                    if(object.physical.initialState.sleeping)
-                        object.physical.body.sleep()
-
+                    if (object.physical.initialState.sleeping) object.physical.body.sleep()
                 })
             }
         })

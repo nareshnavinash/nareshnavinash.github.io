@@ -1,10 +1,7 @@
 import * as THREE from 'three/webgpu'
 
-
-export class PortalSlabGeometry extends THREE.BufferGeometry
-{
-    constructor(size = 1)
-    {
+export class PortalSlabGeometry extends THREE.BufferGeometry {
+    constructor(size = 1) {
         super()
 
         this.type = 'PortalSlabsGeometry'
@@ -28,7 +25,7 @@ export class PortalSlabGeometry extends THREE.BufferGeometry
         positions[7] = 0
         positions[8] = -size
 
-        positions[9]  = size
+        positions[9] = size
         positions[10] = 0
         positions[11] = -size
 
@@ -75,7 +72,7 @@ export class PortalSlabGeometry extends THREE.BufferGeometry
         indices[7] = 5
         indices[8] = 4
 
-        indices[9]  = 5
+        indices[9] = 5
         indices[10] = 2
         indices[11] = 3
 
@@ -100,10 +97,8 @@ export class PortalSlabGeometry extends THREE.BufferGeometry
         this.setIndex(new THREE.Uint16BufferAttribute(indices, 1))
     }
 }
-export class PortalSlabsGeometry extends THREE.BufferGeometry
-{
-    constructor(size = 1, columnsCount = 5)
-    {
+export class PortalSlabsGeometry extends THREE.BufferGeometry {
+    constructor(size = 1, columnsCount = 5) {
         super()
 
         this.type = 'PortalSlabsGeometry'
@@ -125,7 +120,7 @@ export class PortalSlabsGeometry extends THREE.BufferGeometry
 
         // Grid of slabs
         const slabsCount = columnsCount * columnsCount
-        
+
         const positions = new Float32Array(verticesCount * slabsCount * 3)
         const centers = new Float32Array(verticesCount * slabsCount * 2)
         const edges = new Float32Array(verticesCount * slabsCount)
@@ -133,20 +128,17 @@ export class PortalSlabsGeometry extends THREE.BufferGeometry
         const distanceToCenters = new Float32Array(verticesCount * slabsCount)
         const indices = new Uint16Array(indicesCount * slabsCount)
 
-        for(let x = 0; x < columnsCount; x++)
-        {
-            for(let z = 0; z < columnsCount; z++)
-            {
+        for (let x = 0; x < columnsCount; x++) {
+            for (let z = 0; z < columnsCount; z++) {
                 const slabX = (x - (columnsCount - 1) * 0.5) * size
                 const slabZ = (z - (columnsCount - 1) * 0.5) * size
                 const random = Math.random()
 
                 let slabIndex = z + x * columnsCount
-                for(let i = 0; i < verticesCount; i++)
-                {
-                    positions[(slabIndex * verticesCount + i) * 3 + 0] = slabPositions[i * 3 + 0] * size / 2 + slabX
+                for (let i = 0; i < verticesCount; i++) {
+                    positions[(slabIndex * verticesCount + i) * 3 + 0] = (slabPositions[i * 3 + 0] * size) / 2 + slabX
                     positions[(slabIndex * verticesCount + i) * 3 + 1] = slabPositions[i * 3 + 1]
-                    positions[(slabIndex * verticesCount + i) * 3 + 2] = slabPositions[i * 3 + 2] * size / 2 + slabZ
+                    positions[(slabIndex * verticesCount + i) * 3 + 2] = (slabPositions[i * 3 + 2] * size) / 2 + slabZ
 
                     centers[(slabIndex * verticesCount + i) * 2 + 0] = slabX
                     centers[(slabIndex * verticesCount + i) * 2 + 1] = slabZ
@@ -156,8 +148,7 @@ export class PortalSlabsGeometry extends THREE.BufferGeometry
                     distanceToCenters[slabIndex * verticesCount + i] = Math.hypot(slabX, slabZ)
                 }
 
-                for(let i = 0; i < indicesCount; i++)
-                {
+                for (let i = 0; i < indicesCount; i++) {
                     indices[slabIndex * indicesCount + i] = slabIndex * verticesCount + slabIndices[i + 0]
                 }
             }

@@ -1,22 +1,18 @@
 import * as THREE from 'three/webgpu'
 import { Game } from './Game.js'
 
-export class Respawns
-{
-    constructor(defaultName = 'landing')
-    {
+export class Respawns {
+    constructor(defaultName = 'landing') {
         this.game = Game.getInstance()
         this.defaultName = defaultName
 
         this.setItems()
     }
 
-    setItems()
-    {
+    setItems() {
         this.items = new Map()
 
-        for(const child of this.game.resources.respawnsReferencesModel.scene.children)
-        {
+        for (const child of this.game.resources.respawnsReferencesModel.scene.children) {
             child.rotation.reorder('YXZ')
 
             let name = child.name.replace(/^respawn(.+)$/i, '$1')
@@ -25,11 +21,7 @@ export class Respawns
 
             const item = {
                 name: name,
-                position: new THREE.Vector3(
-                    child.position.x,
-                    4,
-                    child.position.z
-                ),
+                position: new THREE.Vector3(child.position.x, 4, child.position.z),
                 rotation: child.rotation.y
             }
 
@@ -37,27 +29,22 @@ export class Respawns
         }
     }
 
-    getByName(name)
-    {
+    getByName(name) {
         return this.items.get(name)
     }
 
-    getDefault()
-    {
+    getDefault() {
         return this.items.get(this.defaultName)
     }
 
-    getClosest(position)
-    {
+    getClosest(position) {
         let closestItem = null
         let closestDistance = Infinity
 
-        this.items.forEach((item) =>
-        {
+        this.items.forEach((item) => {
             const distance = Math.hypot(item.position.x - position.x, item.position.z - position.z)
 
-            if(distance < closestDistance)
-            {
+            if (distance < closestDistance) {
                 closestDistance = distance
                 closestItem = item
             }

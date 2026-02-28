@@ -1,10 +1,8 @@
 import * as THREE from 'three/webgpu'
 import { Game } from './Game.js'
 
-export class InstancedGroup
-{
-    constructor(references = [], group = null, autoUpdate = true)
-    {
+export class InstancedGroup {
+    constructor(references = [], group = null, autoUpdate = true) {
         this.game = Game.getInstance()
 
         this.references = references
@@ -14,32 +12,31 @@ export class InstancedGroup
 
         this.setMeshes()
 
-        if(autoUpdate)
-        {
-            this.game.ticker.events.on('tick', () =>
-            {
-                this.update()
-            }, 13)
+        if (autoUpdate) {
+            this.game.ticker.events.on(
+                'tick',
+                () => {
+                    this.update()
+                },
+                13
+            )
         }
-        
+
         this.update()
     }
 
-    setMeshes()
-    {
+    setMeshes() {
         this.meshes = []
 
-        this.group.traverse((_child) =>
-        {
-            if(_child.isMesh)
-            {
+        this.group.traverse((_child) => {
+            if (_child.isMesh) {
                 const mesh = {}
 
                 _child.updateMatrix()
                 _child.updateWorldMatrix()
                 mesh.localMatrix = _child.matrix
                 // mesh.localMatrix = _child.matrixWorld
-                
+
                 mesh.instance = new THREE.InstancedMesh(_child.geometry, _child.material, this.count)
                 mesh.instance.name = _child.name
                 mesh.instance.castShadow = _child.castShadow
@@ -52,12 +49,10 @@ export class InstancedGroup
         })
     }
 
-    static getReferencesFromChildren(children)
-    {
+    static getReferencesFromChildren(children) {
         const references = []
-        
-        for(const child of children)
-        {
+
+        for (const child of children) {
             const reference = new THREE.Object3D()
             reference.position.copy(child.position)
             reference.rotation.copy(child.rotation)
@@ -65,12 +60,11 @@ export class InstancedGroup
             reference.needsUpdate = true
             references.push(reference)
         }
-        
+
         return references
     }
 
-    static getBaseAndReferencesFromInstances(instances)
-    {
+    static getBaseAndReferencesFromInstances(instances) {
         // Base
         const base = instances[0].clone()
 
@@ -79,30 +73,24 @@ export class InstancedGroup
 
         // References
         const references = InstancedGroup.getReferencesFromChildren(instances)
-        
-        return [ base, references ]
+
+        return [base, references]
     }
 
-    updateBoundings()
-    {
-        for(const mesh of this.meshes)
-            mesh.instance.computeBoundingSphere()
+    updateBoundings() {
+        for (const mesh of this.meshes) mesh.instance.computeBoundingSphere()
     }
 
-    update()
-    {
+    update() {
         let updated = 0
         let i = 0
-        for(const _reference of this.references)
-        {
-            if(this.needsUpdate || _reference.needsUpdate)
-            {
+        for (const _reference of this.references) {
+            if (this.needsUpdate || _reference.needsUpdate) {
                 updated++
                 _reference.needsUpdate = false
                 _reference.updateMatrixWorld()
 
-                for(const instancedMesh of this.meshes)
-                {
+                for (const instancedMesh of this.meshes) {
                     const finalMatrix = instancedMesh.localMatrix.clone().premultiply(_reference.matrixWorld)
                     instancedMesh.instance.setMatrixAt(i, finalMatrix)
                 }
@@ -111,9 +99,7 @@ export class InstancedGroup
             i++
         }
 
-        if(updated)
-            for(const instancedMesh of this.meshes)
-                instancedMesh.instance.instanceMatrix.needsUpdate = true
+        if (updated) for (const instancedMesh of this.meshes) instancedMesh.instance.instanceMatrix.needsUpdate = true
 
         this.needsUpdate = false
     }

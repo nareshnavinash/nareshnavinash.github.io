@@ -1,29 +1,41 @@
 import * as THREE from 'three/webgpu'
 import { Game } from './Game.js'
 import { InstancedGroup } from './InstancedGroup.js'
-import { cameraPosition, color, Fn, luminance, mix, normalWorld, positionWorld, uniform, uv, vec3, vec4 } from 'three/tsl'
+import {
+    cameraPosition,
+    color,
+    Fn,
+    luminance,
+    mix,
+    normalWorld,
+    positionWorld,
+    uniform,
+    uv,
+    vec3,
+    vec4
+} from 'three/tsl'
 import gsap from 'gsap'
 
-export class Easter
-{
-    constructor()
-    {
+export class Easter {
+    constructor() {
         this.game = Game.getInstance()
 
         this.code = 'easter2025'
-        
+
         this.setEggVisual()
         this.setEggs()
         this.setModal()
 
-        this.game.ticker.events.on('tick', () =>
-        {
-            this.update()
-        }, 10)
+        this.game.ticker.events.on(
+            'tick',
+            () => {
+                this.update()
+            },
+            10
+        )
     }
 
-    setEggVisual()
-    {
+    setEggVisual() {
         const colorA = uniform(color('#ff8641'))
         const colorB = uniform(color('#ff3e00'))
         const intensity = uniform(5)
@@ -34,10 +46,9 @@ export class Easter
         // Material
         const eggMaterial = new THREE.MeshBasicNodeMaterial({ transparent: true })
 
-        eggMaterial.outputNode = Fn(() =>
-        {
+        eggMaterial.outputNode = Fn(() => {
             const viewDirection = positionWorld.sub(cameraPosition).normalize()
-                
+
             const fresnel = viewDirection.dot(normalWorld).abs().oneMinus()
 
             const mixedColor = mix(colorB, colorA, fresnel)
@@ -50,15 +61,14 @@ export class Easter
         egg.position.set(0, 0, 0)
         egg.frustumCulled = false
         egg.material = eggMaterial
-        
+
         /**
          * Beams
          */
         // Material
         const beamsMaterial = new THREE.MeshBasicNodeMaterial({ transparent: true })
 
-        beamsMaterial.outputNode = Fn(() =>
-        {
+        beamsMaterial.outputNode = Fn(() => {
             const strength = uv().y.add(this.game.ticker.elapsedScaledUniform.mul(0.05)).fract()
 
             strength.greaterThan(0.2).discard()
@@ -76,47 +86,42 @@ export class Easter
         beams.position.set(0, 0, 0)
         beams.frustumCulled = false
         beams.material = beamsMaterial
-        
+
         this.visual = this.game.resources.easterEggVisualModel.scene
     }
-    
-    setEggs()
-    {
+
+    setEggs() {
         this.eggs = {}
         this.eggs.allCaught = false
         this.eggs.catchDistance = 2
         this.eggs.closest = null
 
         // References
-        const references = InstancedGroup.getReferencesFromChildren(this.game.resources.easterEggReferencesModel.scene.children)
-        
+        const references = InstancedGroup.getReferencesFromChildren(
+            this.game.resources.easterEggReferencesModel.scene.children
+        )
+
         // Items
         this.eggs.items = []
-        for(const reference of references)
-        {
+        for (const reference of references) {
             const item = {}
             item.reference = reference
             item.distance = Infinity
             item.caught = false
             // item.element = this.eggs.fragmentElements[i]
 
-            item.catch = () =>
-            {
+            item.catch = () => {
                 item.caught = true
-                gsap.to(
-                    item.reference.scale,
-                    {
-                        x: 0.1,
-                        y: 0.1,
-                        z: 0.1,
-                        duration: 0.6,
-                        ease: 'back.in(6)',
-                        onComplete: () =>
-                        {
-                            item.reference.position.y = 99
-                        }
+                gsap.to(item.reference.scale, {
+                    x: 0.1,
+                    y: 0.1,
+                    z: 0.1,
+                    duration: 0.6,
+                    ease: 'back.in(6)',
+                    onComplete: () => {
+                        item.reference.position.y = 99
                     }
-                )
+                })
             }
 
             this.eggs.items.push(item)
@@ -125,18 +130,14 @@ export class Easter
         // Instanced group
         this.instancedGroup = new InstancedGroup(references, this.visual)
 
-        this.eggs.getClosest = () =>
-        {
+        this.eggs.getClosest = () => {
             let closest = null
             let minDistance = Infinity
-            for(const egg of this.eggs.items)
-            {
-                if(!egg.caught)
-                {
+            for (const egg of this.eggs.items) {
+                if (!egg.caught) {
                     egg.distance = egg.reference.position.distanceTo(this.game.player.position)
 
-                    if(closest === null || egg.distance < minDistance)
-                    {
+                    if (closest === null || egg.distance < minDistance) {
                         closest = egg
                         minDistance = egg.distance
                     }
@@ -146,14 +147,11 @@ export class Easter
             return closest
         }
 
-        this.eggs.tryCatch = (egg) =>
-        {
-            if(egg.distance < this.eggs.catchDistance && !egg.caught)
-                this.eggs.catch(egg)
+        this.eggs.tryCatch = (egg) => {
+            if (egg.distance < this.eggs.catchDistance && !egg.caught) this.eggs.catch(egg)
         }
 
-        this.eggs.catch = (egg) =>
-        {
+        this.eggs.catch = (egg) => {
             egg.catch()
             this.eggs.updateTitle()
             const isOver = this.eggs.testOver()
@@ -163,35 +161,30 @@ export class Easter
             this.game.audio.sounds.swoosh.play()
         }
 
-        this.eggs.updateTitle = () =>
-        {
+        this.eggs.updateTitle = () => {
             let title = ''
-            this.eggs.items.forEach(item =>
-            {
+            this.eggs.items.forEach((item) => {
                 title += item.caught ? '🐣' : '🥚'
             })
             document.title = title
         }
 
-        this.eggs.testOver = () =>
-        {
-            this.eggs.allCaught = this.eggs.items.reduce((accumulator, fragment) => { return fragment.caught && accumulator }, true)
+        this.eggs.testOver = () => {
+            this.eggs.allCaught = this.eggs.items.reduce((accumulator, fragment) => {
+                return fragment.caught && accumulator
+            }, true)
 
-            if(this.eggs.allCaught)
-            {
+            if (this.eggs.allCaught) {
                 this.game.menu.open('easter-end')
 
                 return true
-            }
-            else
-            {
+            } else {
                 return false
             }
         }
     }
 
-    setModal()
-    {
+    setModal() {
         this.modal = {}
 
         const endModal = this.game.modals.items.get('easter-end')
@@ -204,15 +197,12 @@ export class Easter
 
         let timeStart = null
 
-        introModal.events.on('close', () =>
-        {
+        introModal.events.on('close', () => {
             timeStart = this.game.ticker.elapsed
         })
-        
-        endModal.events.on('open', () =>
-        {
-            if(this.modal.firstOpen)
-            {
+
+        endModal.events.on('open', () => {
+            if (this.modal.firstOpen) {
                 // Time
                 let elapsed = this.game.ticker.elapsed - timeStart
                 const hours = Math.floor(elapsed / 60 / 60)
@@ -222,24 +212,20 @@ export class Easter
 
                 elapsed -= minutes * 60
                 const seconds = Math.floor(elapsed)
-                
+
                 const textParts = []
 
-                if(hours)
-                    textParts.push(`${hours} hour${hours > 1 ? 's' : ''}`)
+                if (hours) textParts.push(`${hours} hour${hours > 1 ? 's' : ''}`)
 
-                if(hours || minutes)
-                    textParts.push(`${minutes} minute${minutes > 1 ? 's' : ''}`)
+                if (hours || minutes) textParts.push(`${minutes} minute${minutes > 1 ? 's' : ''}`)
 
-                if(hours || minutes || seconds)
-                    textParts.push(`${seconds} second${seconds > 1 ? 's' : ''}`)
+                if (hours || minutes || seconds) textParts.push(`${seconds} second${seconds > 1 ? 's' : ''}`)
 
                 const text = textParts.join(' ')
                 this.modal.time.textContent = text
 
                 // Code
-                if(this.modal.code)
-                    this.modal.code.textContent = this.code.toUpperCase()
+                if (this.modal.code) this.modal.code.textContent = this.code.toUpperCase()
 
                 // Link
                 this.modal.link.href = `https://threejs-journey.com/join/${this.code}`
@@ -250,29 +236,23 @@ export class Easter
         })
     }
 
-    update()
-    {
+    update() {
         this.eggs.closest = this.eggs.getClosest()
 
-        if(this.eggs.closest)
-        {
+        if (this.eggs.closest) {
             this.eggs.tryCatch(this.eggs.closest)
         }
 
-
-        if(this.game.world.visualVehicle.antenna)
-        {
-            if(this.eggs.closest)
-            {
+        if (this.game.world.visualVehicle.antenna) {
+            if (this.eggs.closest) {
                 this.game.world.visualVehicle.antenna.target.copy(this.eggs.closest.reference.position)
-            }
-            else
-            {
-                const forwardTarget = this.game.vehicle.position.clone().add(this.game.vehicle.forward.clone().multiplyScalar(35))
+            } else {
+                const forwardTarget = this.game.vehicle.position
+                    .clone()
+                    .add(this.game.vehicle.forward.clone().multiplyScalar(35))
                 forwardTarget.y += 1
                 this.game.vehicle.antenna.target.copy(forwardTarget)
             }
         }
     }
 }
-

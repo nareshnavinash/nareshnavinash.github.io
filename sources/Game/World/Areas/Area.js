@@ -4,10 +4,8 @@ import { Game } from '../../Game.js'
 import { References } from '../../References.js'
 import { circleIntersectsPolygon } from '../../utilities/maths.js'
 
-export class Area
-{
-    constructor(model)
-    {
+export class Area {
+    constructor(model) {
         this.game = Game.getInstance()
 
         this.model = model
@@ -19,100 +17,80 @@ export class Area
         this.setBounding()
         this.setFrustum()
 
-        this.game.ticker.events.on('tick', () =>
-        {
-            if(this.frustum)
-                this.frustum.test()
-                
-            if(typeof this.update === 'function' && (!this.frustum || this.frustum.isIn))
-                this.update()
-        }, 10)
+        this.game.ticker.events.on(
+            'tick',
+            () => {
+                if (this.frustum) this.frustum.test()
+
+                if (typeof this.update === 'function' && (!this.frustum || this.frustum.isIn)) this.update()
+            },
+            10
+        )
     }
 
-    setObjects()
-    {
+    setObjects() {
         this.objects = {}
         this.objects.items = []
         this.objects.hideable = []
         const children = [...this.model.children]
-        for(const child of children)
-        {
-            if(typeof child.userData.preventAutoAdd === 'undefined' || child.userData.preventAutoAdd === false)
-            {
+        for (const child of children) {
+            if (typeof child.userData.preventAutoAdd === 'undefined' || child.userData.preventAutoAdd === false) {
                 const object = this.game.objects.addFromModel(
                     child,
-                    {
-
-                    },
+                    {},
                     {
                         position: child.position.add(this.model.position),
                         rotation: child.quaternion,
                         sleeping: true,
-                        mass: child.userData.mass,
+                        mass: child.userData.mass
                     }
                 )
 
                 this.objects.items.push(object)
 
-                if(
-                    object.visual && // Has visual
-                    (!object.physical || object.physical?.type === 'fixed') && // Doesn't have physical or is fixed
-                    typeof child.userData.preventFrustum === 'undefined' || child.userData.preventFrustum === false
-                )
-                {
+                if (
+                    (object.visual && // Has visual
+                        (!object.physical || object.physical?.type === 'fixed') && // Doesn't have physical or is fixed
+                        typeof child.userData.preventFrustum === 'undefined') ||
+                    child.userData.preventFrustum === false
+                ) {
                     this.objects.hideable.push(object.visual.object3D)
                 }
-
             }
 
             this.references.parse(child)
         }
     }
 
-    setBounding()
-    {
+    setBounding() {
         let zoneReference = this.references.items.get('zoneBounding')
 
-        if(!zoneReference)
-            return
+        if (!zoneReference) return
 
         zoneReference = zoneReference[0]
-        
+
         const position = zoneReference.position.clone()
         const radius = zoneReference.scale.x
         const zone = this.game.zones.create('cylinder', position, radius)
 
-        zone.events.on(
-            'enter',
-            () =>
-            {
-                this.isIn = true
-                this.events.trigger('boundingIn')
-            }
-        )
+        zone.events.on('enter', () => {
+            this.isIn = true
+            this.events.trigger('boundingIn')
+        })
 
-        zone.events.on(
-            'leave',
-            () =>
-            {
-                this.isIn = false
-                this.events.trigger('boundingOut')
-            }
-        )
+        zone.events.on('leave', () => {
+            this.isIn = false
+            this.events.trigger('boundingOut')
+        })
     }
 
-    setFrustum()
-    {
+    setFrustum() {
         let zoneReference = this.references.items.get('zoneFrustum')
 
-        if(!zoneReference)
-            return
+        if (!zoneReference) return
 
         this.frustum = {}
-        this.frustum.position = new THREE.Vector2(
-            zoneReference[0].position.x,
-            zoneReference[0].position.z
-        )
+        this.frustum.position = new THREE.Vector2(zoneReference[0].position.x, zoneReference[0].position.z)
         this.frustum.radius = zoneReference[0].scale.x
         this.frustum.isIn = null
         this.frustum.alwaysVisible = false
@@ -131,43 +109,30 @@ export class Area
         // )
         // this.game.scene.add(helper)
 
-        
-        this.frustum.test = () =>
-        {
-            const isVisible = this.frustum.alwaysVisible || circleIntersectsPolygon(
-                this.frustum.position,
-                this.frustum.radius,
-                [
+        this.frustum.test = () => {
+            const isVisible =
+                this.frustum.alwaysVisible ||
+                circleIntersectsPolygon(this.frustum.position, this.frustum.radius, [
                     this.game.view.optimalArea.quad2[0].offseted,
                     this.game.view.optimalArea.quad2[1].offseted,
                     this.game.view.optimalArea.quad2[2].offseted,
-                    this.game.view.optimalArea.quad2[3].offseted,
-                ]
-            )
+                    this.game.view.optimalArea.quad2[3].offseted
+                ])
 
-            if(isVisible)
-            {
-                if(this.frustum.isIn === false || this.frustum.isIn === null)
-                {
-                    for(const object3D of this.objects.hideable)
-                        object3D.visible = true
+            if (isVisible) {
+                if (this.frustum.isIn === false || this.frustum.isIn === null) {
+                    for (const object3D of this.objects.hideable) object3D.visible = true
 
-                    if(typeof helper !== 'undefined')
-                        helper.material.color.set('#44ff88').multiplyScalar(2)
+                    if (typeof helper !== 'undefined') helper.material.color.set('#44ff88').multiplyScalar(2)
 
                     this.frustum.isIn = true
                     this.events.trigger('frustumIn')
                 }
-            }
-            else
-            {
-                if(this.frustum.isIn === true || this.frustum.isIn === null)
-                {
-                    for(const object3D of this.objects.hideable)
-                        object3D.visible = false
+            } else {
+                if (this.frustum.isIn === true || this.frustum.isIn === null) {
+                    for (const object3D of this.objects.hideable) object3D.visible = false
 
-                    if(typeof helper !== 'undefined')
-                        helper.material.color.set('#ff4488').multiplyScalar(2)
+                    if (typeof helper !== 'undefined') helper.material.color.set('#ff4488').multiplyScalar(2)
 
                     this.frustum.isIn = false
                     this.events.trigger('frustumOut')

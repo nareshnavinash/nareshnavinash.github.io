@@ -1,16 +1,37 @@
 import * as THREE from 'three/webgpu'
 import { Game } from '../Game.js'
-import { billboarding, cameraPosition, color, Fn, instanceIndex, log, min, mix, modelViewMatrix, mul, normalWorld, positionGeometry, positionViewDirection, positionWorld, smoothstep, storage, texture, time, uv, vec2, vec3, vec4 } from 'three/tsl'
+import {
+    billboarding,
+    cameraPosition,
+    color,
+    Fn,
+    instanceIndex,
+    log,
+    min,
+    mix,
+    modelViewMatrix,
+    mul,
+    normalWorld,
+    positionGeometry,
+    positionViewDirection,
+    positionWorld,
+    smoothstep,
+    storage,
+    texture,
+    time,
+    uv,
+    vec2,
+    vec3,
+    vec4
+} from 'three/tsl'
 import { hash } from 'three/tsl'
 import gsap from 'gsap'
 import { Bubble } from './Bubble.js'
 import emojiRegex from 'emoji-regex'
 import { InputFlag } from '../InputFlag.js'
 
-export class Whispers
-{
-    constructor()
-    {
+export class Whispers {
+    constructor() {
         this.game = Game.getInstance()
 
         this.count = parseInt(import.meta.env.VITE_WHISPERS_COUNT)
@@ -22,16 +43,18 @@ export class Whispers
         this.setMenu()
         this.setInputs()
 
-        this.game.ticker.events.on('tick', () =>
-        {
-            this.update()
-        }, 10)
+        this.game.ticker.events.on(
+            'tick',
+            () => {
+                this.update()
+            },
+            10
+        )
     }
 
-    setSounds()
-    {
+    setSounds() {
         this.sounds = {}
-        
+
         this.sounds.ignite = this.game.audio.register({
             path: 'sounds/fire/ignite-1.mp3',
             autoplay: false,
@@ -39,7 +62,7 @@ export class Whispers
             volume: 0.4,
             antiSpam: 0.1
         })
-        
+
         this.sounds.flicker = this.game.audio.register({
             path: 'sounds/fire/Cloth_Movement_Hung_Clothes_Blowing_in_Wind_ODY-1520-031.mp3',
             autoplay: true,
@@ -50,23 +73,21 @@ export class Whispers
         })
     }
 
-    setFlames()
-    {
+    setFlames() {
         // Reveal buffer
         this.revealArray = new Float32Array(this.count)
         this.revealBuffer = new THREE.StorageInstancedBufferAttribute(this.revealArray, 1)
         this.revealBufferNeedsUpdate = true
-        
+
         const revealAttribute = storage(this.revealBuffer, 'float', this.count).toAttribute()
 
         // Geometry
         const beamGeometry = new THREE.PlaneGeometry(1.5, 1.5 * 2, 1, 16)
         beamGeometry.rotateY(Math.PI * 0.25)
-        
+
         // Material
         const beamMaterial = new THREE.MeshBasicNodeMaterial({ transparent: true, wireframe: false, depthWrite: false })
-        beamMaterial.positionNode = Fn(() =>
-        {
+        beamMaterial.positionNode = Fn(() => {
             const newPosition = positionGeometry.toVar()
 
             const random = hash(instanceIndex)
@@ -78,10 +99,9 @@ export class Whispers
             return newPosition
         })()
 
-        beamMaterial.outputNode = Fn(() =>
-        {
+        beamMaterial.outputNode = Fn(() => {
             const baseUv = vec2(uv().x, uv().y.oneMinus())
-            const mask = texture(this.game.resources.whisperFlameTexture,baseUv).r.sub(revealAttribute.oneMinus())
+            const mask = texture(this.game.resources.whisperFlameTexture, baseUv).r.sub(revealAttribute.oneMinus())
             const color = texture(this.game.materials.gradientTexture, vec2(0, mask))
             const alpha = smoothstep(0.05, 0.3, mask)
 
@@ -97,14 +117,12 @@ export class Whispers
         this.game.scene.children.splice(1, 0, this.flames)
     }
 
-    setData()
-    {
+    setData() {
         this.data = {}
         this.data.needsUpdate = false
         this.data.items = []
 
-        for(let i = 0; i < this.count; i++)
-        {
+        for (let i = 0; i < this.count; i++) {
             this.data.items.push({
                 index: i,
                 matrix: new THREE.Matrix4(),
@@ -114,171 +132,132 @@ export class Whispers
             })
         }
 
-        this.data.findById = (id) =>
-        {
-            return this.data.items.find(_item => _item.id === id)
+        this.data.findById = (id) => {
+            return this.data.items.find((_item) => _item.id === id)
         }
 
-        this.data.findAvailable = () =>
-        {
-            const item = this.data.items.find(_item => _item.available)
+        this.data.findAvailable = () => {
+            const item = this.data.items.find((_item) => _item.available)
 
-            if(item)
-            {
+            if (item) {
                 item.available = false
                 return item
-            }
-            else
-            {
-                console.warn('can\'t find available item')
+            } else {
+                console.warn("can't find available item")
                 return null
             }
         }
 
-        this.data.insert = (input) =>
-        {
+        this.data.insert = (input) => {
             let item = this.data.findById(input.id)
 
             // Update
-            if(item)
-            {
+            if (item) {
                 // Hide
                 const dummy = { value: 1 }
-                gsap.to(
-                    dummy,
-                    {
-                        value: 0,
-                        onUpdate: () =>
-                        {
-                            this.revealArray[item.index] = dummy.value
-                            this.revealBufferNeedsUpdate = true
-                        },
-                        onComplete: () =>
-                        {
-                            // Show update
-                            item.message = input.message
-                            item.countryCode = input.countrycode
-                            item.position.set(input.x, input.y, input.z)
-                            item.matrix.setPosition(item.position)
-                            item.needsUpdate = true
+                gsap.to(dummy, {
+                    value: 0,
+                    onUpdate: () => {
+                        this.revealArray[item.index] = dummy.value
+                        this.revealBufferNeedsUpdate = true
+                    },
+                    onComplete: () => {
+                        // Show update
+                        item.message = input.message
+                        item.countryCode = input.countrycode
+                        item.position.set(input.x, input.y, input.z)
+                        item.matrix.setPosition(item.position)
+                        item.needsUpdate = true
 
-                            // If is closest => Reset closest (to have it update naturally)
-                            if(item === this.bubble.closest)
-                                this.bubble.closest = null
+                        // If is closest => Reset closest (to have it update naturally)
+                        if (item === this.bubble.closest) this.bubble.closest = null
 
-                            gsap.to(
-                                dummy,
-                                {
-                                    value: 1,
-                                    onUpdate: () =>
-                                    {
-                                        this.revealArray[item.index] = dummy.value
-                                        this.revealBufferNeedsUpdate = true
-                                    }
-                                }
-                            )
-                        }
-                    }
-                )
-            }
-
-            // Insert
-            else
-            {
-                item = this.data.findAvailable()
-
-                if(item)
-                {
-                    const dummy = { value: 0 }
-                    gsap.to(
-                        dummy,
-                        {
+                        gsap.to(dummy, {
                             value: 1,
-                            onUpdate: () =>
-                            {
+                            onUpdate: () => {
                                 this.revealArray[item.index] = dummy.value
                                 this.revealBufferNeedsUpdate = true
                             }
+                        })
+                    }
+                })
+            }
+
+            // Insert
+            else {
+                item = this.data.findAvailable()
+
+                if (item) {
+                    const dummy = { value: 0 }
+                    gsap.to(dummy, {
+                        value: 1,
+                        onUpdate: () => {
+                            this.revealArray[item.index] = dummy.value
+                            this.revealBufferNeedsUpdate = true
                         }
-                    )
+                    })
 
                     item.id = input.id
                     item.available = false
-                    item.message = input.message,
-                    item.countryCode = input.countrycode,
-                    item.position.set(input.x, input.y, input.z)
+                    ;((item.message = input.message),
+                        (item.countryCode = input.countrycode),
+                        item.position.set(input.x, input.y, input.z))
                     item.matrix.setPosition(item.position)
                     item.needsUpdate = true
                 }
             }
         }
 
-        this.data.delete = (input) =>
-        {
+        this.data.delete = (input) => {
             let item = this.data.findById(input.id)
 
-            if(item)
-            {
+            if (item) {
                 item.available = true
 
                 const dummy = { value: 1 }
-                gsap.to(
-                    dummy,
-                    {
-                        value: 0,
-                        onUpdate: () =>
-                        {
-                            this.revealArray[item.index] = dummy.value
-                            this.revealBufferNeedsUpdate = true
-                        }
+                gsap.to(dummy, {
+                    value: 0,
+                    onUpdate: () => {
+                        this.revealArray[item.index] = dummy.value
+                        this.revealBufferNeedsUpdate = true
                     }
-                )
+                })
             }
         }
 
         // Server message event
-        this.game.server.events.on('message', (data) =>
-        {
+        this.game.server.events.on('message', (data) => {
             // Init and insert
-            if(data.type === 'init' || data.type === 'whispersInsert')
-            {
-                for(const whisper of data.whispers)
-                    this.data.insert(whisper)
+            if (data.type === 'init' || data.type === 'whispersInsert') {
+                for (const whisper of data.whispers) this.data.insert(whisper)
             }
 
             // Delete
-            else if(data.type === 'whispersDelete')
-            {
-                for(const whisper of data.whispers)
-                {
+            else if (data.type === 'whispersDelete') {
+                for (const whisper of data.whispers) {
                     this.data.delete(whisper)
                 }
             }
         })
 
         // Message already received
-        if(this.game.server.initData)
-        {
-            for(const whisper of this.game.server.initData.whispers)
-                this.data.insert(whisper)
+        if (this.game.server.initData) {
+            for (const whisper of this.game.server.initData.whispers) this.data.insert(whisper)
         }
     }
 
-    setBubble()
-    {
+    setBubble() {
         this.bubble = {}
         this.bubble.instance = new Bubble()
         this.bubble.closest = null
         this.bubble.minDistance = 3
     }
 
-    setMenu()
-    {
+    setMenu() {
         this.menu = {}
 
         this.menu.instance = this.game.menu.items.get('whispers')
-        if(!this.menu.instance)
-            return
+        if (!this.menu.instance) return
         this.menu.container = this.menu.instance.contentElement
         this.menu.inputGroup = this.menu.container.querySelector('.js-input-group')
         this.menu.input = this.menu.inputGroup.querySelector('.js-input')
@@ -286,27 +265,21 @@ export class Whispers
         this.menu.previewMessageText = this.menu.previewMessage.querySelector('.js-text')
         this.menu.previewMessageFlag = this.menu.previewMessage.querySelector('.js-flag')
 
-        const sanatize = (text = '', trim = false, limit = false, stripEmojis = false) =>
-        {
+        const sanatize = (text = '', trim = false, limit = false, stripEmojis = false) => {
             let sanatized = text
-            if(trim)
-                sanatized = sanatized.trim()
+            if (trim) sanatized = sanatized.trim()
 
-            if(stripEmojis)
-                sanatized = sanatized.replace(emojiRegex(), '')
-            
-            if(limit)
-                sanatized = sanatized.substring(0, this.count)
+            if (stripEmojis) sanatized = sanatized.replace(emojiRegex(), '')
+
+            if (limit) sanatized = sanatized.substring(0, this.count)
 
             return sanatized
         }
 
-        const submit = () =>
-        {
+        const submit = () => {
             const sanatized = sanatize(this.menu.input.value, true, true, true)
-            
-            if(sanatized.length && this.game.server.connected)
-            {
+
+            if (sanatized.length && this.game.server.connected) {
                 // Insert
                 this.game.server.send({
                     type: 'whispersInsert',
@@ -324,37 +297,31 @@ export class Whispers
                 this.game.achievements.setProgress('whisper', 1)
 
                 // Sound
-                gsap.delayedCall(0.3, () =>
-                {
+                gsap.delayedCall(0.3, () => {
                     this.sounds.ignite.play()
                 })
             }
         }
 
-        const updateGroup = () =>
-        {
-            if(this.menu.input.value.length && this.game.server.connected)
+        const updateGroup = () => {
+            if (this.menu.input.value.length && this.game.server.connected)
                 this.menu.inputGroup.classList.add('is-valide')
-            else
-                this.menu.inputGroup.classList.remove('is-valide')
+            else this.menu.inputGroup.classList.remove('is-valide')
         }
 
-        this.menu.input.addEventListener('input', () =>
-        {
+        this.menu.input.addEventListener('input', () => {
             const sanatized = sanatize(this.menu.input.value, false, true, true)
             this.menu.previewMessageText.textContent = sanatized.length ? sanatized : 'Your message here'
 
-            if(this.menu.input.textContent !== sanatized)
-                this.menu.input.value = sanatized
+            if (this.menu.input.textContent !== sanatized) this.menu.input.value = sanatized
 
             updateGroup()
         })
 
-        this.menu.previewMessageText.addEventListener('input', (event) =>
-        {
+        this.menu.previewMessageText.addEventListener('input', (event) => {
             const sanatized = sanatize(this.menu.previewMessageText.textContent, false, true, true)
 
-            if(this.menu.previewMessageText.textContent !== sanatized)
+            if (this.menu.previewMessageText.textContent !== sanatized)
                 this.menu.previewMessageText.textContent = sanatized
 
             this.menu.input.value = sanatized
@@ -362,41 +329,34 @@ export class Whispers
             updateGroup()
         })
 
-        this.menu.previewMessageText.addEventListener('blur', () =>
-        {
+        this.menu.previewMessageText.addEventListener('blur', () => {
             const sanatized = sanatize(this.menu.input.value, true, true, true)
             this.menu.previewMessageText.textContent = sanatized !== '' ? sanatized : 'Your message here'
             updateGroup()
         })
 
-        this.menu.previewMessageText.addEventListener('keydown', (event) =>
-        {
-            if(event.key === 'Enter')
-                submit()
+        this.menu.previewMessageText.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') submit()
         })
 
-        this.menu.inputGroup.addEventListener('submit', (event) =>
-        {
+        this.menu.inputGroup.addEventListener('submit', (event) => {
             event.preventDefault()
 
             submit()
         })
 
-        this.menu.instance.events.on('closed', () =>
-        {
+        this.menu.instance.events.on('closed', () => {
             this.menu.previewMessageText.textContent = 'Your message here'
             this.menu.input.value = ''
             updateGroup()
             this.menu.inputFlag.close()
         })
-            
-        this.game.server.events.on('connected', () =>
-        {
+
+        this.game.server.events.on('connected', () => {
             updateGroup()
         })
 
-        this.game.server.events.on('disconnected', () =>
-        {
+        this.game.server.events.on('disconnected', () => {
             updateGroup()
         })
 
@@ -404,128 +364,98 @@ export class Whispers
          * Flag
          */
         this.menu.inputFlag = new InputFlag(this.menu.inputGroup.querySelector('.js-input-flag'))
-        
-        this.menu.inputFlag.events.on('change', (country) =>
-        {
-            if(country)
-            {
+
+        this.menu.inputFlag.events.on('change', (country) => {
+            if (country) {
                 this.menu.previewMessageFlag.classList.add('is-visible')
                 this.menu.previewMessageFlag.style.backgroundImage = `url(${country.imageUrl})`
-            }
-            else
-            {
-                
+            } else {
                 this.menu.previewMessageFlag.classList.remove('is-visible')
             }
         })
 
-        if(this.menu.inputFlag.country)
-        {
+        if (this.menu.inputFlag.country) {
             this.menu.previewMessageFlag.classList.add('is-visible')
             this.menu.previewMessageFlag.style.backgroundImage = `url(${this.menu.inputFlag.country.imageUrl})`
         }
     }
 
-    setInputs()
-    {
-        this.game.inputs.addActions([
-            { name: 'whisper', categories: [ 'wandering' ], keys: [ 'Keyboard.KeyT' ] },
-        ])
+    setInputs() {
+        this.game.inputs.addActions([{ name: 'whisper', categories: ['wandering'], keys: ['Keyboard.KeyT'] }])
 
-        this.game.inputs.events.on('whisper', (action) =>
-        {
-            if(action.active)
-                this.game.menu.open('whispers')
+        this.game.inputs.events.on('whisper', (action) => {
+            if (action.active) this.game.menu.open('whispers')
         })
     }
 
-    update()
-    {
+    update() {
         // Sort and update matrices
         let instanceMatrixNeedsUpdate = false
 
-        for(const item of this.data.items)
-        {
+        for (const item of this.data.items) {
             item.oldRevealValue = this.revealArray[item.index]
-            if(item.needsUpdate)
-                instanceMatrixNeedsUpdate = true
+            if (item.needsUpdate) instanceMatrixNeedsUpdate = true
         }
 
-        if(instanceMatrixNeedsUpdate)
-        {
-            this.data.items.sort((a, b) => (a.position.x + a.position.z) - (b.position.x + b.position.z))
+        if (instanceMatrixNeedsUpdate) {
+            this.data.items.sort((a, b) => a.position.x + a.position.z - (b.position.x + b.position.z))
             let i = 0
-            for(const item of this.data.items)
-            {
+            for (const item of this.data.items) {
                 item.index = i++
                 this.revealArray[item.index] = item.oldRevealValue
             }
         }
 
-        for(const item of this.data.items)
-        {
-            if(item.needsUpdate)
-            {
+        for (const item of this.data.items) {
+            if (item.needsUpdate) {
                 this.flames.setMatrixAt(item.index, item.matrix)
                 item.needsUpdate = false
             }
         }
 
-        if(instanceMatrixNeedsUpdate)
-            this.flames.instanceMatrix.needsUpdate = true
+        if (instanceMatrixNeedsUpdate) this.flames.instanceMatrix.needsUpdate = true
 
         // Bubble
         let closestWhisper = null
         let closestDistance = Infinity
-        for(const item of this.data.items)
-        {
-            if(!item.available)
-            {
+        for (const item of this.data.items) {
+            if (!item.available) {
                 const distance = this.game.player.position.distanceTo(item.position)
 
-                if(distance < closestDistance)
-                {
+                if (distance < closestDistance) {
                     closestDistance = distance
                     closestWhisper = item
                 }
             }
         }
 
-        if(closestDistance < this.bubble.minDistance)
-        {
-            if(closestWhisper !== this.bubble.closest)
-            {
+        if (closestDistance < this.bubble.minDistance) {
+            if (closestWhisper !== this.bubble.closest) {
                 const position = closestWhisper.position.clone()
                 position.y += 1.25
 
                 let imageUrl = null
 
-                if(closestWhisper.countryCode && this.menu.inputFlag)
-                {
+                if (closestWhisper.countryCode && this.menu.inputFlag) {
                     const country = this.menu.inputFlag.countries.get(closestWhisper.countryCode)
 
-                    if(country)
-                        imageUrl = country.imageUrl
+                    if (country) imageUrl = country.imageUrl
                 }
 
                 this.bubble.instance.tryShow(closestWhisper.message, position, imageUrl)
                 this.bubble.closest = closestWhisper
             }
-        }
-        else
-        {
+        } else {
             this.bubble.closest = null
             this.bubble.instance.hide()
         }
 
-        if(this.revealBufferNeedsUpdate)
-        {
+        if (this.revealBufferNeedsUpdate) {
             this.revealBuffer.needsUpdate = true
             this.revealBufferNeedsUpdate = false
         }
 
         // Sound
-        if(closestWhisper)
-            this.sounds.flicker.positions[0].copy(closestWhisper.position)
+        if (closestWhisper) this.sounds.flicker.positions[0].copy(closestWhisper.position)
     }
 }

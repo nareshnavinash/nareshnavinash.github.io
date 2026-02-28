@@ -1,9 +1,22 @@
 import * as THREE from 'three/webgpu'
 import { Game } from './Game.js'
-import { attribute, cross, dot, float, Fn, mat3, modelViewMatrix, positionGeometry, texture, uniform, vec2, vec3, vec4 } from 'three/tsl'
+import {
+    attribute,
+    cross,
+    dot,
+    float,
+    Fn,
+    mat3,
+    modelViewMatrix,
+    positionGeometry,
+    texture,
+    uniform,
+    vec2,
+    vec3,
+    vec4
+} from 'three/tsl'
 
-const getRotationMatrix = Fn(([u, v]) =>
-{
+const getRotationMatrix = Fn(([u, v]) => {
     const cosTheta = dot(u, v)
     const axis = cross(u, v)
     const sinTheta = axis.length()
@@ -15,26 +28,29 @@ const getRotationMatrix = Fn(([u, v]) =>
     const t = c.oneMinus()
 
     return mat3(
-        t.mul(axis.x).mul(axis.x).add(c), t.mul(axis.x).mul(axis.y).sub(s.mul(axis.z)), t.mul(axis.x).mul(axis.z).add(s.mul(axis.y)),
-        t.mul(axis.x).mul(axis.y).add(s.mul(axis.z)), t.mul(axis.y).mul(axis.y).add(c), t.mul(axis.y).mul(axis.z).sub(s.mul(axis.x)),
-        t.mul(axis.x).mul(axis.z).sub(s.mul(axis.y)), t.mul(axis.y).mul(axis.z).add(s.mul(axis.x)), t.mul(axis.z).mul(axis.z).add(c)
-    );
+        t.mul(axis.x).mul(axis.x).add(c),
+        t.mul(axis.x).mul(axis.y).sub(s.mul(axis.z)),
+        t.mul(axis.x).mul(axis.z).add(s.mul(axis.y)),
+        t.mul(axis.x).mul(axis.y).add(s.mul(axis.z)),
+        t.mul(axis.y).mul(axis.y).add(c),
+        t.mul(axis.y).mul(axis.z).sub(s.mul(axis.x)),
+        t.mul(axis.x).mul(axis.z).sub(s.mul(axis.y)),
+        t.mul(axis.y).mul(axis.z).add(s.mul(axis.x)),
+        t.mul(axis.z).mul(axis.z).add(c)
+    )
 })
 
-export class Trails
-{
-    constructor()
-    {
+export class Trails {
+    constructor() {
         this.game = Game.getInstance()
 
-        if(this.game.debug.active)
-        {
+        if (this.game.debug.active) {
             this.debugPanel = this.game.debug.panel.addFolder({
                 title: '🌈 Trails',
-                expanded: false,
+                expanded: false
             })
         }
-        
+
         this.subdivisions = 32
         this.texel = 1 / this.subdivisions
         this.distanceThrottle = 0.4
@@ -44,32 +60,42 @@ export class Trails
         this.items = []
 
         this.setGeometry()
-        
-        this.game.ticker.events.on('tick', () =>
-        {
-            this.update()
-        }, 10)
 
-        if(this.game.debug.active)
-        {
-            this.debugPanel.addBinding(this.emissiveMultiplier, 'value', { label: 'emissiveMultiplier', min: 0, max: 10, step: 0.01 })
-            this.debugPanel.addBinding(this.fresnelOffset, 'value', { label: 'fresnelOffset', min: 0, max: 1, step: 0.01 })
+        this.game.ticker.events.on(
+            'tick',
+            () => {
+                this.update()
+            },
+            10
+        )
+
+        if (this.game.debug.active) {
+            this.debugPanel.addBinding(this.emissiveMultiplier, 'value', {
+                label: 'emissiveMultiplier',
+                min: 0,
+                max: 10,
+                step: 0.01
+            })
+            this.debugPanel.addBinding(this.fresnelOffset, 'value', {
+                label: 'fresnelOffset',
+                min: 0,
+                max: 1,
+                step: 0.01
+            })
             this.debugPanel.addBinding(this, 'decay', { min: 0, max: 1, step: 0.001 })
         }
     }
 
-    setGeometry()
-    {
+    setGeometry() {
         this.geometry = new THREE.CylinderGeometry(0.1, 0.1, 1, 4, this.subdivisions, true)
         this.geometry.rotateY(Math.PI * 0.25)
-        this.geometry.rotateX(- Math.PI * 0.5)
+        this.geometry.rotateX(-Math.PI * 0.5)
         this.geometry.translate(0, 0, 0.5)
-        
+
         this.geometry.deleteAttribute('uv')
     }
 
-    create()
-    {
+    create() {
         const item = {}
         item.lastPosition = new THREE.Vector3(Infinity, Infinity, Infinity)
         item.position = new THREE.Vector3()
@@ -88,8 +114,7 @@ export class Trails
         const ratio = float(0).toVarying()
         const alpha = float(0).toVarying()
 
-        material.positionNode = Fn(() =>
-        {
+        material.positionNode = Fn(() => {
             // Ratio
             ratio.assign(positionGeometry.z.oneMinus())
 
@@ -113,20 +138,19 @@ export class Trails
 
             // Alpha
             alpha.assign(trailData.w)
-            
+
             return trailPosition.add(rotatedPoint)
         })()
 
-        material.outputNode = Fn(() =>
-        {
-            const fresnel = customNormal.dot(vec3(0, 0, 1)).abs().oneMinus()
+        material.outputNode = Fn(() => {
+            const fresnel = customNormal
+                .dot(vec3(0, 0, 1))
+                .abs()
+                .oneMinus()
 
-            const gradientUv = vec2(
-                0.5,
-                ratio.oneMinus().sub(fresnel.oneMinus().mul(this.fresnelOffset))
-            )
+            const gradientUv = vec2(0.5, ratio.oneMinus().sub(fresnel.oneMinus().mul(this.fresnelOffset)))
             const baseColor = texture(this.game.materials.gradientTexture, gradientUv).rgb.mul(this.emissiveMultiplier)
-            
+
             return vec4(vec3(baseColor), ratio.oneMinus().mul(alpha))
         })()
         item.mesh = new THREE.Mesh(this.geometry, material)
@@ -135,27 +159,23 @@ export class Trails
         this.game.scene.add(item.mesh)
 
         this.items.push(item)
-        
+
         return item
     }
 
-    update()
-    {
-        for(const item of this.items)
-        {
+    update() {
+        for (const item of this.items) {
             const data = item.dataTexture.source.data.data
 
             // Throttle by distance
             const positionDelta = item.lastPosition.clone().sub(item.position)
             const distance = positionDelta.length()
-            
-            if(distance > this.distanceThrottle)
-            {
+
+            if (distance > this.distanceThrottle) {
                 // Move data one "pixel"
-                for(let i = this.subdivisions - 1; i >= 0; i--)
-                {
+                for (let i = this.subdivisions - 1; i >= 0; i--) {
                     const i4 = i * 4
-                    data[i4    ] = data[i4 - 4]
+                    data[i4] = data[i4 - 4]
                     data[i4 + 1] = data[i4 - 3]
                     data[i4 + 2] = data[i4 - 2]
                     data[i4 + 3] = data[i4 - 1]
@@ -166,8 +186,7 @@ export class Trails
             }
 
             // Fade out
-            for(let i = this.subdivisions - 1; i >= 0; i--)
-            {
+            for (let i = this.subdivisions - 1; i >= 0; i--) {
                 const i4 = i * 4
                 data[i4 + 3] = Math.max(data[i4 + 3] - this.game.ticker.deltaScaled * this.decay, 0)
             }

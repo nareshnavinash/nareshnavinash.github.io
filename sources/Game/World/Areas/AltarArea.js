@@ -1,21 +1,39 @@
 import * as THREE from 'three/webgpu'
 import { Game } from '../../Game.js'
-import { attribute, clamp, color, float, Fn, instancedArray, instanceIndex, luminance, max, min, mix, smoothstep, step, texture, uniform, uv, varying, vec2, vec3, vec4 } from 'three/tsl'
+import {
+    attribute,
+    clamp,
+    color,
+    float,
+    Fn,
+    instancedArray,
+    instanceIndex,
+    luminance,
+    max,
+    min,
+    mix,
+    smoothstep,
+    step,
+    texture,
+    uniform,
+    uv,
+    varying,
+    vec2,
+    vec3,
+    vec4
+} from 'three/tsl'
 import gsap from 'gsap'
 import { alea } from 'seedrandom'
 import { Area } from './Area.js'
 
-export class AltarArea extends Area
-{
-    constructor(model)
-    {
+export class AltarArea extends Area {
+    constructor(model) {
         super(model)
 
-        if(this.game.debug.active)
-        {
+        if (this.game.debug.active) {
             this.debugPanel = this.game.debug.panel.addFolder({
                 title: '💀 Altar',
-                expanded: false,
+                expanded: false
             })
         }
 
@@ -36,24 +54,20 @@ export class AltarArea extends Area
         this.setAchievement()
 
         // Offline counter
-        if(!this.game.server.connected)
-            this.updateText('...')
-            
-        this.game.server.events.on('disconnected', () =>
-        {
+        if (!this.game.server.connected) this.updateText('...')
+
+        this.game.server.events.on('disconnected', () => {
             this.updateText('...')
         })
 
         // Debug
-        if(this.game.debug.active)
-        {
+        if (this.game.debug.active) {
             this.game.debug.addThreeColorBinding(this.debugPanel, this.color.value, 'color')
             this.debugPanel.addBinding(this.emissive, 'value', { label: 'emissive', min: 0, max: 10, step: 0.1 })
         }
     }
 
-    setSounds()
-    {
+    setSounds() {
         this.sounds = {}
 
         this.sounds.chimers = this.game.audio.register({
@@ -79,8 +93,7 @@ export class AltarArea extends Area
         })
     }
 
-    setBeam()
-    {
+    setBeam() {
         const radius = 2.5
         this.height = 6
         this.beamAttenuation = uniform(2)
@@ -88,15 +101,17 @@ export class AltarArea extends Area
         // Cylinder
         const cylinderGeometry = new THREE.CylinderGeometry(radius, radius, this.height, 32, 1, true)
         cylinderGeometry.translate(0, this.height * 0.5, 0)
-        
+
         const cylinderMaterial = new THREE.MeshBasicNodeMaterial({ side: THREE.DoubleSide })
 
-        cylinderMaterial.outputNode = Fn(() =>
-        {
+        cylinderMaterial.outputNode = Fn(() => {
             const baseUv = uv()
 
             // Noise
-            const noiseUv = vec2(baseUv.x.mul(6).add(baseUv.y.mul(-2)), baseUv.y.mul(1).sub(this.game.ticker.elapsedScaledUniform.mul(0.2)))
+            const noiseUv = vec2(
+                baseUv.x.mul(6).add(baseUv.y.mul(-2)),
+                baseUv.y.mul(1).sub(this.game.ticker.elapsedScaledUniform.mul(0.2))
+            )
             const noise = texture(this.game.noises.perlin, noiseUv).r
             noise.addAssign(baseUv.y.mul(this.beamAttenuation.add(1)))
 
@@ -113,7 +128,7 @@ export class AltarArea extends Area
 
             // Discard
             noise.greaterThan(1).discard()
-            
+
             return vec4(finalColor, 1)
         })()
 
@@ -129,17 +144,16 @@ export class AltarArea extends Area
         satanStarTexture.minFilter = THREE.NearestFilter
         satanStarTexture.magFilter = THREE.NearestFilter
         satanStarTexture.generateMipmaps = false
-        
+
         const bottomMaterial = new THREE.MeshBasicNodeMaterial({ transparent: true })
-        bottomMaterial.outputNode = Fn(() =>
-        {
+        bottomMaterial.outputNode = Fn(() => {
             const newUv = uv().sub(0.5).mul(1.7).add(0.5)
             const satanStar = texture(satanStarTexture, newUv).r
 
             const gooColor = this.game.fog.strength.mix(vec3(0), this.game.fog.color) // Fog
 
             const emissiveColor = this.color.mul(this.emissive)
-            
+
             const finalColor = mix(gooColor, emissiveColor, satanStar)
 
             return vec4(finalColor, 1)
@@ -147,39 +161,34 @@ export class AltarArea extends Area
 
         const bottom = new THREE.Mesh(bottomGeometry, bottomMaterial)
         bottom.position.copy(this.position)
-        bottom.rotation.x = - Math.PI * 0.5
+        bottom.rotation.x = -Math.PI * 0.5
         this.game.scene.add(bottom)
         this.objects.hideable.push(bottom)
 
-        this.animateBeam = () =>
-        {
-            gsap.to(
-                this.beamAttenuation,
-                { value: 0, ease: 'power2.out', duration: 0.4, onComplete: () =>
-                {
-                    gsap.to(
-                        this.beamAttenuation,
-                        { value: 2, ease: 'power2.in', duration: 3 },
-                    )
-                } },
-            )
+        this.animateBeam = () => {
+            gsap.to(this.beamAttenuation, {
+                value: 0,
+                ease: 'power2.out',
+                duration: 0.4,
+                onComplete: () => {
+                    gsap.to(this.beamAttenuation, { value: 2, ease: 'power2.in', duration: 3 })
+                }
+            })
         }
     }
 
-    setBeamParticles()
-    {
+    setBeamParticles() {
         const count = 150
 
         // Uniforms
         const progress = uniform(0)
-        
+
         // Attributes
         const positionArray = new Float32Array(count * 3)
         const scaleArray = new Float32Array(count)
         const randomArray = new Float32Array(count)
-        
-        for(let i = 0; i < count; i++)
-        {
+
+        for (let i = 0; i < count; i++) {
             const i3 = i * 3
 
             const spherical = new THREE.Spherical(
@@ -201,8 +210,7 @@ export class AltarArea extends Area
 
         // Material
         const particlesMaterial = new THREE.SpriteNodeMaterial()
-        particlesMaterial.outputNode = Fn(() =>
-        {
+        particlesMaterial.outputNode = Fn(() => {
             const distanceToCenter = uv().sub(0.5).length()
             const gooColor = this.game.fog.strength.mix(vec3(0), this.game.fog.color) // Fog
             const emissiveColor = this.color.mul(this.emissive)
@@ -213,21 +221,19 @@ export class AltarArea extends Area
 
             return vec4(finalColor, 1)
         })()
-        particlesMaterial.positionNode = Fn(() =>
-        {
+        particlesMaterial.positionNode = Fn(() => {
             const localProgress = progress.remapClamp(0, 0.5, 1, 0).pow(6).oneMinus()
-            
+
             const finalPosition = position.toVar().mulAssign(localProgress)
             finalPosition.y.addAssign(progress.mul(random))
 
             return finalPosition
         })()
-        particlesMaterial.scaleNode = Fn(() =>
-        {
+        particlesMaterial.scaleNode = Fn(() => {
             const finalScale = smoothstep(1, 0.3, progress).mul(scale)
             return finalScale
         })()
-        
+
         // Geometry
         const particlesGeometry = new THREE.PlaneGeometry(0.2, 0.2)
 
@@ -239,32 +245,25 @@ export class AltarArea extends Area
         this.game.scene.add(particles)
         this.objects.hideable.push(particles)
 
-        this.animateBeamParticles = () =>
-        {
-            gsap.fromTo(
-                progress,
-                { value: 0 },
-                { value: 1, ease: 'linear', duration: 3 },
-            )
+        this.animateBeamParticles = () => {
+            gsap.fromTo(progress, { value: 0 }, { value: 1, ease: 'linear', duration: 3 })
         }
     }
 
-    setGlyphs()
-    {
+    setGlyphs() {
         const count = 40
 
         const positions = new Float32Array(count * 3)
         const speeds = new Float32Array(count)
-        
-        for(let i = 0; i < count; i++)
-        {
+
+        for (let i = 0; i < count; i++) {
             const angle = Math.PI * 2 * Math.random()
             const elevation = Math.random() * 5
             const radius = Math.random() * 8
             positions[i * 3 + 0] = Math.sin(angle) * radius
             positions[i * 3 + 1] = elevation
             positions[i * 3 + 2] = Math.cos(angle) * radius
-            
+
             speeds[i] = 0.2 + Math.random() * 0.8
         }
 
@@ -272,33 +271,28 @@ export class AltarArea extends Area
         const speedAttribute = instancedArray(speeds, 'float').toAttribute()
 
         const material = new THREE.SpriteNodeMaterial({ transparent: true })
-        
+
         const progressVarying = varying(float(0))
 
-        material.positionNode = Fn(() =>
-        {
-            progressVarying.assign(this.game.ticker.elapsedScaledUniform.mul(0.05).add(float(instanceIndex).div(count)).fract())
+        material.positionNode = Fn(() => {
+            progressVarying.assign(
+                this.game.ticker.elapsedScaledUniform.mul(0.05).add(float(instanceIndex).div(count)).fract()
+            )
 
             const newPosition = positionAttribute.toVar()
             newPosition.y.addAssign(progressVarying.mul(speedAttribute))
             return newPosition
         })()
 
-        material.scaleNode = Fn(() =>
-        {
-            const scale = min(
-                progressVarying.remapClamp(0, 0.1, 0, 1),
-                progressVarying.remapClamp(0.7, 0.8, 1, 0),
-                1
-            )
+        material.scaleNode = Fn(() => {
+            const scale = min(progressVarying.remapClamp(0, 0.1, 0, 1), progressVarying.remapClamp(0.7, 0.8, 1, 0), 1)
             return scale.mul(0.2)
         })()
 
         const emissiveAMaterial = this.game.materials.getFromName('emissiveBlueRadialGradient')
         const emissiveBMaterial = this.game.materials.getFromName('emissiveOrangeRadialGradient')
 
-        material.outputNode = Fn(() =>
-        {
+        material.outputNode = Fn(() => {
             // Glyph
             const glyphUv = uv().toVar()
             glyphUv.x.addAssign(instanceIndex)
@@ -328,12 +322,9 @@ export class AltarArea extends Area
         this.objects.hideable.push(mesh)
 
         let frustumNeedsUpdate = true
-        this.events.on('frustumIn', () =>
-        {
-            if(frustumNeedsUpdate)
-            {
-                this.game.ticker.wait(2, () =>
-                {
+        this.events.on('frustumIn', () => {
+            if (frustumNeedsUpdate) {
+                this.game.ticker.wait(2, () => {
                     mesh.geometry.boundingSphere.center.y = 2
                     mesh.geometry.boundingSphere.radius = 5
                 })
@@ -342,8 +333,7 @@ export class AltarArea extends Area
         })
     }
 
-    setCounter()
-    {
+    setCounter() {
         const size = 3
 
         // Canvas
@@ -351,7 +341,7 @@ export class AltarArea extends Area
         this.width = 256
         this.height = this.width * ratio
         this.font = `700 ${this.height}px "Caveat", cursive`
-        
+
         const canvas = document.createElement('canvas')
         canvas.width = this.width
         canvas.height = this.height
@@ -370,8 +360,7 @@ export class AltarArea extends Area
 
         // Material
         const material = new THREE.MeshBasicNodeMaterial({ transparent: true })
-        material.outputNode = Fn(() =>
-        {
+        material.outputNode = Fn(() => {
             const textData = texture(this.textTexture, uv())
             const gooColor = this.game.fog.strength.mix(vec3(0), this.game.fog.color) // Fog
             const emissiveColor = this.color.mul(this.emissive)
@@ -388,79 +377,64 @@ export class AltarArea extends Area
         this.references.items.get('counter')[0].add(this.mesh)
     }
 
-    setDeathZone()
-    {
+    setDeathZone() {
         const position = this.position.clone()
         position.y -= 1.25
         const zone = this.game.zones.create('sphere', position, 2.5)
 
-        zone.events.on(
-            'enter',
-            () =>
-            {
-                this.animateBeam()
-                this.animateBeamParticles()
-                this.data.insert()
-                this.updateText(this.value + 1)
-                this.game.player.die()
-                this.sounds.deathBell2.play()
-                gsap.delayedCall(2.2, () =>
-                {
-                    this.sounds.deathBell1.play()
-                })
-                this.game.achievements.setProgress('sacrifice', 1)
-            }
-        )
+        zone.events.on('enter', () => {
+            this.animateBeam()
+            this.animateBeamParticles()
+            this.data.insert()
+            this.updateText(this.value + 1)
+            this.game.player.die()
+            this.sounds.deathBell2.play()
+            gsap.delayedCall(2.2, () => {
+                this.sounds.deathBell1.play()
+            })
+            this.game.achievements.setProgress('sacrifice', 1)
+        })
     }
 
-    setData()
-    {
+    setData() {
         this.data = {}
-        
-        this.data.insert = () =>
-        {
+
+        this.data.insert = () => {
             this.game.server.send({
                 type: 'cataclysmInsert'
             })
         }
 
         // Server message event
-        this.game.server.events.on('message', (data) =>
-        {
+        this.game.server.events.on('message', (data) => {
             // Init and insert
-            if(data.type === 'init' || data.type === 'cataclysmUpdate')
-            {
+            if (data.type === 'init' || data.type === 'cataclysmUpdate') {
                 this.updateText(data.cataclysmCount)
                 this.progressUniform.value = data.cataclysmProgress
             }
         })
 
         // Init message already received
-        if(this.game.server.initData)
-        {
+        if (this.game.server.initData) {
             this.updateText(this.game.server.initData.cataclysmCount)
             this.progressUniform.value = this.game.server.initData.cataclysmProgress
         }
     }
 
-    updateText(value)
-    {
+    updateText(value) {
         let formatedValue = null
 
         // Displaying number value
-        if(typeof value === 'number')
-        {
+        if (typeof value === 'number') {
             // Same value
-            if(value === this.value)
-                return
-                
+            if (value === this.value) return
+
             this.value = value
             formatedValue = value.toLocaleString('en-US')
         }
 
         // Displaying text value
-        else
-        {
+        else {
             formatedValue = value
         }
 
@@ -482,34 +456,25 @@ export class AltarArea extends Area
 
         this.textTexture.needsUpdate = true
 
-        gsap.to(
-            this.mesh.scale,
-            {
-                x: 1.5,
-                y: 1.5,
-                duration: 0.3,
-                overwrite: true,
-                onComplete: () =>
-                {
-                    gsap.to(
-                        this.mesh.scale,
-                        {
-                            x: 1,
-                            y: 1,
-                            duration: 2,
-                            ease: 'elastic.out(1,0.3)',
-                            overwrite: true
-                        }
-                    )
-                }
+        gsap.to(this.mesh.scale, {
+            x: 1.5,
+            y: 1.5,
+            duration: 0.3,
+            overwrite: true,
+            onComplete: () => {
+                gsap.to(this.mesh.scale, {
+                    x: 1,
+                    y: 1,
+                    duration: 2,
+                    ease: 'elastic.out(1,0.3)',
+                    overwrite: true
+                })
             }
-        )
+        })
     }
 
-    setAchievement()
-    {
-        this.events.on('boundingIn', () =>
-        {
+    setAchievement() {
+        this.events.on('boundingIn', () => {
             this.game.achievements.setProgress('areas', 'altar')
         })
     }

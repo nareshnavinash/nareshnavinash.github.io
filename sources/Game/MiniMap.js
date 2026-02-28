@@ -1,10 +1,8 @@
 import { clamp } from 'three/src/math/MathUtils.js'
 import { Game } from './Game.js'
 
-export class MiniMap
-{
-    constructor()
-    {
+export class MiniMap {
+    constructor() {
         this.game = Game.getInstance()
 
         this.element = this.game.domElement.querySelector('.js-minimap')
@@ -13,40 +11,36 @@ export class MiniMap
         this.roundedPosition = { x: 0, y: 0 }
         this.textureLoaded = false
 
-        this.game.ticker.events.on('tick', () =>
-        {
-            this.update()
-        }, 14)
+        this.game.ticker.events.on(
+            'tick',
+            () => {
+                this.update()
+            },
+            14
+        )
     }
 
-    loadTexture()
-    {
-        if(this.textureLoaded)
-            return
+    loadTexture() {
+        if (this.textureLoaded) return
 
         this.textureLoaded = true
 
         // Use day map by default
         let url = 'ui/map/map-day.webp'
 
-        try
-        {
+        try {
             const nightInterval = this.game.dayCycles.intervalEvents.get('night')
-            if(nightInterval && nightInterval.inInterval)
-                url = 'ui/map/map-night.webp'
-        }
-        catch(e) {}
+            if (nightInterval && nightInterval.inInterval) url = 'ui/map/map-night.webp'
+        } catch (e) {}
 
         this.textureElement.src = url
 
-        this.textureElement.addEventListener('load', () =>
-        {
+        this.textureElement.addEventListener('load', () => {
             this.textureElement.classList.add('is-visible')
         })
     }
 
-    worldToMap(coordinates)
-    {
+    worldToMap(coordinates) {
         let x = coordinates.x
         let y = typeof coordinates.z !== 'undefined' ? coordinates.z : coordinates.y
 
@@ -62,20 +56,16 @@ export class MiniMap
         return { x, y }
     }
 
-    update()
-    {
-        if(!this.game.player)
-            return
+    update() {
+        if (!this.game.player) return
 
         // Lazy-load the texture on first update when terrain is ready
-        if(!this.textureLoaded && this.game.terrain)
-            this.loadTexture()
+        if (!this.textureLoaded && this.game.terrain) this.loadTexture()
 
         const playerRoundedX = Math.round(this.game.player.position.x)
         const playerRoundedY = Math.round(this.game.player.position.z)
 
-        if(playerRoundedX !== this.roundedPosition.x || playerRoundedY !== this.roundedPosition.y)
-        {
+        if (playerRoundedX !== this.roundedPosition.x || playerRoundedY !== this.roundedPosition.y) {
             this.roundedPosition.x = playerRoundedX
             this.roundedPosition.y = playerRoundedY
 

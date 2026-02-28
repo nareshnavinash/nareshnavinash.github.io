@@ -5,14 +5,33 @@ import gsap from 'gsap'
 import labData from '../../../data/lab.js'
 import { TextCanvas } from '../../TextCanvas.js'
 import { TerminalCanvasRenderer } from '../../TerminalCanvasRenderer.js'
-import { add, color, float, Fn, If, luminance, mix, mul, normalWorld, positionGeometry, positionWorld, sin, step, texture, uniform, uv, vec2, vec3, vec4 } from 'three/tsl'
+import {
+    add,
+    color,
+    float,
+    Fn,
+    If,
+    luminance,
+    mix,
+    mul,
+    normalWorld,
+    positionGeometry,
+    positionWorld,
+    sin,
+    step,
+    texture,
+    uniform,
+    uv,
+    vec2,
+    vec3,
+    vec4
+} from 'three/tsl'
 import { remapClamp, safeMod, signedModDelta } from '../../utilities/maths.js'
 import { Inputs } from '../../Inputs/Inputs.js'
 import { MeshDefaultMaterial } from '../../Materials/MeshDefaultMaterial.js'
 import { Area } from './Area.js'
 
-export class LabArea extends Area
-{
+export class LabArea extends Area {
     static DIRECTION_PREVIOUS = 1
     static DIRECTION_NEXT = 2
     static STATE_OPEN = 3
@@ -20,19 +39,17 @@ export class LabArea extends Area
     static STATE_CLOSED = 5
     static STATE_CLOSING = 6
 
-    constructor(model)
-    {
+    constructor(model) {
         super(model)
 
         // Debug
-        if(this.game.debug.active)
-        {
+        if (this.game.debug.active) {
             this.debugPanel = this.game.debug.panel.addFolder({
                 title: '🧪 Lab',
-                expanded: false,
+                expanded: false
             })
         }
-        
+
         this.state = LabArea.STATE_CLOSED
 
         this.setSounds()
@@ -60,136 +77,109 @@ export class LabArea extends Area
         this.scroller.animate()
 
         // Debug
-        if(this.game.debug.active)
-        {
-            this.debugPanel.addButton({ title: 'open', label: 'open' }).on('click', () => { this.open() })
-            this.debugPanel.addButton({ title: 'close', label: 'close' }).on('click', () => { this.close() })
+        if (this.game.debug.active) {
+            this.debugPanel.addButton({ title: 'open', label: 'open' }).on('click', () => {
+                this.open()
+            })
+            this.debugPanel.addButton({ title: 'close', label: 'close' }).on('click', () => {
+                this.close()
+            })
         }
     }
 
-    setSounds()
-    {
+    setSounds() {
         this.sounds = {}
-        
+
         this.sounds.scroll = this.game.audio.register({
             path: 'sounds/mecanism/05947 light wooden cart riding on cobblestone - looping.mp3',
             autoplay: true,
             loop: true,
             volume: 0.5,
             positions: this.references.items.get('mecanism')[0].position,
-            onPlaying: (item) =>
-            {
+            onPlaying: (item) => {
                 const absoluteSpeed = Math.abs(this.scroller.speed)
                 item.volume = remapClamp(absoluteSpeed, 0, 6, 0, 0.5)
                 item.rate = remapClamp(absoluteSpeed, 0, 6, 0.95, 1.05)
             }
         })
-
     }
 
-    setInteractivePoint()
-    {
+    setInteractivePoint() {
         this.interactivePoint = this.game.interactivePoints.create(
             this.references.items.get('interactivePoint')[0].position,
             'Lab',
             InteractivePoints.ALIGN_RIGHT,
             InteractivePoints.STATE_CONCEALED,
-            () =>
-            {
+            () => {
                 this.open()
             },
-            () =>
-            {
+            () => {
                 this.game.inputs.interactiveButtons.addItems(['interact'])
             },
-            () =>
-            {
+            () => {
                 this.game.inputs.interactiveButtons.removeItems(['interact'])
             },
-            () =>
-            {
+            () => {
                 this.game.inputs.interactiveButtons.removeItems(['interact'])
             }
         )
     }
 
-    setInputs()
-    {
+    setInputs() {
         // Direct keyboard listener for Escape — bypasses the game input system
         // to guarantee lab close works regardless of ClosingManager state
-        window.addEventListener('keydown', (_event) =>
-        {
-            if(_event.code === 'Escape' && (this.state === LabArea.STATE_OPEN || this.state === LabArea.STATE_OPENING))
+        window.addEventListener('keydown', (_event) => {
+            if (_event.code === 'Escape' && (this.state === LabArea.STATE_OPEN || this.state === LabArea.STATE_OPENING))
                 this.close()
         })
 
-        this.game.inputs.events.on('left', (action) =>
-        {
-            if(action.active)
-                this.previous()
+        this.game.inputs.events.on('left', (action) => {
+            if (action.active) this.previous()
         })
 
-        this.game.inputs.events.on('right', (action) =>
-        {
-            if(action.active)
-                this.next()
+        this.game.inputs.events.on('right', (action) => {
+            if (action.active) this.next()
         })
 
-        this.game.inputs.events.on('forward', (action) =>
-        {
-            if(action.active && !action.activeKeys.has('Gamepad.r2'))
-                this.previous()
+        this.game.inputs.events.on('forward', (action) => {
+            if (action.active && !action.activeKeys.has('Gamepad.r2')) this.previous()
         })
 
-        this.game.inputs.events.on('backward', (action) =>
-        {
-            if(action.active && !action.activeKeys.has('Gamepad.l2'))
-                this.next()
+        this.game.inputs.events.on('backward', (action) => {
+            if (action.active && !action.activeKeys.has('Gamepad.l2')) this.next()
         })
 
-        this.game.inputs.events.on('interact', (action) =>
-        {
-            if(!action.active && this.state === LabArea.STATE_OPEN)
-                this.url.open()
+        this.game.inputs.events.on('interact', (action) => {
+            if (!action.active && this.state === LabArea.STATE_OPEN) this.url.open()
         })
 
-        this.game.inputs.interactiveButtons.events.on('previous', () =>
-        {
-            if(this.state === LabArea.STATE_OPEN)
-                this.previous()
+        this.game.inputs.interactiveButtons.events.on('previous', () => {
+            if (this.state === LabArea.STATE_OPEN) this.previous()
         })
 
-        this.game.inputs.interactiveButtons.events.on('next', () =>
-        {
-            if(this.state === LabArea.STATE_OPEN)
-                this.next()
+        this.game.inputs.interactiveButtons.events.on('next', () => {
+            if (this.state === LabArea.STATE_OPEN) this.next()
         })
 
-        this.game.inputs.interactiveButtons.events.on('open', () =>
-        {
-            if(this.state === LabArea.STATE_OPEN)
-                this.url.open()
+        this.game.inputs.interactiveButtons.events.on('open', () => {
+            if (this.state === LabArea.STATE_OPEN) this.url.open()
         })
 
-        this.game.inputs.interactiveButtons.events.on('close', () =>
-        {
-            if(this.state === LabArea.STATE_OPEN)
-                this.close()
+        this.game.inputs.interactiveButtons.events.on('close', () => {
+            if (this.state === LabArea.STATE_OPEN) this.close()
         })
     }
 
-    setCinematic()
-    {
+    setCinematic() {
         this.cinematic = {}
-        
+
         this.cinematic.position = new THREE.Vector3()
         this.cinematic.positionOffset = new THREE.Vector3(4.35, 4.0, 4)
-        
+
         this.cinematic.target = new THREE.Vector3()
         this.cinematic.targetOffset = new THREE.Vector3(-1.75, 1.9, -3)
 
-        const applyPositionAndTarget = () =>
-        {
+        const applyPositionAndTarget = () => {
             const flatPosition = this.references.items.get('interactivePoint')[0].position.clone()
             flatPosition.y = 0
             this.cinematic.position.copy(flatPosition).add(this.cinematic.positionOffset)
@@ -198,23 +188,33 @@ export class LabArea extends Area
         applyPositionAndTarget()
 
         // Debug
-        if(this.game.debug.active)
-        {
+        if (this.game.debug.active) {
             const debugPanel = this.debugPanel.addFolder({
                 title: 'cinematic',
-                expanded: false,
+                expanded: false
             })
-            debugPanel.addBinding(this.cinematic.positionOffset, 'x', { label: 'positionX', min: - 10, max: 10, step: 0.05 }).on('change', applyPositionAndTarget)
-            debugPanel.addBinding(this.cinematic.positionOffset, 'y', { label: 'positionY', min: 0, max: 10, step: 0.05 }).on('change', applyPositionAndTarget)
-            debugPanel.addBinding(this.cinematic.positionOffset, 'z', { label: 'positionZ', min: - 10, max: 10, step: 0.05 }).on('change', applyPositionAndTarget)
-            debugPanel.addBinding(this.cinematic.targetOffset, 'x', { label: 'targetX', min: - 10, max: 10, step: 0.05 }).on('change', applyPositionAndTarget)
-            debugPanel.addBinding(this.cinematic.targetOffset, 'y', { label: 'targetY', min: 0, max: 10, step: 0.05 }).on('change', applyPositionAndTarget)
-            debugPanel.addBinding(this.cinematic.targetOffset, 'z', { label: 'targetZ', min: - 10, max: 10, step: 0.05 }).on('change', applyPositionAndTarget)
+            debugPanel
+                .addBinding(this.cinematic.positionOffset, 'x', { label: 'positionX', min: -10, max: 10, step: 0.05 })
+                .on('change', applyPositionAndTarget)
+            debugPanel
+                .addBinding(this.cinematic.positionOffset, 'y', { label: 'positionY', min: 0, max: 10, step: 0.05 })
+                .on('change', applyPositionAndTarget)
+            debugPanel
+                .addBinding(this.cinematic.positionOffset, 'z', { label: 'positionZ', min: -10, max: 10, step: 0.05 })
+                .on('change', applyPositionAndTarget)
+            debugPanel
+                .addBinding(this.cinematic.targetOffset, 'x', { label: 'targetX', min: -10, max: 10, step: 0.05 })
+                .on('change', applyPositionAndTarget)
+            debugPanel
+                .addBinding(this.cinematic.targetOffset, 'y', { label: 'targetY', min: 0, max: 10, step: 0.05 })
+                .on('change', applyPositionAndTarget)
+            debugPanel
+                .addBinding(this.cinematic.targetOffset, 'z', { label: 'targetZ', min: -10, max: 10, step: 0.05 })
+                .on('change', applyPositionAndTarget)
         }
     }
 
-    setShadeMix()
-    {
+    setShadeMix() {
         this.shadeMix = {}
 
         this.shadeMix.images = {}
@@ -228,64 +228,57 @@ export class LabArea extends Area
         this.shadeMix.texts.mixUniform = uniform(this.shadeMix.texts.min)
 
         // Debug
-        if(this.game.debug.active)
-        {
+        if (this.game.debug.active) {
             const debugPanel = this.debugPanel.addFolder({
                 title: 'Shader mix',
-                expanded: true,
+                expanded: true
             })
 
-            const debugUpdate = () =>
-            {
-                if(this.state === LabArea.STATE_OPEN || this.state === LabArea.STATE_OPENING)
-                {
+            const debugUpdate = () => {
+                if (this.state === LabArea.STATE_OPEN || this.state === LabArea.STATE_OPENING) {
                     this.shadeMix.images.mixUniform.value = this.shadeMix.images.max
                     this.shadeMix.texts.mixUniform.value = this.shadeMix.texts.max
-                }
-                else
-                {
+                } else {
                     this.shadeMix.images.mixUniform.value = this.shadeMix.images.min
                     this.shadeMix.texts.mixUniform.value = this.shadeMix.texts.min
                 }
             }
-            
-            debugPanel.addBinding(this.shadeMix.images, 'min', { label: 'imagesMin', min: 0, max: 1, step: 0.001 }).on('change', debugUpdate)
-            debugPanel.addBinding(this.shadeMix.images, 'max', { label: 'imagesMax', min: 0, max: 1, step: 0.001 }).on('change', debugUpdate)
-            debugPanel.addBinding(this.shadeMix.texts, 'min', { label: 'textsMin', min: 0, max: 1, step: 0.001 }).on('change', debugUpdate)
-            debugPanel.addBinding(this.shadeMix.texts, 'max', { label: 'textsMax', min: 0, max: 1, step: 0.001 }).on('change', debugUpdate)
+
+            debugPanel
+                .addBinding(this.shadeMix.images, 'min', { label: 'imagesMin', min: 0, max: 1, step: 0.001 })
+                .on('change', debugUpdate)
+            debugPanel
+                .addBinding(this.shadeMix.images, 'max', { label: 'imagesMax', min: 0, max: 1, step: 0.001 })
+                .on('change', debugUpdate)
+            debugPanel
+                .addBinding(this.shadeMix.texts, 'min', { label: 'textsMin', min: 0, max: 1, step: 0.001 })
+                .on('change', debugUpdate)
+            debugPanel
+                .addBinding(this.shadeMix.texts, 'max', { label: 'textsMax', min: 0, max: 1, step: 0.001 })
+                .on('change', debugUpdate)
         }
     }
 
-    setTexts()
-    {
+    setTexts() {
         this.texts = {}
-        
+
         this.texts.density = 200
         this.texts.fontFamily = 'Caveat, cursive'
         this.texts.fontWeight = 700
         this.texts.fontSizeMultiplier = 1
         this.texts.baseColor = color('#ffffff')
 
-        this.texts.createMaterialOnMesh = (mesh, textTexture) =>
-        {
+        this.texts.createMaterialOnMesh = (mesh, textTexture) => {
             const material = new MeshDefaultMaterial({
                 hasWater: false,
                 alphaNode: texture(textTexture).r,
                 transparent: true
             })
-            
+
             const baseOutput = material.outputNode
-            
-            material.outputNode = Fn(() =>
-            {
-                return vec4(
-                    mix(
-                        baseOutput.rgb,
-                        this.texts.baseColor,
-                        this.shadeMix.texts.mixUniform
-                    ),
-                    baseOutput.a
-                )
+
+            material.outputNode = Fn(() => {
+                return vec4(mix(baseOutput.rgb, this.texts.baseColor, this.shadeMix.texts.mixUniform), baseOutput.a)
             })()
 
             // Mesh
@@ -295,8 +288,7 @@ export class LabArea extends Area
         }
     }
 
-    setHover()
-    {
+    setHover() {
         this.hover = {}
         this.hover.baseColor = color('#ffffff')
 
@@ -305,19 +297,11 @@ export class LabArea extends Area
             colorNode: this.hover.baseColor,
             hasWater: false
         })
-        
+
         const baseOutput = this.hover.inactiveMaterial.outputNode
-        
-        this.hover.inactiveMaterial.outputNode = Fn(() =>
-        {
-            return vec4(
-                mix(
-                    baseOutput.rgb,
-                    this.texts.baseColor,
-                    this.shadeMix.texts.mixUniform
-                ),
-                1
-            )
+
+        this.hover.inactiveMaterial.outputNode = Fn(() => {
+            return vec4(mix(baseOutput.rgb, this.texts.baseColor, this.shadeMix.texts.mixUniform), 1)
         })()
 
         // Active
@@ -325,8 +309,7 @@ export class LabArea extends Area
         this.hover.activeMaterial.outputNode = vec4(this.hover.baseColor.mul(1.5), float(1))
     }
 
-    setNavigation()
-    {
+    setNavigation() {
         this.navigation = {}
         this.navigation.index = -1
         this.navigation.current = null
@@ -335,8 +318,7 @@ export class LabArea extends Area
         this.navigation.direction = LabArea.DIRECTION_NEXT
     }
 
-    setImages()
-    {
+    setImages() {
         this.images = {}
         this.images.initiated = false
         this.images.width = 1920 * 0.5
@@ -353,8 +335,7 @@ export class LabArea extends Area
         this.images.mesh.visible = false // Wait for first load to display
 
         // Finishing initiating and use first image as default resource
-        this.images.init = (key) =>
-        {
+        this.images.init = (key) => {
             this.images.initiated = true
 
             this.images.mesh.visible = true
@@ -364,13 +345,14 @@ export class LabArea extends Area
             this.images.textureNew = resource.texture.clone()
 
             // Color node
-            const colorNode = Fn(() =>
-            {
+            const colorNode = Fn(() => {
                 const uvOld = uv().toVar()
                 const uvNew = uv().toVar()
 
                 // Parallax (add an offset according to progress)
-                uvNew.x.addAssign(this.images.animationProgress.oneMinus().mul(-0.25).mul(this.images.animationDirection))
+                uvNew.x.addAssign(
+                    this.images.animationProgress.oneMinus().mul(-0.25).mul(this.images.animationDirection)
+                )
                 uvOld.x.addAssign(this.images.animationProgress.mul(0.25).mul(this.images.animationDirection))
 
                 // Textures
@@ -382,17 +364,15 @@ export class LabArea extends Area
 
                 // Reveal
                 const reveal = uv().x.toVar()
-                If(this.images.animationDirection.greaterThan(0), () =>
-                {
+                If(this.images.animationDirection.greaterThan(0), () => {
                     reveal.assign(reveal.oneMinus())
                 })
                 const threshold = step(this.images.animationProgress, reveal)
 
                 const textureColor = mix(textureNewColor, textureOldColor, threshold)
                 return textureColor
-
             })()
-            
+
             // Material
             this.images.material = new MeshDefaultMaterial({
                 colorNode: colorNode,
@@ -400,32 +380,21 @@ export class LabArea extends Area
             })
 
             const baseOutput = this.images.material.outputNode
-            
-            this.images.material.outputNode = Fn(() =>
-            {
-                return vec4(
-                    mix(
-                        baseOutput.rgb,
-                        colorNode,
-                        this.shadeMix.images.mixUniform
-                    ),
-                    baseOutput.a
-                )
+
+            this.images.material.outputNode = Fn(() => {
+                return vec4(mix(baseOutput.rgb, colorNode, this.shadeMix.images.mixUniform), baseOutput.a)
             })()
-            
+
             this.images.mesh.material = this.images.material
         }
 
         // Load ended
-        this.images.loadEnded = (key) =>
-        {
+        this.images.loadEnded = (key) => {
             // If first image => init
-            if(!this.images.initiated)
-                this.images.init(key)
+            if (!this.images.initiated) this.images.init(key)
 
             // Current image => Reveal
-            if(this.navigation.current.image === key)
-            {
+            if (this.navigation.current.image === key) {
                 const resource = this.images.getResourceAndLoad(key)
                 this.images.textureNew.copy(resource.texture)
                 this.images.textureNew.needsUpdate = true
@@ -436,39 +405,33 @@ export class LabArea extends Area
         }
 
         // Load sibling
-        this.images.loadSibling = () =>
-        {
+        this.images.loadSibling = () => {
             let projectIndex = this.navigation.index
 
-            if(this.navigation.direction === LabArea.DIRECTION_PREVIOUS)
-                projectIndex -= 1
-            else
-                projectIndex += 1
+            if (this.navigation.direction === LabArea.DIRECTION_PREVIOUS) projectIndex -= 1
+            else projectIndex += 1
 
-            if(projectIndex < 0)
-                projectIndex = labData.length - 1
+            if (projectIndex < 0) projectIndex = labData.length - 1
 
-            if(projectIndex > labData.length - 1)
-                projectIndex = 0
+            if (projectIndex > labData.length - 1) projectIndex = 0
 
             const key = labData[projectIndex].image
             const resource = this.images.getResourceAndLoad(key)
         }
 
         // Get resource and load — renders terminal canvas instead of loading .ktx
-        this.images.getResourceAndLoad = (key) =>
-        {
+        this.images.getResourceAndLoad = (key) => {
             // Try to retrieve resource
             let resource = this.images.resources.get(key)
 
             // Resource not found => Create canvas texture
-            if(!resource)
-            {
+            if (!resource) {
                 resource = {}
 
                 // Find content for this key
-                const labEntry = labData.find(p => p.image === key)
-                const pageContent = labEntry && labEntry.content ? labEntry.content : { header: key, subheader: '', points: [] }
+                const labEntry = labData.find((p) => p.image === key)
+                const pageContent =
+                    labEntry && labEntry.content ? labEntry.content : { header: key, subheader: '', points: [] }
 
                 // Create canvas with background only (typing will reveal text)
                 const canvas = document.createElement('canvas')
@@ -477,7 +440,11 @@ export class LabArea extends Area
                 TerminalCanvasRenderer.drawBackground(canvas)
 
                 resource.canvas = canvas
-                resource.allLines = TerminalCanvasRenderer.buildLines(pageContent, this.images.width, this.images.height)
+                resource.allLines = TerminalCanvasRenderer.buildLines(
+                    pageContent,
+                    this.images.width,
+                    this.images.height
+                )
                 resource.typed = false
 
                 const canvasTexture = new THREE.CanvasTexture(canvas)
@@ -507,15 +474,13 @@ export class LabArea extends Area
         this.images.typing.currentLine = 0
         this.images.typing.resource = null
 
-        this.images.typing.start = (resource) =>
-        {
+        this.images.typing.start = (resource) => {
             this.images.typing.stop()
 
-            if(resource.typed)
-            {
+            if (resource.typed) {
                 TerminalCanvasRenderer.drawAll(resource.canvas, resource.allLines)
                 resource.texture.needsUpdate = true
-                if(this.images.textureNew) this.images.textureNew.needsUpdate = true
+                if (this.images.textureNew) this.images.textureNew.needsUpdate = true
                 return
             }
 
@@ -529,12 +494,10 @@ export class LabArea extends Area
             this.images.typing.typeNext()
         }
 
-        this.images.typing.typeNext = () =>
-        {
+        this.images.typing.typeNext = () => {
             const resource = this.images.typing.resource
-            if(!this.images.typing.active || !resource) return
-            if(this.images.typing.currentLine >= resource.allLines.length)
-            {
+            if (!this.images.typing.active || !resource) return
+            if (this.images.typing.currentLine >= resource.allLines.length) {
                 resource.typed = true
                 this.images.typing.active = false
                 return
@@ -545,69 +508,61 @@ export class LabArea extends Area
             this.images.typing.currentLine++
 
             resource.texture.needsUpdate = true
-            if(this.images.textureNew) this.images.textureNew.needsUpdate = true
+            if (this.images.textureNew) this.images.textureNew.needsUpdate = true
 
-            const delay = lineData.type === 'divider' ? 20
-                : lineData.type === 'cursor' ? 0
-                : 50 + Math.random() * 40
+            const delay = lineData.type === 'divider' ? 20 : lineData.type === 'cursor' ? 0 : 50 + Math.random() * 40
 
             this.images.typing.timer = setTimeout(() => this.images.typing.typeNext(), delay)
         }
 
-        this.images.typing.stop = () =>
-        {
+        this.images.typing.stop = () => {
             this.images.typing.active = false
-            if(this.images.typing.timer)
-            {
+            if (this.images.typing.timer) {
                 clearTimeout(this.images.typing.timer)
                 this.images.typing.timer = null
             }
         }
 
         // Update
-        this.images.update = () =>
-        {
+        this.images.update = () => {
             // Get resource
             const key = this.navigation.current.image
             const resource = this.images.getResourceAndLoad(key)
 
-            if(resource.loaded)
-            {
+            if (resource.loaded) {
                 this.images.loadSibling()
                 this.images.loadProgress.value = 1
-            }
-            else
-            {
+            } else {
                 this.images.loadProgress.value = 0
             }
 
             // Update textures
-            if(this.images.initiated)
-            {
+            if (this.images.initiated) {
                 this.images.textureOld.copy(this.images.textureNew)
                 this.images.textureOld.needsUpdate = true
 
-                if(resource.loaded)
-                {
+                if (resource.loaded) {
                     this.images.textureNew.copy(resource.texture)
                     this.images.textureNew.needsUpdate = true
                 }
             }
 
             // Animate right away
-            gsap.fromTo(this.images.animationProgress, { value: 0 }, { value: 1, duration: 1, ease: 'power2.inOut', overwrite: true })
+            gsap.fromTo(
+                this.images.animationProgress,
+                { value: 0 },
+                { value: 1, duration: 1, ease: 'power2.inOut', overwrite: true }
+            )
             this.images.animationDirection.value = this.navigation.direction === LabArea.DIRECTION_NEXT ? 1 : -1
 
             // Start typing animation for the new entry
-            if(resource && resource.allLines)
-            {
+            if (resource && resource.allLines) {
                 setTimeout(() => this.images.typing.start(resource), 150)
             }
         }
     }
 
-    setAdjacents()
-    {
+    setAdjacents() {
         this.adjacents = {}
 
         /**
@@ -616,7 +571,7 @@ export class LabArea extends Area
         // Arrow
         const arrowPrevious = this.references.items.get('arrowPrevious')[0]
         arrowPrevious.material = this.hover.inactiveMaterial
-        
+
         // Intersect
         const intersectPrevious = this.references.items.get('intersectPrevious')[0]
         const intersectPreviousPosition = new THREE.Vector3()
@@ -625,16 +580,13 @@ export class LabArea extends Area
         this.adjacents.previousIntersect = this.game.rayCursor.addIntersect({
             active: false,
             shape: new THREE.Sphere(intersectPreviousPosition, intersectPrevious.scale.x),
-            onClick: () =>
-            {
+            onClick: () => {
                 this.previous(true)
             },
-            onEnter: () =>
-            {
+            onEnter: () => {
                 arrowPrevious.material = this.hover.activeMaterial
             },
-            onLeave: () =>
-            {
+            onLeave: () => {
                 arrowPrevious.material = this.hover.inactiveMaterial
             }
         })
@@ -645,7 +597,7 @@ export class LabArea extends Area
         // Arrow
         const arrowNext = this.references.items.get('arrowNext')[0]
         arrowNext.material = this.hover.inactiveMaterial
-        
+
         // Intersect
         const intersectNext = this.references.items.get('intersectNext')[0]
 
@@ -655,28 +607,24 @@ export class LabArea extends Area
         this.adjacents.nextIntersect = this.game.rayCursor.addIntersect({
             active: false,
             shape: new THREE.Sphere(intersectNextPosition, intersectNext.scale.x),
-            onClick: () =>
-            {
+            onClick: () => {
                 this.next()
             },
-            onEnter: () =>
-            {
+            onEnter: () => {
                 arrowNext.material = this.hover.activeMaterial
             },
-            onLeave: () =>
-            {
+            onLeave: () => {
                 arrowNext.material = this.hover.inactiveMaterial
             }
         })
     }
 
-    setTitle()
-    {
+    setTitle() {
         this.title = {}
         this.title.status = 'hidden'
         this.title.group = this.references.items.get('title')[0]
         this.title.inner = this.title.group.children[0]
-        this.title.textMesh = this.title.inner.children.find(_child => _child.name.startsWith('text'))
+        this.title.textMesh = this.title.inner.children.find((_child) => _child.name.startsWith('text'))
         this.title.textCanvas = new TextCanvas(
             this.texts.fontFamily,
             this.texts.fontWeight,
@@ -688,37 +636,46 @@ export class LabArea extends Area
         )
         this.texts.createMaterialOnMesh(this.title.textMesh, this.title.textCanvas.texture)
 
-        this.title.update = (direction) =>
-        {
-            if(this.title.status === 'hiding')
-                return
+        this.title.update = (direction) => {
+            if (this.title.status === 'hiding') return
 
             this.title.status = 'hiding'
 
-            const rotationDirection = direction === LabArea.DIRECTION_NEXT ? - 1 : 1
+            const rotationDirection = direction === LabArea.DIRECTION_NEXT ? -1 : 1
 
             this.title.inner.rotation.x = 0
-            gsap.to(this.title.inner.rotation, { x: Math.PI * rotationDirection, duration: 1, delay: 0, ease: 'power2.in', overwrite: true, onComplete: () =>
-            {
-                this.title.status = 'visible'
+            gsap.to(this.title.inner.rotation, {
+                x: Math.PI * rotationDirection,
+                duration: 1,
+                delay: 0,
+                ease: 'power2.in',
+                overwrite: true,
+                onComplete: () => {
+                    this.title.status = 'visible'
 
-                gsap.to(this.title.inner.rotation, { x: Math.PI * 2 * rotationDirection, duration: 1, delay: 0, ease: 'back.out(2)', overwrite: true })
+                    gsap.to(this.title.inner.rotation, {
+                        x: Math.PI * 2 * rotationDirection,
+                        duration: 1,
+                        delay: 0,
+                        ease: 'back.out(2)',
+                        overwrite: true
+                    })
 
-                this.title.textCanvas.updateText(this.navigation.current.title)
-            } })
+                    this.title.textCanvas.updateText(this.navigation.current.title)
+                }
+            })
         }
     }
 
-    setUrl()
-    {
+    setUrl() {
         this.url = {}
         this.url.status = 'hidden'
         this.url.group = this.references.items.get('url')[0]
         this.url.inner = this.url.group.children[0]
 
         // Text
-        this.url.textMesh = this.url.inner.children.find(_child => _child.name.startsWith('text'))
-        this.url.panel = this.url.inner.children.find(_child => _child.name.startsWith('panel'))
+        this.url.textMesh = this.url.inner.children.find((_child) => _child.name.startsWith('text'))
+        this.url.panel = this.url.inner.children.find((_child) => _child.name.startsWith('panel'))
         this.url.textCanvas = new TextCanvas(
             this.texts.fontFamily,
             this.texts.fontWeight,
@@ -733,48 +690,45 @@ export class LabArea extends Area
         this.url.maxPanelScaleX = 4.1
         this.url.minPanelScaleX = 1.1
 
-        this.url.fitDisplayText = (text = '') =>
-        {
+        this.url.fitDisplayText = (text = '') => {
             const input = String(text)
             const maxWidth = this.url.maxTextWidth
             const context = this.url.textCanvas.context
             const ellipsis = '...'
 
-            if(context.measureText(input).width <= maxWidth)
-                return input
+            if (context.measureText(input).width <= maxWidth) return input
 
             let left = Math.ceil((input.length - ellipsis.length) * 0.5)
             let right = input.length - left
             let output = `${input.slice(0, left)}${ellipsis}${input.slice(input.length - right)}`
 
-            while(left > 3 && right > 3 && context.measureText(output).width > maxWidth)
-            {
-                if(left >= right)
-                    left--
-                else
-                    right--
+            while (left > 3 && right > 3 && context.measureText(output).width > maxWidth) {
+                if (left >= right) left--
+                else right--
 
                 output = `${input.slice(0, left)}${ellipsis}${input.slice(input.length - right)}`
             }
 
-            if(context.measureText(output).width <= maxWidth)
-                return output
+            if (context.measureText(output).width <= maxWidth) return output
 
             let endTrimmed = input
-            while(endTrimmed.length > 0 && context.measureText(`${endTrimmed}${ellipsis}`).width > maxWidth)
+            while (endTrimmed.length > 0 && context.measureText(`${endTrimmed}${ellipsis}`).width > maxWidth)
                 endTrimmed = endTrimmed.slice(0, -1)
 
             return `${endTrimmed}${ellipsis}`
         }
 
-        this.url.updateDisplay = (url = '') =>
-        {
+        this.url.updateDisplay = (url = '') => {
             const rawText = String(url).replace(/https?:\/\//, '')
             const fittedText = this.url.fitDisplayText(rawText)
             this.url.textCanvas.updateText(fittedText)
 
             const ratio = this.url.textCanvas.getMeasure().width / this.texts.density
-            this.url.panel.scale.x = THREE.MathUtils.clamp(ratio + 0.25, this.url.minPanelScaleX, this.url.maxPanelScaleX)
+            this.url.panel.scale.x = THREE.MathUtils.clamp(
+                ratio + 0.25,
+                this.url.minPanelScaleX,
+                this.url.maxPanelScaleX
+            )
         }
 
         // Material
@@ -784,18 +738,13 @@ export class LabArea extends Area
             alphaNode: texture(this.url.textCanvas.texture).r,
             transparent: true
         })
-        
+
         const baseOutput = material.outputNode
-        
-        material.outputNode = Fn(() =>
-        {
+
+        material.outputNode = Fn(() => {
             return vec4(
                 mix(
-                    mix(
-                        baseOutput.rgb,
-                        this.texts.baseColor,
-                        this.shadeMix.texts.mixUniform
-                    ),
+                    mix(baseOutput.rgb, this.texts.baseColor, this.shadeMix.texts.mixUniform),
                     this.texts.baseColor.mul(1.5),
                     this.url.mixStrength
                 ),
@@ -811,58 +760,61 @@ export class LabArea extends Area
         // Intersect
         const intersect = this.references.items.get('intersectUrl')[0]
         intersect.visible = false
- 
+
         this.url.intersect = this.game.rayCursor.addIntersect({
             active: false,
             shape: intersect,
-            onClick: () =>
-            {
+            onClick: () => {
                 this.url.open()
             },
-            onEnter: () =>
-            {
+            onEnter: () => {
                 this.url.mixStrength.value = 1
             },
-            onLeave: () =>
-            {
+            onLeave: () => {
                 this.url.mixStrength.value = 0
             }
         })
 
         // Update
-        this.url.update = (direction) =>
-        {
-            if(this.url.status === 'hiding')
-                return
+        this.url.update = (direction) => {
+            if (this.url.status === 'hiding') return
 
             this.url.status = 'hiding'
 
-            const rotationDirection = direction === LabArea.DIRECTION_NEXT ? - 1 : 1
+            const rotationDirection = direction === LabArea.DIRECTION_NEXT ? -1 : 1
 
             this.url.inner.rotation.x = 0
-            gsap.to(this.url.inner.rotation, { x: Math.PI * rotationDirection, duration: 1, delay: 0.3, ease: 'power2.in', overwrite: true, onComplete: () =>
-            {
-                this.url.status = 'visible'
+            gsap.to(this.url.inner.rotation, {
+                x: Math.PI * rotationDirection,
+                duration: 1,
+                delay: 0.3,
+                ease: 'power2.in',
+                overwrite: true,
+                onComplete: () => {
+                    this.url.status = 'visible'
 
-                gsap.to(this.url.inner.rotation, { x: Math.PI * 2 * rotationDirection, duration: 1, delay: 0, ease: 'back.out(2)', overwrite: true })
+                    gsap.to(this.url.inner.rotation, {
+                        x: Math.PI * 2 * rotationDirection,
+                        duration: 1,
+                        delay: 0,
+                        ease: 'back.out(2)',
+                        overwrite: true
+                    })
 
-                this.url.updateDisplay(this.navigation.current.url)
-
-            } })
+                    this.url.updateDisplay(this.navigation.current.url)
+                }
+            })
         }
 
         // Open
-        this.url.open = () =>
-        {
-            if(this.navigation.current.url)
-            {
+        this.url.open = () => {
+            if (this.navigation.current.url) {
                 window.open(this.navigation.current.url, '_blank')
             }
         }
     }
 
-    setScroller()
-    {
+    setScroller() {
         this.scroller = {}
         this.scroller.repeatAmplitude = 0.5444
         this.scroller.chainLeft = this.references.items.get('chainLeft')[0]
@@ -886,11 +838,11 @@ export class LabArea extends Area
                 hasWater: false,
                 hasLightBounce: false
             })
-            
+
             this.scroller.chainLeft.material = material
             this.scroller.chainRight.material = material
         }
-        
+
         // Pulley chain material
         {
             const material = new MeshDefaultMaterial({
@@ -908,7 +860,7 @@ export class LabArea extends Area
             const groupTemplate = this.references.items.get('mini')[0]
             const parent = groupTemplate.parent
             groupTemplate.removeFromParent()
-            
+
             this.scroller.minis = {}
             this.scroller.minis.inter = 0.9
             this.scroller.minis.items = []
@@ -918,11 +870,10 @@ export class LabArea extends Area
             this.scroller.minis.height = 1080 / 8
 
             let i = 0
-            for(const project of labData)
-            {
+            for (const project of labData) {
                 const mini = {}
                 mini.index = i
-                mini.y = - i * this.scroller.minis.inter
+                mini.y = -i * this.scroller.minis.inter
                 this.scroller.minis.items.push(mini)
 
                 // Group
@@ -937,16 +888,11 @@ export class LabArea extends Area
                 let panelMesh = null
                 let intersectMesh = null
 
-                for(const child of mini.group.children)
-                {
-                    if(child.name.startsWith('image'))
-                        imageMesh = child
-                    if(child.name.startsWith('text'))
-                        textMesh = child
-                    if(child.name.startsWith('panel'))
-                        panelMesh = child
-                    if(child.name.startsWith('intersect'))
-                        intersectMesh = child
+                for (const child of mini.group.children) {
+                    if (child.name.startsWith('image')) imageMesh = child
+                    if (child.name.startsWith('text')) textMesh = child
+                    if (child.name.startsWith('panel')) panelMesh = child
+                    if (child.name.startsWith('intersect')) intersectMesh = child
                 }
 
                 // Image
@@ -955,10 +901,8 @@ export class LabArea extends Area
 
                     // Load
                     mini.startedLoading = false
-                    mini.startLoading = () =>
-                    {
-                        if(mini.startedLoading)
-                            return
+                    mini.startLoading = () => {
+                        if (mini.startedLoading) return
 
                         const miniCanvas = TerminalCanvasRenderer.renderMini(
                             project.content,
@@ -986,16 +930,8 @@ export class LabArea extends Area
 
                         const baseOutput = material.outputNode
 
-                        material.outputNode = Fn(() =>
-                        {
-                            return vec4(
-                                mix(
-                                    baseOutput.rgb,
-                                    textureColor,
-                                    this.shadeMix.images.mixUniform
-                                ),
-                                alpha
-                            )
+                        material.outputNode = Fn(() => {
+                            return vec4(mix(baseOutput.rgb, textureColor, this.shadeMix.images.mixUniform), alpha)
                         })()
 
                         imageMesh.material = material
@@ -1032,18 +968,13 @@ export class LabArea extends Area
                         alphaNode: texture(textCanvas.texture).r,
                         transparent: true
                     })
-                    
+
                     const baseOutput = material.outputNode
-                    
-                    material.outputNode = Fn(() =>
-                    {
+
+                    material.outputNode = Fn(() => {
                         return vec4(
                             mix(
-                                mix(
-                                    baseOutput.rgb,
-                                    this.texts.baseColor,
-                                    this.shadeMix.texts.mixUniform
-                                ),
+                                mix(baseOutput.rgb, this.texts.baseColor, this.shadeMix.texts.mixUniform),
                                 this.texts.baseColor.mul(1.5),
                                 mini.textMixStrength
                             ),
@@ -1058,24 +989,19 @@ export class LabArea extends Area
                 }
 
                 // Intersect
-                intersectMesh.visible = false      
+                intersectMesh.visible = false
                 mini.intersect = this.game.rayCursor.addIntersect({
                     active: false,
                     shape: intersectMesh,
-                    onClick: () =>
-                    {
+                    onClick: () => {
                         this.changeProject(mini.index)
                     },
-                    onEnter: () =>
-                    {
+                    onEnter: () => {
                         mini.textMixStrength.value = 1
                     },
-                    onLeave: () =>
-                    {
-                        if(mini.index === this.navigation.index)
-                            mini.textMixStrength.value = 1
-                        else
-                            mini.textMixStrength.value = 0
+                    onLeave: () => {
+                        if (mini.index === this.navigation.index) mini.textMixStrength.value = 1
+                        else mini.textMixStrength.value = 0
                     }
                 })
 
@@ -1087,49 +1013,54 @@ export class LabArea extends Area
         this.scroller.gearB.rotation.reorder('YXZ')
         this.scroller.gearC.rotation.reorder('YXZ')
 
-        this.scroller.animate = () =>
-        {
-            const delta = (this.scroller.targetProgress - this.scroller.progress) * this.game.ticker.deltaScaled * this.scroller.easing
+        this.scroller.animate = () => {
+            const delta =
+                (this.scroller.targetProgress - this.scroller.progress) *
+                this.game.ticker.deltaScaled *
+                this.scroller.easing
             this.scroller.progress += delta
             this.scroller.offset = this.scroller.progress * this.scroller.minis.inter
 
             this.scroller.speed = delta / this.game.ticker.delta
 
-            this.scroller.chainLeft.position.y = - this.scroller.repeatAmplitude * 0.5 - this.scroller.offset % this.scroller.repeatAmplitude
-            this.scroller.chainRight.position.y = - this.scroller.repeatAmplitude * 0.5 + (this.scroller.offset % this.scroller.repeatAmplitude)
+            this.scroller.chainLeft.position.y =
+                -this.scroller.repeatAmplitude * 0.5 - (this.scroller.offset % this.scroller.repeatAmplitude)
+            this.scroller.chainRight.position.y =
+                -this.scroller.repeatAmplitude * 0.5 + (this.scroller.offset % this.scroller.repeatAmplitude)
             this.scroller.chainPulley.rotation.z = this.scroller.offset * 1.4
 
-            this.scroller.gearA.rotation.x = - this.scroller.offset * 1.4
-            this.scroller.gearB.rotation.x = - this.scroller.gearA.rotation.x * (6 / 12)
-            this.scroller.gearC.rotation.x = - this.scroller.gearB.rotation.x * (6 / 12)
+            this.scroller.gearA.rotation.x = -this.scroller.offset * 1.4
+            this.scroller.gearB.rotation.x = -this.scroller.gearA.rotation.x * (6 / 12)
+            this.scroller.gearC.rotation.x = -this.scroller.gearB.rotation.x * (6 / 12)
 
-            for(const mini of this.scroller.minis.items)
-            {
+            for (const mini of this.scroller.minis.items) {
                 mini.group.position.y = safeMod(mini.y - this.scroller.offset, this.scroller.minis.total) - 1
 
                 const scale = remapClamp(mini.group.position.y, 3.3, 3.9, 1, 0)
                 mini.group.scale.y = scale
 
                 mini.group.visible = scale > 0
-                mini.intersect.active = mini.group.visible && (this.state === LabArea.STATE_OPEN || this.state === LabArea.STATE_OPENING)
+                mini.intersect.active =
+                    mini.group.visible && (this.state === LabArea.STATE_OPEN || this.state === LabArea.STATE_OPENING)
 
-                if(mini.group.visible && !mini.startedLoading)
-                {
+                if (mini.group.visible && !mini.startedLoading) {
                     mini.startLoading()
                 }
             }
         }
 
-        this.scroller.update = () =>
-        {
+        this.scroller.update = () => {
             // Scroll
             const centeringOffset = labData.length - 3.25
-            const closestProgress = Math.round((this.scroller.progress + this.navigation.index - centeringOffset) / labData.length) * labData.length - this.navigation.index + centeringOffset
+            const closestProgress =
+                Math.round((this.scroller.progress + this.navigation.index - centeringOffset) / labData.length) *
+                    labData.length -
+                this.navigation.index +
+                centeringOffset
             this.scroller.targetProgress = closestProgress
 
             // Active text
-            if(this.scroller.minis.current)
-                this.scroller.minis.current.textMixStrength.value = 0
+            if (this.scroller.minis.current) this.scroller.minis.current.textMixStrength.value = 0
 
             const mini = this.scroller.minis.items[this.navigation.index]
             mini.textMixStrength.value = 1
@@ -1137,28 +1068,33 @@ export class LabArea extends Area
         }
 
         // Inputs
-        this.game.inputs.addActions([
-            { name: 'labScroll', categories: [ 'cinematic' ], keys: [ 'Wheel.roll' ] }
-        ])
+        this.game.inputs.addActions([{ name: 'labScroll', categories: ['cinematic'], keys: ['Wheel.roll'] }])
 
-        this.game.inputs.events.on('labScroll', (action) =>
-        {
+        this.game.inputs.events.on('labScroll', (action) => {
             this.scroller.targetProgress -= action.value * this.scroller.wheelSensitivity
         })
     }
 
-    setPendulum()
-    {
+    setPendulum() {
         this.references.items.get('balls')[0].rotation.reorder('YXZ')
         const timeline0 = gsap.timeline({ yoyo: true, repeat: -1 })
-        timeline0.to(this.references.items.get('balls')[0].rotation, { x: 0.75, ease: 'power2.out', delay: 0.75, duration: 0.75 })
-        
+        timeline0.to(this.references.items.get('balls')[0].rotation, {
+            x: 0.75,
+            ease: 'power2.out',
+            delay: 0.75,
+            duration: 0.75
+        })
+
         const timeline1 = gsap.timeline({ yoyo: true, repeat: -1, delay: 1.5 })
-        timeline1.to(this.references.items.get('balls')[1].rotation, { x: -0.75, ease: 'power2.out', delay: 0.75, duration: 0.75 })
+        timeline1.to(this.references.items.get('balls')[1].rotation, {
+            x: -0.75,
+            ease: 'power2.out',
+            delay: 0.75,
+            duration: 0.75
+        })
     }
 
-    setBlackBoard()
-    {
+    setBlackBoard() {
         this.blackBoard = {}
         this.blackBoard.active = true
         this.blackBoard.group = this.references.items.get('blackBoard')[0]
@@ -1169,14 +1105,21 @@ export class LabArea extends Area
             repeat: -1,
             repeatDelay: 5,
             paused: true,
-            onRepeat: () =>
-            {
-                if(this.state === LabArea.STATE_CLOSED || this.state === LabArea.STATE_CLOSING || !this.blackBoard.active)
+            onRepeat: () => {
+                if (
+                    this.state === LabArea.STATE_CLOSED ||
+                    this.state === LabArea.STATE_CLOSING ||
+                    !this.blackBoard.active
+                )
                     this.blackBoard.timeline.pause()
             }
         })
 
-        this.blackBoard.timeline.to(this.blackBoard.group.position, { y: 0.25, ease: 'power2.out', duration: 0.7 }, 0 + 2)
+        this.blackBoard.timeline.to(
+            this.blackBoard.group.position,
+            { y: 0.25, ease: 'power2.out', duration: 0.7 },
+            0 + 2
+        )
         this.blackBoard.timeline.to(this.blackBoard.group.position, { y: 0, ease: 'power2.in', duration: 0.7 }, 0.7 + 2)
 
         this.blackBoard.timeline.to(this.blackBoard.group.rotation, { x: 0.1, duration: 0.15 }, 0 + 2)
@@ -1194,49 +1137,35 @@ export class LabArea extends Area
         this.blackBoard.labelsMouseKeyboard.castShadow = false
         this.blackBoard.labelsGamepadPlaystation.visible = false
         this.blackBoard.labelsGamepadXbox.visible = false
-        
-        this.game.inputs.events.on('modeChange', () =>
-        {
-            if(this.game.inputs.mode === Inputs.MODE_GAMEPAD)
-            {
-                if(this.game.inputs.gamepad.type === 'xbox')
-                {
+
+        this.game.inputs.events.on('modeChange', () => {
+            if (this.game.inputs.mode === Inputs.MODE_GAMEPAD) {
+                if (this.game.inputs.gamepad.type === 'xbox') {
                     this.blackBoard.labelsGamepadXbox.visible = true
                     this.blackBoard.labelsGamepadPlaystation.visible = false
-                }
-                else
-                {
+                } else {
                     this.blackBoard.labelsGamepadXbox.visible = false
                     this.blackBoard.labelsGamepadPlaystation.visible = true
                 }
                 this.blackBoard.labelsMouseKeyboard.visible = false
 
                 this.blackBoard.parent.add(this.blackBoard.group)
-            }
-            else if(this.game.inputs.mode === Inputs.MODE_MOUSEKEYBOARD)
-            {
+            } else if (this.game.inputs.mode === Inputs.MODE_MOUSEKEYBOARD) {
                 this.blackBoard.labelsGamepadXbox.visible = false
                 this.blackBoard.labelsGamepadPlaystation.visible = false
                 this.blackBoard.labelsMouseKeyboard.visible = true
                 this.blackBoard.parent.add(this.blackBoard.group)
-            }
-            else if(this.game.inputs.mode === Inputs.MODE_TOUCH)
-            {
+            } else if (this.game.inputs.mode === Inputs.MODE_TOUCH) {
                 this.blackBoard.parent.remove(this.blackBoard.group)
             }
         })
 
-        this.game.inputs.gamepad.events.on('typeChange', () =>
-        {
-            if(this.game.inputs.mode === Inputs.MODE_GAMEPAD)
-            {
-                if(this.game.inputs.gamepad.type === 'xbox')
-                {
+        this.game.inputs.gamepad.events.on('typeChange', () => {
+            if (this.game.inputs.mode === Inputs.MODE_GAMEPAD) {
+                if (this.game.inputs.gamepad.type === 'xbox') {
                     this.blackBoard.labelsGamepadXbox.visible = true
                     this.blackBoard.labelsGamepadPlaystation.visible = false
-                }
-                else
-                {
+                } else {
                     this.blackBoard.labelsGamepadXbox.visible = false
                     this.blackBoard.labelsGamepadPlaystation.visible = true
                 }
@@ -1244,15 +1173,13 @@ export class LabArea extends Area
         })
     }
 
-    setCandleFlames()
-    {
+    setCandleFlames() {
         const meshes = this.references.items.get('candleFlame')
 
         const baseMaterial = this.game.materials.getFromName('emissiveOrangeRadialGradient')
         const material = new THREE.MeshBasicNodeMaterial({ transparent: true })
         material.outputNode = baseMaterial.outputNode
-        material.positionNode = Fn(() =>
-        {
+        material.positionNode = Fn(() => {
             const newPosition = positionGeometry.toVar()
 
             const wave = sin(this.game.ticker.elapsedScaledUniform.mul(0.3).add(uv().y.mul(3)))
@@ -1262,47 +1189,50 @@ export class LabArea extends Area
             return newPosition
         })()
 
-        for(const mesh of meshes)
-        {
+        for (const mesh of meshes) {
             mesh.scale.setScalar(0)
             mesh.visible = false
 
             mesh.material = material
         }
 
-        this.game.dayCycles.events.on('night', (inInterval) =>
-        {
-            if(inInterval)
-            {
-                for(const mesh of meshes)
-                {
+        this.game.dayCycles.events.on('night', (inInterval) => {
+            if (inInterval) {
+                for (const mesh of meshes) {
                     mesh.visible = true
                     gsap.to(mesh.scale, { x: 1, y: 1, z: 1, duration: 10, ease: 'power1.out', overwrite: true })
                 }
-            }
-            else
-            {
-                for(const mesh of meshes)
-                {
-                    gsap.to(mesh.scale, { x: 0, y: 0, z: 0, duration: 10, ease: 'power1.in', overwrite: true, onComplete: () =>
-                    {
-                        mesh.visible = false
-                    } })
+            } else {
+                for (const mesh of meshes) {
+                    gsap.to(mesh.scale, {
+                        x: 0,
+                        y: 0,
+                        z: 0,
+                        duration: 10,
+                        ease: 'power1.in',
+                        overwrite: true,
+                        onComplete: () => {
+                            mesh.visible = false
+                        }
+                    })
                 }
             }
         })
     }
 
-    setCauldron()
-    {
+    setCauldron() {
         this.cauldron = {}
 
         // Heat
         {
-            const material = new THREE.MeshBasicNodeMaterial({ side: THREE.DoubleSide, transparent: true, depthTest: true, depthWrite: false })
+            const material = new THREE.MeshBasicNodeMaterial({
+                side: THREE.DoubleSide,
+                transparent: true,
+                depthTest: true,
+                depthWrite: false
+            })
 
-            material.outputNode = Fn(() =>
-            {
+            material.outputNode = Fn(() => {
                 const noiseUv = uv().mul(vec2(2, 0.2))
                 noiseUv.y.addAssign(this.game.ticker.elapsedScaledUniform.mul(0.05))
                 const noise = texture(this.game.noises.perlin, noiseUv).r
@@ -1324,34 +1254,32 @@ export class LabArea extends Area
         {
             const baseMaterial = this.game.materials.getFromName('palette')
             const material = baseMaterial.clone()
-            
+
             const colorA = uniform(color('#ff6b2b'))
             const colorB = uniform(color('#ff4100'))
             const intensity = uniform(1.25)
-    
+
             const baseOutput = baseMaterial.outputNode
-            material.outputNode = Fn(() =>
-            {
+            material.outputNode = Fn(() => {
                 const baseUv = uv(1).toVar()
-    
+
                 const emissiveColor = mix(colorA, colorB, baseUv.sub(0.5).length().mul(2))
                 const emissiveOutput = emissiveColor.div(luminance(emissiveColor)).mul(intensity)
-    
+
                 const mixStrength = baseUv.sub(0.5).length().mul(2).pow2()
                 const output = mix(baseOutput.rgb, emissiveOutput, mixStrength)
-    
+
                 // return vec4(vec3(mixStrength), 1)
                 return vec4(output.rgb, 1)
             })()
 
             this.cauldron.wood = this.references.items.get('wood')[0]
             this.cauldron.wood.material = material
-            
-            if(this.game.debug.active)
-            {
+
+            if (this.game.debug.active) {
                 const debugPanel = this.debugPanel.addFolder({
                     title: 'burning wood',
-                    expanded: false,
+                    expanded: false
                 })
                 this.game.debug.addThreeColorBinding(debugPanel, colorA.value, 'colorA')
                 this.game.debug.addThreeColorBinding(debugPanel, colorB.value, 'colorB')
@@ -1361,11 +1289,11 @@ export class LabArea extends Area
         // Liquid
         {
             this.cauldron.liquid = {}
-            
+
             const colorA = uniform(color('#ff0083'))
             const colorB = uniform(color('#3018eb'))
             const intensity = uniform(1.7)
-    
+
             const material = new THREE.MeshBasicNodeMaterial({ transparent: true })
             const mixedColor = mix(colorA, colorB, uv().sub(0.5).length().mul(2))
             material.colorNode = mixedColor.div(luminance(mixedColor)).mul(intensity)
@@ -1374,11 +1302,10 @@ export class LabArea extends Area
             this.cauldron.liquid.surface = this.references.items.get('liquid')[0]
             this.cauldron.liquid.surface.material = material
 
-            if(this.game.debug.active)
-            {
+            if (this.game.debug.active) {
                 const debugPanel = this.debugPanel.addFolder({
                     title: 'cauldron',
-                    expanded: false,
+                    expanded: false
                 })
                 this.game.debug.addThreeColorBinding(debugPanel, colorA.value, 'colorA')
                 this.game.debug.addThreeColorBinding(debugPanel, colorB.value, 'colorB')
@@ -1386,27 +1313,21 @@ export class LabArea extends Area
         }
     }
 
-    setAchievement()
-    {
-        this.events.on('boundingIn', () =>
-        {
+    setAchievement() {
+        this.events.on('boundingIn', () => {
             this.game.achievements.setProgress('areas', 'lab')
         })
     }
 
-    open()
-    {
-        if(this.state === LabArea.STATE_OPEN || this.state === LabArea.STATE_OPENING)
-            return
+    open() {
+        if (this.state === LabArea.STATE_OPEN || this.state === LabArea.STATE_OPENING) return
 
         // State
         this.state = LabArea.STATE_OPENING
 
-        if(this.stateTransition)
-            this.stateTransition.kill()
+        if (this.stateTransition) this.stateTransition.kill()
 
-        this.stateTransition = gsap.delayedCall(1.5, () =>
-        {
+        this.stateTransition = gsap.delayedCall(1.5, () => {
             this.state = LabArea.STATE_OPEN
             this.stateTransition = null
         })
@@ -1422,12 +1343,21 @@ export class LabArea extends Area
         this.game.interactivePoints.temporaryHide()
 
         // Shade mix
-        gsap.to(this.shadeMix.images.mixUniform, { value: this.shadeMix.images.max, duration: 2, ease: 'power2.inOut', overwrite: true })
-        gsap.to(this.shadeMix.texts.mixUniform, { value: this.shadeMix.texts.max, duration: 2, ease: 'power2.inOut', overwrite: true })
+        gsap.to(this.shadeMix.images.mixUniform, {
+            value: this.shadeMix.images.max,
+            duration: 2,
+            ease: 'power2.inOut',
+            overwrite: true
+        })
+        gsap.to(this.shadeMix.texts.mixUniform, {
+            value: this.shadeMix.texts.max,
+            duration: 2,
+            ease: 'power2.inOut',
+            overwrite: true
+        })
 
         // Board
-        if(this.blackBoard.active)
-        {
+        if (this.blackBoard.active) {
             this.blackBoard.timeline.repeat(-1)
             this.blackBoard.timeline.resume()
         }
@@ -1446,26 +1376,21 @@ export class LabArea extends Area
 
         // Sound
         const sound = this.game.audio.groups.get('click')
-        if(sound)
-            sound.play(true)
+        if (sound) sound.play(true)
 
         // Achievement
         this.game.achievements.setProgress('lab', this.navigation.current.title)
     }
 
-    close()
-    {
-        if(this.state === LabArea.STATE_CLOSED || this.state === LabArea.STATE_CLOSING)
-            return
+    close() {
+        if (this.state === LabArea.STATE_CLOSED || this.state === LabArea.STATE_CLOSING) return
 
         // State
         this.state = LabArea.STATE_CLOSING
 
-        if(this.stateTransition)
-            this.stateTransition.kill()
+        if (this.stateTransition) this.stateTransition.kill()
 
-        this.stateTransition = gsap.delayedCall(1.5, () =>
-        {
+        this.stateTransition = gsap.delayedCall(1.5, () => {
             this.state = LabArea.STATE_CLOSED
             this.stateTransition = null
         })
@@ -1478,12 +1403,21 @@ export class LabArea extends Area
         this.game.view.cinematic.end()
 
         // Shade mix
-        gsap.to(this.shadeMix.images.mixUniform, { value: this.shadeMix.images.min, duration: 1.5, ease: 'power2.inOut', overwrite: true })
-        gsap.to(this.shadeMix.texts.mixUniform, { value: this.shadeMix.texts.min, duration: 1.5, ease: 'power2.inOut', overwrite: true })
+        gsap.to(this.shadeMix.images.mixUniform, {
+            value: this.shadeMix.images.min,
+            duration: 1.5,
+            ease: 'power2.inOut',
+            overwrite: true
+        })
+        gsap.to(this.shadeMix.texts.mixUniform, {
+            value: this.shadeMix.texts.min,
+            duration: 1.5,
+            ease: 'power2.inOut',
+            overwrite: true
+        })
 
         // Interactive point
-        gsap.delayedCall(1, () =>
-        {
+        gsap.delayedCall(1, () => {
             this.game.interactivePoints.recover()
         })
 
@@ -1494,58 +1428,53 @@ export class LabArea extends Area
 
         // Activate physical vehicle
         this.game.physicalVehicle.activate()
-            
+
         // Buttons
         this.game.inputs.interactiveButtons.clearItems()
 
         // Sound
         const sound = this.game.audio.groups.get('click')
-        if(sound)
-            sound.play(false)
+        if (sound) sound.play(false)
     }
 
-    previous()
-    {
-        if(this.state === LabArea.STATE_CLOSED || this.state === LabArea.STATE_CLOSING)
-            return
+    previous() {
+        if (this.state === LabArea.STATE_CLOSED || this.state === LabArea.STATE_CLOSING) return
 
         this.changeProject(this.navigation.index - 1, LabArea.DIRECTION_PREVIOUS)
 
         this.blackBoard.active = false
     }
 
-    next()
-    {
-        if(this.state === LabArea.STATE_CLOSED || this.state === LabArea.STATE_CLOSING)
-            return
+    next() {
+        if (this.state === LabArea.STATE_CLOSED || this.state === LabArea.STATE_CLOSING) return
 
         this.changeProject(this.navigation.index + 1, LabArea.DIRECTION_NEXT)
 
         this.blackBoard.active = false
     }
 
-    changeProject(index = 0, direction = null, silent = false)
-    {
+    changeProject(index = 0, direction = null, silent = false) {
         // Loop index
         let loopIndex = index
 
-        if(loopIndex > labData.length - 1)
-            loopIndex = 0
-        else if(loopIndex < 0)
-            loopIndex = labData.length - 1
+        if (loopIndex > labData.length - 1) loopIndex = 0
+        else if (loopIndex < 0) loopIndex = labData.length - 1
 
         // Already active
-        if(this.navigation.index === loopIndex)
-            return
+        if (this.navigation.index === loopIndex) return
 
         // Direction
-        if(direction === null)
-            direction = signedModDelta(loopIndex, this.navigation.index, labData.length) > 0 ? LabArea.DIRECTION_PREVIOUS : LabArea.DIRECTION_NEXT
+        if (direction === null)
+            direction =
+                signedModDelta(loopIndex, this.navigation.index, labData.length) > 0
+                    ? LabArea.DIRECTION_PREVIOUS
+                    : LabArea.DIRECTION_NEXT
 
         // Save
         this.navigation.index = loopIndex
         this.navigation.current = labData[this.navigation.index]
-        this.navigation.previous = labData[(this.navigation.index - 1) < 0 ? labData.length - 1 : this.navigation.index - 1]
+        this.navigation.previous =
+            labData[this.navigation.index - 1 < 0 ? labData.length - 1 : this.navigation.index - 1]
         this.navigation.next = labData[(this.navigation.index + 1) % labData.length]
         this.navigation.direction = direction
 
@@ -1558,22 +1487,18 @@ export class LabArea extends Area
         this.scroller.update(this.navigation.index)
 
         // Sounds
-        if(!silent)
-        {
+        if (!silent) {
             this.game.audio.groups.get('click').play()
             this.game.audio.groups.get('slide').play()
             this.game.audio.groups.get('assemble').play()
         }
 
         // Achievements
-        if(this.state === LabArea.STATE_OPEN)
-            this.game.achievements.setProgress('lab', this.navigation.current.title)
+        if (this.state === LabArea.STATE_OPEN) this.game.achievements.setProgress('lab', this.navigation.current.title)
     }
 
-    update()
-    {
-        if(this.state !== LabArea.STATE_CLOSED)
-        {
+    update() {
+        if (this.state !== LabArea.STATE_CLOSED) {
             this.scroller.animate()
         }
     }

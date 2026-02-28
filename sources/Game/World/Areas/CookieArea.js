@@ -1,6 +1,21 @@
 import * as THREE from 'three/webgpu'
 import { Game } from '../../Game.js'
-import { color, float, Fn, instancedArray, mix, normalWorld, positionGeometry, step, texture, uniform, uv, vec2, vec3, vec4 } from 'three/tsl'
+import {
+    color,
+    float,
+    Fn,
+    instancedArray,
+    mix,
+    normalWorld,
+    positionGeometry,
+    step,
+    texture,
+    uniform,
+    uv,
+    vec2,
+    vec3,
+    vec4
+} from 'three/tsl'
 import { InstancedGroup } from '../../InstancedGroup.js'
 import gsap from 'gsap'
 import { InteractivePoints } from '../../InteractivePoints.js'
@@ -8,17 +23,14 @@ import { MeshDefaultMaterial } from '../../Materials/MeshDefaultMaterial.js'
 import { alea } from 'seedrandom'
 import { Area } from './Area.js'
 
-export class CookieArea extends Area
-{
-    constructor(model)
-    {
+export class CookieArea extends Area {
+    constructor(model) {
         super(model)
 
-        if(this.game.debug.active)
-        {
+        if (this.game.debug.active) {
             this.debugPanel = this.game.debug.panel.addFolder({
                 title: '🍪 Cookie Stand',
-                expanded: false,
+                expanded: false
             })
         }
 
@@ -34,8 +46,7 @@ export class CookieArea extends Area
         this.setAchievement()
     }
 
-    setSound()
-    {
+    setSound() {
         this.sounds = {}
 
         this.sounds.ding = this.game.audio.register({
@@ -44,36 +55,30 @@ export class CookieArea extends Area
             loop: false,
             volume: 0.4,
             antiSpam: 0.15,
-            onPlay: (item) =>
-            {
+            onPlay: (item) => {
                 item.volume = 0.3 + Math.random() * 0.2
                 item.rate = 1 + Math.random() * 0.05
             }
         })
     }
 
-    setBlower()
-    {
+    setBlower() {
         this.blower = this.references.items.get('blower')[0]
     }
 
-    setBanner()
-    {
+    setBanner() {
         const windStrength = float(0).toVarying()
 
         const mesh = this.references.items.get('banner')[0]
 
         // Position
-        mesh.material.positionNode = Fn(() =>
-        {
+        mesh.material.positionNode = Fn(() => {
             const baseUv = uv()
             const newPosition = positionGeometry.toVar()
 
             // Wind
-            const windUv = baseUv
-                .mul(vec2(0.35, 0.175))
-                .sub(vec2(0.1, 0.05).mul(this.game.ticker.elapsedScaledUniform))
-                
+            const windUv = baseUv.mul(vec2(0.35, 0.175)).sub(vec2(0.1, 0.05).mul(this.game.ticker.elapsedScaledUniform))
+
             const noise = texture(this.game.noises.perlin, windUv).r
             windStrength.assign(noise.mul(baseUv.y).mul(this.game.wind.strength))
             const windDirection = vec3(0.5, 0, 1)
@@ -83,8 +88,7 @@ export class CookieArea extends Area
         })()
     }
 
-    setParticles()
-    {
+    setParticles() {
         const emissiveMaterial = this.game.materials.getFromName('emissiveOrangeRadialGradient')
 
         const count = 30
@@ -94,8 +98,7 @@ export class CookieArea extends Area
 
         this.localTime = uniform(0)
 
-        for(let i = 0; i < count; i++)
-        {
+        for (let i = 0; i < count; i++) {
             const i3 = i * 3
 
             const angle = Math.PI * 2 * Math.random()
@@ -106,7 +109,7 @@ export class CookieArea extends Area
 
             scales[i] = Math.random() * 1 + 0.75
         }
-        
+
         const positionAttribute = instancedArray(positions, 'vec3').toAttribute()
         const scaleAttribute = instancedArray(scales, 'float').toAttribute()
 
@@ -115,8 +118,7 @@ export class CookieArea extends Area
 
         const progress = float(0).toVar()
 
-        material.positionNode = Fn(() =>
-        {
+        material.positionNode = Fn(() => {
             const newPosition = positionAttribute.toVar()
             progress.assign(newPosition.y.add(this.localTime.mul(newPosition.y)).fract())
 
@@ -124,11 +126,10 @@ export class CookieArea extends Area
 
             const progressHide = step(0.8, progress).mul(100)
             newPosition.y.addAssign(progressHide)
-            
+
             return newPosition
         })()
-        material.scaleNode = Fn(() =>
-        {
+        material.scaleNode = Fn(() => {
             const progressScale = progress.remapClamp(0.5, 1, 1, 0)
             return scaleAttribute.mul(progressScale)
         })()
@@ -142,12 +143,9 @@ export class CookieArea extends Area
         this.game.scene.add(mesh)
 
         let frustumNeedsUpdate = true
-        this.events.on('frustumIn', () =>
-        {
-            if(frustumNeedsUpdate)
-            {
-                this.game.ticker.wait(2, () =>
-                {
+        this.events.on('frustumIn', () => {
+            if (frustumNeedsUpdate) {
+                this.game.ticker.wait(2, () => {
                     mesh.geometry.boundingSphere.center.y = 1
                     mesh.geometry.boundingSphere.radius = 1
                 })
@@ -158,12 +156,15 @@ export class CookieArea extends Area
         this.objects.hideable.push(mesh)
     }
 
-    setOvenHeat()
-    {
-        const material = new THREE.MeshBasicNodeMaterial({ side: THREE.DoubleSide, transparent: true, depthTest: true, depthWrite: false })
+    setOvenHeat() {
+        const material = new THREE.MeshBasicNodeMaterial({
+            side: THREE.DoubleSide,
+            transparent: true,
+            depthTest: true,
+            depthWrite: false
+        })
 
-        material.outputNode = Fn(() =>
-        {
+        material.outputNode = Fn(() => {
             const noiseUv = uv().mul(vec2(2, 0.2))
             noiseUv.y.addAssign(this.game.ticker.elapsedScaledUniform.mul(0.05))
             const noise = texture(this.game.noises.perlin, noiseUv).r
@@ -181,15 +182,14 @@ export class CookieArea extends Area
         this.ovenHeat.castShadow = false
     }
 
-    setCookies()
-    {
+    setCookies() {
         const baseCookie = this.references.items.get('cookie')[0]
         baseCookie.castShadow = true
         baseCookie.receiveShadow = true
         baseCookie.frustumCulled = true
         baseCookie.position.set(0, 0, 0)
 
-        // Update materials 
+        // Update materials
         this.game.materials.updateObject(baseCookie)
 
         this.cookies = {}
@@ -203,26 +203,22 @@ export class CookieArea extends Area
 
         const references = []
 
-        for(let i = 0; i < this.cookies.realCount; i++)
-        {
+        for (let i = 0; i < this.cookies.realCount; i++) {
             const onTable = i >= this.cookies.count
 
             // Reference
             const reference = new THREE.Object3D()
 
-            if(onTable)
-            {
+            if (onTable) {
                 reference.position.copy(this.references.items.get('table')[0].position)
                 reference.position.y += (i - this.cookies.count) * 0.25
-            }
-            else
-            {
+            } else {
                 reference.position.copy(this.cookies.spawnerPosition)
                 reference.position.y += 99
             }
             reference.needsUpdate = true
             references.push(reference)
-            
+
             // Object
             const object = this.game.objects.add(
                 {
@@ -230,7 +226,7 @@ export class CookieArea extends Area
                     updateMaterials: false,
                     castShadow: false,
                     receiveShadow: false,
-                    parent: null,
+                    parent: null
                 },
                 {
                     type: 'dynamic',
@@ -240,9 +236,9 @@ export class CookieArea extends Area
                     sleeping: true,
                     enabled: onTable,
                     mass: this.cookies.mass,
-                    colliders: [ { shape: 'cylinder', parameters: [ 0.55 / 2, 1.25 / 2 ], category: 'object' } ],
-                    waterGravityMultiplier: - 1
-                },
+                    colliders: [{ shape: 'cylinder', parameters: [0.55 / 2, 1.25 / 2], category: 'object' }],
+                    waterGravityMultiplier: -1
+                }
             )
 
             this.cookies.objects.push(object)
@@ -251,49 +247,40 @@ export class CookieArea extends Area
         this.cookies.instancedGroup = new InstancedGroup(references, baseCookie)
     }
 
-    setActualCookies()
-    {
+    setActualCookies() {
         this.actualCookies = {}
         this.actualCookies.count = 0
 
         const cookies = document.cookie.split('; ')
-        for(const cookie of cookies)
-        {
+        for (const cookie of cookies) {
             const match = cookie.match('^acceptedCookies=([0-9]+)')
 
-            if(match)
-                this.actualCookies.count = parseInt(match[1])
+            if (match) this.actualCookies.count = parseInt(match[1])
         }
     }
 
-    setInteractivePoint()
-    {
+    setInteractivePoint() {
         this.game.interactivePoints.create(
             this.references.items.get('interactivePoint')[0].position,
             'Accept cookie',
             InteractivePoints.ALIGN_RIGHT,
             InteractivePoints.STATE_CONCEALED,
-            () =>
-            {
+            () => {
                 this.accept()
             },
-            () =>
-            {
+            () => {
                 this.game.inputs.interactiveButtons.addItems(['interact'])
             },
-            () =>
-            {
+            () => {
                 this.game.inputs.interactiveButtons.removeItems(['interact'])
             },
-            () =>
-            {
+            () => {
                 this.game.inputs.interactiveButtons.removeItems(['interact'])
             }
         )
     }
 
-    setCounter()
-    {
+    setCounter() {
         this.counter = {}
         this.counter.value = 0
         this.counter.panel = this.references.items.get('counterPanel')[0]
@@ -321,11 +308,9 @@ export class CookieArea extends Area
         /**
          * Functions
          */
-        this.counter.init = () =>
-        {
+        this.counter.init = () => {
             // Already
-            if(this.counter.initialised)
-                return
+            if (this.counter.initialised) return
 
             this.counter.initialised = true
 
@@ -354,7 +339,7 @@ export class CookieArea extends Area
             mesh.quaternion.copy(this.references.items.get('counterLabel')[0].quaternion)
             mesh.receiveShadow = true
             mesh.scale.y = 0.75
-            mesh.scale.x = canvas.width / canvas.height * 0.75
+            mesh.scale.x = (canvas.width / canvas.height) * 0.75
             this.game.scene.add(mesh)
 
             // First update
@@ -362,21 +347,18 @@ export class CookieArea extends Area
             this.counter.update()
         }
 
-        this.counter.add = () =>
-        {
+        this.counter.add = () => {
             this.counter.value++
             // this.counter.value *= 2
             this.throttleAmount++
             this.counter.update()
         }
 
-        this.counter.update = () =>
-        {
-            if(!this.counter.initialised)
-                return
+        this.counter.update = () => {
+            if (!this.counter.initialised) return
 
             const formatedValue = this.counter.value.toLocaleString('en-US')
-            
+
             // Canvas
             const textSize = context.measureText(formatedValue)
             const width = Math.ceil(textSize.width) + 30
@@ -391,8 +373,7 @@ export class CookieArea extends Area
             context.textBaseline = 'middle'
             context.fillText(formatedValue, canvas.width / 2, canvas.height * 0.5 + textOffsetVertical)
 
-            if(scale > this.counter.maxScale)
-            {
+            if (scale > this.counter.maxScale) {
                 this.counter.maxScale = scale
                 this.counter.panel.scale.x = scale
             }
@@ -404,10 +385,8 @@ export class CookieArea extends Area
          * Server
          */
         this.throttleAmount = 0
-        this.counter.throttleUpdate = () =>
-        {
-            if(this.throttleAmount > 0)
-            {
+        this.counter.throttleUpdate = () => {
+            if (this.throttleAmount > 0) {
                 this.game.server.send({
                     type: 'cookiesInsert',
                     amount: this.throttleAmount
@@ -415,20 +394,16 @@ export class CookieArea extends Area
                 this.throttleAmount = 0
             }
         }
-        
-        setInterval(() =>
-        {
+
+        setInterval(() => {
             this.counter.throttleUpdate()
         }, 1000)
 
         // Server message event
-        this.game.server.events.on('message', (data) =>
-        {
+        this.game.server.events.on('message', (data) => {
             // Init and insert
-            if(data.type === 'init' || data.type === 'cookiesUpdate')
-            {
-                if(data.cookiesCount > this.counter.value)
-                {
+            if (data.type === 'init' || data.type === 'cookiesUpdate') {
+                if (data.cookiesCount > this.counter.value) {
                     this.counter.value = data.cookiesCount
                     this.counter.update()
                 }
@@ -436,31 +411,25 @@ export class CookieArea extends Area
         })
 
         // Message already received
-        if(this.game.server.initData)
-        {
+        if (this.game.server.initData) {
             this.counter.value = this.game.server.initData.cookiesCount
         }
 
         // Server connect / disconnect
-        if(this.game.server.connected)
-            this.counter.init()
-            
-        this.game.server.events.on('connected', () =>
-        {
+        if (this.game.server.connected) this.counter.init()
+
+        this.game.server.events.on('connected', () => {
             this.counter.init()
         })
     }
 
-    setAchievement()
-    {
-        this.events.on('boundingIn', () =>
-        {
+    setAchievement() {
+        this.events.on('boundingIn', () => {
             this.game.achievements.setProgress('areas', 'cookie')
         })
     }
 
-    accept()
-    {
+    accept() {
         // Cookies
         const object = this.cookies.objects[this.cookies.currentIndex]
 
@@ -468,8 +437,7 @@ export class CookieArea extends Area
         spawnPosition.z += Math.random() - 0.5
         object.physical.body.setTranslation(spawnPosition)
         object.physical.body.setEnabled(true)
-        this.game.ticker.wait(2, () =>
-        {
+        this.game.ticker.wait(2, () => {
             const impulse = {
                 x: (Math.random() - 0.5) * this.cookies.mass * 2,
                 y: Math.random() * this.cookies.mass * 3,
@@ -500,8 +468,7 @@ export class CookieArea extends Area
         this.game.achievements.addProgress('cookie')
     }
 
-    update()
-    {
+    update() {
         // Time
         const timeScale = (Math.sin(this.game.ticker.elapsedScaled) * 0.3 + 0.5) * 0.3
         this.localTime.value += this.game.ticker.deltaScaled * timeScale
@@ -510,19 +477,16 @@ export class CookieArea extends Area
         this.blower.scale.y = Math.sin(this.game.ticker.elapsedScaled + Math.PI) * 0.25 + 0.75
 
         // Cookies
-        if(this.cookies.visibleCount)
-        {
+        if (this.cookies.visibleCount) {
             let allCookiesSleeping = true
-            for(const fan of this.cookies.objects)
+            for (const fan of this.cookies.objects)
                 allCookiesSleeping = allCookiesSleeping && fan.physical.body.isSleeping()
 
-            if(!allCookiesSleeping)
-                this.cookies.instancedGroup.updateBoundings()
+            if (!allCookiesSleeping) this.cookies.instancedGroup.updateBoundings()
         }
 
-        for(const object of this.cookies.objects)
-        {
-            if(!object.physical.body.isSleeping() && object.physical.body.isEnabled())
+        for (const object of this.cookies.objects) {
+            if (!object.physical.body.isSleeping() && object.physical.body.isEnabled())
                 object.visual.object3D.needsUpdate = true
         }
     }

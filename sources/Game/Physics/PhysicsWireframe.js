@@ -1,10 +1,8 @@
 import { Game } from '../Game.js'
 import * as THREE from 'three/webgpu'
 
-export class PhysicsWireframe
-{
-    constructor()
-    {
+export class PhysicsWireframe {
+    constructor() {
         this.game = Game.getInstance()
         this.active = false
 
@@ -16,35 +14,31 @@ export class PhysicsWireframe
 
         this.lineSegments = new THREE.LineSegments(this.geometry, this.material)
 
-        if(this.active)
-            this.game.scene.add(this.lineSegments)
+        if (this.active) this.game.scene.add(this.lineSegments)
 
-        this.game.ticker.events.on('tick', () =>
-        {
-            this.update()
-        }, 4)
+        this.game.ticker.events.on(
+            'tick',
+            () => {
+                this.update()
+            },
+            4
+        )
 
-        if(this.game.debug.active)
-        {
+        if (this.game.debug.active) {
             this.debugPanel = this.game.physics.debugPanel.addFolder({
                 title: 'Wireframe',
-                expanded: true,
+                expanded: true
             })
-            
-            this.debugPanel.addBinding(this, 'active', { label: 'debug' }).on('change', () =>
-            {
-                if(this.active)
-                    this.game.scene.add(this.lineSegments)
-                else
-                    this.game.scene.remove(this.lineSegments)
+
+            this.debugPanel.addBinding(this, 'active', { label: 'debug' }).on('change', () => {
+                if (this.active) this.game.scene.add(this.lineSegments)
+                else this.game.scene.remove(this.lineSegments)
             })
         }
     }
-    
-    update()
-    {
-        if(!this.active)
-            return
+
+    update() {
+        if (!this.active) return
 
         const { vertices, colors } = this.game.physics.world.debugRender()
 

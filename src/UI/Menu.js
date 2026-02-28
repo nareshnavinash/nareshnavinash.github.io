@@ -3,27 +3,27 @@
  * Controls: quality, sound, day/night lock, weather lock.
  */
 export default class Menu {
-  constructor(game) {
-    this.game = game
-    this.isOpen = false
+    constructor(game) {
+        this.game = game
+        this.isOpen = false
 
-    this._createDOM()
-    this._bindEvents()
-  }
+        this._createDOM()
+        this._bindEvents()
+    }
 
-  _createDOM() {
-    // Toggle button
-    this.toggleBtn = document.createElement('button')
-    this.toggleBtn.id = 'menu-toggle'
-    this.toggleBtn.innerHTML = '&#9881;' // gear icon
-    this.toggleBtn.title = 'Settings'
-    document.body.appendChild(this.toggleBtn)
+    _createDOM() {
+        // Toggle button
+        this.toggleBtn = document.createElement('button')
+        this.toggleBtn.id = 'menu-toggle'
+        this.toggleBtn.innerHTML = '&#9881;' // gear icon
+        this.toggleBtn.title = 'Settings'
+        document.body.appendChild(this.toggleBtn)
 
-    // Menu panel
-    this.panel = document.createElement('div')
-    this.panel.id = 'settings-panel'
-    this.panel.classList.add('hidden')
-    this.panel.innerHTML = `
+        // Menu panel
+        this.panel = document.createElement('div')
+        this.panel.id = 'settings-panel'
+        this.panel.classList.add('hidden')
+        this.panel.innerHTML = `
       <h3>Settings</h3>
       <div class="setting-row">
         <label>Quality</label>
@@ -59,14 +59,14 @@ export default class Menu {
         </select>
       </div>
     `
-    document.body.appendChild(this.panel)
+        document.body.appendChild(this.panel)
 
-    this._addStyles()
-  }
+        this._addStyles()
+    }
 
-  _addStyles() {
-    const style = document.createElement('style')
-    style.textContent = `
+    _addStyles() {
+        const style = document.createElement('style')
+        style.textContent = `
       #menu-toggle {
         position: fixed;
         top: 16px;
@@ -150,52 +150,52 @@ export default class Menu {
         cursor: pointer;
       }
     `
-    document.head.appendChild(style)
-    this._style = style
-  }
+        document.head.appendChild(style)
+        this._style = style
+    }
 
-  _bindEvents() {
-    this.toggleBtn.addEventListener('click', () => this.toggle())
+    _bindEvents() {
+        this.toggleBtn.addEventListener('click', () => this.toggle())
 
-    // Quality
-    this.panel.querySelector('#setting-quality').addEventListener('change', (e) => {
-      this.game.options.setQuality(e.target.value)
-    })
+        // Quality
+        this.panel.querySelector('#setting-quality').addEventListener('change', (e) => {
+            this.game.options.setQuality(e.target.value)
+        })
 
-    // Volume
-    this.panel.querySelector('#setting-volume').addEventListener('input', (e) => {
-      this.game.options.soundVolume = parseInt(e.target.value) / 100
-    })
+        // Volume
+        this.panel.querySelector('#setting-volume').addEventListener('input', (e) => {
+            this.game.options.soundVolume = parseInt(e.target.value) / 100
+        })
 
-    // Time lock
-    this.panel.querySelector('#setting-time').addEventListener('change', (e) => {
-      const env = this.game.environment
-      if (e.target.value === 'auto') {
-        env.dayNightCycle.unlock()
-      } else {
-        env.dayNightCycle.lock(parseFloat(e.target.value))
-      }
-    })
+        // Time lock
+        this.panel.querySelector('#setting-time').addEventListener('change', (e) => {
+            const env = this.game.environment
+            if (e.target.value === 'auto') {
+                env.dayNightCycle.unlock()
+            } else {
+                env.dayNightCycle.lock(parseFloat(e.target.value))
+            }
+        })
 
-    // Weather lock
-    this.panel.querySelector('#setting-weather').addEventListener('change', (e) => {
-      const env = this.game.environment
-      if (e.target.value === 'auto') {
-        env.weather.unlock()
-      } else {
-        env.weather.lock(e.target.value)
-      }
-    })
-  }
+        // Weather lock
+        this.panel.querySelector('#setting-weather').addEventListener('change', (e) => {
+            const env = this.game.environment
+            if (e.target.value === 'auto') {
+                env.weather.unlock()
+            } else {
+                env.weather.lock(e.target.value)
+            }
+        })
+    }
 
-  toggle() {
-    this.isOpen = !this.isOpen
-    this.panel.classList.toggle('hidden', !this.isOpen)
-  }
+    toggle() {
+        this.isOpen = !this.isOpen
+        this.panel.classList.toggle('hidden', !this.isOpen)
+    }
 
-  destroy() {
-    this.toggleBtn.remove()
-    this.panel.remove()
-    this._style.remove()
-  }
+    destroy() {
+        this.toggleBtn.remove()
+        this.panel.remove()
+        this._style.remove()
+    }
 }

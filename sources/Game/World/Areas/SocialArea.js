@@ -8,20 +8,17 @@ import { Area } from './Area.js'
 import { View } from '../../View.js'
 import { MeshDefaultMaterial } from '../../Materials/MeshDefaultMaterial.js'
 
-export class SocialArea extends Area
-{
-    constructor(model)
-    {
+export class SocialArea extends Area {
+    constructor(model) {
         super(model)
 
         this.center = this.references.items.get('center')[0].position
 
         // Debug
-        if(this.game.debug.active)
-        {
+        if (this.game.debug.active) {
             this.debugPanel = this.game.debug.panel.addFolder({
                 title: '👨‍🦲 Social',
-                expanded: false,
+                expanded: false
             })
         }
 
@@ -34,13 +31,11 @@ export class SocialArea extends Area
         this.setAchievement()
     }
 
-    setLinks()
-    {
+    setLinks() {
         const radius = 6
 
-        for(const link of socialData)
-        {
-            const angle = link.slotIndex * Math.PI / 7
+        for (const link of socialData) {
+            const angle = (link.slotIndex * Math.PI) / 7
             const position = this.center.clone()
             position.x += Math.cos(angle) * radius
             position.y = 1
@@ -51,46 +46,34 @@ export class SocialArea extends Area
                 link.name,
                 link.align === 'left' ? InteractivePoints.ALIGN_LEFT : InteractivePoints.ALIGN_RIGHT,
                 InteractivePoints.STATE_CONCEALED,
-                () =>
-                {
-                    if(link.url)
-                        window.open(link.url, '_blank')
-                    else if(link.modal)
-                        this.game.modals.open(link.modal)
+                () => {
+                    if (link.url) window.open(link.url, '_blank')
+                    else if (link.modal) this.game.modals.open(link.modal)
                 },
-                () =>
-                {
+                () => {
                     this.game.inputs.interactiveButtons.addItems(['interact'])
                 },
-                () =>
-                {
+                () => {
                     this.game.inputs.interactiveButtons.removeItems(['interact'])
                 },
-                () =>
-                {
+                () => {
                     this.game.inputs.interactiveButtons.removeItems(['interact'])
                 }
             )
         }
     }
 
-    replaceStatues()
-    {
+    replaceStatues() {
         // Extract the palette texture from an existing statue (e.g. GitHub)
         // All GLTF statues use a shared palette texture for color via UV mapping
         let paletteTexture = null
-        for(const item of this.objects.items)
-        {
-            if(!item.visual?.object3D) continue
-            if(item.visual.object3D.name.toLowerCase() === 'github')
-            {
-                item.visual.object3D.traverse((child) =>
-                {
-                    if(child.isMesh && child.material?._colorNode && !paletteTexture)
-                    {
+        for (const item of this.objects.items) {
+            if (!item.visual?.object3D) continue
+            if (item.visual.object3D.name.toLowerCase() === 'github') {
+                item.visual.object3D.traverse((child) => {
+                    if (child.isMesh && child.material?._colorNode && !paletteTexture) {
                         const texNode = child.material._colorNode.node // SplitNode.node → TextureNode
-                        if(texNode?.value?.isTexture)
-                            paletteTexture = texNode.value
+                        if (texNode?.value?.isTexture) paletteTexture = texNode.value
                     }
                 })
                 break
@@ -107,32 +90,26 @@ export class SocialArea extends Area
             hasFog: true,
             hasWater: true,
             hasReveal: true,
-            transparent: false,
+            transparent: false
         })
 
         const replacements = [
             { search: 'bluesky', createLogo: (mat) => this.createMediumLogo(mat) },
             { search: 'youtube', createLogo: (mat) => this.createNpmLogo(mat) },
             { search: 'twitch', createLogo: (mat) => this.createPyPILogo(mat) },
-            { search: 'discord', createLogo: (mat) => this.createContactLogo(mat) },
+            { search: 'discord', createLogo: (mat) => this.createContactLogo(mat) }
         ]
 
-        for(const replacement of replacements)
-        {
-            for(const item of this.objects.items)
-            {
-                if(!item.visual || !item.visual.object3D)
-                    continue
+        for (const replacement of replacements) {
+            for (const item of this.objects.items) {
+                if (!item.visual || !item.visual.object3D) continue
 
                 let found = false
-                item.visual.object3D.traverse((child) =>
-                {
-                    if(child.name.toLowerCase().includes(replacement.search))
-                        found = true
+                item.visual.object3D.traverse((child) => {
+                    if (child.name.toLowerCase().includes(replacement.search)) found = true
                 })
 
-                if(!found)
-                    continue
+                if (!found) continue
 
                 const original = item.visual.object3D
 
@@ -142,25 +119,19 @@ export class SocialArea extends Area
 
                 // Hide original statue
                 original.visible = false
-                if(item.physical && item.physical.body)
-                    item.physical.body.setEnabled(false)
+                if (item.physical && item.physical.body) item.physical.body.setEnabled(false)
                 const hideIndex = this.objects.hideable.indexOf(original)
-                if(hideIndex !== -1)
-                    this.objects.hideable.splice(hideIndex, 1)
+                if (hideIndex !== -1) this.objects.hideable.splice(hideIndex, 1)
 
                 // Create replacement logo using the same material as existing statues
                 const logo = replacement.createLogo(statueMaterial)
 
                 // Override UVs to sample the same palette color as existing statues
-                logo.traverse((child) =>
-                {
-                    if(child.isMesh)
-                    {
+                logo.traverse((child) => {
+                    if (child.isMesh) {
                         const uvAttr = child.geometry.attributes.uv
-                        if(uvAttr)
-                        {
-                            for(let i = 0; i < uvAttr.count; i++)
-                                uvAttr.setXY(i, 0.421, 0.5)
+                        if (uvAttr) {
+                            for (let i = 0; i < uvAttr.count; i++) uvAttr.setXY(i, 0.421, 0.5)
                             uvAttr.needsUpdate = true
                         }
                     }
@@ -178,7 +149,7 @@ export class SocialArea extends Area
                         model: logo,
                         updateMaterials: false,
                         castShadow: true,
-                        receiveShadow: true,
+                        receiveShadow: true
                     },
                     {
                         type: 'dynamic',
@@ -186,7 +157,7 @@ export class SocialArea extends Area
                         rotation: origQuat,
                         sleeping: true,
                         mass: 0.5,
-                        colliders: [{ shape: 'cuboid', parameters: [size.x * 0.5, size.y * 0.5, size.z * 0.5] }],
+                        colliders: [{ shape: 'cuboid', parameters: [size.x * 0.5, size.y * 0.5, size.z * 0.5] }]
                     }
                 )
 
@@ -198,8 +169,7 @@ export class SocialArea extends Area
         }
     }
 
-    createMediumLogo(mat)
-    {
+    createMediumLogo(mat) {
         // Medium icon: three descending circles/ellipsoids as 3D sculpture
         const group = new THREE.Group()
 
@@ -224,8 +194,7 @@ export class SocialArea extends Area
         return group
     }
 
-    createNpmLogo(mat)
-    {
+    createNpmLogo(mat) {
         // npm "n" letterform as 3D extruded sculpture
         const group = new THREE.Group()
         const depth = 0.4
@@ -248,8 +217,7 @@ export class SocialArea extends Area
         return group
     }
 
-    createPyPILogo(mat)
-    {
+    createPyPILogo(mat) {
         // Python logo: two interlocking L-shapes as 3D sculpture
         const group = new THREE.Group()
         const depth = 0.4
@@ -284,8 +252,7 @@ export class SocialArea extends Area
         return group
     }
 
-    createContactLogo(mat)
-    {
+    createContactLogo(mat) {
         // Person silhouette: circle head + half-circle shoulders as 3D sculpture
         const group = new THREE.Group()
 
@@ -305,19 +272,18 @@ export class SocialArea extends Area
         return group
     }
 
-    setFans()
-    {
+    setFans() {
         const baseFan = this.references.items.get('fan')[0]
         baseFan.castShadow = true
         baseFan.receiveShadow = true
 
         baseFan.position.set(0, 0, 0)
 
-        // Update materials 
+        // Update materials
         this.game.materials.updateObject(baseFan)
 
         baseFan.removeFromParent()
-        
+
         this.fans = {}
         this.fans.spawnerPosition = this.references.items.get('onlyFans')[0].position
         this.fans.count = 30
@@ -328,8 +294,7 @@ export class SocialArea extends Area
 
         const references = []
 
-        for(let i = 0; i < this.fans.count; i++)
-        {
+        for (let i = 0; i < this.fans.count; i++) {
             // Reference
             const reference = new THREE.Object3D()
 
@@ -337,7 +302,7 @@ export class SocialArea extends Area
             reference.position.y += 99
             reference.needsUpdate = true
             references.push(reference)
-            
+
             // Object
             const object = this.game.objects.add(
                 {
@@ -345,7 +310,7 @@ export class SocialArea extends Area
                     updateMaterials: false,
                     castShadow: false,
                     receiveShadow: false,
-                    parent: null,
+                    parent: null
                 },
                 {
                     type: 'dynamic',
@@ -355,9 +320,9 @@ export class SocialArea extends Area
                     mass: this.fans.mass,
                     sleeping: true,
                     enabled: false,
-                    colliders: [ { shape: 'cuboid', parameters: [ 0.45, 0.65, 0.45 ], category: 'object' } ],
-                    waterGravityMultiplier: - 1
-                },
+                    colliders: [{ shape: 'cuboid', parameters: [0.45, 0.65, 0.45], category: 'object' }],
+                    waterGravityMultiplier: -1
+                }
             )
 
             this.fans.objects.push(object)
@@ -365,8 +330,7 @@ export class SocialArea extends Area
 
         this.fans.instancedGroup = new InstancedGroup(references, baseFan)
 
-        this.fans.pop = () =>
-        {
+        this.fans.pop = () => {
             const object = this.fans.objects[this.fans.currentIndex]
 
             const spawnPosition = this.fans.spawnerPosition.clone()
@@ -400,79 +364,73 @@ export class SocialArea extends Area
         }
     }
 
-    setOnlyFans()
-    {
+    setOnlyFans() {
         const interactiveArea = this.game.interactivePoints.create(
             this.references.items.get('onlyFans')[0].position,
             'OnlyFans',
             InteractivePoints.ALIGN_RIGHT,
             InteractivePoints.STATE_CONCEALED,
-            () =>
-            {
+            () => {
                 this.fans.pop()
             },
-            () =>
-            {
+            () => {
                 this.game.inputs.interactiveButtons.addItems(['interact'])
             },
-            () =>
-            {
+            () => {
                 this.game.inputs.interactiveButtons.removeItems(['interact'])
             },
-            () =>
-            {
+            () => {
                 this.game.inputs.interactiveButtons.removeItems(['interact'])
             }
         )
     }
 
-    setStatue()
-    {
+    setStatue() {
         this.statue = {}
         this.statue.body = this.references.items.get('statue')[0].userData.object.physical.body
         this.statue.down = false
     }
 
-    setFWA()
-    {
+    setFWA() {
         this.fwa = {}
 
         // Confetti
         let i = 0
-        this.fwa.positions = [
-            new THREE.Vector3(23.5, 0, -18.5),
-            new THREE.Vector3(27, 0, -19.5),
-        ]
-        const pop = () =>
-        {
+        this.fwa.positions = [new THREE.Vector3(23.5, 0, -18.5), new THREE.Vector3(27, 0, -19.5)]
+        const pop = () => {
             i++
             const position = this.fwa.positions[i % this.fwa.positions.length]
             this.game.world.confetti.pop(position)
-            
+
             setTimeout(pop, 500 + Math.random() * 1500)
         }
         setTimeout(pop, 2000)
-        
+
         // Interactive points
         game.interactivePoints.temporaryHide()
 
         // Input => start
         this.game.inputs.addActions([
-            { name: 'startFWA', categories: [ 'intro', 'modal', 'menu', 'racing', 'cinematic', 'wandering' ], keys: [ 'Keyboard.k' ] },
-            { name: 'winFWA', categories: [ 'intro', 'modal', 'menu', 'racing', 'cinematic', 'wandering' ], keys: [ 'Keyboard.j' ] },
-        ])
-        this.game.inputs.events.on('startFWA', (action) =>
-        {
-            if(action.active)
             {
+                name: 'startFWA',
+                categories: ['intro', 'modal', 'menu', 'racing', 'cinematic', 'wandering'],
+                keys: ['Keyboard.k']
+            },
+            {
+                name: 'winFWA',
+                categories: ['intro', 'modal', 'menu', 'racing', 'cinematic', 'wandering'],
+                keys: ['Keyboard.j']
+            }
+        ])
+        this.game.inputs.events.on('startFWA', (action) => {
+            if (action.active) {
                 // View
                 game.view.zoom.baseRatio = 0.55
                 game.view.zoom.ratio = 0.55
                 game.view.zoom.smoothedRatio = 0.55
                 game.view.focusPoint.position.set(25, 0, -19.2)
                 game.view.focusPoint.isTracking = false
-                window.setTimeout(() =>
-                {
+                window.setTimeout(() => {
                     this.game.view.setMode(View.MODE_FREE)
                 }, 1000)
 
@@ -486,7 +444,7 @@ export class SocialArea extends Area
                     },
                     0
                 )
-        
+
                 // Day cycles
                 this.game.dayCycles.override.start(
                     {
@@ -494,55 +452,44 @@ export class SocialArea extends Area
                     },
                     0
                 )
-                
+
                 // Buttons
                 document.querySelector('.js-menu-trigger').style.display = 'none'
                 document.querySelector('.js-map-trigger').style.display = 'none'
             }
         })
-        this.game.inputs.events.on('winFWA', (action) =>
-        {
-            if(action.active)
-            {
+        this.game.inputs.events.on('winFWA', (action) => {
+            if (action.active) {
                 this.game.achievements.setProgress('foty', 1)
             }
         })
     }
 
-    setAchievement()
-    {
-        this.events.on('boundingIn', () =>
-        {
+    setAchievement() {
+        this.events.on('boundingIn', () => {
             this.game.achievements.setProgress('areas', 'social')
         })
     }
 
-    update()
-    {
-        if(this.fans.visibleCount)
-        {
+    update() {
+        if (this.fans.visibleCount) {
             let allFansSleeping = true
-            for(const fan of this.fans.objects)
-                allFansSleeping = allFansSleeping && fan.physical.body.isSleeping()
+            for (const fan of this.fans.objects) allFansSleeping = allFansSleeping && fan.physical.body.isSleeping()
 
-            if(!allFansSleeping)
-                this.fans.instancedGroup.updateBoundings()
+            if (!allFansSleeping) this.fans.instancedGroup.updateBoundings()
         }
-    
-        if(this.statue && !this.statue.down && !this.statue.body.isSleeping())
-        {
+
+        if (this.statue && !this.statue.down && !this.statue.body.isSleeping()) {
             const statueUp = new THREE.Vector3(0, 1, 0)
             statueUp.applyQuaternion(this.statue.body.rotation())
-            if(statueUp.y < 0.25)
-            {
+            if (statueUp.y < 0.25) {
                 this.statue.down = true
                 this.game.achievements.setProgress('statueDown', 1)
             }
         }
 
-        for(const object of this.fans.objects)
-        {
-            if(!object.physical.body.isSleeping() && object.physical.body.isEnabled())
+        for (const object of this.fans.objects) {
+            if (!object.physical.body.isSleeping() && object.physical.body.isEnabled())
                 object.visual.object3D.needsUpdate = true
         }
     }

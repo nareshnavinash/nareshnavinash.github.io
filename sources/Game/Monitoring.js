@@ -1,15 +1,12 @@
 import Stats from 'stats-gl'
 import { Game } from './Game.js'
 
-export class Monitoring
-{
-    constructor()
-    {
+export class Monitoring {
+    constructor() {
         this.game = Game.getInstance()
 
         // No debug
-        if(!this.game.debug.active)
-            return
+        if (!this.game.debug.active) return
 
         // Stats
         this.stats = new Stats({
@@ -18,11 +15,11 @@ export class Monitoring
             trackCPT: true,
             logsPerSecond: 4,
             graphsPerSecond: 30,
-            samplesLog: 40, 
-            samplesGraph: 10, 
-            precision: 1, 
+            samplesLog: 40,
+            samplesGraph: 10,
+            precision: 1,
             horizontal: false,
-            minimal: false, 
+            minimal: false,
             mode: 0
         })
 

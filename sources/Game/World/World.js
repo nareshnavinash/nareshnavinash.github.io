@@ -29,10 +29,8 @@ import { Fences } from './Fences.js'
 import { Benches } from './Benches.js'
 import { Scenery } from './Scenery.js'
 
-export class World
-{
-    constructor()
-    {
+export class World {
+    constructor() {
         this.game = Game.getInstance()
 
         this.step(0)
@@ -44,15 +42,11 @@ export class World
         // this.setTestShadow()
     }
 
-    step(step)
-    {
-        if(step === 0)
-        {
+    step(step) {
+        if (step === 0) {
             this.grid = new Grid()
             this.intro = new Intro()
-        }
-        else if(step === 1)
-        {
+        } else if (step === 1) {
             this.visualVehicle = new VisualVehicle(this.game.resources.vehicle.scene)
             this.floor = new Floor()
             this.waterSurface = new WaterSurface()
@@ -66,9 +60,27 @@ export class World
             this.snow = new Snow()
             this.visualTornado = new VisualTornado()
             this.bushes = new Bushes()
-            this.birchTrees = new Trees('Birch Tree', this.game.resources.birchTreesVisualModel.scene, this.game.resources.birchTreesReferencesModel.scene.children, '#ff4f2b', '#ff903f')
-            this.oakTrees = new Trees('Oak Tree', this.game.resources.oakTreesVisualModel.scene, this.game.resources.oakTreesReferencesModel.scene.children, '#b4b536', '#d8cf3b')
-            this.cherryTrees = new Trees('Cherry Tree', this.game.resources.cherryTreesVisualModel.scene, this.game.resources.cherryTreesReferencesModel.scene.children, '#ff6d6d', '#ff9990')
+            this.birchTrees = new Trees(
+                'Birch Tree',
+                this.game.resources.birchTreesVisualModel.scene,
+                this.game.resources.birchTreesReferencesModel.scene.children,
+                '#ff4f2b',
+                '#ff903f'
+            )
+            this.oakTrees = new Trees(
+                'Oak Tree',
+                this.game.resources.oakTreesVisualModel.scene,
+                this.game.resources.oakTreesReferencesModel.scene.children,
+                '#b4b536',
+                '#d8cf3b'
+            )
+            this.cherryTrees = new Trees(
+                'Cherry Tree',
+                this.game.resources.cherryTreesVisualModel.scene,
+                this.game.resources.cherryTreesReferencesModel.scene.children,
+                '#ff6d6d',
+                '#ff9990'
+            )
             this.flowers = new Flowers()
             this.bricks = new Bricks()
             this.fences = new Fences()
@@ -78,45 +90,31 @@ export class World
             this.lanterns = new Lanterns()
             this.scenery = new Scenery()
             this.areas = new Areas()
-        }
-        else if(step === 2)
-        {
+        } else if (step === 2) {
             this.whispers = new Whispers()
         }
     }
 
-    setPhysicalFloor()
-    {
-        this.game.objects.add(
-            null,
-            {
-                type: 'fixed',
-                friction: 0.25,
-                restitution: 0,
-                colliders: [
-                    { shape: 'cuboid', parameters: [ 1000, 1, 1000 ], position: { x: 0, y: - 1.01, z: 0 }, category: 'floor' },
-                ]
-            }
-        )
+    setPhysicalFloor() {
+        this.game.objects.add(null, {
+            type: 'fixed',
+            friction: 0.25,
+            restitution: 0,
+            colliders: [
+                { shape: 'cuboid', parameters: [1000, 1, 1000], position: { x: 0, y: -1.01, z: 0 }, category: 'floor' }
+            ]
+        })
     }
 
-    setTestKtx()
-    {
-        const mesh = new THREE.Mesh(
-            new THREE.BoxGeometry(10, 10, 10),
-            new THREE.MeshBasicNodeMaterial(),
-        )
-        mesh.material.outputNode = vec4(
-            texture(this.game.resources.paletteTexture).rgb,
-            1
-        )
+    setTestKtx() {
+        const mesh = new THREE.Mesh(new THREE.BoxGeometry(10, 10, 10), new THREE.MeshBasicNodeMaterial())
+        mesh.material.outputNode = vec4(texture(this.game.resources.paletteTexture).rgb, 1)
         mesh.position.copy(this.game.player.position)
         mesh.position.y += 2
         this.game.scene.add(mesh)
     }
 
-    setTestShadow()
-    {
+    setTestShadow() {
         // Geometry
         const geometry = new THREE.BoxGeometry(0.5, 0.5, 0.5)
 
@@ -143,14 +141,9 @@ export class World
         // this.game.scene.add(receiver)
     }
 
-
-    setTestMesh()
-    {
+    setTestMesh() {
         console.log(this.game.rendering.renderer.library)
-        const testMesh = new THREE.Mesh(
-            new THREE.SphereGeometry(1, 32, 32),
-            new THREE.MeshBasicMaterial()
-        )
+        const testMesh = new THREE.Mesh(new THREE.SphereGeometry(1, 32, 32), new THREE.MeshBasicMaterial())
         // console.log(testMesh.material.outputNode = vec4(1, 0, 0, 1))
         // testMesh.material.outputNode = Fn(() =>
         // {
@@ -182,15 +175,13 @@ export class World
         // this.game.scene.add(testMesh2)
     }
 
-    setAxesHelper()
-    {
+    setAxesHelper() {
         const axesHelper = new THREE.AxesHelper()
         axesHelper.position.y = 0.1
         this.game.scene.add(axesHelper)
     }
 
-    setCollisionGroupsTest()
-    {
+    setCollisionGroupsTest() {
         // // Left (object)
         // this.game.objects.add(
         //     {
@@ -201,14 +192,11 @@ export class World
         // )
 
         // Right (terrain)
-        this.game.objects.add(
-            null,
-            {
-                type: 'dynamic',
-                position: { x: 4, y: 2, z: -1.1 },
-                colliders: [ { shape: 'cuboid', parameters: [ 0.5, 0.5, 0.5 ], category: 'floor' } ]
-            }
-        )
+        this.game.objects.add(null, {
+            type: 'dynamic',
+            position: { x: 4, y: 2, z: -1.1 },
+            colliders: [{ shape: 'cuboid', parameters: [0.5, 0.5, 0.5], category: 'floor' }]
+        })
 
         // // Top (bumper)
         // this.game.objects.add(
@@ -227,7 +215,7 @@ export class World
     //     const material = new THREE.MeshLambertNodeMaterial()
 
     //     material.normalNode = normalView
-    //     // const newNormal = 
+    //     // const newNormal =
     //     // material.normalNode = vec3(0, 1, 0)
 
     //     // material.positionNode = Fn(() =>

@@ -2,8 +2,7 @@
  * Renders retro terminal-style text content onto a canvas
  * Used to generate textures for the 3D world (replacing .ktx images)
  */
-export class TerminalCanvasRenderer
-{
+export class TerminalCanvasRenderer {
     static BG_COLOR = '#050510'
     static PROMPT_COLOR = '#00ffaa'
     static HEADER_COLOR = '#ff7744'
@@ -24,16 +23,14 @@ export class TerminalCanvasRenderer
      * Build an array of drawable line objects from page content
      * Each line has: { text, font, color, alpha, x, y, type }
      */
-    static buildLines(content, width, height)
-    {
+    static buildLines(content, width, height) {
         const lines = []
         const mx = this.MARGIN_X
         let y = this.MARGIN_TOP
         const usableWidth = width - mx * 2
 
         // Cached canvas for text measurement (avoids exceeding mobile context limits)
-        if(!this._measureCtx)
-            this._measureCtx = document.createElement('canvas').getContext('2d')
+        if (!this._measureCtx) this._measureCtx = document.createElement('canvas').getContext('2d')
         const measure = this._measureCtx
 
         // ── Command prompt ──
@@ -43,13 +40,11 @@ export class TerminalCanvasRenderer
         y += 34
 
         // ── Header (role) ──
-        if(content.header)
-        {
+        if (content.header) {
             const font = `400 40px ${this.FONT_FAMILY}`
             measure.font = font
             const wrapped = this._wordWrap(measure, content.header, usableWidth)
-            for(const line of wrapped)
-            {
+            for (const line of wrapped) {
                 lines.push({ text: line, font, color: this.HEADER_COLOR, alpha: 1, x: mx, y })
                 y += 42
             }
@@ -57,13 +52,11 @@ export class TerminalCanvasRenderer
         }
 
         // ── Subheader (company · date · location) ──
-        if(content.subheader)
-        {
+        if (content.subheader) {
             const font = `400 24px ${this.FONT_FAMILY}`
             measure.font = font
             const wrapped = this._wordWrap(measure, content.subheader, usableWidth)
-            for(const line of wrapped.slice(0, 2))
-            {
+            for (const line of wrapped.slice(0, 2)) {
                 lines.push({ text: line, font, color: this.META_COLOR, alpha: 1, x: mx, y })
                 y += 28
             }
@@ -75,8 +68,7 @@ export class TerminalCanvasRenderer
         y += 15
 
         // ── Section title ──
-        if(content.section)
-        {
+        if (content.section) {
             const font = `400 28px ${this.FONT_FAMILY}`
             measure.font = font
             lines.push({ text: `[ ${content.section} ]`, font, color: this.SECTION_COLOR, alpha: 1, x: mx, y })
@@ -84,19 +76,16 @@ export class TerminalCanvasRenderer
         }
 
         // ── Points ──
-        if(content.points)
-        {
+        if (content.points) {
             const font = `400 24px ${this.FONT_FAMILY}`
             measure.font = font
 
-            for(const point of content.points.slice(0, this.MAX_POINTS))
-            {
+            for (const point of content.points.slice(0, this.MAX_POINTS)) {
                 const fullText = `> ${point}`
                 const wrapped = this._wordWrap(measure, fullText, usableWidth)
                 const visibleLines = wrapped.slice(0, this.MAX_LINES_PER_POINT)
 
-                if(wrapped.length > this.MAX_LINES_PER_POINT)
-                {
+                if (wrapped.length > this.MAX_LINES_PER_POINT) {
                     visibleLines[this.MAX_LINES_PER_POINT - 1] = this._trimToWidth(
                         measure,
                         `${visibleLines[this.MAX_LINES_PER_POINT - 1]}...`,
@@ -104,9 +93,8 @@ export class TerminalCanvasRenderer
                     )
                 }
 
-                for(let i = 0; i < visibleLines.length; i++)
-                {
-                    if(y > height - this.MARGIN_BOTTOM - 10) break
+                for (let i = 0; i < visibleLines.length; i++) {
+                    if (y > height - this.MARGIN_BOTTOM - 10) break
                     lines.push({ text: visibleLines[i], font, color: this.POINT_COLOR, alpha: 1, x: mx + 8, y })
                     y += 28
                 }
@@ -123,8 +111,7 @@ export class TerminalCanvasRenderer
     /**
      * Draw the terminal background (dark + scanlines + vignette)
      */
-    static drawBackground(canvas)
-    {
+    static drawBackground(canvas) {
         const ctx = canvas.getContext('2d')
         const w = canvas.width
         const h = canvas.height
@@ -135,8 +122,7 @@ export class TerminalCanvasRenderer
 
         // Scanline overlay
         ctx.fillStyle = 'rgba(0, 0, 0, 0.06)'
-        for(let sy = 0; sy < h; sy += 4)
-        {
+        for (let sy = 0; sy < h; sy += 4) {
             ctx.fillRect(0, sy, w, 2)
         }
 
@@ -152,19 +138,16 @@ export class TerminalCanvasRenderer
     /**
      * Draw a single line on the canvas
      */
-    static drawLine(canvas, lineData)
-    {
+    static drawLine(canvas, lineData) {
         const ctx = canvas.getContext('2d')
 
-        if(lineData.type === 'divider')
-        {
+        if (lineData.type === 'divider') {
             ctx.fillStyle = this.DIVIDER_COLOR
             ctx.fillRect(lineData.x, lineData.y, lineData.width, 1)
             return
         }
 
-        if(lineData.type === 'cursor')
-        {
+        if (lineData.type === 'cursor') {
             ctx.fillStyle = this.CURSOR_COLOR
             ctx.font = `400 18px ${this.FONT_FAMILY}`
             ctx.globalAlpha = 0.8
@@ -183,11 +166,9 @@ export class TerminalCanvasRenderer
     /**
      * Draw background + all lines
      */
-    static drawAll(canvas, lines)
-    {
+    static drawAll(canvas, lines) {
         this.drawBackground(canvas)
-        for(const line of lines)
-        {
+        for (const line of lines) {
             this.drawLine(canvas, line)
         }
     }
@@ -196,8 +177,7 @@ export class TerminalCanvasRenderer
      * Create a fully rendered canvas
      * @returns {{ canvas: HTMLCanvasElement, lines: Array }}
      */
-    static render(content, width, height)
-    {
+    static render(content, width, height) {
         const canvas = document.createElement('canvas')
         canvas.width = width
         canvas.height = height
@@ -211,8 +191,7 @@ export class TerminalCanvasRenderer
     /**
      * Render a mini thumbnail canvas (for lab scroller)
      */
-    static renderMini(content, width, height)
-    {
+    static renderMini(content, width, height) {
         const canvas = document.createElement('canvas')
         canvas.width = width
         canvas.height = height
@@ -224,8 +203,7 @@ export class TerminalCanvasRenderer
 
         // Subtle scanlines
         ctx.fillStyle = 'rgba(0, 0, 0, 0.08)'
-        for(let sy = 0; sy < height; sy += 3)
-        {
+        for (let sy = 0; sy < height; sy += 3) {
             ctx.fillRect(0, sy, width, 1)
         }
 
@@ -237,8 +215,7 @@ export class TerminalCanvasRenderer
         ctx.fillText(content.title || '', width / 2, height / 2 - 10)
 
         // Subtitle (language / stars)
-        if(content.subtitle)
-        {
+        if (content.subtitle) {
             ctx.font = `400 12px ${this.FONT_FAMILY}`
             ctx.fillStyle = this.META_COLOR
             ctx.fillText(content.subtitle, width / 2, height / 2 + 10)
@@ -251,36 +228,29 @@ export class TerminalCanvasRenderer
      * Word-wrap text to fit within maxWidth
      * @private
      */
-    static _wordWrap(ctx, text, maxWidth)
-    {
+    static _wordWrap(ctx, text, maxWidth) {
         const words = text.split(' ')
         const result = []
         let current = ''
 
-        for(const word of words)
-        {
+        for (const word of words) {
             const test = current ? `${current} ${word}` : word
-            if(ctx.measureText(test).width > maxWidth && current)
-            {
+            if (ctx.measureText(test).width > maxWidth && current) {
                 result.push(current)
                 current = `  ${word}` // indent continuation lines
-            }
-            else
-            {
+            } else {
                 current = test
             }
         }
-        if(current) result.push(current)
+        if (current) result.push(current)
 
         return result
     }
 
-    static _trimToWidth(ctx, text, maxWidth)
-    {
+    static _trimToWidth(ctx, text, maxWidth) {
         let output = text
 
-        while(output.length > 0 && ctx.measureText(output).width > maxWidth)
-            output = output.slice(0, -1)
+        while (output.length > 0 && ctx.measureText(output).width > maxWidth) output = output.slice(0, -1)
 
         return output
     }

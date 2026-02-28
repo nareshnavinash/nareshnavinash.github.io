@@ -1,10 +1,8 @@
 import countriesData from '../data/countries.js'
 import { Events } from './Events.js'
 
-export class InputFlag
-{
-    constructor(element)
-    {
+export class InputFlag {
+    constructor(element) {
         // Setup
         this.element = element
         this.buttonElement = this.element.querySelector('.js-flag-button')
@@ -26,20 +24,17 @@ export class InputFlag
         this.setSearch()
 
         // DOM events
-        this.removeElement.addEventListener('click', (event) =>
-        {
+        this.removeElement.addEventListener('click', (event) => {
             event.preventDefault()
             this.select(null)
         })
 
-        this.buttonElement.addEventListener('click', (event) =>
-        {
+        this.buttonElement.addEventListener('click', (event) => {
             event.preventDefault()
             this.open()
         })
 
-        this.closeElement.addEventListener('click', (event) =>
-        {
+        this.closeElement.addEventListener('click', (event) => {
             event.preventDefault()
             this.close()
         })
@@ -48,44 +43,36 @@ export class InputFlag
         let countryCode = ''
 
         const localCountryCode = localStorage.getItem('countryCode')
-        if(localCountryCode)
-            countryCode = localCountryCode
+        if (localCountryCode) countryCode = localCountryCode
 
-        if(countryCode === '')
-        {
+        if (countryCode === '') {
             const locale = Intl.DateTimeFormat().resolvedOptions().locale
-            
-            if(locale)
-            {
+
+            if (locale) {
                 const localeSplit = locale.split('-')
 
-                if(localeSplit.length)
-                {
+                if (localeSplit.length) {
                     countryCode = localeSplit[localeSplit.length - 1].toLowerCase()
                 }
             }
         }
 
-        if(countryCode !== '')
-        {
+        if (countryCode !== '') {
             this.country = this.countries.get(countryCode) ?? null
 
-            if(this.country)
-            {
+            if (this.country) {
                 this.currentElement.src = this.country.imageUrl
                 this.buttonElement.classList.add('has-flag')
             }
         }
     }
 
-    setCountries()
-    {
-        for(const _country of countriesData)
-        {
+    setCountries() {
+        for (const _country of countriesData) {
             const imageUrl = `ui/flags/${_country[2]}.webp`
             const element = document.createElement('div')
             element.classList.add('choice')
-            element.innerHTML = /* html */`
+            element.innerHTML = /* html */ `
                 <img class="js-flag flag" src="${imageUrl}" loading="lazy">
                 <span class="label">${_country[0]} (${_country[2]})</span>
             `
@@ -96,8 +83,7 @@ export class InputFlag
             country.imageUrl = imageUrl
             country.code = _country[2]
 
-            country.element.addEventListener('click', () =>
-            {
+            country.element.addEventListener('click', () => {
                 this.select(country)
             })
 
@@ -105,96 +91,74 @@ export class InputFlag
         }
     }
 
-    setSearch()
-    {
-        const searchFlag = (value) =>
-        {
+    setSearch() {
+        const searchFlag = (value) => {
             const sanatizedValue = value.trim()
             let found = false
 
             // Empty search => All countries
-            if(sanatizedValue === '')
-            {
+            if (sanatizedValue === '') {
                 found = true
-                this.countries.forEach((country) =>
-                {
+                this.countries.forEach((country) => {
                     country.element.style.display = 'block'
                 })
             }
 
             // Non-empty search => Search each terms
-            else
-            {
-                this.countries.forEach((country) =>
-                {
-                    if(country.terms.match(new RegExp(sanatizedValue, 'i')))
-                    {
+            else {
+                this.countries.forEach((country) => {
+                    if (country.terms.match(new RegExp(sanatizedValue, 'i'))) {
                         found = true
                         country.element.style.display = 'block'
-                    }
-                    else
-                    {
+                    } else {
                         country.element.style.display = 'none'
                     }
                 })
             }
 
             // No result
-            if(!found)
-                this.noResultElement.classList.add('is-visible')
-            else
-                this.noResultElement.classList.remove('is-visible')
+            if (!found) this.noResultElement.classList.add('is-visible')
+            else this.noResultElement.classList.remove('is-visible')
         }
 
-        this.searchElement.addEventListener('input', () =>
-        {
+        this.searchElement.addEventListener('input', () => {
             searchFlag(this.searchElement.value)
         })
     }
 
-    addToDOM()
-    {
-        this.countries.forEach(_country =>
-        {
+    addToDOM() {
+        this.countries.forEach((_country) => {
             this.scrollerElement.appendChild(_country.element)
         })
-        
+
         this.inDOM = true
     }
 
-    open()
-    {
+    open() {
         // Already
-        if(this.isOpen)
-            return
+        if (this.isOpen) return
 
         // Not yet in DOM > Add
-        if(!this.inDOM)
-            this.addToDOM()
+        if (!this.inDOM) this.addToDOM()
 
         this.isOpen = true
         this.selectElement.classList.add('is-visible')
         this.searchElement.focus()
 
-        if(this.country)
-            this.scrollerElement.scrollTop = this.country.element.offsetTop - 15
+        if (this.country) this.scrollerElement.scrollTop = this.country.element.offsetTop - 15
     }
 
-    close()
-    {
+    close() {
         // Already
-        if(!this.isOpen)
-            return
+        if (!this.isOpen) return
 
         this.isOpen = false
         this.selectElement.classList.remove('is-visible')
     }
 
-    select(country = null)
-    {
+    select(country = null) {
         // Selected a flag
-        if(country)
-        {
+        if (country) {
             this.country = country
             this.currentElement.src = country.imageUrl
             this.buttonElement.classList.add('has-flag')
@@ -202,15 +166,14 @@ export class InputFlag
         }
 
         // Selected no flag
-        else
-        {
+        else {
             this.country = null
             this.buttonElement.classList.remove('has-flag')
             localStorage.removeItem('countryCode')
         }
 
         // Trigger event
-        this.events.trigger('change', [ country ])
+        this.events.trigger('change', [country])
 
         this.close()
     }

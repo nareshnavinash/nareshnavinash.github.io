@@ -13,36 +13,31 @@ import { BehindTheSceneArea } from './BehindTheSceneArea.js'
 import { AchievementsArea } from './AchievementsArea.js'
 import { TimeMachine } from './TimeMachine.js'
 
-export class Areas
-{
-    constructor()
-    {
+export class Areas {
+    constructor() {
         this.game = Game.getInstance()
 
         const list = [
-            [ 'achievements', AchievementsArea ],
-            [ 'altar', AltarArea ],
-            [ 'behindTheScene', BehindTheSceneArea ],
-            [ 'bowling', BowlingArea ],
-            [ 'career', CareerArea ],
-            [ 'circuit', CircuitArea ],
-            [ 'cookie', CookieArea ],
-            [ 'lab', LabArea ],
-            [ 'landing', LandingArea ],
-            [ 'projects', ProjectsArea ],
-            [ 'social', SocialArea ],
-            [ 'toilet', ToiletArea ],
-            [ 'timeMachine', TimeMachine ],
+            ['achievements', AchievementsArea],
+            ['altar', AltarArea],
+            ['behindTheScene', BehindTheSceneArea],
+            ['bowling', BowlingArea],
+            ['career', CareerArea],
+            ['circuit', CircuitArea],
+            ['cookie', CookieArea],
+            ['lab', LabArea],
+            ['landing', LandingArea],
+            ['projects', ProjectsArea],
+            ['social', SocialArea],
+            ['toilet', ToiletArea],
+            ['timeMachine', TimeMachine]
         ]
 
         const model = [...this.game.resources.areasModel.scene.children]
-        
-        for(const child of model)
-        {
-            for(const [ name, AreaClass ] of list)
-            {
-                if(child.name.startsWith(name))
-                    this[name] = new AreaClass(child)
+
+        for (const child of model) {
+            for (const [name, AreaClass] of list) {
+                if (child.name.startsWith(name)) this[name] = new AreaClass(child)
             }
         }
 

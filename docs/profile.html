@@ -1,234 +1,272 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title id="meta-title">Profile</title>
-  <meta id="meta-description" name="description" content="">
-  <meta id="meta-keywords" name="keywords" content="">
-  <meta id="meta-author" name="author" content="">
-  <meta id="meta-robots" name="robots" content="">
-  <meta id="meta-theme-color" name="theme-color" content="#080818">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title id="meta-title">Profile</title>
+        <meta id="meta-description" name="description" content="" />
+        <meta id="meta-keywords" name="keywords" content="" />
+        <meta id="meta-author" name="author" content="" />
+        <meta id="meta-robots" name="robots" content="" />
+        <meta id="meta-theme-color" name="theme-color" content="#080818" />
 
-  <link id="meta-canonical" rel="canonical" href="">
+        <link id="meta-canonical" rel="canonical" href="" />
 
-  <meta id="meta-itemprop-name" itemprop="name" content="">
-  <meta id="meta-itemprop-description" itemprop="description" content="">
-  <meta id="meta-itemprop-image" itemprop="image" content="">
+        <meta id="meta-itemprop-name" itemprop="name" content="" />
+        <meta id="meta-itemprop-description" itemprop="description" content="" />
+        <meta id="meta-itemprop-image" itemprop="image" content="" />
 
-  <meta id="meta-twitter-card" name="twitter:card" content="">
-  <meta id="meta-twitter-title" name="twitter:title" content="">
-  <meta id="meta-twitter-description" name="twitter:description" content="">
-  <meta id="meta-twitter-image" name="twitter:image" content="">
+        <meta id="meta-twitter-card" name="twitter:card" content="" />
+        <meta id="meta-twitter-title" name="twitter:title" content="" />
+        <meta id="meta-twitter-description" name="twitter:description" content="" />
+        <meta id="meta-twitter-image" name="twitter:image" content="" />
 
-  <!-- Open Graph -->
-  <meta id="meta-og-type" property="og:type" content="">
-  <meta id="meta-og-site-name" property="og:site_name" content="">
-  <meta id="meta-og-locale" property="og:locale" content="">
-  <meta id="meta-og-title" property="og:title" content="">
-  <meta id="meta-og-description" property="og:description" content="">
-  <meta id="meta-og-url" property="og:url" content="">
-  <meta id="meta-og-image" property="og:image" content="">
+        <!-- Open Graph -->
+        <meta id="meta-og-type" property="og:type" content="" />
+        <meta id="meta-og-site-name" property="og:site_name" content="" />
+        <meta id="meta-og-locale" property="og:locale" content="" />
+        <meta id="meta-og-title" property="og:title" content="" />
+        <meta id="meta-og-description" property="og:description" content="" />
+        <meta id="meta-og-url" property="og:url" content="" />
+        <meta id="meta-og-image" property="og:image" content="" />
 
-  <script id="meta-ldjson" type="application/ld+json">
-  {}
-  </script>
+        <script id="meta-ldjson" type="application/ld+json">
+            {}
+        </script>
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&family=Caveat:wght@600;700&family=VT323&display=swap" rel="stylesheet">
+        <!-- Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&family=Caveat:wght@600;700&family=VT323&display=swap"
+            rel="stylesheet"
+        />
 
-  <link rel="stylesheet" href="css/theme.css">
-  <link rel="stylesheet" href="css/styles.css">
+        <link rel="stylesheet" href="css/theme.css" />
+        <link rel="stylesheet" href="css/styles.css" />
 
-  <!-- FOUC prevention: apply saved theme before paint -->
-  <script>
-    (function() {
-      var t = localStorage.getItem('profile-theme');
-      if (!t) t = 'day';
-      document.documentElement.setAttribute('data-theme', t);
-    })();
-  </script>
-</head>
-<body>
+        <!-- FOUC prevention: apply saved theme before paint -->
+        <script>
+            ;(function () {
+                var t = localStorage.getItem('profile-theme')
+                if (!t) t = 'day'
+                document.documentElement.setAttribute('data-theme', t)
+            })()
+        </script>
+    </head>
+    <body>
+        <div class="scroll-progress" aria-hidden="true"></div>
 
-  <div class="scroll-progress" aria-hidden="true"></div>
+        <!-- ===================== NAVIGATION ===================== -->
+        <nav id="main-nav" class="nav" role="navigation" aria-label="Main navigation">
+            <div class="nav-inner">
+                <a id="nav-logo" href="#hero" class="nav-logo" aria-label="Home">profile</a>
 
-  <!-- ===================== NAVIGATION ===================== -->
-  <nav id="main-nav" class="nav" role="navigation" aria-label="Main navigation">
-    <div class="nav-inner">
-      <a id="nav-logo" href="#hero" class="nav-logo" aria-label="Home">profile</a>
+                <div class="nav-links">
+                    <a data-nav-key="about" href="#about">about</a>
+                    <a data-nav-key="experience" href="#career">experience</a>
+                    <a data-nav-key="skills" href="#skills">skills</a>
+                    <a data-nav-key="leadership" href="#leadership">leadership</a>
+                    <a data-nav-key="publications" href="#publications">publications</a>
+                    <a data-nav-key="certifications" href="#certifications">certifications</a>
+                    <a data-nav-key="contact" href="#contact">contact</a>
+                    <a id="nav-world-link" data-nav-world href="/" class="nav-3d-link" aria-label="Explore the 3D world"
+                        >3D World</a
+                    >
+                    <button class="theme-toggle" aria-label="Toggle dark mode">
+                        <span class="theme-toggle-icon sun-icon">☀</span>
+                        <span class="theme-toggle-icon moon-icon">☾</span>
+                    </button>
+                </div>
 
-      <div class="nav-links">
-        <a data-nav-key="about" href="#about">about</a>
-        <a data-nav-key="experience" href="#career">experience</a>
-        <a data-nav-key="skills" href="#skills">skills</a>
-        <a data-nav-key="leadership" href="#leadership">leadership</a>
-        <a data-nav-key="publications" href="#publications">publications</a>
-        <a data-nav-key="certifications" href="#certifications">certifications</a>
-        <a data-nav-key="contact" href="#contact">contact</a>
-        <a id="nav-world-link" data-nav-world href="/" class="nav-3d-link" aria-label="Explore the 3D world">3D World</a>
-        <button class="theme-toggle" aria-label="Toggle dark mode">
-          <span class="theme-toggle-icon sun-icon">☀</span>
-          <span class="theme-toggle-icon moon-icon">☾</span>
+                <div class="nav-mobile-actions">
+                    <button class="theme-toggle theme-toggle-mobile" aria-label="Toggle dark mode">
+                        <span class="theme-toggle-icon sun-icon">☀</span>
+                        <span class="theme-toggle-icon moon-icon">☾</span>
+                    </button>
+                    <button class="hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
+                        <span></span><span></span><span></span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Mobile menu overlay -->
+        <div id="mobile-menu" class="mobile-menu" role="dialog" aria-label="Mobile navigation">
+            <a data-nav-key="about" href="#about">about</a>
+            <a data-nav-key="experience" href="#career">experience</a>
+            <a data-nav-key="skills" href="#skills">skills</a>
+            <a data-nav-key="leadership" href="#leadership">leadership</a>
+            <a data-nav-key="publications" href="#publications">publications</a>
+            <a data-nav-key="certifications" href="#certifications">certifications</a>
+            <a data-nav-key="contact" href="#contact">contact</a>
+            <a id="mobile-world-link" data-nav-world href="/" class="nav-3d-link" aria-label="Explore the 3D world"
+                >3D World</a
+            >
+        </div>
+
+        <!-- ===================== HERO - Split Layout ===================== -->
+        <section id="hero" class="hero">
+            <div class="hero-split">
+                <div class="hero-left">
+                    <!-- Decorative organic blobs -->
+                    <svg
+                        class="hero-shapes"
+                        viewBox="0 0 600 600"
+                        xmlns="http://www.w3.org/2000/svg"
+                        aria-hidden="true"
+                    >
+                        <path
+                            d="M420,180 C480,220 520,320 460,400 C400,480 280,500 200,440 C120,380 100,260 160,180 C220,100 360,140 420,180Z"
+                            fill="var(--color-mint)"
+                            opacity="0.6"
+                        />
+                        <path
+                            d="M350,100 C430,130 480,230 440,320 C400,410 300,440 220,390 C140,340 120,230 180,150 C240,70 270,70 350,100Z"
+                            fill="var(--color-lavender)"
+                            opacity="0.5"
+                        />
+                        <path
+                            d="M300,220 C370,190 450,240 460,330 C470,420 400,490 310,480 C220,470 160,400 170,310 C180,220 230,250 300,220Z"
+                            fill="var(--color-peach)"
+                            opacity="0.45"
+                        />
+                        <path
+                            d="M250,300 C300,250 400,270 420,350 C440,430 380,510 290,500 C200,490 150,420 170,350 C190,280 200,350 250,300Z"
+                            fill="var(--color-gold)"
+                            opacity="0.4"
+                        />
+                    </svg>
+                    <!-- Profile photo -->
+                    <img src="assets/profile.jpg" alt="Profile photo" class="hero-photo" />
+                </div>
+                <div class="hero-right">
+                    <p class="hero-greeting"></p>
+                    <h1 class="hero-heading"></h1>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================== ABOUT ===================== -->
+        <section id="about" class="about">
+            <div class="container">
+                <h2 class="section-title reveal"></h2>
+                <p class="section-subtitle reveal"></p>
+
+                <p class="about-mission reveal"></p>
+
+                <div id="about-cards" class="about-cards reveal-group"></div>
+            </div>
+        </section>
+
+        <!-- ===================== CAREER ===================== -->
+        <section id="career" class="career">
+            <div class="container">
+                <h2 class="section-title reveal"></h2>
+                <p class="section-subtitle reveal"></p>
+
+                <div id="career-grid" class="career-grid"></div>
+            </div>
+        </section>
+
+        <!-- ===================== SKILLS ===================== -->
+        <section id="skills" class="skills">
+            <div class="container">
+                <h2 class="section-title reveal"></h2>
+                <p class="section-subtitle reveal"></p>
+
+                <div id="skills-grid" class="skills-grid reveal-group"></div>
+            </div>
+        </section>
+
+        <!-- ===================== LEADERSHIP ===================== -->
+        <section id="leadership" class="leadership">
+            <div class="container">
+                <h2 class="section-title reveal"></h2>
+                <p class="section-subtitle reveal"></p>
+
+                <div id="leadership-grid" class="leadership-grid reveal-group"></div>
+            </div>
+        </section>
+
+        <!-- ===================== PUBLICATIONS ===================== -->
+        <section id="publications" class="publications">
+            <div class="container">
+                <h2 class="section-title reveal"></h2>
+                <p class="section-subtitle reveal"></p>
+
+                <div id="pub-content" class="pub-content reveal"></div>
+            </div>
+        </section>
+
+        <!-- ===================== CERTIFICATIONS ===================== -->
+        <section id="certifications" class="certifications">
+            <div class="container">
+                <h2 class="section-title reveal"></h2>
+                <p class="section-subtitle reveal"></p>
+
+                <div id="certs-grid" class="certs-grid reveal-group"></div>
+            </div>
+        </section>
+
+        <!-- ===================== EDUCATION ===================== -->
+        <section id="education" class="education">
+            <div class="container">
+                <h2 id="education-title" class="section-title reveal"></h2>
+
+                <div id="edu-card" class="edu-card reveal"></div>
+            </div>
+        </section>
+
+        <!-- ===================== CONTACT ===================== -->
+        <section id="contact" class="contact">
+            <div class="container">
+                <h2 class="section-title reveal"></h2>
+                <p class="section-subtitle reveal"></p>
+
+                <div class="contact-main-card reveal">
+                    <svg
+                        class="contact-blob"
+                        viewBox="0 0 200 200"
+                        xmlns="http://www.w3.org/2000/svg"
+                        aria-hidden="true"
+                    >
+                        <path d="M40 80c20-60 120-60 140 0s20 100-40 120-120-10-120-60 0-0 20-60z" fill="#9ad0c2" />
+                    </svg>
+                    <h3 id="contact-intro"></h3>
+                    <a id="contact-email" href="mailto:" class="contact-email"></a>
+                    <div id="contact-social" class="contact-social-icons"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================== FOOTER ===================== -->
+        <footer class="footer">
+            <div class="container">
+                <div id="contact-extras" class="contact-extra-links"></div>
+                <div id="footer-greeting" class="footer-greeting"></div>
+                <div class="footer-inner">
+                    <span class="footer-copy"></span>
+                    <span id="footer-tagline" class="footer-tagline"></span>
+                </div>
+            </div>
+        </footer>
+
+        <!-- Back to top -->
+        <button id="back-to-top" class="back-to-top" aria-label="Back to top">
+            <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <polyline points="18 15 12 9 6 15" />
+            </svg>
         </button>
-      </div>
 
-      <div class="nav-mobile-actions">
-        <button class="theme-toggle theme-toggle-mobile" aria-label="Toggle dark mode">
-          <span class="theme-toggle-icon sun-icon">☀</span>
-          <span class="theme-toggle-icon moon-icon">☾</span>
-        </button>
-        <button class="hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
-          <span></span><span></span><span></span>
-        </button>
-      </div>
-    </div>
-  </nav>
-
-  <!-- Mobile menu overlay -->
-  <div id="mobile-menu" class="mobile-menu" role="dialog" aria-label="Mobile navigation">
-    <a data-nav-key="about" href="#about">about</a>
-    <a data-nav-key="experience" href="#career">experience</a>
-    <a data-nav-key="skills" href="#skills">skills</a>
-    <a data-nav-key="leadership" href="#leadership">leadership</a>
-    <a data-nav-key="publications" href="#publications">publications</a>
-    <a data-nav-key="certifications" href="#certifications">certifications</a>
-    <a data-nav-key="contact" href="#contact">contact</a>
-    <a id="mobile-world-link" data-nav-world href="/" class="nav-3d-link" aria-label="Explore the 3D world">3D World</a>
-  </div>
-
-  <!-- ===================== HERO - Split Layout ===================== -->
-  <section id="hero" class="hero">
-    <div class="hero-split">
-      <div class="hero-left">
-        <!-- Decorative organic blobs -->
-        <svg class="hero-shapes" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <path d="M420,180 C480,220 520,320 460,400 C400,480 280,500 200,440 C120,380 100,260 160,180 C220,100 360,140 420,180Z" fill="var(--color-mint)" opacity="0.6"/>
-          <path d="M350,100 C430,130 480,230 440,320 C400,410 300,440 220,390 C140,340 120,230 180,150 C240,70 270,70 350,100Z" fill="var(--color-lavender)" opacity="0.5"/>
-          <path d="M300,220 C370,190 450,240 460,330 C470,420 400,490 310,480 C220,470 160,400 170,310 C180,220 230,250 300,220Z" fill="var(--color-peach)" opacity="0.45"/>
-          <path d="M250,300 C300,250 400,270 420,350 C440,430 380,510 290,500 C200,490 150,420 170,350 C190,280 200,350 250,300Z" fill="var(--color-gold)" opacity="0.4"/>
-        </svg>
-        <!-- Profile photo -->
-        <img src="assets/profile.jpg" alt="Profile photo" class="hero-photo">
-      </div>
-      <div class="hero-right">
-        <p class="hero-greeting"></p>
-        <h1 class="hero-heading"></h1>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================== ABOUT ===================== -->
-  <section id="about" class="about">
-    <div class="container">
-      <h2 class="section-title reveal"></h2>
-      <p class="section-subtitle reveal"></p>
-
-      <p class="about-mission reveal"></p>
-
-      <div id="about-cards" class="about-cards reveal-group"></div>
-    </div>
-  </section>
-
-  <!-- ===================== CAREER ===================== -->
-  <section id="career" class="career">
-    <div class="container">
-      <h2 class="section-title reveal"></h2>
-      <p class="section-subtitle reveal"></p>
-
-      <div id="career-grid" class="career-grid"></div>
-    </div>
-  </section>
-
-  <!-- ===================== SKILLS ===================== -->
-  <section id="skills" class="skills">
-    <div class="container">
-      <h2 class="section-title reveal"></h2>
-      <p class="section-subtitle reveal"></p>
-
-      <div id="skills-grid" class="skills-grid reveal-group"></div>
-    </div>
-  </section>
-
-  <!-- ===================== LEADERSHIP ===================== -->
-  <section id="leadership" class="leadership">
-    <div class="container">
-      <h2 class="section-title reveal"></h2>
-      <p class="section-subtitle reveal"></p>
-
-      <div id="leadership-grid" class="leadership-grid reveal-group"></div>
-    </div>
-  </section>
-
-  <!-- ===================== PUBLICATIONS ===================== -->
-  <section id="publications" class="publications">
-    <div class="container">
-      <h2 class="section-title reveal"></h2>
-      <p class="section-subtitle reveal"></p>
-
-      <div id="pub-content" class="pub-content reveal"></div>
-    </div>
-  </section>
-
-  <!-- ===================== CERTIFICATIONS ===================== -->
-  <section id="certifications" class="certifications">
-    <div class="container">
-      <h2 class="section-title reveal"></h2>
-      <p class="section-subtitle reveal"></p>
-
-      <div id="certs-grid" class="certs-grid reveal-group"></div>
-    </div>
-  </section>
-
-  <!-- ===================== EDUCATION ===================== -->
-  <section id="education" class="education">
-    <div class="container">
-      <h2 id="education-title" class="section-title reveal"></h2>
-
-      <div id="edu-card" class="edu-card reveal"></div>
-    </div>
-  </section>
-
-  <!-- ===================== CONTACT ===================== -->
-  <section id="contact" class="contact">
-    <div class="container">
-      <h2 class="section-title reveal"></h2>
-      <p class="section-subtitle reveal"></p>
-
-      <div class="contact-main-card reveal">
-        <svg class="contact-blob" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <path d="M40 80c20-60 120-60 140 0s20 100-40 120-120-10-120-60 0-0 20-60z" fill="#9ad0c2"/>
-        </svg>
-        <h3 id="contact-intro"></h3>
-        <a id="contact-email" href="mailto:" class="contact-email"></a>
-        <div id="contact-social" class="contact-social-icons"></div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ===================== FOOTER ===================== -->
-  <footer class="footer">
-    <div class="container">
-      <div id="contact-extras" class="contact-extra-links"></div>
-      <div id="footer-greeting" class="footer-greeting"></div>
-      <div class="footer-inner">
-        <span class="footer-copy"></span>
-        <span id="footer-tagline" class="footer-tagline"></span>
-      </div>
-    </div>
-  </footer>
-
-  <!-- Back to top -->
-  <button id="back-to-top" class="back-to-top" aria-label="Back to top">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <polyline points="18 15 12 9 6 15"/>
-    </svg>
-  </button>
-
-  <script type="module" src="js/resume-loader.js"></script>
-  <script type="module" src="js/main.js"></script>
-</body>
+        <script type="module" src="js/resume-loader.js"></script>
+        <script type="module" src="js/main.js"></script>
+    </body>
 </html>

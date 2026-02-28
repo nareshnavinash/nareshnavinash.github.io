@@ -1,9 +1,7 @@
 import * as THREE from 'three/webgpu'
 
-export class LineGeometry extends THREE.BufferGeometry
-{
-    constructor(points = [])
-    {
+export class LineGeometry extends THREE.BufferGeometry {
+    constructor(points = []) {
         super()
 
         this.type = 'LineGeometry'
@@ -13,14 +11,13 @@ export class LineGeometry extends THREE.BufferGeometry
         }
 
         const count = points.length
-        
+
         const positions = new Float32Array(count * 3 * 2)
         const directions = new Float32Array(count * 3 * 2)
         const ratios = new Float32Array(count * 2)
         const indices = new Uint16Array((count - 1) * 2 * 3)
-        
-        for(let i = 0; i < count; i++)
-        {
+
+        for (let i = 0; i < count; i++) {
             const i2 = i * 2
             const i6 = i * 6
 

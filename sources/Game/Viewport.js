@@ -1,19 +1,16 @@
 import { Events } from './Events.js'
 
-export class Viewport
-{
-    constructor(domElement)
-    {
+export class Viewport {
+    constructor(domElement) {
         this.domElement = domElement
 
         this.events = new Events()
-        
+
         this.measure()
         this.setResize()
     }
 
-    measure()
-    {
+    measure() {
         const bounding = this.domElement.getBoundingClientRect()
 
         this.width = bounding.width
@@ -25,22 +22,18 @@ export class Viewport
         this.pixelRatio = Math.min(this.pixelRatioPure, this.pixelRatioMax)
     }
 
-    setResize()
-    {
+    setResize() {
         const throttleDuration = 400
         let throttleTimeout = null
-        addEventListener('resize', () =>
-        {
+        addEventListener('resize', () => {
             this.measure()
             this.events.trigger('change')
 
-            if(throttleTimeout)
-            {
+            if (throttleTimeout) {
                 clearTimeout(throttleTimeout)
             }
 
-            throttleTimeout = setTimeout(() =>
-            {
+            throttleTimeout = setTimeout(() => {
                 throttleTimeout = null
                 this.events.trigger('throttleChange')
             }, throttleDuration)

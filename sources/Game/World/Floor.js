@@ -1,20 +1,33 @@
 import * as THREE from 'three/webgpu'
 import { Game } from '../Game.js'
-import { color, float, Fn, materialNormal, min, mix, mul, normalWorld, positionLocal, positionWorld, texture, uniform, uv, vec3, vec4 } from 'three/tsl'
+import {
+    color,
+    float,
+    Fn,
+    materialNormal,
+    min,
+    mix,
+    mul,
+    normalWorld,
+    positionLocal,
+    positionWorld,
+    texture,
+    uniform,
+    uv,
+    vec3,
+    vec4
+} from 'three/tsl'
 import { MeshDefaultMaterial } from '../Materials/MeshDefaultMaterial.js'
 
-export class Floor
-{
-    constructor()
-    {
+export class Floor {
+    constructor() {
         this.game = Game.getInstance()
 
         // Debug
-        if(this.game.debug.active)
-        {
+        if (this.game.debug.active) {
             this.debugPanel = this.game.debug.panel.addFolder({
                 title: '⏥ Floor',
-                expanded: false,
+                expanded: false
             })
         }
         this.geometry = this.game.resources.terrainModel.scene.children[0].geometry
@@ -24,14 +37,16 @@ export class Floor
         this.setPhysical()
         this.setBedRock()
 
-        this.game.ticker.events.on('tick', () =>
-        {
-            this.update()
-        }, 10)
+        this.game.ticker.events.on(
+            'tick',
+            () => {
+                this.update()
+            },
+            10
+        )
     }
 
-    setVisual()
-    {
+    setVisual() {
         this.size = Math.round(this.game.view.optimalArea.radius * 2) + 1
         this.halfSize = this.size * 0.5
         this.cellSize = 1.5
@@ -48,20 +63,22 @@ export class Floor
         const slabLowColor = uniform(color('#a87762'))
         const slabTextureFrequency = uniform(0.175)
         const slabNoiseFrequency = uniform(0.03)
-        const colorNode = Fn(() =>
-        {
+        const colorNode = Fn(() => {
             const baseColor = this.game.terrain.colorNode(terrainData)
-            
+
             const slabTerrain = terrainData.r
             const slabNoiseUv = positionWorld.xz.mul(slabNoiseFrequency)
             const slabNoise = texture(this.game.noises.perlin, slabNoiseUv).r
-            const slabsTexture = texture(this.game.resources.floorSlabsTexture, positionWorld.xz.mul(slabTextureFrequency)).r
+            const slabsTexture = texture(
+                this.game.resources.floorSlabsTexture,
+                positionWorld.xz.mul(slabTextureFrequency)
+            ).r
             const slabColor = mix(slabLowColor, slabHighColor, slabsTexture)
             // return vec3(slabsTexture.mul(slabStrength))
 
             const slab = slabTerrain.mul(slabNoise)
             // return vec3(slab)
-            
+
             const finalColor = mix(baseColor, slabColor, slab)
             return finalColor
         })()
@@ -76,8 +93,7 @@ export class Floor
             wireframe: false
         })
         // Displacement
-        material.positionNode = Fn(() =>
-        {
+        material.positionNode = Fn(() => {
             const uvDim = min(min(uv().x, uv().y).mul(20), 1)
 
             const newPosition = positionLocal
@@ -93,32 +109,43 @@ export class Floor
         this.game.scene.add(this.mesh)
 
         // Resize
-        this.game.viewport.events.on('throttleChange', () =>
-        {
-            this.size = Math.round(this.game.view.optimalArea.radius * 2) + 1
-            this.halfSize = this.size * 0.5
-            this.subdivisions = this.size
-            
-            geometry.dispose()
-            
-            geometry = new THREE.PlaneGeometry(this.size, this.size, this.subdivisions, this.subdivisions)
-            geometry.rotateX(-Math.PI * 0.5)
-            geometry.deleteAttribute('normal')
+        this.game.viewport.events.on(
+            'throttleChange',
+            () => {
+                this.size = Math.round(this.game.view.optimalArea.radius * 2) + 1
+                this.halfSize = this.size * 0.5
+                this.subdivisions = this.size
 
-            this.mesh.geometry = geometry
-        }, 2)
+                geometry.dispose()
 
-        if(this.game.debug.active)
-        {
-            this.debugPanel.addBinding(slabTextureFrequency, 'value', { label: 'slabTextureFrequency', min: 0, max: 1, step: 0.001 })
-            this.debugPanel.addBinding(slabNoiseFrequency, 'value', { label: 'slabNoiseFrequency', min: 0, max: 0.1, step: 0.001 })
+                geometry = new THREE.PlaneGeometry(this.size, this.size, this.subdivisions, this.subdivisions)
+                geometry.rotateX(-Math.PI * 0.5)
+                geometry.deleteAttribute('normal')
+
+                this.mesh.geometry = geometry
+            },
+            2
+        )
+
+        if (this.game.debug.active) {
+            this.debugPanel.addBinding(slabTextureFrequency, 'value', {
+                label: 'slabTextureFrequency',
+                min: 0,
+                max: 1,
+                step: 0.001
+            })
+            this.debugPanel.addBinding(slabNoiseFrequency, 'value', {
+                label: 'slabNoiseFrequency',
+                min: 0,
+                max: 0.1,
+                step: 0.001
+            })
             this.game.debug.addThreeColorBinding(this.debugPanel, slabHighColor.value, 'slabHighColor')
             this.game.debug.addThreeColorBinding(this.debugPanel, slabLowColor.value, 'slabLowColor')
         }
     }
 
-    setPhysical()
-    {
+    setPhysical() {
         // Extract heights from geometry
         const positionAttribute = this.geometry.attributes.position
         const totalCount = positionAttribute.count
@@ -126,39 +153,42 @@ export class Floor
         const heights = new Float32Array(totalCount)
         const halfExtent = this.game.terrain.size / 2
 
-        for(let i = 0; i < totalCount; i++)
-        {
+        for (let i = 0; i < totalCount; i++) {
             const x = positionAttribute.array[i * 3 + 0]
             const y = positionAttribute.array[i * 3 + 1]
             const z = positionAttribute.array[i * 3 + 2]
-            const indexX = Math.round(((x / (halfExtent * 2)) + 0.5) * (rowsCount - 1))
-            const indexZ = Math.round(((z / (halfExtent * 2)) + 0.5) * (rowsCount - 1))
+            const indexX = Math.round((x / (halfExtent * 2) + 0.5) * (rowsCount - 1))
+            const indexZ = Math.round((z / (halfExtent * 2) + 0.5) * (rowsCount - 1))
             const index = indexZ + indexX * rowsCount
 
             heights[index] = y
         }
 
-        const object = this.game.objects.add(
-            null,
-            {
-                type: 'fixed',
-                friction: 0.2,
-                restitution: 0.15,
-                colliders: [
-                    { shape: 'heightfield', parameters: [ rowsCount - 1, rowsCount - 1, heights, { x: this.game.terrain.size, y: 1, z: this.game.terrain.size } ], category: 'floor' }
-                ]
-            }
-        )
+        const object = this.game.objects.add(null, {
+            type: 'fixed',
+            friction: 0.2,
+            restitution: 0.15,
+            colliders: [
+                {
+                    shape: 'heightfield',
+                    parameters: [
+                        rowsCount - 1,
+                        rowsCount - 1,
+                        heights,
+                        { x: this.game.terrain.size, y: 1, z: this.game.terrain.size }
+                    ],
+                    category: 'floor'
+                }
+            ]
+        })
         this.physical = object.physical
     }
 
-    setBedRock()
-    {
+    setBedRock() {
         this.bedRock = {}
         this.bedRock.halfHeight = 0.5
         this.bedRock.halfWidth = 6
         this.bedRock.enabled = false
-
 
         this.bedRock.physical = this.game.physics.getPhysical({
             type: 'kinematicPositionBased',
@@ -166,26 +196,25 @@ export class Floor
             frictionRule: 'min',
             friction: 0.5,
             enabled: true,
-            colliders:
-            [
-                { shape: 'cuboid', parameters: [ this.bedRock.halfWidth, this.bedRock.halfHeight, this.bedRock.halfWidth ] },
+            colliders: [
+                {
+                    shape: 'cuboid',
+                    parameters: [this.bedRock.halfWidth, this.bedRock.halfHeight, this.bedRock.halfWidth]
+                }
             ]
         })
     }
 
-    update()
-    {
+    update() {
         this.mesh.position.x = Math.round(this.game.view.optimalArea.position.x / this.cellSize) * this.cellSize
         this.mesh.position.z = Math.round(this.game.view.optimalArea.position.z / this.cellSize) * this.cellSize
 
         // Bedrock
-        if(
+        if (
             Math.abs(this.game.player.position.x) > this.game.terrain.size / 2 - this.bedRock.halfWidth ||
             Math.abs(this.game.player.position.z) > this.game.terrain.size / 2 - this.bedRock.halfWidth
-        )
-        {
-            if(!this.bedRock.enabled)
-            {
+        ) {
+            if (!this.bedRock.enabled) {
                 this.bedRock.enabled = true
                 this.bedRock.physical.body.setEnabled(true)
             }
@@ -197,11 +226,8 @@ export class Floor
                 z
             })
             this.bedRock.physical.body.setLinvel({ x: 0, y: 0, z: 0 })
-        }
-        else
-        {
-            if(this.bedRock.enabled)
-            {
+        } else {
+            if (this.bedRock.enabled) {
                 this.bedRock.enabled = false
                 this.bedRock.physical.body.setEnabled(false)
             }
