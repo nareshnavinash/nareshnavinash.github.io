@@ -403,6 +403,25 @@ function populateSeo(r, seo) {
     setAttr('#meta-og-url', 'content', pageUrl)
     setAttr('#meta-og-image', 'content', seo.imageUrl)
 
+    var ogImageWidthEl = document.querySelector('meta[property="og:image:width"]')
+    if (!ogImageWidthEl && seo.imageWidth) {
+        var head = document.head
+        var widthMeta = document.createElement('meta')
+        widthMeta.setAttribute('property', 'og:image:width')
+        widthMeta.setAttribute('content', seo.imageWidth)
+        head.appendChild(widthMeta)
+
+        var heightMeta = document.createElement('meta')
+        heightMeta.setAttribute('property', 'og:image:height')
+        heightMeta.setAttribute('content', seo.imageHeight || '')
+        head.appendChild(heightMeta)
+
+        var altMeta = document.createElement('meta')
+        altMeta.setAttribute('property', 'og:image:alt')
+        altMeta.setAttribute('content', seo.imageAlt || '')
+        head.appendChild(altMeta)
+    }
+
     var socialUrls = Object.keys(r.social || {})
         .map(function (key) {
             var social = r.social[key]
@@ -453,7 +472,6 @@ function populateNavigation(nav) {
             btn.setAttribute('aria-label', nav.themeToggleAriaLabel)
         }
     })
-
     ;(nav.items || []).forEach(function (item) {
         var selector = '[data-nav-key="' + item.key + '"]'
         document.querySelectorAll(selector).forEach(function (link) {

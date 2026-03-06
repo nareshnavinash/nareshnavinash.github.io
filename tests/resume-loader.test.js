@@ -321,6 +321,47 @@ describe('resume-loader.js', () => {
             const schema = JSON.parse(document.querySelector('#meta-ldjson').textContent)
             expect(schema['@graph'][1].description).toBe('A bio')
         })
+
+        it('should not duplicate og:image dimension tags when they already exist', () => {
+            populateSeo(resumeData, resumeData.site.seo)
+            const widthTags = document.querySelectorAll('meta[property="og:image:width"]')
+            expect(widthTags.length).toBe(1)
+        })
+
+        it('should create og:image dimension tags when missing from DOM', () => {
+            // Remove existing og:image dimension tags
+            document.querySelectorAll('meta[property="og:image:width"], meta[property="og:image:height"], meta[property="og:image:alt"]').forEach(el => el.remove())
+
+            const seo = { ...resumeData.site.seo, imageWidth: '1200', imageHeight: '630', imageAlt: 'Test alt' }
+            populateSeo(resumeData, seo)
+
+            expect(document.querySelector('meta[property="og:image:width"]').getAttribute('content')).toBe('1200')
+            expect(document.querySelector('meta[property="og:image:height"]').getAttribute('content')).toBe('630')
+            expect(document.querySelector('meta[property="og:image:alt"]').getAttribute('content')).toBe('Test alt')
+        })
+
+        it('should handle missing imageHeight and imageAlt when creating og:image tags', () => {
+            document.querySelectorAll('meta[property="og:image:width"], meta[property="og:image:height"], meta[property="og:image:alt"]').forEach(el => el.remove())
+
+            const seo = { ...resumeData.site.seo, imageWidth: '1200' }
+            delete seo.imageHeight
+            delete seo.imageAlt
+            populateSeo(resumeData, seo)
+
+            expect(document.querySelector('meta[property="og:image:width"]').getAttribute('content')).toBe('1200')
+            expect(document.querySelector('meta[property="og:image:height"]').getAttribute('content')).toBe('')
+            expect(document.querySelector('meta[property="og:image:alt"]').getAttribute('content')).toBe('')
+        })
+
+        it('should not create og:image dimension tags when imageWidth is missing', () => {
+            document.querySelectorAll('meta[property="og:image:width"], meta[property="og:image:height"], meta[property="og:image:alt"]').forEach(el => el.remove())
+
+            const seo = { ...resumeData.site.seo }
+            delete seo.imageWidth
+            populateSeo(resumeData, seo)
+
+            expect(document.querySelector('meta[property="og:image:width"]')).toBeNull()
+        })
     })
 
     describe('populateNavigation()', () => {

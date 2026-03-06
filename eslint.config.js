@@ -15,8 +15,7 @@ export default [
             '**/.claude/**',
             '**/.playwright/**',
             '**/.playwright-mcp/**',
-            'package-lock.json',
-            '**/folio-2025/**'
+            'package-lock.json'
         ]
     },
     js.configs.recommended,

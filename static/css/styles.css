@@ -16,6 +16,25 @@ html.theme-transitioning *::after {
         box-shadow 0.4s ease !important;
 }
 
+/* --- Skip Link (accessibility) --- */
+.skip-link {
+    position: absolute;
+    top: -100%;
+    left: 16px;
+    z-index: 10000;
+    padding: 8px 16px;
+    background: var(--color-mint);
+    color: #080818;
+    font-weight: 700;
+    border-radius: 0 0 8px 8px;
+    text-decoration: none;
+    transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+    top: 0;
+}
+
 /* --- Reset & Base --- */
 *,
 *::before,
