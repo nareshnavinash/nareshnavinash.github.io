@@ -86828,6 +86828,10 @@ https://github.com/browserify/crypto-browserify`);
             sleeping: true,
             mass: r.userData.mass
           });
+          if (s.physical && s.physical.type === "dynamic") {
+            const o = s.physical.colliders.length, a = s.physical.body.translation();
+            console.log(`[Physics] ${r.name} \u2192 type=${s.physical.type}, colliders=${o}, pos=(${a.x.toFixed(1)}, ${a.y.toFixed(1)}, ${a.z.toFixed(1)})`), o === 0 && console.warn(`[Physics] \u26A0 ${r.name} has NO colliders \u2014 car will pass through!`);
+          }
           this.objects.items.push(s), (s.visual && (!s.physical || ((_a2 = s.physical) == null ? void 0 : _a2.type) === "fixed") && typeof r.userData.preventFrustum > "u" || r.userData.preventFrustum === false) && this.objects.hideable.push(s.visual.object3D);
         }
         this.references.parse(r);
@@ -87586,198 +87590,11 @@ https://github.com/browserify/crypto-browserify`);
       for (const r of this.cookies.objects) !r.physical.body.isSleeping() && r.physical.body.isEnabled() && (r.visual.object3D.needsUpdate = true);
     }
   }
-  class FontLoader extends Loader {
-    constructor(e) {
-      super(e);
-    }
-    load(e, r, s, o) {
-      const a = this, h = new FileLoader(this.manager);
-      h.setPath(this.path), h.setRequestHeader(this.requestHeader), h.setWithCredentials(this.withCredentials), h.load(e, function(c) {
-        const d = a.parse(JSON.parse(c));
-        r && r(d);
-      }, s, o);
-    }
-    parse(e) {
-      return new Font(e);
-    }
-  }
-  class Font {
-    constructor(e) {
-      this.isFont = true, this.type = "Font", this.data = e;
-    }
-    generateShapes(e, r = 100, s = "ltr") {
-      const o = [], a = createPaths(e, r, this.data, s);
-      for (let h = 0, c = a.length; h < c; h++) o.push(...a[h].toShapes());
-      return o;
-    }
-  }
-  function createPaths(l, e, r, s) {
-    const o = Array.from(l), a = e / r.resolution, h = (r.boundingBox.yMax - r.boundingBox.yMin + r.underlineThickness) * a, c = [];
-    let d = 0, f = 0;
-    (s == "rtl" || s == "tb") && o.reverse();
-    for (let p = 0; p < o.length; p++) {
-      const m = o[p];
-      if (m === `
-`) d = 0, f -= h;
-      else {
-        const b = createPath(m, a, d, f, r);
-        s == "tb" ? (d = 0, f += r.ascender * a) : d += b.offsetX, c.push(b.path);
-      }
-    }
-    return c;
-  }
-  function createPath(l, e, r, s, o) {
-    const a = o.glyphs[l] || o.glyphs["?"];
-    if (!a) {
-      console.error('THREE.Font: character "' + l + '" does not exists in font family ' + o.familyName + ".");
-      return;
-    }
-    const h = new ShapePath();
-    let c, d, f, p, m, b, w, M;
-    if (a.o) {
-      const R = a._cachedOutline || (a._cachedOutline = a.o.split(" "));
-      for (let V = 0, O = R.length; V < O; ) switch (R[V++]) {
-        case "m":
-          c = R[V++] * e + r, d = R[V++] * e + s, h.moveTo(c, d);
-          break;
-        case "l":
-          c = R[V++] * e + r, d = R[V++] * e + s, h.lineTo(c, d);
-          break;
-        case "q":
-          f = R[V++] * e + r, p = R[V++] * e + s, m = R[V++] * e + r, b = R[V++] * e + s, h.quadraticCurveTo(m, b, f, p);
-          break;
-        case "b":
-          f = R[V++] * e + r, p = R[V++] * e + s, m = R[V++] * e + r, b = R[V++] * e + s, w = R[V++] * e + r, M = R[V++] * e + s, h.bezierCurveTo(m, b, w, M, f, p);
-          break;
-      }
-    }
-    return {
-      offsetX: a.ha * e,
-      path: h
-    };
-  }
-  class TextGeometry extends ExtrudeGeometry {
-    constructor(e, r = {}) {
-      const s = r.font;
-      if (s === void 0) super();
-      else {
-        const o = s.generateShapes(e, r.size, r.direction);
-        r.depth === void 0 && (r.depth = 50), r.bevelThickness === void 0 && (r.bevelThickness = 10), r.bevelSize === void 0 && (r.bevelSize = 8), r.bevelEnabled === void 0 && (r.bevelEnabled = false), super(o, r);
-      }
-      this.type = "TextGeometry";
-    }
-  }
   class LandingArea extends Area {
     constructor(e) {
-      super(e), this.localTime = uniform$1(0), this.setLetters(), this.setKiosk(), this.setControls(), this.setBonfire(), this.setAchievement();
-    }
-    setLetters() {
-      const e = this.references.items.get("letters");
-      this.letterObjects = [], this._nameRevealed = false;
-      let r = 0, s = 0;
-      for (const a of e) r += a.position.x, s += a.position.z, a.userData.object && (a.userData.object.visual && (a.userData.object.visual.object3D.visible = false), a.userData.object.physical && a.userData.object.physical.body.setEnabled(false));
-      r /= e.length, s /= e.length, this._nameCenter = new Vector3$1(r, 0, s), new FontLoader().load("fonts/helvetiker_bold.typeface.json", (a) => {
-        const h = new MeshStandardMaterial({
-          color: 5596876,
-          metalness: 0.3,
-          roughness: 0.6
-        }), c = {
-          font: a,
-          size: 1.8,
-          depth: 0.15,
-          curveSegments: 6,
-          bevelEnabled: true,
-          bevelThickness: 0.02,
-          bevelSize: 0.03,
-          bevelSegments: 3
-        }, d = 0.12, f = 0.8;
-        ((m, b, w) => {
-          const M = [];
-          let R = 0;
-          for (const O of m) {
-            if (O === " ") {
-              M.push({
-                char: O,
-                geom: null,
-                width: f,
-                height: 0,
-                depth: 0
-              }), R += f + d;
-              continue;
-            }
-            const z = new TextGeometry(O, c);
-            z.computeBoundingBox();
-            const H = z.boundingBox, q = H.max.x - H.min.x, j = H.max.y - H.min.y, K = H.max.z - H.min.z;
-            M.push({
-              char: O,
-              geom: z,
-              width: q,
-              height: j,
-              depth: K
-            }), R += q + d;
-          }
-          R -= d;
-          let V = b - R / 2;
-          for (const O of M) {
-            if (O.char === " ") {
-              V += O.width + d;
-              continue;
-            }
-            O.geom.translate(-O.width / 2, 0, -O.depth / 2);
-            const z = new Mesh$1(O.geom, h.clone()), H = V + O.width / 2, q = 0.01, j = w;
-            z.visible = false;
-            const K = this.game.objects.add({
-              model: z,
-              updateMaterials: false,
-              castShadow: true,
-              receiveShadow: true
-            }, {
-              type: "dynamic",
-              position: new Vector3$1(H, q, j),
-              enabled: false,
-              sleeping: true,
-              mass: 2,
-              friction: 0.7,
-              restitution: 0.15,
-              contactThreshold: 5,
-              onCollision: (J, ee) => {
-                this.game.audio.groups.get("hitBrick").playRandomNext(J, ee);
-              },
-              colliders: [
-                {
-                  shape: "cuboid",
-                  parameters: [
-                    O.width / 2,
-                    O.height / 2,
-                    O.depth / 2
-                  ],
-                  position: new Vector3$1(0, O.height / 2, 0)
-                }
-              ]
-            });
-            this.letterObjects.push({
-              mesh: z,
-              object: K
-            }), V += O.width + d;
-          }
-        })("NARESH SEKAR", r, s + 1.5);
-      });
+      super(e), this.localTime = uniform$1(0), this.setKiosk(), this.setControls(), this.setBonfire(), this.setAchievement();
     }
     revealName() {
-      if (!this._nameRevealed) {
-        this._nameRevealed = true;
-        for (let e = 0; e < this.letterObjects.length; e++) {
-          const r = this.letterObjects[e];
-          r.object.physical.body.setEnabled(true), r.object.physical.body.sleep(), r.mesh.visible = true, r.mesh.scale.setScalar(0), gsapWithCSS.to(r.mesh.scale, {
-            x: 1,
-            y: 1,
-            z: 1,
-            duration: 0.8,
-            ease: "back.out(1.7)",
-            delay: 0.2 + e * 0.05
-          });
-        }
-      }
     }
     setKiosk() {
       this.game.interactivePoints.create(this.references.items.get("kioskInteractivePoint")[0].position, "Map", InteractivePoints.ALIGN_RIGHT, InteractivePoints.STATE_CONCEALED, () => {
@@ -90221,7 +90038,7 @@ https://github.com/browserify/crypto-browserify`);
       super(e), this.center = this.references.items.get("center")[0].position, this.game.debug.active && (this.debugPanel = this.game.debug.panel.addFolder({
         title: "\u{1F468}\u200D\u{1F9B2} Social",
         expanded: false
-      })), this.setLinks(), this.replaceStatues(), this.setFans(), this.setOnlyFans(), this.setStatue(), this.setAchievement();
+      })), this.setLinks(), this.setFans(), this.setOnlyFans(), this.setStatue(), this.setAchievement();
     }
     setLinks() {
       for (const r of socialData) {
@@ -90242,131 +90059,6 @@ https://github.com/browserify/crypto-browserify`);
           ]);
         });
       }
-    }
-    replaceStatues() {
-      var _a2;
-      let e = null;
-      for (const o of this.objects.items) if (((_a2 = o.visual) == null ? void 0 : _a2.object3D) && o.visual.object3D.name.toLowerCase() === "github") {
-        o.visual.object3D.traverse((a) => {
-          var _a3, _b;
-          if (a.isMesh && ((_a3 = a.material) == null ? void 0 : _a3._colorNode) && !e) {
-            const h = a.material._colorNode.node;
-            ((_b = h == null ? void 0 : h.value) == null ? void 0 : _b.isTexture) && (e = h.value);
-          }
-        });
-        break;
-      }
-      const r = new MeshDefaultMaterial({
-        colorNode: e ? texture$1(e).rgb : color$1(16777215),
-        alphaNode: float$1(1),
-        hasCoreShadows: true,
-        hasDropShadows: true,
-        hasLightBounce: true,
-        hasFog: true,
-        hasWater: true,
-        hasReveal: true,
-        transparent: false
-      }), s = [
-        {
-          search: "bluesky",
-          createLogo: (o) => this.createMediumLogo(o)
-        },
-        {
-          search: "youtube",
-          createLogo: (o) => this.createNpmLogo(o)
-        },
-        {
-          search: "twitch",
-          createLogo: (o) => this.createPyPILogo(o)
-        },
-        {
-          search: "discord",
-          createLogo: (o) => this.createContactLogo(o)
-        }
-      ];
-      for (const o of s) for (const a of this.objects.items) {
-        if (!a.visual || !a.visual.object3D) continue;
-        let h = false;
-        if (a.visual.object3D.traverse((V) => {
-          V.name.toLowerCase().includes(o.search) && (h = true);
-        }), !h) continue;
-        const c = a.visual.object3D, d = c.position.clone(), f = c.rotation.clone();
-        c.visible = false, a.physical && a.physical.body && a.physical.body.setEnabled(false);
-        const p = this.objects.hideable.indexOf(c);
-        p !== -1 && this.objects.hideable.splice(p, 1);
-        const m = o.createLogo(r);
-        m.traverse((V) => {
-          if (V.isMesh) {
-            const O = V.geometry.attributes.uv;
-            if (O) {
-              for (let z = 0; z < O.count; z++) O.setXY(z, 0.421, 0.5);
-              O.needsUpdate = true;
-            }
-          }
-        });
-        const b = new Box3$1().setFromObject(m), w = new Vector3$1();
-        b.getSize(w);
-        const M = new Quaternion$1().setFromEuler(f), R = this.game.objects.add({
-          model: m,
-          updateMaterials: false,
-          castShadow: true,
-          receiveShadow: true
-        }, {
-          type: "dynamic",
-          position: d,
-          rotation: M,
-          sleeping: true,
-          mass: 0.5,
-          colliders: [
-            {
-              shape: "cuboid",
-              parameters: [
-                w.x * 0.5,
-                w.y * 0.5,
-                w.z * 0.5
-              ]
-            }
-          ]
-        });
-        this.objects.items.push(R), this.objects.hideable.push(R.visual.object3D);
-        break;
-      }
-    }
-    createMediumLogo(e) {
-      const r = new Group(), s = new Mesh$1(new SphereGeometry(0.4, 32, 32), e);
-      s.scale.set(1, 1, 0.5), s.position.set(-0.42, 0, 0), r.add(s);
-      const o = new Mesh$1(new SphereGeometry(0.34, 32, 32), e);
-      o.scale.set(0.55, 1, 0.5), o.position.set(0.1, 0, 0), r.add(o);
-      const a = new Mesh$1(new SphereGeometry(0.28, 32, 32), e);
-      return a.scale.set(0.35, 1, 0.5), a.position.set(0.48, 0, 0), r.add(a), r;
-    }
-    createNpmLogo(e) {
-      const r = new Group(), s = 0.4, o = new Mesh$1(new BoxGeometry$1(0.3, 1.2, s), e);
-      o.position.set(-0.4, 0, 0), r.add(o);
-      const a = new Mesh$1(new BoxGeometry$1(1.1, 0.3, s), e);
-      a.position.set(0, 0.45, 0), r.add(a);
-      const h = new Mesh$1(new BoxGeometry$1(0.3, 0.85, s), e);
-      return h.position.set(0.4, 0.175, 0), r.add(h), r;
-    }
-    createPyPILogo(e) {
-      const r = new Group(), s = 0.4, o = new Mesh$1(new BoxGeometry$1(0.7, 0.3, s), e);
-      o.position.set(-0.05, 0.3, 0), r.add(o);
-      const a = new Mesh$1(new BoxGeometry$1(0.3, 0.7, s), e);
-      a.position.set(-0.25, 0.05, 0), r.add(a);
-      const h = new Mesh$1(new BoxGeometry$1(0.7, 0.3, s), e);
-      h.position.set(0.05, -0.3, 0), r.add(h);
-      const c = new Mesh$1(new BoxGeometry$1(0.3, 0.7, s), e);
-      c.position.set(0.25, -0.05, 0), r.add(c);
-      const d = new Mesh$1(new SphereGeometry(0.1, 16, 16), e);
-      d.position.set(-0.25, 0.3, s * 0.5 + 0.04), r.add(d);
-      const f = new Mesh$1(new SphereGeometry(0.1, 16, 16), e);
-      return f.position.set(0.25, -0.3, s * 0.5 + 0.04), r.add(f), r;
-    }
-    createContactLogo(e) {
-      const r = new Group(), s = new Mesh$1(new SphereGeometry(0.32, 32, 32), e);
-      s.scale.set(1, 1, 0.6), s.position.set(0, 0.45, 0), r.add(s);
-      const o = new SphereGeometry(0.6, 32, 32, 0, Math.PI * 2, 0, Math.PI * 0.5), a = new Mesh$1(o, e);
-      return a.scale.set(1, 0.7, 0.6), a.position.set(0, -0.1, 0), r.add(a), r;
     }
     setFans() {
       const e = this.references.items.get("fan")[0];
@@ -95702,6 +95394,7 @@ https://github.com/browserify/crypto-browserify`);
         const d = [
           ...e.children
         ];
+        console.log(`[getFromModel] ${o} \u2192 physical=${a}, type=${s.type}, children=${d.length} [${d.map((f) => f.name).join(", ")}]`);
         for (const f of d) {
           const p = {
             position: f.position,
@@ -109221,7 +108914,7 @@ ${e.tab}if ( ${m} ) {
           }
         ]
       ]), this.options = new Options(), this.respawns = new Respawns("landing"), this.view = new View(), this.rendering.setPostprocessing(), this.rendering.start(), this.reveal = new Reveal(), this.noises = new Noises(), this.weather = new Weather(), this.wind = new Wind(), this.tracks = new Tracks(), this.lighting = new Lighting(), this.fog = new Fog(), this.water = new Water(), this.materials = new Materials(), this.objects = new Objects(), this.explosions = new Explosions(), this.world = new World();
-      const e = __vitePreload(() => import("./rapier-C0PAV2-X.js").then(async (m) => {
+      const e = __vitePreload(() => import("./rapier-BFDxuzLb.js").then(async (m) => {
         await m.__tla;
         return m;
       }), [], import.meta.url), r = this.resourcesLoader.load([

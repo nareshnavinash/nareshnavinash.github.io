@@ -1,12 +1,10 @@
 import * as THREE from 'three/webgpu'
-import { color, float, texture } from 'three/tsl'
 import { Game } from '../../Game.js'
 import { InteractivePoints } from '../../InteractivePoints.js'
 import socialData from '../../../data/social.js'
 import { InstancedGroup } from '../../InstancedGroup.js'
 import { Area } from './Area.js'
 import { View } from '../../View.js'
-import { MeshDefaultMaterial } from '../../Materials/MeshDefaultMaterial.js'
 
 export class SocialArea extends Area {
     constructor(model) {
@@ -23,7 +21,6 @@ export class SocialArea extends Area {
         }
 
         this.setLinks()
-        this.replaceStatues()
         this.setFans()
         this.setOnlyFans()
         this.setStatue()
@@ -61,215 +58,6 @@ export class SocialArea extends Area {
                 }
             )
         }
-    }
-
-    replaceStatues() {
-        // Extract the palette texture from an existing statue (e.g. GitHub)
-        // All GLTF statues use a shared palette texture for color via UV mapping
-        let paletteTexture = null
-        for (const item of this.objects.items) {
-            if (!item.visual?.object3D) continue
-            if (item.visual.object3D.name.toLowerCase() === 'github') {
-                item.visual.object3D.traverse((child) => {
-                    if (child.isMesh && child.material?._colorNode && !paletteTexture) {
-                        const texNode = child.material._colorNode.node // SplitNode.node → TextureNode
-                        if (texNode?.value?.isTexture) paletteTexture = texNode.value
-                    }
-                })
-                break
-            }
-        }
-
-        // Create material using the same palette texture as existing statues
-        const statueMaterial = new MeshDefaultMaterial({
-            colorNode: paletteTexture ? texture(paletteTexture).rgb : color(0xffffff),
-            alphaNode: float(1),
-            hasCoreShadows: true,
-            hasDropShadows: true,
-            hasLightBounce: true,
-            hasFog: true,
-            hasWater: true,
-            hasReveal: true,
-            transparent: false
-        })
-
-        const replacements = [
-            { search: 'bluesky', createLogo: (mat) => this.createMediumLogo(mat) },
-            { search: 'youtube', createLogo: (mat) => this.createNpmLogo(mat) },
-            { search: 'twitch', createLogo: (mat) => this.createPyPILogo(mat) },
-            { search: 'discord', createLogo: (mat) => this.createContactLogo(mat) }
-        ]
-
-        for (const replacement of replacements) {
-            for (const item of this.objects.items) {
-                if (!item.visual || !item.visual.object3D) continue
-
-                let found = false
-                item.visual.object3D.traverse((child) => {
-                    if (child.name.toLowerCase().includes(replacement.search)) found = true
-                })
-
-                if (!found) continue
-
-                const original = item.visual.object3D
-
-                // Capture original transform before hiding
-                const origPos = original.position.clone()
-                const origRot = original.rotation.clone()
-
-                // Hide original statue
-                original.visible = false
-                if (item.physical && item.physical.body) item.physical.body.setEnabled(false)
-                const hideIndex = this.objects.hideable.indexOf(original)
-                if (hideIndex !== -1) this.objects.hideable.splice(hideIndex, 1)
-
-                // Create replacement logo using the same material as existing statues
-                const logo = replacement.createLogo(statueMaterial)
-
-                // Override UVs to sample the same palette color as existing statues
-                logo.traverse((child) => {
-                    if (child.isMesh) {
-                        const uvAttr = child.geometry.attributes.uv
-                        if (uvAttr) {
-                            for (let i = 0; i < uvAttr.count; i++) uvAttr.setXY(i, 0.421, 0.5)
-                            uvAttr.needsUpdate = true
-                        }
-                    }
-                })
-
-                // Compute bounding box for collider size
-                const bbox = new THREE.Box3().setFromObject(logo)
-                const size = new THREE.Vector3()
-                bbox.getSize(size)
-
-                // Add as a physics-enabled object (like existing statues)
-                const origQuat = new THREE.Quaternion().setFromEuler(origRot)
-                const object = this.game.objects.add(
-                    {
-                        model: logo,
-                        updateMaterials: false,
-                        castShadow: true,
-                        receiveShadow: true
-                    },
-                    {
-                        type: 'dynamic',
-                        position: origPos,
-                        rotation: origQuat,
-                        sleeping: true,
-                        mass: 0.5,
-                        colliders: [{ shape: 'cuboid', parameters: [size.x * 0.5, size.y * 0.5, size.z * 0.5] }]
-                    }
-                )
-
-                this.objects.items.push(object)
-                this.objects.hideable.push(object.visual.object3D)
-
-                break
-            }
-        }
-    }
-
-    createMediumLogo(mat) {
-        // Medium icon: three descending circles/ellipsoids as 3D sculpture
-        const group = new THREE.Group()
-
-        // Large sphere (left) - full 3D
-        const large = new THREE.Mesh(new THREE.SphereGeometry(0.4, 32, 32), mat)
-        large.scale.set(1, 1, 0.5)
-        large.position.set(-0.42, 0, 0)
-        group.add(large)
-
-        // Medium ellipsoid (center)
-        const med = new THREE.Mesh(new THREE.SphereGeometry(0.34, 32, 32), mat)
-        med.scale.set(0.55, 1, 0.5)
-        med.position.set(0.1, 0, 0)
-        group.add(med)
-
-        // Small ellipsoid (right)
-        const small = new THREE.Mesh(new THREE.SphereGeometry(0.28, 32, 32), mat)
-        small.scale.set(0.35, 1, 0.5)
-        small.position.set(0.48, 0, 0)
-        group.add(small)
-
-        return group
-    }
-
-    createNpmLogo(mat) {
-        // npm "n" letterform as 3D extruded sculpture
-        const group = new THREE.Group()
-        const depth = 0.4
-
-        // Left column (full height)
-        const leftCol = new THREE.Mesh(new THREE.BoxGeometry(0.3, 1.2, depth), mat)
-        leftCol.position.set(-0.4, 0, 0)
-        group.add(leftCol)
-
-        // Top bar connecting columns
-        const topBar = new THREE.Mesh(new THREE.BoxGeometry(1.1, 0.3, depth), mat)
-        topBar.position.set(0, 0.45, 0)
-        group.add(topBar)
-
-        // Right column (shorter, gap at bottom)
-        const rightCol = new THREE.Mesh(new THREE.BoxGeometry(0.3, 0.85, depth), mat)
-        rightCol.position.set(0.4, 0.175, 0)
-        group.add(rightCol)
-
-        return group
-    }
-
-    createPyPILogo(mat) {
-        // Python logo: two interlocking L-shapes as 3D sculpture
-        const group = new THREE.Group()
-        const depth = 0.4
-
-        // Upper-left L-shape
-        const topHoriz = new THREE.Mesh(new THREE.BoxGeometry(0.7, 0.3, depth), mat)
-        topHoriz.position.set(-0.05, 0.3, 0)
-        group.add(topHoriz)
-
-        const leftVert = new THREE.Mesh(new THREE.BoxGeometry(0.3, 0.7, depth), mat)
-        leftVert.position.set(-0.25, 0.05, 0)
-        group.add(leftVert)
-
-        // Lower-right L-shape
-        const bottomHoriz = new THREE.Mesh(new THREE.BoxGeometry(0.7, 0.3, depth), mat)
-        bottomHoriz.position.set(0.05, -0.3, 0)
-        group.add(bottomHoriz)
-
-        const rightVert = new THREE.Mesh(new THREE.BoxGeometry(0.3, 0.7, depth), mat)
-        rightVert.position.set(0.25, -0.05, 0)
-        group.add(rightVert)
-
-        // Eyes (raised spheres)
-        const eyeTop = new THREE.Mesh(new THREE.SphereGeometry(0.1, 16, 16), mat)
-        eyeTop.position.set(-0.25, 0.3, depth * 0.5 + 0.04)
-        group.add(eyeTop)
-
-        const eyeBottom = new THREE.Mesh(new THREE.SphereGeometry(0.1, 16, 16), mat)
-        eyeBottom.position.set(0.25, -0.3, depth * 0.5 + 0.04)
-        group.add(eyeBottom)
-
-        return group
-    }
-
-    createContactLogo(mat) {
-        // Person silhouette: circle head + half-circle shoulders as 3D sculpture
-        const group = new THREE.Group()
-
-        // Head (sphere, slightly flattened in Z for sculptural look)
-        const head = new THREE.Mesh(new THREE.SphereGeometry(0.32, 32, 32), mat)
-        head.scale.set(1, 1, 0.6)
-        head.position.set(0, 0.45, 0)
-        group.add(head)
-
-        // Shoulders/body (upper hemisphere, wider and flattened)
-        const bodyGeo = new THREE.SphereGeometry(0.6, 32, 32, 0, Math.PI * 2, 0, Math.PI * 0.5)
-        const body = new THREE.Mesh(bodyGeo, mat)
-        body.scale.set(1, 0.7, 0.6)
-        body.position.set(0, -0.1, 0)
-        group.add(body)
-
-        return group
     }
 
     setFans() {

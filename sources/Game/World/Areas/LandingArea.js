@@ -20,8 +20,6 @@ import { InteractivePoints } from '../../InteractivePoints.js'
 import { Area } from './Area.js'
 import gsap from 'gsap'
 import { MeshDefaultMaterial } from '../../Materials/MeshDefaultMaterial.js'
-import { FontLoader } from 'three/addons/loaders/FontLoader.js'
-import { TextGeometry } from 'three/addons/geometries/TextGeometry.js'
 
 export class LandingArea extends Area {
     constructor(model) {
@@ -29,171 +27,14 @@ export class LandingArea extends Area {
 
         this.localTime = uniform(0)
 
-        this.setLetters()
         this.setKiosk()
         this.setControls()
         this.setBonfire()
         this.setAchievement()
     }
 
-    setLetters() {
-        const references = this.references.items.get('letters')
-
-        this.letterObjects = []
-        this._nameRevealed = false
-
-        // Calculate center position from existing letters
-        let centerX = 0
-        let centerZ = 0
-
-        for (const reference of references) {
-            centerX += reference.position.x
-            centerZ += reference.position.z
-
-            // Disable original letter entirely (visual + physics)
-            if (reference.userData.object) {
-                if (reference.userData.object.visual) reference.userData.object.visual.object3D.visible = false
-
-                if (reference.userData.object.physical) reference.userData.object.physical.body.setEnabled(false)
-            }
-        }
-
-        centerX /= references.length
-        centerZ /= references.length
-
-        this._nameCenter = new THREE.Vector3(centerX, 0, centerZ)
-
-        // Create individual 3D letter meshes with Rapier physics
-        const fontLoader = new FontLoader()
-        fontLoader.load('fonts/helvetiker_bold.typeface.json', (font) => {
-            const material = new THREE.MeshStandardMaterial({
-                color: 0x5566cc,
-                metalness: 0.3,
-                roughness: 0.6
-            })
-
-            const textOptions = {
-                font: font,
-                size: 1.8,
-                depth: 0.15,
-                curveSegments: 6,
-                bevelEnabled: true,
-                bevelThickness: 0.02,
-                bevelSize: 0.03,
-                bevelSegments: 3
-            }
-
-            const letterSpacing = 0.12
-            const spaceWidth = 0.8
-
-            const createLetterRow = (word, rowCenterX, rowZ) => {
-                // First pass: compute letter widths
-                const letters = []
-                let totalWidth = 0
-
-                for (const char of word) {
-                    if (char === ' ') {
-                        letters.push({ char, geom: null, width: spaceWidth, height: 0, depth: 0 })
-                        totalWidth += spaceWidth + letterSpacing
-                        continue
-                    }
-                    const geom = new TextGeometry(char, textOptions)
-                    geom.computeBoundingBox()
-                    const bb = geom.boundingBox
-                    const width = bb.max.x - bb.min.x
-                    const height = bb.max.y - bb.min.y
-                    const depth = bb.max.z - bb.min.z
-                    letters.push({ char, geom, width, height, depth })
-                    totalWidth += width + letterSpacing
-                }
-                totalWidth -= letterSpacing
-
-                // Second pass: position and create physics objects
-                let currentX = rowCenterX - totalWidth / 2
-
-                for (const data of letters) {
-                    // Skip spaces (just advance position)
-                    if (data.char === ' ') {
-                        currentX += data.width + letterSpacing
-                        continue
-                    }
-
-                    // Center geometry on X and Z, keep Y at bottom
-                    data.geom.translate(-data.width / 2, 0, -data.depth / 2)
-
-                    const mesh = new THREE.Mesh(data.geom, material.clone())
-                    const posX = currentX + data.width / 2
-                    const posY = 0.01
-                    const posZ = rowZ
-
-                    mesh.visible = false
-
-                    // Create physics-enabled object (same system as stone bricks)
-                    const object = this.game.objects.add(
-                        {
-                            model: mesh,
-                            updateMaterials: false,
-                            castShadow: true,
-                            receiveShadow: true
-                        },
-                        {
-                            type: 'dynamic',
-                            position: new THREE.Vector3(posX, posY, posZ),
-                            enabled: false,
-                            sleeping: true,
-                            mass: 2,
-                            friction: 0.7,
-                            restitution: 0.15,
-                            contactThreshold: 5,
-                            onCollision: (force, position) => {
-                                this.game.audio.groups.get('hitBrick').playRandomNext(force, position)
-                            },
-                            colliders: [
-                                {
-                                    shape: 'cuboid',
-                                    parameters: [data.width / 2, data.height / 2, data.depth / 2],
-                                    position: new THREE.Vector3(0, data.height / 2, 0)
-                                }
-                            ]
-                        }
-                    )
-
-                    this.letterObjects.push({ mesh, object })
-
-                    currentX += data.width + letterSpacing
-                }
-            }
-
-            createLetterRow('NARESH SEKAR', centerX, centerZ + 1.5)
-        })
-    }
-
-    /**
-     * Called externally (from Reveal step 1) to show the name text
-     */
     revealName() {
-        if (this._nameRevealed) return
-        this._nameRevealed = true
-
-        for (let i = 0; i < this.letterObjects.length; i++) {
-            const entry = this.letterObjects[i]
-
-            // Enable physics body and keep sleeping until hit
-            entry.object.physical.body.setEnabled(true)
-            entry.object.physical.body.sleep()
-
-            // Show with staggered scale-in animation
-            entry.mesh.visible = true
-            entry.mesh.scale.setScalar(0)
-            gsap.to(entry.mesh.scale, {
-                x: 1,
-                y: 1,
-                z: 1,
-                duration: 0.8,
-                ease: 'back.out(1.7)',
-                delay: 0.2 + i * 0.05
-            })
-        }
+        // Letters are now in the GLB directly — no-op to satisfy Reveal.js call
     }
 
     setKiosk() {
