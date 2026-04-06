@@ -73,6 +73,7 @@ export class VisualVehicle {
         const searchList = [
             'bodyPainted',
             'chassis',
+            'headlights',
             'blinkerLeft',
             'blinkerRight',
             'stopLights',
@@ -120,6 +121,14 @@ export class VisualVehicle {
 
         // Back lights
         if (this.parts.backLights) this.parts.backLights.visible = false
+
+        // Headlights - yellow
+        if (this.parts.headlights) this.parts.headlights.material = new MeshDefaultMaterial({
+            colorNode: vec3(1.0, 0.9, 0.2),
+            hasCoreShadows: false,
+            hasDropShadows: false,
+            hasLightBounce: false
+        })
 
         // Wheel
         this.game.materials.updateObject(this.parts.wheelContainer)
@@ -353,7 +362,7 @@ export class VisualVehicle {
 
     setBackLights() {
         this.backLights = {}
-        this.backLights.material = new THREE.MeshBasicNodeMaterial({ colorNode: vec3(2.2) })
+        this.backLights.material = new THREE.MeshBasicNodeMaterial({ colorNode: vec3(2.2, 0.2, 0.2) })
     }
 
     setAntenna() {

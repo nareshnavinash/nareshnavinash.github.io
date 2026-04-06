@@ -37,7 +37,7 @@ export class Scenery {
         // Mesh and material
         const mesh = this.references.items.get('road')[0]
 
-        this.road.color = uniform(color('#383039'))
+        this.road.color = uniform(color('#343038'))
         this.road.glitterScarcity = uniform(0.1)
         this.road.glitterLighten = uniform(0.28)
         this.road.middleLighten = uniform(0.1)

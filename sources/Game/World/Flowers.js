@@ -121,7 +121,7 @@ export class Flowers {
     }
 
     setMaterial() {
-        const baseColor = uniform(color('#ffffff'))
+        const baseColor = uniform(color('#fff0e0'))
 
         this.material = new MeshDefaultMaterial({
             side: THREE.DoubleSide,

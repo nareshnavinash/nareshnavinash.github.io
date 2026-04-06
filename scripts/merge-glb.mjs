@@ -133,7 +133,7 @@ async function main() {
     letterNodes.sort((a, b) => a.x - b.x);
 
     const count = letterNodes.length;
-    const letterY = origFirst[1] + 0.7;
+    const letterY = origFirst[1];
 
     // Spacing: 1.5 units between letter centers, 2.0 extra for word gap
     const letterGap = 1.5;
@@ -149,9 +149,10 @@ async function main() {
     }
     const totalLen = offsets[count - 1];
 
-    // Center text on the midpoint of the original line, extend as needed
-    const midX = (origFirst[0] + origLast[0]) / 2;
-    const midZ = (origFirst[2] + origLast[2]) / 2;
+    // Center text on the midpoint of the original line, shifted left along the line
+    const shiftLeft = 2;
+    const midX = (origFirst[0] + origLast[0]) / 2 + shiftLeft * dirX;
+    const midZ = (origFirst[2] + origLast[2]) / 2 + shiftLeft * dirZ;
     const startX = midX - (totalLen / 2) * dirX;
     const startZ = midZ - (totalLen / 2) * dirZ;
 

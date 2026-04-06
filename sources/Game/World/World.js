@@ -64,22 +64,22 @@ export class World {
                 'Birch Tree',
                 this.game.resources.birchTreesVisualModel.scene,
                 this.game.resources.birchTreesReferencesModel.scene.children,
-                '#ff4f2b',
-                '#ff903f'
+                '#5aaa6a',
+                '#78c480'
             )
             this.oakTrees = new Trees(
                 'Oak Tree',
                 this.game.resources.oakTreesVisualModel.scene,
                 this.game.resources.oakTreesReferencesModel.scene.children,
-                '#b4b536',
-                '#d8cf3b'
+                '#8aaa40',
+                '#a0c050'
             )
             this.cherryTrees = new Trees(
                 'Cherry Tree',
                 this.game.resources.cherryTreesVisualModel.scene,
                 this.game.resources.cherryTreesReferencesModel.scene.children,
-                '#ff6d6d',
-                '#ff9990'
+                '#e08898',
+                '#eca8b0'
             )
             this.flowers = new Flowers()
             this.bricks = new Bricks()

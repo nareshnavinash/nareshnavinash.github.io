@@ -76,7 +76,7 @@ export class Terrain {
     }
 
     setNodes() {
-        this.grassColorUniform = uniform(color('#b8b62e'))
+        this.grassColorUniform = uniform(color('#b0a838'))
         this.tracksDelta = uniform(vec2(0))
 
         const worldPositionToUvNode = Fn(([position]) => {

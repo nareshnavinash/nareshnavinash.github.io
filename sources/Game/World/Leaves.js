@@ -114,8 +114,8 @@ export class Leaves {
         const weightBuffer = instancedArray(weightArray, 'float')
 
         // Color buffer
-        const colorA = uniform(color(0x95513a)) // 0x999257
-        const colorB = uniform(color(0xf56a3a)) // 0xcc8214
+        const colorA = uniform(color(0xaa6a3a))
+        const colorB = uniform(color(0xd88848))
         const colorNode = Fn(() => {
             const mixStrength = hash(instanceIndex.add(99))
             return vec3(mix(colorA, colorB, mixStrength))

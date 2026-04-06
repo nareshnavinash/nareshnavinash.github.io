@@ -92824,7 +92824,7 @@ https://github.com/browserify/crypto-browserify`);
       for (let R = 0; R < this.count; R++) s[R] = Math.random() * 0.5 + 0.5;
       const o = instancedArray(s, "float").toAttribute(), a = new Float32Array(this.count);
       for (let R = 0; R < this.count; R++) a[R] = Math.random() * 0.1 + 0.1;
-      const h = instancedArray(a, "float"), c = uniform$1(color$1(9785658)), d = uniform$1(color$1(16083514)), f = Fn$1(() => {
+      const h = instancedArray(a, "float"), c = uniform$1(color$1(11168314)), d = uniform$1(color$1(14190664)), f = Fn$1(() => {
         const R = hash$4(instanceIndex$1.add(99));
         return vec3$1(mix$1(c, d, R));
       })(), p = new Float32Array(this.count * 3);
@@ -93835,6 +93835,7 @@ https://github.com/browserify/crypto-browserify`);
       const e = [
         "bodyPainted",
         "chassis",
+        "headlights",
         "blinkerLeft",
         "blinkerRight",
         "stopLights",
@@ -93853,7 +93854,12 @@ https://github.com/browserify/crypto-browserify`);
           const o = r.name.match(s);
           o && (this.parts[o[0]] = r);
         }
-      }), this.parts.chassis.rotation.reorder("YXZ"), this.game.materials.updateObject(this.parts.chassis), this.game.scene.add(this.parts.chassis), this.parts.blinkerLeft && (this.parts.blinkerLeft.visible = false), this.parts.blinkerRight && (this.parts.blinkerRight.visible = false), this.parts.stopLights && (this.parts.stopLights.visible = false), this.parts.backLights && (this.parts.backLights.visible = false), this.game.materials.updateObject(this.parts.wheelContainer);
+      }), this.parts.chassis.rotation.reorder("YXZ"), this.game.materials.updateObject(this.parts.chassis), this.game.scene.add(this.parts.chassis), this.parts.blinkerLeft && (this.parts.blinkerLeft.visible = false), this.parts.blinkerRight && (this.parts.blinkerRight.visible = false), this.parts.stopLights && (this.parts.stopLights.visible = false), this.parts.backLights && (this.parts.backLights.visible = false), this.parts.headlights && (this.parts.headlights.material = new MeshDefaultMaterial({
+        colorNode: vec3$1(1, 0.9, 0.2),
+        hasCoreShadows: false,
+        hasDropShadows: false,
+        hasLightBounce: false
+      })), this.game.materials.updateObject(this.parts.wheelContainer);
     }
     setPaints() {
       var _a2, _b, _c;
@@ -93948,7 +93954,7 @@ https://github.com/browserify/crypto-browserify`);
     }
     setBackLights() {
       this.backLights = {}, this.backLights.material = new MeshBasicNodeMaterial({
-        colorNode: vec3$1(2.2)
+        colorNode: vec3$1(2.2, 0.2, 0.2)
       });
     }
     setAntenna() {
@@ -94094,7 +94100,7 @@ https://github.com/browserify/crypto-browserify`);
       this.geometry = mergeGeometries(r), this.geometry.deleteAttribute("uv");
     }
     setMaterial() {
-      const e = uniform$1(color$1("#ffffff"));
+      const e = uniform$1(color$1("#fff0e0"));
       this.material = new MeshDefaultMaterial({
         side: DoubleSide$1,
         colorNode: e,
@@ -94285,7 +94291,7 @@ https://github.com/browserify/crypto-browserify`);
   }
   class Bushes {
     constructor() {
-      if (this.game = Game.getInstance(), this.colorANode = uniform$1(color$1("#b4b536")), this.colorBNode = uniform$1(color$1("#d8cf3b")), this.foliage = new Foliage(this.game.resources.bushesReferences.scene.children, this.colorANode, this.colorBNode), this.game.debug.active) {
+      if (this.game = Game.getInstance(), this.colorANode = uniform$1(color$1("#68a050")), this.colorBNode = uniform$1(color$1("#88b868")), this.foliage = new Foliage(this.game.resources.bushesReferences.scene.children, this.colorANode, this.colorBNode), this.game.debug.active) {
         const e = this.game.debug.panel.addFolder({
           title: "\u{1F333} Bushes",
           expanded: false
@@ -94978,7 +94984,7 @@ https://github.com/browserify/crypto-browserify`);
     setRoad() {
       this.road = {};
       const e = this.references.items.get("road")[0];
-      this.road.color = uniform$1(color$1("#383039")), this.road.glitterScarcity = uniform$1(0.1), this.road.glitterLighten = uniform$1(0.28), this.road.middleLighten = uniform$1(0.1);
+      this.road.color = uniform$1(color$1("#343038")), this.road.glitterScarcity = uniform$1(0.1), this.road.glitterLighten = uniform$1(0.28), this.road.middleLighten = uniform$1(0.1);
       const r = Fn$1(() => {
         const o = positionWorld.xz.mul(0.2), h = texture$1(this.game.noises.hash, o).r.remap(this.road.glitterScarcity.oneMinus(), 1, 0, this.road.glitterLighten), c = uv$2().y.mul(PI$1).sin().mul(this.road.middleLighten), d = this.road.color.toVar();
         return d.addAssign(max$2(h, c).mul(0.2)), vec3$1(d);
@@ -95016,7 +95022,7 @@ https://github.com/browserify/crypto-browserify`);
       this.game = Game.getInstance(), this.step(0);
     }
     step(e) {
-      e === 0 ? (this.grid = new Grid(), this.intro = new Intro()) : e === 1 ? (this.visualVehicle = new VisualVehicle(this.game.resources.vehicle.scene), this.floor = new Floor(), this.waterSurface = new WaterSurface(), this.grass = new Grass(), this.windLines = new WindLines(), this.confetti = new Confetti(), this.leaves = new Leaves(), this.rain = new RainLines(), this.lightnings = new Lightnings(), this.fireballs = new Fireballs(), this.snow = new Snow(), this.visualTornado = new VisualTornado(), this.bushes = new Bushes(), this.birchTrees = new Trees("Birch Tree", this.game.resources.birchTreesVisualModel.scene, this.game.resources.birchTreesReferencesModel.scene.children, "#ff4f2b", "#ff903f"), this.oakTrees = new Trees("Oak Tree", this.game.resources.oakTreesVisualModel.scene, this.game.resources.oakTreesReferencesModel.scene.children, "#b4b536", "#d8cf3b"), this.cherryTrees = new Trees("Cherry Tree", this.game.resources.cherryTreesVisualModel.scene, this.game.resources.cherryTreesReferencesModel.scene.children, "#ff6d6d", "#ff9990"), this.flowers = new Flowers(), this.bricks = new Bricks(), this.fences = new Fences(), this.benches = new Benches(), this.explosiveCrates = new ExplosiveCrates(), this.poleLights = new PoleLights(), this.lanterns = new Lanterns(), this.scenery = new Scenery(), this.areas = new Areas()) : e === 2 && (this.whispers = new Whispers());
+      e === 0 ? (this.grid = new Grid(), this.intro = new Intro()) : e === 1 ? (this.visualVehicle = new VisualVehicle(this.game.resources.vehicle.scene), this.floor = new Floor(), this.waterSurface = new WaterSurface(), this.grass = new Grass(), this.windLines = new WindLines(), this.confetti = new Confetti(), this.leaves = new Leaves(), this.rain = new RainLines(), this.lightnings = new Lightnings(), this.fireballs = new Fireballs(), this.snow = new Snow(), this.visualTornado = new VisualTornado(), this.bushes = new Bushes(), this.birchTrees = new Trees("Birch Tree", this.game.resources.birchTreesVisualModel.scene, this.game.resources.birchTreesReferencesModel.scene.children, "#5aaa6a", "#78c480"), this.oakTrees = new Trees("Oak Tree", this.game.resources.oakTreesVisualModel.scene, this.game.resources.oakTreesReferencesModel.scene.children, "#8aaa40", "#a0c050"), this.cherryTrees = new Trees("Cherry Tree", this.game.resources.cherryTreesVisualModel.scene, this.game.resources.cherryTreesReferencesModel.scene.children, "#e08898", "#eca8b0"), this.flowers = new Flowers(), this.bricks = new Bricks(), this.fences = new Fences(), this.benches = new Benches(), this.explosiveCrates = new ExplosiveCrates(), this.poleLights = new PoleLights(), this.lanterns = new Lanterns(), this.scenery = new Scenery(), this.areas = new Areas()) : e === 2 && (this.whispers = new Whispers());
     }
     setPhysicalFloor() {
       this.game.objects.add(null, {
@@ -95131,7 +95137,7 @@ https://github.com/browserify/crypto-browserify`);
       }).on("change", () => this.updateShadow()));
     }
     setNodes() {
-      this.lightBounceEdgeLow = uniform$1(float$1(-1)), this.lightBounceEdgeHigh = uniform$1(float$1(1)), this.lightBounceDistance = uniform$1(float$1(1.5)), this.lightBounceMultiplier = uniform$1(float$1(1)), this.shadowColor = uniform$1(this.game.dayCycles.properties.shadowColor.value), this.bounceColor = uniform$1(color$1("#82487f")), this.coreShadowEdgeLow = uniform$1(float$1(-0.25)), this.coreShadowEdgeHigh = uniform$1(float$1(1)), this.game.debug.active && (this.game.debug.addThreeColorBinding(this.debugPanel, this.bounceColor.value, "bounceColor"), this.debugPanel.addBinding(this.lightBounceEdgeLow, "value", {
+      this.lightBounceEdgeLow = uniform$1(float$1(-1)), this.lightBounceEdgeHigh = uniform$1(float$1(1)), this.lightBounceDistance = uniform$1(float$1(1.5)), this.lightBounceMultiplier = uniform$1(float$1(1)), this.shadowColor = uniform$1(this.game.dayCycles.properties.shadowColor.value), this.bounceColor = uniform$1(color$1("#6a6878")), this.coreShadowEdgeLow = uniform$1(float$1(-0.25)), this.coreShadowEdgeHigh = uniform$1(float$1(1)), this.game.debug.active && (this.game.debug.addThreeColorBinding(this.debugPanel, this.bounceColor.value, "bounceColor"), this.debugPanel.addBinding(this.lightBounceEdgeLow, "value", {
         label: "lightBounceEdgeLow",
         min: -1,
         max: 1,
@@ -95656,7 +95662,7 @@ https://github.com/browserify/crypto-browserify`);
       temperature: 5,
       lightColor: new Color$1("#ffd2c2"),
       lightIntensity: 1.2,
-      shadowColor: new Color$1("#6d3fff"),
+      shadowColor: new Color$1("#5d4fff"),
       fogColorA: new Color$1("#00ffff"),
       fogColorB: new Color$1("#9b89ff"),
       fogNearRatio: 0.315,
@@ -95669,7 +95675,7 @@ https://github.com/browserify/crypto-browserify`);
       temperature: 0,
       lightColor: new Color$1("#ff8181"),
       lightIntensity: 1.2,
-      shadowColor: new Color$1("#4e009c"),
+      shadowColor: new Color$1("#4e0890"),
       fogColorA: new Color$1("#3e53ff"),
       fogColorB: new Color$1("#ff4ce4"),
       fogNearRatio: 0,
@@ -95684,7 +95690,7 @@ https://github.com/browserify/crypto-browserify`);
       lightIntensity: 3.8,
       shadowColor: new Color$1("#2f00db"),
       fogColorA: new Color$1("#10266f"),
-      fogColorB: new Color$1("#490a42"),
+      fogColorB: new Color$1("#3a0a42"),
       fogNearRatio: -0.85,
       fogFarRatio: 1
     },
@@ -95695,7 +95701,7 @@ https://github.com/browserify/crypto-browserify`);
       temperature: 0,
       lightColor: new Color$1("#ffa882"),
       lightIntensity: 1.2,
-      shadowColor: new Color$1("#db004f"),
+      shadowColor: new Color$1("#c80050"),
       fogColorA: new Color$1("#f885ff"),
       fogColorB: new Color$1("#ff7d24"),
       fogNearRatio: 0.3,
@@ -96085,7 +96091,7 @@ https://github.com/browserify/crypto-browserify`);
       }).on("change", o);
     }
     setNodes() {
-      this.grassColorUniform = uniform$1(color$1("#b8b62e")), this.tracksDelta = uniform$1(vec2$1(0));
+      this.grassColorUniform = uniform$1(color$1("#b0a838")), this.tracksDelta = uniform$1(vec2$1(0));
       const e = Fn$1(([r]) => r.div(this.subdivision).div(1.5).add(0.5));
       this.terrainNode = Fn$1(([r]) => {
         const s = e(r), o = texture$1(this.game.resources.terrainTexture, s), a = texture$1(this.game.tracks.renderTarget.texture, r.sub(-this.game.tracks.halfSize).sub(this.tracksDelta).div(this.game.tracks.size));
@@ -97767,11 +97773,11 @@ https://github.com/browserify/crypto-browserify`);
       }
       this.wheels.settings = {
         offset: {
-          x: 0.9,
+          x: 1.05,
           y: 0,
           z: 0.75
         },
-        radius: 0.4,
+        radius: 0.5,
         directionCs: {
           x: 0,
           y: -1,
@@ -108914,7 +108920,7 @@ ${e.tab}if ( ${m} ) {
           }
         ]
       ]), this.options = new Options(), this.respawns = new Respawns("landing"), this.view = new View(), this.rendering.setPostprocessing(), this.rendering.start(), this.reveal = new Reveal(), this.noises = new Noises(), this.weather = new Weather(), this.wind = new Wind(), this.tracks = new Tracks(), this.lighting = new Lighting(), this.fog = new Fog(), this.water = new Water(), this.materials = new Materials(), this.objects = new Objects(), this.explosions = new Explosions(), this.world = new World();
-      const e = __vitePreload(() => import("./rapier-BFDxuzLb.js").then(async (m) => {
+      const e = __vitePreload(() => import("./rapier-yE1LBbqL.js").then(async (m) => {
         await m.__tla;
         return m;
       }), [], import.meta.url), r = this.resourcesLoader.load([

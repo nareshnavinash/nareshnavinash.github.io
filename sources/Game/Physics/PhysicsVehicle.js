@@ -149,8 +149,8 @@ export class PhysicsVehicle {
 
         // Settings
         this.wheels.settings = {
-            offset: { x: 0.9, y: 0, z: 0.75 },
-            radius: 0.4,
+            offset: { x: 1.05, y: 0, z: 0.75 },
+            radius: 0.5,
             directionCs: { x: 0, y: -1, z: 0 },
             axleCs: { x: 0, y: 0, z: 1 },
             frictionSlip: 0.9,
