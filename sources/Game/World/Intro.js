@@ -37,7 +37,7 @@ export class Intro {
         canvasTexture.magFilter = THREE.LinearFilter
         canvasTexture.generateMipmaps = false
 
-        // Material — left-to-right reveal synced with loading progress
+        // Material - left-to-right reveal synced with loading progress
         this.name.progress = uniform(0)
         const material = new THREE.MeshBasicNodeMaterial({ transparent: true, depthWrite: false, depthTest: false })
         material.outputNode = Fn(() => {
@@ -47,10 +47,10 @@ export class Intro {
             return vec4(vec3(0.88, 0.88, 0.94), t.a)
         })()
 
-        // Geometry — sized to fill ~90% of the circle's apparent width from camera
+        // Geometry - sized to fill ~90% of the circle's apparent width from camera
         const geometry = new THREE.PlaneGeometry(4.5, 2.25)
 
-        // Mesh — oriented to face camera so text reads parallel to screen
+        // Mesh - oriented to face camera so text reads parallel to screen
         const mesh = new THREE.Mesh(geometry, material)
 
         // Use same spherical angles as View.js camera to orient the plane
@@ -71,7 +71,7 @@ export class Intro {
         this.game.scene.add(mesh)
         this.name.mesh = mesh
 
-        // Hide — reverse the fill to 0
+        // Hide - reverse the fill to 0
         this.name.hide = () => {
             gsap.to(this.name.progress, {
                 value: 0,

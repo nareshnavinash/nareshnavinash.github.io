@@ -1,4 +1,8 @@
 User-agent: *
 Allow: /
+Disallow: /assets/
+Disallow: /sounds/
+Disallow: /draco/
+Disallow: /favicons/
 
 Sitemap: https://nareshnavinash.github.io/sitemap.xml

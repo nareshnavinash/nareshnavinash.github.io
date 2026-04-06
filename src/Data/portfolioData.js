@@ -1,6 +1,6 @@
 /**
  * All portfolio content loaded from the centralized resume.json.
- * No content lives in the 3D code — everything renders from here.
+ * No content lives in the 3D code - everything renders from here.
  */
 
 const res = await fetch('/data/resume.json')

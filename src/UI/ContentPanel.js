@@ -186,7 +186,7 @@ export default class ContentPanel {
             }
 
             if (charIdx < lineData.text.length) {
-                // Type characters — batch more for long point lines
+                // Type characters - batch more for long point lines
                 const speed =
                     lineData.type === 'command'
                         ? 28
@@ -206,7 +206,7 @@ export default class ContentPanel {
                 if (body) body.scrollTop = body.scrollHeight
                 this._typingTimer = setTimeout(typeNext, speed)
             } else {
-                // Line done — pause before next
+                // Line done - pause before next
                 lineIdx++
                 charIdx = 0
                 const pause = lineData.type === 'point' ? 60 : 40

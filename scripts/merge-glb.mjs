@@ -199,7 +199,7 @@ async function main() {
         }
     }
 
-    // 8. Skip prune — it removes reference empties that the code depends on
+    // 8. Skip prune - it removes reference empties that the code depends on
 
     // 9. Apply DRACO compression
     console.log('Applying DRACO compression...');

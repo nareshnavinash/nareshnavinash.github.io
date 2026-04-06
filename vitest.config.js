@@ -10,7 +10,7 @@ export default defineConfig({
             provider: 'v8',
             // three-scene.js is excluded: it's a pure WebGL rendering file (Three.js)
             // that requires a real GPU/canvas context and cannot run in jsdom.
-            // It contains no business logic — only 3D visuals, shaders, and animation.
+            // It contains no business logic - only 3D visuals, shaders, and animation.
             include: [
                 'js/main.js',
                 'js/resume-loader.js',

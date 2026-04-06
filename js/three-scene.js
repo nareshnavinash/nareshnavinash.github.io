@@ -1,5 +1,5 @@
 /* ============================================
-   THREE.JS SCENE — Futuristic Tech Portfolio
+   THREE.JS SCENE - Futuristic Tech Portfolio
    Starfield · Connected Particles · Morphing Wireframe
    Floating Shapes · Grid · Bloom · Parallax
    ============================================ */
@@ -42,7 +42,7 @@ const THEME = {
 
 let currentThemeColors = { ...THEME.night }
 let targetThemeColors = { ...THEME.night }
-let themeLerp = 1 // 0..1  — 1 = arrived
+let themeLerp = 1 // 0..1  - 1 = arrived
 
 const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent)
 const STAR_COUNT = isMobile ? 2500 : 6000
@@ -53,7 +53,7 @@ const SHAPE_COUNT = isMobile ? 8 : 22
 /* ---- RENDERER SETUP ---- */
 const container = document.getElementById('three-bg')
 if (!container) {
-    console.warn('Missing #three-bg container — skipping Three.js scene')
+    console.warn('Missing #three-bg container - skipping Three.js scene')
 }
 
 const scene = new THREE.Scene()

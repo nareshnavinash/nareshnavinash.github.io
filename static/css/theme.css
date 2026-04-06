@@ -2,7 +2,7 @@
    SHARED THEME - CSS Custom Properties
    ============================================ */
 
-/* --- Custom Properties — Night (default) --- */
+/* --- Custom Properties - Night (default) --- */
 :root {
     --bg-body: #080818;
     --color-blue: #4488ff;
@@ -53,6 +53,8 @@
     --border-publications: rgba(68, 136, 255, 0.12);
     --bg-certifications: #160a28;
     --border-certifications: rgba(170, 119, 255, 0.12);
+    --bg-opensource: #0a1a18;
+    --border-opensource: rgba(0, 255, 170, 0.12);
     --bg-education: #080818;
     --border-education: rgba(100, 100, 180, 0.1);
     --bg-contact: #061c16;
@@ -103,7 +105,7 @@
     --selection-bg: rgba(0, 184, 128, 0.2);
     --selection-color: #1a1640;
 
-    /* Section backgrounds — solid washes from Day fog/light colors */
+    /* Section backgrounds - solid washes from Day fog/light colors */
     --bg-about: #dfd9f9;
     --border-about: rgba(119, 68, 204, 0.18);
     --bg-career: #ede0ed;
@@ -116,6 +118,8 @@
     --border-publications: rgba(51, 102, 221, 0.18);
     --bg-certifications: #e0dbf9;
     --border-certifications: rgba(119, 68, 204, 0.18);
+    --bg-opensource: #d8ece8;
+    --border-opensource: rgba(0, 184, 128, 0.18);
     --bg-education: #e8e4f8;
     --border-education: rgba(100, 80, 180, 0.12);
     --bg-contact: #dae6f8;

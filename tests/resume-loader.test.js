@@ -14,6 +14,9 @@ import {
     populateHero,
     triggerRevealObservers,
     bindTimelineDetails,
+    renderRepoCard,
+    renderOpenSourceGrids,
+    refreshGitHubRepos,
     setText,
     setAttr,
     formatTemplate,
@@ -260,10 +263,12 @@ describe('resume-loader.js', () => {
 
             const schema = JSON.parse(document.querySelector('#meta-ldjson').textContent)
             expect(schema['@context']).toBe('https://schema.org')
-            expect(schema['@graph']).toHaveLength(2)
+            expect(schema['@graph'].length).toBeGreaterThanOrEqual(2)
             expect(schema['@graph'][0]['@type']).toBe('ProfilePage')
             expect(schema['@graph'][1]['@type']).toBe('Person')
             expect(schema['@graph'][1].name).toBe(resumeData.personal.name)
+            expect(schema['@graph'][1].hasOccupation).toBeDefined()
+            expect(schema['@graph'][1].hasOccupation['@type']).toBe('Occupation')
         })
 
         it('should include social URLs in schema sameAs', () => {
@@ -271,6 +276,56 @@ describe('resume-loader.js', () => {
 
             const schema = JSON.parse(document.querySelector('#meta-ldjson').textContent)
             expect(schema['@graph'][1].sameAs).toContain(resumeData.social.linkedin.url)
+        })
+
+        it('should include Book schema when publications.book exists', () => {
+            populateSeo(resumeData, resumeData.site.seo)
+
+            const schema = JSON.parse(document.querySelector('#meta-ldjson').textContent)
+            const book = schema['@graph'].find((item) => item['@type'] === 'Book')
+            expect(book).toBeDefined()
+            expect(book.name).toBe(resumeData.publications.book.title)
+        })
+
+        it('should include certification schemas', () => {
+            populateSeo(resumeData, resumeData.site.seo)
+
+            const schema = JSON.parse(document.querySelector('#meta-ldjson').textContent)
+            const creds = schema['@graph'].filter((item) => item['@type'] === 'EducationalOccupationalCredential')
+            expect(creds.length).toBe(resumeData.certifications.items.length)
+            expect(creds[0].name).toBe(resumeData.certifications.items[0].name)
+        })
+
+        it('should not include Book schema when publications is missing', () => {
+            const dataWithoutPubs = { ...resumeData, publications: undefined }
+            populateSeo(dataWithoutPubs, resumeData.site.seo)
+
+            const schema = JSON.parse(document.querySelector('#meta-ldjson').textContent)
+            const book = schema['@graph'].find((item) => item['@type'] === 'Book')
+            expect(book).toBeUndefined()
+        })
+
+        it('should not include credential schemas when certifications is missing', () => {
+            const dataWithoutCerts = { ...resumeData, certifications: undefined }
+            populateSeo(dataWithoutCerts, resumeData.site.seo)
+
+            const schema = JSON.parse(document.querySelector('#meta-ldjson').textContent)
+            const creds = schema['@graph'].filter((item) => item['@type'] === 'EducationalOccupationalCredential')
+            expect(creds.length).toBe(0)
+        })
+
+        it('should handle certifications with null name and issuer', () => {
+            const dataWithNullCert = {
+                ...resumeData,
+                certifications: { items: [{ name: null, issuer: null }] }
+            }
+            populateSeo(dataWithNullCert, resumeData.site.seo)
+
+            const schema = JSON.parse(document.querySelector('#meta-ldjson').textContent)
+            const creds = schema['@graph'].filter((item) => item['@type'] === 'EducationalOccupationalCredential')
+            expect(creds.length).toBe(1)
+            expect(creds[0].name).toBe('')
+            expect(creds[0].recognizedBy.name).toBe('')
         })
 
         it('should handle empty seo title', () => {
@@ -490,7 +545,7 @@ describe('resume-loader.js', () => {
 
             const photo = document.querySelector('.hero-photo')
             expect(photo.getAttribute('src')).toBe(resumeData.personal.photo)
-            expect(photo.getAttribute('alt')).toBe(resumeData.personal.name)
+            expect(photo.getAttribute('alt')).toBe(resumeData.personal.name + ' - Engineering Manager')
         })
 
         it('should use default alt when name is missing', () => {
@@ -520,6 +575,12 @@ describe('resume-loader.js', () => {
 
         it('should not crash when .hero-heading is missing', () => {
             document.querySelector('.hero-heading').remove()
+            expect(() => populateHero(resumeData, resumeData.site.hero)).not.toThrow()
+        })
+
+        it('should not crash when .hero-name is missing', () => {
+            const heroName = document.querySelector('.hero-name')
+            if (heroName) heroName.remove()
             expect(() => populateHero(resumeData, resumeData.site.hero)).not.toThrow()
         })
     })
@@ -1148,6 +1209,411 @@ describe('resume-loader.js', () => {
             expect(() => populate(minimal)).not.toThrow()
         })
 
+        it('should render starred repos in opensource-starred grid', () => {
+            const data = {
+                ...resumeData,
+                openSource: {
+                    repos: {
+                        starred: [
+                            {
+                                name: 'popular-lib',
+                                description: 'A popular library',
+                                url: 'https://github.com/test/popular-lib',
+                                stars: 42,
+                                language: 'Python'
+                            },
+                            {
+                                name: 'no-lang',
+                                description: 'No language',
+                                url: 'https://example.com',
+                                stars: 0,
+                                language: null
+                            }
+                        ],
+                        recent: []
+                    }
+                }
+            }
+            populate(data)
+
+            const grid = document.getElementById('opensource-starred')
+            expect(grid.querySelectorAll('.opensource-card').length).toBe(2)
+            const link = grid.querySelector('.opensource-card h3 a')
+            expect(link.textContent).toBe('popular-lib')
+            expect(link.getAttribute('href')).toBe('https://github.com/test/popular-lib')
+            const meta = grid.querySelector('.opensource-card-meta')
+            expect(meta).not.toBeNull()
+            expect(meta.textContent).toContain('Python')
+            expect(meta.textContent).toContain('42')
+        })
+
+        it('should render recent repos with demo links in opensource-recent grid', () => {
+            const data = {
+                ...resumeData,
+                openSource: {
+                    repos: {
+                        starred: [],
+                        recent: [
+                            {
+                                name: 'cool-app',
+                                description: 'A cool app',
+                                url: 'https://github.com/test/cool-app',
+                                homepage: 'https://test.github.io/cool-app/',
+                                stars: 1,
+                                language: 'TypeScript'
+                            }
+                        ]
+                    }
+                }
+            }
+            populate(data)
+
+            const grid = document.getElementById('opensource-recent')
+            expect(grid.querySelectorAll('.opensource-card').length).toBe(1)
+            const demoLink = grid.querySelector('.btn-demo')
+            expect(demoLink).not.toBeNull()
+            expect(demoLink.getAttribute('href')).toBe('https://test.github.io/cool-app/')
+            const sourceLink = grid.querySelector('.btn-source')
+            expect(sourceLink.getAttribute('href')).toBe('https://github.com/test/cool-app')
+        })
+
+        it('should not render demo links when homepage is missing', () => {
+            const data = {
+                ...resumeData,
+                openSource: {
+                    repos: {
+                        recent: [
+                            {
+                                name: 'no-demo',
+                                description: 'No demo',
+                                url: 'https://github.com/test/no-demo',
+                                homepage: '',
+                                stars: 0,
+                                language: null
+                            }
+                        ]
+                    }
+                }
+            }
+            populate(data)
+
+            const grid = document.getElementById('opensource-recent')
+            expect(grid.querySelector('.btn-demo')).toBeNull()
+        })
+
+        it('should handle empty openSource repos object', () => {
+            const data = {
+                ...resumeData,
+                openSource: { repos: {} }
+            }
+            populate(data)
+
+            const starred = document.getElementById('opensource-starred')
+            const recent = document.getElementById('opensource-recent')
+            expect(starred.innerHTML).toBe('')
+            expect(recent.innerHTML).toBe('')
+        })
+
+        it('should handle missing openSource entirely', () => {
+            const data = { ...resumeData, openSource: undefined }
+            expect(() => populate(data)).not.toThrow()
+        })
+    })
+
+    describe('renderRepoCard()', () => {
+        it('should render a card with stars, language, and source link', () => {
+            const html = renderRepoCard({
+                name: 'test',
+                description: 'desc',
+                url: 'https://github.com/t/test',
+                stars: 5,
+                language: 'Go'
+            })
+            expect(html).toContain('test')
+            expect(html).toContain('desc')
+            expect(html).toContain('Go')
+            expect(html).toContain('5')
+            expect(html).toContain('btn-source')
+            expect(html).not.toContain('btn-demo')
+        })
+
+        it('should render Explore button when homepage exists', () => {
+            const html = renderRepoCard({
+                name: 'app',
+                description: 'an app',
+                url: 'https://github.com/t/app',
+                homepage: 'https://t.github.io/app/',
+                stars: 0,
+                language: null
+            })
+            expect(html).toContain('btn-demo')
+            expect(html).toContain('Explore')
+            expect(html).toContain('btn-source')
+            expect(html).toContain('https://t.github.io/app/')
+        })
+
+        it('should not render Explore when homepage is empty', () => {
+            const html = renderRepoCard({
+                name: 'x',
+                description: 'y',
+                url: 'https://github.com/t/x',
+                homepage: '',
+                stars: 0,
+                language: null
+            })
+            expect(html).not.toContain('btn-demo')
+            expect(html).toContain('btn-source')
+        })
+
+        it('should omit meta when no stars and no language', () => {
+            const html = renderRepoCard({
+                name: 'x',
+                description: 'y',
+                url: 'https://github.com/t/x',
+                stars: 0,
+                language: null
+            })
+            expect(html).not.toContain('opensource-card-meta')
+        })
+    })
+
+    describe('renderOpenSourceGrids()', () => {
+        it('should render both grids', () => {
+            const starred = [{ name: 'lib', description: 'd', url: 'u', stars: 10, language: 'JS' }]
+            const recent = [{ name: 'app', description: 'd', url: 'u', homepage: 'h', stars: 0, language: 'TS' }]
+            renderOpenSourceGrids(starred, recent)
+
+            expect(document.getElementById('opensource-starred').querySelectorAll('.opensource-card').length).toBe(1)
+            expect(document.getElementById('opensource-recent').querySelectorAll('.opensource-card').length).toBe(1)
+        })
+
+        it('should not render grid when array is empty', () => {
+            renderOpenSourceGrids([], [])
+            expect(document.getElementById('opensource-starred').innerHTML).toBe('')
+            expect(document.getElementById('opensource-recent').innerHTML).toBe('')
+        })
+    })
+
+    describe('refreshGitHubRepos()', () => {
+        it('should fetch repos and render grids', async () => {
+            function makeRepo(name, stars, pages, created) {
+                return {
+                    name: name,
+                    description: name + ' desc',
+                    html_url: 'https://github.com/nareshnavinash/' + name,
+                    stargazers_count: stars,
+                    language: 'JS',
+                    fork: false,
+                    archived: false,
+                    has_pages: pages,
+                    homepage: pages ? 'https://nareshnavinash.github.io/' + name + '/' : '',
+                    created_at: created,
+                    topics: []
+                }
+            }
+            // 6 high-starred repos fill the starred list, pushing recent-app out
+            const mockRepos = [
+                makeRepo('popular', 50, false, '2020-01-01T00:00:00Z'),
+                makeRepo('lib-a', 40, false, '2020-01-01T00:00:00Z'),
+                makeRepo('lib-b', 30, false, '2020-01-01T00:00:00Z'),
+                makeRepo('lib-c', 20, false, '2020-01-01T00:00:00Z'),
+                makeRepo('lib-d', 15, false, '2020-01-01T00:00:00Z'),
+                makeRepo('lib-e', 10, false, '2020-01-01T00:00:00Z'),
+                makeRepo('recent-app', 1, true, '2026-03-01T00:00:00Z'),
+                makeRepo('newer-app', 0, true, '2026-04-01T00:00:00Z')
+            ]
+
+            globalThis.fetch = vi.fn().mockResolvedValue({
+                ok: true,
+                json: () => Promise.resolve(mockRepos)
+            })
+
+            await refreshGitHubRepos()
+
+            const starred = document.getElementById('opensource-starred')
+            expect(starred.innerHTML).toContain('popular')
+            const recent = document.getElementById('opensource-recent')
+            expect(recent.innerHTML).toContain('recent-app')
+            expect(recent.innerHTML).toContain('btn-demo')
+        })
+
+        it('should exclude repos by name and keywords', async () => {
+            const mockRepos = [
+                {
+                    name: 'nareshnavinash.github.io',
+                    description: 'Portfolio',
+                    html_url: 'u',
+                    stargazers_count: 0,
+                    language: 'JS',
+                    fork: false,
+                    archived: false,
+                    has_pages: true,
+                    homepage: '',
+                    created_at: '2026-01-01T00:00:00Z',
+                    topics: []
+                },
+                {
+                    name: 'homebrew-tap',
+                    description: 'Brew tap',
+                    html_url: 'u',
+                    stargazers_count: 0,
+                    language: 'Ruby',
+                    fork: false,
+                    archived: false,
+                    has_pages: false,
+                    homepage: '',
+                    created_at: '2026-01-01T00:00:00Z',
+                    topics: []
+                },
+                {
+                    name: 'good-repo',
+                    description: 'Good',
+                    html_url: 'https://github.com/nareshnavinash/good-repo',
+                    stargazers_count: 5,
+                    language: 'Go',
+                    fork: false,
+                    archived: false,
+                    has_pages: false,
+                    homepage: '',
+                    created_at: '2020-01-01T00:00:00Z',
+                    topics: []
+                }
+            ]
+
+            globalThis.fetch = vi.fn().mockResolvedValue({
+                ok: true,
+                json: () => Promise.resolve(mockRepos)
+            })
+
+            await refreshGitHubRepos()
+
+            const starred = document.getElementById('opensource-starred')
+            expect(starred.innerHTML).toContain('good-repo')
+            expect(starred.innerHTML).not.toContain('nareshnavinash.github.io')
+            expect(starred.innerHTML).not.toContain('homebrew-tap')
+        })
+
+        it('should exclude repos with scoop in topics', async () => {
+            const mockRepos = [
+                {
+                    name: 'my-bucket',
+                    description: 'Scoop bucket',
+                    html_url: 'u',
+                    stargazers_count: 0,
+                    language: null,
+                    fork: false,
+                    archived: false,
+                    has_pages: false,
+                    homepage: '',
+                    created_at: '2020-01-01T00:00:00Z',
+                    topics: ['scoop']
+                }
+            ]
+
+            globalThis.fetch = vi.fn().mockResolvedValue({
+                ok: true,
+                json: () => Promise.resolve(mockRepos)
+            })
+
+            await refreshGitHubRepos()
+
+            const starred = document.getElementById('opensource-starred')
+            expect(starred.innerHTML).not.toContain('my-bucket')
+        })
+
+        it('should silently fail on fetch error', async () => {
+            globalThis.fetch = vi.fn().mockResolvedValue({ ok: false, status: 403 })
+
+            await refreshGitHubRepos()
+
+            // Should not crash, pre-rendered content stays
+        })
+
+        it('should silently fail on network error', async () => {
+            globalThis.fetch = vi.fn().mockRejectedValue(new Error('Network error'))
+
+            await refreshGitHubRepos()
+
+            // Should not crash
+        })
+
+        it('should handle repos with missing topics and generate pages URL', async () => {
+            function makeR(name, stars, pages, created, topics) {
+                return {
+                    name: name, description: name, html_url: 'https://github.com/nareshnavinash/' + name,
+                    stargazers_count: stars, language: 'JS', fork: false, archived: false,
+                    has_pages: pages, homepage: '', created_at: created, topics: topics
+                }
+            }
+            const mockRepos = [
+                makeR('a', 50, false, '2020-01-01T00:00:00Z', []),
+                makeR('b', 40, false, '2020-01-01T00:00:00Z', []),
+                makeR('c', 30, false, '2020-01-01T00:00:00Z', []),
+                makeR('d', 20, false, '2020-01-01T00:00:00Z', []),
+                makeR('e', 15, false, '2020-01-01T00:00:00Z', []),
+                makeR('f', 10, false, '2020-01-01T00:00:00Z', []),
+                // No topics field (undefined), has_pages, recent — should use fallback pages URL
+                { name: 'no-topics', description: 'No topics field',
+                    html_url: 'https://github.com/nareshnavinash/no-topics',
+                    stargazers_count: 1, language: 'JS', fork: false, archived: false,
+                    has_pages: true, homepage: '', created_at: '2026-02-01T00:00:00Z' }
+            ]
+
+            globalThis.fetch = vi.fn().mockResolvedValue({
+                ok: true,
+                json: () => Promise.resolve(mockRepos)
+            })
+
+            await refreshGitHubRepos()
+
+            const recent = document.getElementById('opensource-recent')
+            expect(recent.innerHTML).toContain('nareshnavinash.github.io/no-topics/')
+        })
+
+        it('should exclude forked and archived repos', async () => {
+            const mockRepos = [
+                {
+                    name: 'forked',
+                    description: 'Fork',
+                    html_url: 'u',
+                    stargazers_count: 100,
+                    language: 'JS',
+                    fork: true,
+                    archived: false,
+                    has_pages: false,
+                    homepage: '',
+                    created_at: '2020-01-01T00:00:00Z',
+                    topics: []
+                },
+                {
+                    name: 'archived',
+                    description: 'Old',
+                    html_url: 'u',
+                    stargazers_count: 100,
+                    language: 'JS',
+                    fork: false,
+                    archived: true,
+                    has_pages: false,
+                    homepage: '',
+                    created_at: '2020-01-01T00:00:00Z',
+                    topics: []
+                }
+            ]
+
+            globalThis.fetch = vi.fn().mockResolvedValue({
+                ok: true,
+                json: () => Promise.resolve(mockRepos)
+            })
+
+            await refreshGitHubRepos()
+
+            const starred = document.getElementById('opensource-starred')
+            expect(starred.innerHTML).not.toContain('forked')
+            expect(starred.innerHTML).not.toContain('archived')
+        })
+    })
+
+    describe('populate() - edge cases', () => {
         it('should HTML-escape XSS in content', () => {
             const xssData = {
                 personal: { name: '<script>xss</script>', email: 'test@test.com', mission: 'mission' },

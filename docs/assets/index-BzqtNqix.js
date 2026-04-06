@@ -86830,7 +86830,7 @@ https://github.com/browserify/crypto-browserify`);
           });
           if (s.physical && s.physical.type === "dynamic") {
             const o = s.physical.colliders.length, a = s.physical.body.translation();
-            console.log(`[Physics] ${r.name} \u2192 type=${s.physical.type}, colliders=${o}, pos=(${a.x.toFixed(1)}, ${a.y.toFixed(1)}, ${a.z.toFixed(1)})`), o === 0 && console.warn(`[Physics] \u26A0 ${r.name} has NO colliders \u2014 car will pass through!`);
+            console.log(`[Physics] ${r.name} \u2192 type=${s.physical.type}, colliders=${o}, pos=(${a.x.toFixed(1)}, ${a.y.toFixed(1)}, ${a.z.toFixed(1)})`), o === 0 && console.warn(`[Physics] \u26A0 ${r.name} has NO colliders - car will pass through!`);
           }
           this.objects.items.push(s), (s.visual && (!s.physical || ((_a2 = s.physical) == null ? void 0 : _a2.type) === "fixed") && typeof r.userData.preventFrustum > "u" || r.userData.preventFrustum === false) && this.objects.hideable.push(s.visual.object3D);
         }
@@ -108990,7 +108990,7 @@ ${e.tab}if ( ${m} ) {
           }
         ]
       ]), this.options = new Options(), this.respawns = new Respawns("landing"), this.view = new View(), this.rendering.setPostprocessing(), this.rendering.start(), this.reveal = new Reveal(), this.noises = new Noises(), this.weather = new Weather(), this.wind = new Wind(), this.tracks = new Tracks(), this.lighting = new Lighting(), this.fog = new Fog(), this.water = new Water(), this.materials = new Materials(), this.objects = new Objects(), this.explosions = new Explosions(), this.world = new World();
-      const e = __vitePreload(() => import("./rapier-DlkJurcR.js").then(async (m) => {
+      const e = __vitePreload(() => import("./rapier-BxGC_5Mb.js").then(async (m) => {
         await m.__tla;
         return m;
       }), [], import.meta.url), r = this.resourcesLoader.load([

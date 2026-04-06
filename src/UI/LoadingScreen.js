@@ -1,7 +1,7 @@
 import gsap from 'gsap'
 
 /**
- * Cosmic Gateway loading screen — immersive cinematic intro
+ * Cosmic Gateway loading screen - immersive cinematic intro
  * with particle canvas, ambient orbs, SVG progress ring,
  * choreographed GSAP entrance, and cinematic exit.
  */
@@ -584,22 +584,22 @@ export default class LoadingScreen {
     _buildEntranceTimeline() {
         const tl = gsap.timeline()
 
-        // 0.0s — Background gradient fades in (it's already visible, but orbs etc.)
+        // 0.0s - Background gradient fades in (it's already visible, but orbs etc.)
         tl.to(this._orbs, { opacity: 1, duration: 0.8, stagger: 0.1 }, 0)
 
-        // 0.3s — Grid appears
+        // 0.3s - Grid appears
         tl.to(this._grid, { opacity: 0.3, duration: 0.8 }, 0.3)
 
-        // 0.4s — Accent line draws from center
+        // 0.4s - Accent line draws from center
         tl.to(this._accentLine, { width: 80, duration: 0.6, ease: 'power2.out' }, 0.4)
 
-        // 0.5s — Particles fade in
+        // 0.5s - Particles fade in
         tl.to(this._canvas, { opacity: 1, duration: 0.8 }, 0.5)
 
-        // 0.6s — Greeting fades up
+        // 0.6s - Greeting fades up
         tl.to(this._greeting, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, 0.6)
 
-        // 0.9s — Title letters cascade
+        // 0.9s - Title letters cascade
         tl.to(
             this._titleLetters,
             {
@@ -613,7 +613,7 @@ export default class LoadingScreen {
             0.9
         )
 
-        // 1.6s — Role tags
+        // 1.6s - Role tags
         tl.to(
             this._roleTags,
             {
@@ -637,7 +637,7 @@ export default class LoadingScreen {
             1.7
         )
 
-        // 1.9s — Progress ring materializes
+        // 1.9s - Progress ring materializes
         tl.to(
             this._ringGroup,
             {
@@ -649,7 +649,7 @@ export default class LoadingScreen {
             1.9
         )
 
-        // 2.0s — Status text
+        // 2.0s - Status text
         tl.to(this._statusText, { opacity: 1, duration: 0.4 }, 2.0)
 
         this._entranceTl = tl

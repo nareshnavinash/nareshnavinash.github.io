@@ -126,7 +126,7 @@ export class LabArea extends Area {
     }
 
     setInputs() {
-        // Direct keyboard listener for Escape — bypasses the game input system
+        // Direct keyboard listener for Escape - bypasses the game input system
         // to guarantee lab close works regardless of ClosingManager state
         window.addEventListener('keydown', (_event) => {
             if (_event.code === 'Escape' && (this.state === LabArea.STATE_OPEN || this.state === LabArea.STATE_OPENING))
@@ -419,7 +419,7 @@ export class LabArea extends Area {
             const resource = this.images.getResourceAndLoad(key)
         }
 
-        // Get resource and load — renders terminal canvas instead of loading .ktx
+        // Get resource and load - renders terminal canvas instead of loading .ktx
         this.images.getResourceAndLoad = (key) => {
             // Try to retrieve resource
             let resource = this.images.resources.get(key)

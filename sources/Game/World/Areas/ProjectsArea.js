@@ -122,7 +122,7 @@ export class ProjectsArea extends Area {
     }
 
     setInputs() {
-        // Direct keyboard listener for Escape — bypasses the game input system
+        // Direct keyboard listener for Escape - bypasses the game input system
         // to guarantee project close works regardless of ClosingManager state
         window.addEventListener('keydown', (_event) => {
             if (
@@ -432,7 +432,7 @@ export class ProjectsArea extends Area {
             const resource = this.images.getResourceAndLoad(key)
         }
 
-        // Get resource and load — renders terminal canvas instead of loading .ktx
+        // Get resource and load - renders terminal canvas instead of loading .ktx
         this.images.getResourceAndLoad = (key) => {
             // Try to retrieve resource
             let resource = this.images.resources.get(key)

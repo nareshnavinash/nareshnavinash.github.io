@@ -34,7 +34,7 @@ export class LandingArea extends Area {
     }
 
     revealName() {
-        // Letters are now in the GLB directly — no-op to satisfy Reveal.js call
+        // Letters are now in the GLB directly - no-op to satisfy Reveal.js call
     }
 
     setKiosk() {

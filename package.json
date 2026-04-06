@@ -4,9 +4,11 @@
     "type": "module",
     "scripts": {
         "sync-profile": "cp profile.html static/profile.html && (cmp -s resume.json static/data/resume.json || cp resume.json static/data/resume.json) && cp css/theme.css static/css/theme.css && cp css/styles.css static/css/styles.css && cp js/main.js static/js/main.js && cp js/resume-loader.js static/js/resume-loader.js && cp js/three-scene.js static/js/three-scene.js && cp public/assets/profile.jpg static/profile.jpg",
+        "fetch-repos": "node scripts/fetch-github-repos.js",
+        "prerender-profile": "node scripts/prerender-profile.js",
         "predev": "npm run sync-profile",
         "dev": "vite --mode development",
-        "prebuild": "npm run sync-profile",
+        "prebuild": "npm run fetch-repos && npm run sync-profile && npm run prerender-profile",
         "build": "vite build --mode production",
         "preview": "vite preview",
         "compress": "node scripts/compress.js static/",

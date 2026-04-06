@@ -29,6 +29,131 @@ function loadResume(paths, index) {
         })
 }
 
+var STAR_SVG =
+    '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>'
+
+function renderRepoCard(repo) {
+    var starHtml = repo.stars ? '<span>' + STAR_SVG + ' ' + esc(String(repo.stars)) + '</span>' : ''
+    var langHtml = repo.language ? '<span>' + esc(repo.language) + '</span>' : ''
+    var metaHtml = starHtml || langHtml ? '<div class="opensource-card-meta">' + langHtml + starHtml + '</div>' : ''
+    var exploreHtml = repo.homepage
+        ? '<a href="' + esc(repo.homepage) + '" target="_blank" rel="noopener" class="btn-demo">Explore</a>'
+        : ''
+    var linksHtml =
+        '<div class="opensource-card-links">' +
+        exploreHtml +
+        '<a href="' +
+        esc(repo.url) +
+        '" target="_blank" rel="noopener" class="btn-source">Source</a>' +
+        '</div>'
+    return (
+        '<div class="opensource-card reveal visible">' +
+        '<h3><a href="' +
+        esc(repo.url) +
+        '" target="_blank" rel="noopener">' +
+        esc(repo.name) +
+        '</a></h3>' +
+        '<p>' +
+        esc(repo.description) +
+        '</p>' +
+        metaHtml +
+        linksHtml +
+        '</div>'
+    )
+}
+
+function renderOpenSourceGrids(starred, recent) {
+    var recentGrid = document.getElementById('opensource-recent')
+    if (recentGrid && recent.length > 0) {
+        recentGrid.innerHTML = recent
+            .map(function (repo) {
+                return renderRepoCard(repo)
+            })
+            .join('')
+    }
+
+    var starredGrid = document.getElementById('opensource-starred')
+    if (starredGrid && starred.length > 0) {
+        starredGrid.innerHTML = starred
+            .map(function (repo) {
+                return renderRepoCard(repo)
+            })
+            .join('')
+    }
+}
+
+var GITHUB_USER = 'nareshnavinash'
+var GITHUB_API_URL = 'https://api.github.com/users/' + GITHUB_USER + '/repos?per_page=100&type=owner'
+var PAGES_BASE = 'https://' + GITHUB_USER + '.github.io'
+var EXCLUDED_NAMES = ['nareshnavinash.github.io']
+var EXCLUDED_KEYWORDS = ['homebrew', 'scoop']
+
+function refreshGitHubRepos() {
+    return fetch(GITHUB_API_URL, {
+        headers: { Accept: 'application/vnd.github.v3+json' }
+    })
+        .then(function (res) {
+            if (!res.ok) throw new Error('HTTP ' + res.status)
+            return res.json()
+        })
+        .then(function (allRepos) {
+            var repos = allRepos.filter(function (r) {
+                if (r.fork || r.archived || !r.description) return false
+                if (EXCLUDED_NAMES.indexOf(r.name) !== -1) return false
+                var nameLower = r.name.toLowerCase()
+                var topics = (r.topics || []).map(function (t) {
+                    return t.toLowerCase()
+                })
+                for (var i = 0; i < EXCLUDED_KEYWORDS.length; i++) {
+                    if (nameLower.indexOf(EXCLUDED_KEYWORDS[i]) !== -1) return false
+                    if (topics.indexOf(EXCLUDED_KEYWORDS[i]) !== -1) return false
+                }
+                return true
+            })
+
+            function mapRepo(r) {
+                return {
+                    name: r.name,
+                    description: r.description,
+                    url: r.html_url,
+                    stars: r.stargazers_count,
+                    language: r.language,
+                    homepage: r.homepage || (r.has_pages ? PAGES_BASE + '/' + r.name + '/' : ''),
+                    hasPages: r.has_pages,
+                    createdAt: r.created_at
+                }
+            }
+
+            var starred = repos
+                .slice()
+                .sort(function (a, b) {
+                    return b.stargazers_count - a.stargazers_count
+                })
+                .slice(0, 6)
+                .map(mapRepo)
+
+            var starredNames = {}
+            starred.forEach(function (r) {
+                starredNames[r.name] = true
+            })
+
+            var recent = repos
+                .filter(function (r) {
+                    return r.has_pages && new Date(r.created_at) >= new Date('2026-01-01') && !starredNames[r.name]
+                })
+                .sort(function (a, b) {
+                    return new Date(b.created_at) - new Date(a.created_at)
+                })
+                .slice(0, 6)
+                .map(mapRepo)
+
+            renderOpenSourceGrids(starred, recent)
+        })
+        .catch(function () {
+            // Silently fail — pre-rendered content stays
+        })
+}
+
 function populate(r) {
     var site = r.site || {}
     var seo = site.seo || {}
@@ -258,6 +383,10 @@ function populate(r) {
             '</div></div>'
     }
 
+    // Open Source
+    var reposData = r.openSource && r.openSource.repos ? r.openSource.repos : {}
+    renderOpenSourceGrids(reposData.starred || [], reposData.recent || [])
+
     // Certifications
     setText('#certifications .section-title', r.certifications && r.certifications.title)
     setText('#certifications .section-subtitle', r.certifications && r.certifications.subtitle)
@@ -430,29 +559,60 @@ function populateSeo(r, seo) {
         .filter(Boolean)
 
     var personId = (pageUrl || '').replace(/\/$/, '') + '#naresh-sekar'
+    var graph = [
+        {
+            '@type': 'ProfilePage',
+            name: seo.schemaProfileName || '',
+            url: pageUrl,
+            inLanguage: 'en-US',
+            mainEntity: {
+                '@id': personId
+            }
+        },
+        {
+            '@type': 'Person',
+            '@id': personId,
+            name: r.personal && r.personal.name ? r.personal.name : '',
+            jobTitle: seo.schemaJobTitle || (r.personal && r.personal.title ? r.personal.title : ''),
+            url: pageUrl,
+            sameAs: socialUrls,
+            description: seo.schemaPersonDescription || (r.personal && r.personal.bio ? r.personal.bio : ''),
+            hasOccupation: {
+                '@type': 'Occupation',
+                name: seo.schemaJobTitle || 'Engineering Manager',
+                occupationalCategory: '15-1221.00',
+                skills: 'AI Adoption Strategy, Team Leadership, Engineering Leadership, AI-Augmented Development'
+            },
+            knowsAbout: seo.schemaKnowsAbout || []
+        }
+    ]
+
+    if (r.publications && r.publications.book) {
+        var book = r.publications.book
+        graph.push({
+            '@type': 'Book',
+            name: book.title || '',
+            author: { '@id': personId },
+            publisher: book.publisher || '',
+            description: book.description || '',
+            url: book.amazonUrl || ''
+        })
+    }
+
+    if (r.certifications && r.certifications.items) {
+        r.certifications.items.forEach(function (cert) {
+            graph.push({
+                '@type': 'EducationalOccupationalCredential',
+                name: cert.name || '',
+                credentialCategory: 'Professional Certification',
+                recognizedBy: { '@type': 'Organization', name: cert.issuer || '' }
+            })
+        })
+    }
+
     var schema = {
         '@context': 'https://schema.org',
-        '@graph': [
-            {
-                '@type': 'ProfilePage',
-                name: seo.schemaProfileName || '',
-                url: pageUrl,
-                inLanguage: 'en-US',
-                mainEntity: {
-                    '@id': personId
-                }
-            },
-            {
-                '@type': 'Person',
-                '@id': personId,
-                name: r.personal && r.personal.name ? r.personal.name : '',
-                jobTitle: seo.schemaJobTitle || (r.personal && r.personal.title ? r.personal.title : ''),
-                url: pageUrl,
-                sameAs: socialUrls,
-                description: seo.schemaPersonDescription || (r.personal && r.personal.bio ? r.personal.bio : ''),
-                knowsAbout: seo.schemaKnowsAbout || []
-            }
-        ]
+        '@graph': graph
     }
 
     setText('#meta-ldjson', JSON.stringify(schema, null, 2))
@@ -497,7 +657,15 @@ function populateHero(r, hero) {
     var photo = document.querySelector('.hero-photo')
     if (photo) {
         setAttr('.hero-photo', 'src', r.personal && r.personal.photo)
-        photo.setAttribute('alt', r.personal && r.personal.name ? r.personal.name : 'Profile photo')
+        photo.setAttribute(
+            'alt',
+            r.personal && r.personal.name ? r.personal.name + ' - Engineering Manager' : 'Profile photo'
+        )
+    }
+
+    var heroName = document.querySelector('.hero-name')
+    if (heroName) {
+        heroName.textContent = r.personal && r.personal.name ? r.personal.name : ''
     }
 
     var firstName = r.personal && r.personal.firstName ? r.personal.firstName : ''
@@ -583,6 +751,7 @@ function init() {
         .then(function (resume) {
             populate(resume)
             document.dispatchEvent(new Event('resume-loaded'))
+            refreshGitHubRepos()
         })
         .catch(function (err) {
             console.error('Failed to load resume data:', err)
@@ -605,6 +774,9 @@ export {
     populateHero,
     triggerRevealObservers,
     bindTimelineDetails,
+    renderRepoCard,
+    renderOpenSourceGrids,
+    refreshGitHubRepos,
     setText,
     setAttr,
     formatTemplate,

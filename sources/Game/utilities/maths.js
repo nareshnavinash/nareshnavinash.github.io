@@ -100,7 +100,7 @@ function lineIntersectsCircle(p1, p2, center, radius) {
     const fx = center.x - p1.x
     const fy = center.y - p1.y
 
-    // Project fx,fy onto dx,dy — normalized t position
+    // Project fx,fy onto dx,dy - normalized t position
     const t = (fx * dx + fy * dy) / (dx * dx + dy * dy)
 
     let closest = null
