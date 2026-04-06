@@ -54,6 +54,7 @@ export class Map {
 
         for (const item of this.locations.items) {
             const respawn = this.game.respawns.getByName(item.respawnName)
+            if (!respawn) continue
             const mapPosition = this.worldToMap(respawn.position)
 
             // HTML

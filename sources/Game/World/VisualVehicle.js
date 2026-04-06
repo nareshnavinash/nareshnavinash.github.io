@@ -122,13 +122,16 @@ export class VisualVehicle {
         // Back lights
         if (this.parts.backLights) this.parts.backLights.visible = false
 
-        // Headlights - yellow
-        if (this.parts.headlights) this.parts.headlights.material = new MeshDefaultMaterial({
-            colorNode: vec3(1.0, 0.9, 0.2),
-            hasCoreShadows: false,
-            hasDropShadows: false,
-            hasLightBounce: false
-        })
+        // Headlights - yellow emissive with reveal support
+        if (this.parts.headlights) {
+            const headlightMat = new THREE.MeshBasicNodeMaterial()
+            const headlightColor = vec3(1.5, 1.3, 0.3)
+            headlightMat.outputNode = Fn(() => {
+                const revealed = MeshDefaultMaterial.revealDiscardNodeBuilder(this.game, headlightColor)
+                return vec4(revealed, 1)
+            })()
+            this.parts.headlights.material = headlightMat
+        }
 
         // Wheel
         this.game.materials.updateObject(this.parts.wheelContainer)

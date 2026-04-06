@@ -93848,18 +93848,20 @@ https://github.com/browserify/crypto-browserify`);
         "energy"
       ];
       for (let r = 0; r < e.length; r++) e[r] = new RegExp(`^(${e[r]})`, "i");
-      this.model.traverse((r) => {
+      if (this.model.traverse((r) => {
         r.isMesh && (r.receiveShadow = true, r.castShadow = true, r.material.shadowSide = BackSide$1);
         for (const s of e) {
           const o = r.name.match(s);
           o && (this.parts[o[0]] = r);
         }
-      }), this.parts.chassis.rotation.reorder("YXZ"), this.game.materials.updateObject(this.parts.chassis), this.game.scene.add(this.parts.chassis), this.parts.blinkerLeft && (this.parts.blinkerLeft.visible = false), this.parts.blinkerRight && (this.parts.blinkerRight.visible = false), this.parts.stopLights && (this.parts.stopLights.visible = false), this.parts.backLights && (this.parts.backLights.visible = false), this.parts.headlights && (this.parts.headlights.material = new MeshDefaultMaterial({
-        colorNode: vec3$1(1, 0.9, 0.2),
-        hasCoreShadows: false,
-        hasDropShadows: false,
-        hasLightBounce: false
-      })), this.game.materials.updateObject(this.parts.wheelContainer);
+      }), this.parts.chassis.rotation.reorder("YXZ"), this.game.materials.updateObject(this.parts.chassis), this.game.scene.add(this.parts.chassis), this.parts.blinkerLeft && (this.parts.blinkerLeft.visible = false), this.parts.blinkerRight && (this.parts.blinkerRight.visible = false), this.parts.stopLights && (this.parts.stopLights.visible = false), this.parts.backLights && (this.parts.backLights.visible = false), this.parts.headlights) {
+        const r = new MeshBasicNodeMaterial(), s = vec3$1(1.5, 1.3, 0.3);
+        r.outputNode = Fn$1(() => {
+          const o = MeshDefaultMaterial.revealDiscardNodeBuilder(this.game, s);
+          return vec4$1(o, 1);
+        })(), this.parts.headlights.material = r;
+      }
+      this.game.materials.updateObject(this.parts.wheelContainer);
     }
     setPaints() {
       var _a2, _b, _c;
@@ -108768,7 +108770,9 @@ ${e.tab}if ( ${m} ) {
         }
       ];
       for (const e of this.locations.items) {
-        const r = this.game.respawns.getByName(e.respawnName), s = this.worldToMap(r.position), o = `
+        const r = this.game.respawns.getByName(e.respawnName);
+        if (!r) continue;
+        const s = this.worldToMap(r.position), o = `
                 <div class="pin"></div>
                 <div class="name-container">
                     <div class="name">${e.name}</div>
@@ -108920,7 +108924,7 @@ ${e.tab}if ( ${m} ) {
           }
         ]
       ]), this.options = new Options(), this.respawns = new Respawns("landing"), this.view = new View(), this.rendering.setPostprocessing(), this.rendering.start(), this.reveal = new Reveal(), this.noises = new Noises(), this.weather = new Weather(), this.wind = new Wind(), this.tracks = new Tracks(), this.lighting = new Lighting(), this.fog = new Fog(), this.water = new Water(), this.materials = new Materials(), this.objects = new Objects(), this.explosions = new Explosions(), this.world = new World();
-      const e = __vitePreload(() => import("./rapier-yE1LBbqL.js").then(async (m) => {
+      const e = __vitePreload(() => import("./rapier-xx1-NXlu.js").then(async (m) => {
         await m.__tla;
         return m;
       }), [], import.meta.url), r = this.resourcesLoader.load([
