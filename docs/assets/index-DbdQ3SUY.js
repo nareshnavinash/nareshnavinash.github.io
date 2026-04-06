@@ -90038,7 +90038,7 @@ https://github.com/browserify/crypto-browserify`);
       super(e), this.center = this.references.items.get("center")[0].position, this.game.debug.active && (this.debugPanel = this.game.debug.panel.addFolder({
         title: "\u{1F468}\u200D\u{1F9B2} Social",
         expanded: false
-      })), this.setLinks(), this.setFans(), this.setOnlyFans(), this.setStatue(), this.setAchievement();
+      })), this.setLinks(), this.replaceStatues(), this.setFans(), this.setOnlyFans(), this.setStatue(), this.setAchievement();
     }
     setLinks() {
       for (const r of socialData) {
@@ -90059,6 +90059,128 @@ https://github.com/browserify/crypto-browserify`);
           ]);
         });
       }
+    }
+    replaceStatues() {
+      var _a2;
+      let e = null;
+      for (const o of this.objects.items) if (((_a2 = o.visual) == null ? void 0 : _a2.object3D) && (o.visual.object3D.traverse((a) => {
+        var _a3, _b;
+        if (a.isMesh && ((_a3 = a.material) == null ? void 0 : _a3._colorNode) && !e) {
+          const h = a.material._colorNode.node;
+          ((_b = h == null ? void 0 : h.value) == null ? void 0 : _b.isTexture) && (e = h.value);
+        }
+      }), e)) break;
+      const r = new MeshDefaultMaterial({
+        colorNode: e ? texture$1(e).rgb : color$1(16777215),
+        alphaNode: float$1(1),
+        hasCoreShadows: true,
+        hasDropShadows: true,
+        hasLightBounce: true,
+        hasFog: true,
+        hasWater: true,
+        hasReveal: true,
+        transparent: false
+      }), s = [
+        {
+          search: "medium",
+          createLogo: (o) => this.createMediumLogo(o)
+        },
+        {
+          search: "npm",
+          createLogo: (o) => this.createNpmLogo(o)
+        },
+        {
+          search: "pypi",
+          createLogo: (o) => this.createPyPILogo(o)
+        },
+        {
+          search: "contact",
+          createLogo: (o) => this.createContactLogo(o)
+        }
+      ];
+      for (const o of s) for (const a of this.objects.items) {
+        if (!a.visual || !a.visual.object3D) continue;
+        let h = false;
+        if (a.visual.object3D.traverse((V) => {
+          V.name.toLowerCase().includes(o.search) && (h = true);
+        }), !h) continue;
+        const c = a.visual.object3D, d = c.position.clone(), f = c.rotation.clone();
+        c.visible = false, a.physical && a.physical.body && a.physical.body.setEnabled(false);
+        const p = this.objects.hideable.indexOf(c);
+        p !== -1 && this.objects.hideable.splice(p, 1);
+        const m = o.createLogo(r);
+        m.traverse((V) => {
+          if (V.isMesh) {
+            const O = V.geometry.attributes.uv;
+            if (O) {
+              for (let z = 0; z < O.count; z++) O.setXY(z, 0.421, 0.5);
+              O.needsUpdate = true;
+            }
+          }
+        });
+        const b = new Box3$1().setFromObject(m), w = new Vector3$1();
+        b.getSize(w);
+        const M = new Quaternion$1().setFromEuler(f), R = this.game.objects.add({
+          model: m,
+          updateMaterials: false,
+          castShadow: true,
+          receiveShadow: true
+        }, {
+          type: "dynamic",
+          position: d,
+          rotation: M,
+          sleeping: true,
+          mass: 0.5,
+          colliders: [
+            {
+              shape: "cuboid",
+              parameters: [
+                w.x * 0.5,
+                w.y * 0.5,
+                w.z * 0.5
+              ]
+            }
+          ]
+        });
+        this.objects.items.push(R), this.objects.hideable.push(R.visual.object3D);
+        break;
+      }
+    }
+    createMediumLogo(e) {
+      const r = new Group(), s = new Mesh$1(new SphereGeometry(0.4, 32, 32), e);
+      s.scale.set(1, 1, 0.5), s.position.set(-0.42, 0, 0), r.add(s);
+      const o = new Mesh$1(new SphereGeometry(0.34, 32, 32), e);
+      o.scale.set(0.55, 1, 0.5), o.position.set(0.1, 0, 0), r.add(o);
+      const a = new Mesh$1(new SphereGeometry(0.28, 32, 32), e);
+      return a.scale.set(0.35, 1, 0.5), a.position.set(0.48, 0, 0), r.add(a), r;
+    }
+    createNpmLogo(e) {
+      const r = new Group(), s = 0.4, o = new Mesh$1(new BoxGeometry$1(0.3, 1.2, s), e);
+      o.position.set(-0.4, 0, 0), r.add(o);
+      const a = new Mesh$1(new BoxGeometry$1(1.1, 0.3, s), e);
+      a.position.set(0, 0.45, 0), r.add(a);
+      const h = new Mesh$1(new BoxGeometry$1(0.3, 0.85, s), e);
+      return h.position.set(0.4, 0.175, 0), r.add(h), r;
+    }
+    createPyPILogo(e) {
+      const r = new Group(), s = 0.4, o = new Mesh$1(new BoxGeometry$1(0.7, 0.3, s), e);
+      o.position.set(-0.05, 0.3, 0), r.add(o);
+      const a = new Mesh$1(new BoxGeometry$1(0.3, 0.7, s), e);
+      a.position.set(-0.25, 0.05, 0), r.add(a);
+      const h = new Mesh$1(new BoxGeometry$1(0.7, 0.3, s), e);
+      h.position.set(0.05, -0.3, 0), r.add(h);
+      const c = new Mesh$1(new BoxGeometry$1(0.3, 0.7, s), e);
+      c.position.set(0.25, -0.05, 0), r.add(c);
+      const d = new Mesh$1(new SphereGeometry(0.1, 16, 16), e);
+      d.position.set(-0.25, 0.3, s * 0.5 + 0.04), r.add(d);
+      const f = new Mesh$1(new SphereGeometry(0.1, 16, 16), e);
+      return f.position.set(0.25, -0.3, s * 0.5 + 0.04), r.add(f), r;
+    }
+    createContactLogo(e) {
+      const r = new Group(), s = new Mesh$1(new SphereGeometry(0.32, 32, 32), e);
+      s.scale.set(1, 1, 0.6), s.position.set(0, 0.45, 0), r.add(s);
+      const o = new SphereGeometry(0.6, 32, 32, 0, Math.PI * 2, 0, Math.PI * 0.5), a = new Mesh$1(o, e);
+      return a.scale.set(1, 0.7, 0.6), a.position.set(0, -0.1, 0), r.add(a), r;
     }
     setFans() {
       const e = this.references.items.get("fan")[0];
@@ -90106,7 +90228,7 @@ https://github.com/browserify/crypto-browserify`);
           x: 0,
           y: 0,
           z: 0
-        }), s.physical.body.wakeUp(), this.fans.currentIndex = (this.fans.currentIndex + 1) % this.fans.count, this.fans.visibleCount = Math.min(this.fans.visibleCount + 1, this.fans.count), this.game.audio.groups.get("click").play(true), this.game.achievements.setProgress("fan", 1);
+        }), s.physical.body.wakeUp(), this.fans.currentIndex = (this.fans.currentIndex + 1) % this.fans.count, this.fans.visibleCount = Math.min(this.fans.visibleCount + 1, this.fans.count), this.game.audio.groups.get("click").play(true), this.game.notifications.show(`<div class="top"><div class="title">You're my only fan</div><div class="progress"><div class="check-icon"></div><span class="check"></span></div></div><div class="bottom"><div class="description">Thanks for being the only fan</div></div>`, "achievement", 4), this.game.achievements.sounds.achieve.play(), this.game.achievements.setProgress("fan", 1);
       };
     }
     setOnlyFans() {
@@ -90128,62 +90250,6 @@ https://github.com/browserify/crypto-browserify`);
     }
     setStatue() {
       this.statue = {}, this.statue.body = this.references.items.get("statue")[0].userData.object.physical.body, this.statue.down = false;
-    }
-    setFWA() {
-      this.fwa = {};
-      let e = 0;
-      this.fwa.positions = [
-        new Vector3$1(23.5, 0, -18.5),
-        new Vector3$1(27, 0, -19.5)
-      ];
-      const r = () => {
-        e++;
-        const s = this.fwa.positions[e % this.fwa.positions.length];
-        this.game.world.confetti.pop(s), setTimeout(r, 500 + Math.random() * 1500);
-      };
-      setTimeout(r, 2e3), game.interactivePoints.temporaryHide(), this.game.inputs.addActions([
-        {
-          name: "startFWA",
-          categories: [
-            "intro",
-            "modal",
-            "menu",
-            "racing",
-            "cinematic",
-            "wandering"
-          ],
-          keys: [
-            "Keyboard.k"
-          ]
-        },
-        {
-          name: "winFWA",
-          categories: [
-            "intro",
-            "modal",
-            "menu",
-            "racing",
-            "cinematic",
-            "wandering"
-          ],
-          keys: [
-            "Keyboard.j"
-          ]
-        }
-      ]), this.game.inputs.events.on("startFWA", (s) => {
-        s.active && (game.view.zoom.baseRatio = 0.55, game.view.zoom.ratio = 0.55, game.view.zoom.smoothedRatio = 0.55, game.view.focusPoint.position.set(25, 0, -19.2), game.view.focusPoint.isTracking = false, window.setTimeout(() => {
-          this.game.view.setMode(View.MODE_FREE);
-        }, 1e3), this.game.weather.override.start({
-          humidity: 0,
-          electricField: 0,
-          clouds: 0,
-          wind: 0
-        }, 0), this.game.dayCycles.override.start({
-          progress: 0.87
-        }, 0), document.querySelector(".js-menu-trigger").style.display = "none", document.querySelector(".js-map-trigger").style.display = "none");
-      }), this.game.inputs.events.on("winFWA", (s) => {
-        s.active && this.game.achievements.setProgress("foty", 1);
-      });
     }
     setAchievement() {
       this.events.on("boundingIn", () => {
@@ -108924,7 +108990,7 @@ ${e.tab}if ( ${m} ) {
           }
         ]
       ]), this.options = new Options(), this.respawns = new Respawns("landing"), this.view = new View(), this.rendering.setPostprocessing(), this.rendering.start(), this.reveal = new Reveal(), this.noises = new Noises(), this.weather = new Weather(), this.wind = new Wind(), this.tracks = new Tracks(), this.lighting = new Lighting(), this.fog = new Fog(), this.water = new Water(), this.materials = new Materials(), this.objects = new Objects(), this.explosions = new Explosions(), this.world = new World();
-      const e = __vitePreload(() => import("./rapier-xx1-NXlu.js").then(async (m) => {
+      const e = __vitePreload(() => import("./rapier-DlkJurcR.js").then(async (m) => {
         await m.__tla;
         return m;
       }), [], import.meta.url), r = this.resourcesLoader.load([
