@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Origami N — Favicon Concepts</title>
+<style>
+  body { background: #0a0a1a; color: #e0e0e0; font-family: system-ui; display: flex; flex-direction: column; align-items: center; padding: 40px 20px; gap: 48px; }
+  h1 { font-size: 1.6rem; color: #00ffaa; margin: 0; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px; max-width: 1100px; }
+  .option { text-align: center; }
+  .option h2 { font-size: 0.95rem; margin: 16px 0 6px; color: #fff; }
+  .option p { font-size: 0.78rem; color: #888; max-width: 260px; margin: 0 auto; line-height: 1.5; }
+  .sizes { display: flex; gap: 16px; align-items: end; justify-content: center; margin-top: 14px; }
+  .sizes span { font-size: 0.65rem; color: #555; display: block; text-align: center; margin-top: 4px; }
+</style>
+</head>
+<body>
+<h1>Origami N — Folded Paper Style</h1>
+
+<div class="grid">
+
+  <!-- A: Classic origami N — 3 strokes, each a folded plane -->
+  <div class="option">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="200" height="200">
+      <rect width="128" height="128" rx="22" fill="#080818"/>
+      <!-- Left vertical stroke — two folded faces -->
+      <polygon points="30,20 42,20 42,70 30,80" fill="#00ffaa"/>
+      <polygon points="42,20 42,70 50,65 50,25" fill="#009966"/>
+      <!-- Diagonal stroke — two faces -->
+      <polygon points="42,20 50,25 86,95 78,100" fill="#00cc88"/>
+      <polygon points="42,20 78,100 42,108 30,80" fill="#007755"/>
+      <!-- Right vertical stroke — two faces -->
+      <polygon points="78,48 86,43 86,108 78,100" fill="#00ffaa"/>
+      <polygon points="86,43 98,48 98,108 86,108" fill="#008866"/>
+    </svg>
+    <h2>A. Classic Folded N</h2>
+    <p>Each stroke of the N is a folded paper plane — two tones per stroke. Clean, readable.</p>
+    <div class="sizes">
+      <div><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="48" height="48"><rect width="128" height="128" rx="22" fill="#080818"/><polygon points="30,20 42,20 42,70 30,80" fill="#00ffaa"/><polygon points="42,20 42,70 50,65 50,25" fill="#009966"/><polygon points="42,20 50,25 86,95 78,100" fill="#00cc88"/><polygon points="42,20 78,100 42,108 30,80" fill="#007755"/><polygon points="78,48 86,43 86,108 78,100" fill="#00ffaa"/><polygon points="86,43 98,48 98,108 86,108" fill="#008866"/></svg><span>48</span></div>
+      <div><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="32" height="32"><rect width="128" height="128" rx="22" fill="#080818"/><polygon points="30,20 42,20 42,70 30,80" fill="#00ffaa"/><polygon points="42,20 42,70 50,65 50,25" fill="#009966"/><polygon points="42,20 50,25 86,95 78,100" fill="#00cc88"/><polygon points="42,20 78,100 42,108 30,80" fill="#007755"/><polygon points="78,48 86,43 86,108 78,100" fill="#00ffaa"/><polygon points="86,43 98,48 98,108 86,108" fill="#008866"/></svg><span>32</span></div>
+      <div><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="16" height="16"><rect width="128" height="128" rx="22" fill="#080818"/><polygon points="30,20 42,20 42,70 30,80" fill="#00ffaa"/><polygon points="42,20 42,70 50,65 50,25" fill="#009966"/><polygon points="42,20 50,25 86,95 78,100" fill="#00cc88"/><polygon points="42,20 78,100 42,108 30,80" fill="#007755"/><polygon points="78,48 86,43 86,108 78,100" fill="#00ffaa"/><polygon points="86,43 98,48 98,108 86,108" fill="#008866"/></svg><span>16</span></div>
+    </div>
+  </div>
+
+  <!-- B: Ribbon fold N — continuous strip that folds into N shape -->
+  <div class="option">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="200" height="200">
+      <rect width="128" height="128" rx="22" fill="#080818"/>
+      <!-- One continuous folded ribbon forming N -->
+      <!-- Left vertical (front face) -->
+      <polygon points="28,108 28,20 44,20 44,108" fill="#00ffaa"/>
+      <!-- Diagonal fold (darker — folded away) -->
+      <polygon points="44,20 44,40 84,88 84,108 100,108 100,88 44,20" fill="#008866"/>
+      <!-- Fold crease highlight on diagonal -->
+      <polygon points="44,20 58,20 100,78 100,88 44,40" fill="#00bb88"/>
+      <!-- Right vertical (front face) -->
+      <polygon points="84,20 100,20 100,108 84,108" fill="#00ffaa"/>
+      <!-- Top fold triangle -->
+      <polygon points="44,20 58,20 84,20" fill="#33ffbb"/>
+    </svg>
+    <h2>B. Ribbon Fold</h2>
+    <p>A single continuous ribbon folded into an N. The diagonal is a visible fold with a crease highlight.</p>
+    <div class="sizes">
+      <div><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="48" height="48"><rect width="128" height="128" rx="22" fill="#080818"/><polygon points="28,108 28,20 44,20 44,108" fill="#00ffaa"/><polygon points="44,20 44,40 84,88 84,108 100,108 100,88 44,20" fill="#008866"/><polygon points="44,20 58,20 100,78 100,88 44,40" fill="#00bb88"/><polygon points="84,20 100,20 100,108 84,108" fill="#00ffaa"/><polygon points="44,20 58,20 84,20" fill="#33ffbb"/></svg><span>48</span></div>
+      <div><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="32" height="32"><rect width="128" height="128" rx="22" fill="#080818"/><polygon points="28,108 28,20 44,20 44,108" fill="#00ffaa"/><polygon points="44,20 44,40 84,88 84,108 100,108 100,88 44,20" fill="#008866"/><polygon points="44,20 58,20 100,78 100,88 44,40" fill="#00bb88"/><polygon points="84,20 100,20 100,108 84,108" fill="#00ffaa"/><polygon points="44,20 58,20 84,20" fill="#33ffbb"/></svg><span>32</span></div>
+      <div><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="16" height="16"><rect width="128" height="128" rx="22" fill="#080818"/><polygon points="28,108 28,20 44,20 44,108" fill="#00ffaa"/><polygon points="44,20 44,40 84,88 84,108 100,108 100,88 44,20" fill="#008866"/><polygon points="44,20 58,20 100,78 100,88 44,40" fill="#00bb88"/><polygon points="84,20 100,20 100,108 84,108" fill="#00ffaa"/></svg><span>16</span></div>
+    </div>
+  </div>
+
+  <!-- C: Triangulated N — broken into triangle facets -->
+  <div class="option">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="200" height="200">
+      <rect width="128" height="128" rx="22" fill="#080818"/>
+      <!-- Left stroke triangles -->
+      <polygon points="28,18 46,18 28,68" fill="#00ffaa"/>
+      <polygon points="46,18 28,68 46,68" fill="#009966"/>
+      <polygon points="28,68 46,68 28,108" fill="#00cc88"/>
+      <polygon points="46,68 28,108 46,108" fill="#007755"/>
+      <!-- Diagonal triangles -->
+      <polygon points="46,18 46,50 70,68" fill="#00dd99"/>
+      <polygon points="46,18 70,68 82,50" fill="#008866"/>
+      <polygon points="70,68 82,50 82,108" fill="#00aa77"/>
+      <polygon points="46,50 70,68 46,108" fill="#006644"/>
+      <!-- Right stroke triangles -->
+      <polygon points="82,18 100,18 82,68" fill="#33ffbb"/>
+      <polygon points="100,18 82,68 100,68" fill="#00cc88"/>
+      <polygon points="82,68 100,68 82,108" fill="#00ffaa"/>
+      <polygon points="100,68 82,108 100,108" fill="#009966"/>
+    </svg>
+    <h2>C. Faceted/Triangulated</h2>
+    <p>The N broken into triangular facets like a low-poly mesh. Each triangle a different shade. Very game-world.</p>
+    <div class="sizes">
+      <div><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="48" height="48"><rect width="128" height="128" rx="22" fill="#080818"/><polygon points="28,18 46,18 28,68" fill="#00ffaa"/><polygon points="46,18 28,68 46,68" fill="#009966"/><polygon points="28,68 46,68 28,108" fill="#00cc88"/><polygon points="46,68 28,108 46,108" fill="#007755"/><polygon points="46,18 46,50 70,68" fill="#00dd99"/><polygon points="46,18 70,68 82,50" fill="#008866"/><polygon points="70,68 82,50 82,108" fill="#00aa77"/><polygon points="46,50 70,68 46,108" fill="#006644"/><polygon points="82,18 100,18 82,68" fill="#33ffbb"/><polygon points="100,18 82,68 100,68" fill="#00cc88"/><polygon points="82,68 100,68 82,108" fill="#00ffaa"/><polygon points="100,68 82,108 100,108" fill="#009966"/></svg><span>48</span></div>
+      <div><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="32" height="32"><rect width="128" height="128" rx="22" fill="#080818"/><polygon points="28,18 46,18 28,68" fill="#00ffaa"/><polygon points="46,18 28,68 46,68" fill="#009966"/><polygon points="28,68 46,68 28,108" fill="#00cc88"/><polygon points="46,68 28,108 46,108" fill="#007755"/><polygon points="46,18 46,50 70,68" fill="#00dd99"/><polygon points="46,18 70,68 82,50" fill="#008866"/><polygon points="70,68 82,50 82,108" fill="#00aa77"/><polygon points="46,50 70,68 46,108" fill="#006644"/><polygon points="82,18 100,18 82,68" fill="#33ffbb"/><polygon points="100,18 82,68 100,68" fill="#00cc88"/><polygon points="82,68 100,68 82,108" fill="#00ffaa"/><polygon points="100,68 82,108 100,108" fill="#009966"/></svg><span>32</span></div>
+      <div><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="16" height="16"><rect width="128" height="128" rx="22" fill="#080818"/><polygon points="28,18 46,18 28,68" fill="#00ffaa"/><polygon points="46,18 28,68 46,68" fill="#009966"/><polygon points="28,68 46,68 28,108" fill="#00cc88"/><polygon points="46,68 28,108 46,108" fill="#007755"/><polygon points="46,18 46,50 70,68" fill="#00dd99"/><polygon points="46,18 70,68 82,50" fill="#008866"/><polygon points="70,68 82,50 82,108" fill="#00aa77"/><polygon points="46,50 70,68 46,108" fill="#006644"/><polygon points="82,18 100,18 82,68" fill="#33ffbb"/><polygon points="100,18 82,68 100,68" fill="#00cc88"/><polygon points="82,68 100,68 82,108" fill="#00ffaa"/><polygon points="100,68 82,108 100,108" fill="#009966"/></svg><span>16</span></div>
+    </div>
+  </div>
+
+  <!-- D: Isometric 3D block N -->
+  <div class="option">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="200" height="200">
+      <rect width="128" height="128" rx="22" fill="#080818"/>
+      <!-- Left vertical — front face -->
+      <polygon points="24,22 40,22 40,106 24,106" fill="#00ffaa"/>
+      <!-- Left vertical — right side (depth) -->
+      <polygon points="40,22 48,16 48,100 40,106" fill="#008866"/>
+      <!-- Left vertical — top face -->
+      <polygon points="24,22 40,22 48,16 32,16" fill="#33ffbb"/>
+      <!-- Diagonal — front face -->
+      <polygon points="40,22 48,16 96,92 88,98" fill="#00bb88"/>
+      <!-- Diagonal — top edge -->
+      <polygon points="40,22 48,16 56,10 48,16" fill="#44ffcc" opacity="0.5"/>
+      <!-- Right vertical — front face -->
+      <polygon points="88,22 104,22 104,106 88,106" fill="#00ffaa"/>
+      <!-- Right vertical — left side (depth) -->
+      <polygon points="80,16 88,22 88,106 80,100" fill="#007755"/>
+      <!-- Right vertical — top face -->
+      <polygon points="80,16 88,22 104,22 96,16" fill="#33ffbb"/>
+    </svg>
+    <h2>D. Isometric Block N</h2>
+    <p>The N as a 3D block letter seen from above-right. Top, front, and side faces visible. Architectural.</p>
+    <div class="sizes">
+      <div><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="48" height="48"><rect width="128" height="128" rx="22" fill="#080818"/><polygon points="24,22 40,22 40,106 24,106" fill="#00ffaa"/><polygon points="40,22 48,16 48,100 40,106" fill="#008866"/><polygon points="24,22 40,22 48,16 32,16" fill="#33ffbb"/><polygon points="40,22 48,16 96,92 88,98" fill="#00bb88"/><polygon points="88,22 104,22 104,106 88,106" fill="#00ffaa"/><polygon points="80,16 88,22 88,106 80,100" fill="#007755"/><polygon points="80,16 88,22 104,22 96,16" fill="#33ffbb"/></svg><span>48</span></div>
+      <div><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="32" height="32"><rect width="128" height="128" rx="22" fill="#080818"/><polygon points="24,22 40,22 40,106 24,106" fill="#00ffaa"/><polygon points="40,22 48,16 48,100 40,106" fill="#008866"/><polygon points="24,22 40,22 48,16 32,16" fill="#33ffbb"/><polygon points="40,22 48,16 96,92 88,98" fill="#00bb88"/><polygon points="88,22 104,22 104,106 88,106" fill="#00ffaa"/><polygon points="80,16 88,22 88,106 80,100" fill="#007755"/><polygon points="80,16 88,22 104,22 96,16" fill="#33ffbb"/></svg><span>32</span></div>
+      <div><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="16" height="16"><rect width="128" height="128" rx="22" fill="#080818"/><polygon points="24,22 40,22 40,106 24,106" fill="#00ffaa"/><polygon points="40,22 48,16 48,100 40,106" fill="#008866"/><polygon points="40,22 48,16 96,92 88,98" fill="#00bb88"/><polygon points="88,22 104,22 104,106 88,106" fill="#00ffaa"/><polygon points="80,16 88,22 88,106 80,100" fill="#007755"/></svg><span>16</span></div>
+    </div>
+  </div>
+
+  <!-- E: Paper fold with shadow crease -->
+  <div class="option">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="200" height="200">
+      <rect width="128" height="128" rx="22" fill="#080818"/>
+      <!-- Left vertical — bright side -->
+      <polygon points="28,18 42,18 42,110 28,110" fill="#00ffaa"/>
+      <!-- Fold crease down the left stroke -->
+      <polygon points="42,18 48,24 48,104 42,110" fill="#005544"/>
+      <!-- Diagonal — upper fold (lighter) -->
+      <polygon points="42,18 48,24 90,90 84,96" fill="#00dd99"/>
+      <!-- Diagonal — lower fold (darker) -->
+      <polygon points="42,18 84,96 42,110 28,110" fill="#006644" opacity="0.4"/>
+      <!-- Right vertical — bright side -->
+      <polygon points="84,18 98,18 98,110 84,110" fill="#00ffaa"/>
+      <!-- Fold crease on right stroke -->
+      <polygon points="78,24 84,18 84,110 78,104" fill="#005544"/>
+      <!-- Paper corner fold (top right) -->
+      <polygon points="98,18 98,34 86,18" fill="#33ffbb"/>
+      <polygon points="98,34 86,18 86,34" fill="#00aa77"/>
+    </svg>
+    <h2>E. Paper Fold with Corner</h2>
+    <p>N with visible fold creases along each stroke + a folded paper corner. Clearly origami.</p>
+    <div class="sizes">
+      <div><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="48" height="48"><rect width="128" height="128" rx="22" fill="#080818"/><polygon points="28,18 42,18 42,110 28,110" fill="#00ffaa"/><polygon points="42,18 48,24 48,104 42,110" fill="#005544"/><polygon points="42,18 48,24 90,90 84,96" fill="#00dd99"/><polygon points="42,18 84,96 42,110 28,110" fill="#006644" opacity="0.4"/><polygon points="84,18 98,18 98,110 84,110" fill="#00ffaa"/><polygon points="78,24 84,18 84,110 78,104" fill="#005544"/><polygon points="98,18 98,34 86,18" fill="#33ffbb"/><polygon points="98,34 86,18 86,34" fill="#00aa77"/></svg><span>48</span></div>
+      <div><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="32" height="32"><rect width="128" height="128" rx="22" fill="#080818"/><polygon points="28,18 42,18 42,110 28,110" fill="#00ffaa"/><polygon points="42,18 48,24 48,104 42,110" fill="#005544"/><polygon points="42,18 48,24 90,90 84,96" fill="#00dd99"/><polygon points="84,18 98,18 98,110 84,110" fill="#00ffaa"/><polygon points="78,24 84,18 84,110 78,104" fill="#005544"/><polygon points="98,18 98,34 86,18" fill="#33ffbb"/><polygon points="98,34 86,18 86,34" fill="#00aa77"/></svg><span>32</span></div>
+      <div><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="16" height="16"><rect width="128" height="128" rx="22" fill="#080818"/><polygon points="28,18 42,18 42,110 28,110" fill="#00ffaa"/><polygon points="42,18 48,24 90,90 84,96" fill="#00dd99"/><polygon points="84,18 98,18 98,110 84,110" fill="#00ffaa"/><polygon points="78,24 84,18 84,110 78,104" fill="#005544"/></svg><span>16</span></div>
+    </div>
+  </div>
+
+  <!-- F: Bold geometric N with angled cuts -->
+  <div class="option">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="200" height="200">
+      <rect width="128" height="128" rx="22" fill="#080818"/>
+      <!-- N built from 3 angular slabs with different face angles -->
+      <!-- Left slab — front -->
+      <polygon points="24,108 24,18 44,18 44,108" fill="#00ffaa"/>
+      <!-- Left slab — angled top bevel -->
+      <polygon points="24,18 44,18 50,12 30,12" fill="#33ffbb"/>
+      <!-- Left slab — right bevel -->
+      <polygon points="44,18 50,12 50,102 44,108" fill="#007755"/>
+      <!-- Diagonal slab — main face -->
+      <polygon points="44,18 50,12 100,96 94,102" fill="#00cc88"/>
+      <!-- Right slab — front -->
+      <polygon points="84,108 84,18 104,18 104,108" fill="#00ffaa"/>
+      <!-- Right slab — angled top bevel -->
+      <polygon points="84,18 104,18 110,12 90,12" fill="#33ffbb"/>
+      <!-- Right slab — right bevel -->
+      <polygon points="104,18 110,12 110,102 104,108" fill="#007755"/>
+    </svg>
+    <h2>F. Beveled Block N</h2>
+    <p>Thick block letter N with beveled top and side edges. Like a carved 3D sign. Strong, architectural.</p>
+    <div class="sizes">
+      <div><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="48" height="48"><rect width="128" height="128" rx="22" fill="#080818"/><polygon points="24,108 24,18 44,18 44,108" fill="#00ffaa"/><polygon points="24,18 44,18 50,12 30,12" fill="#33ffbb"/><polygon points="44,18 50,12 50,102 44,108" fill="#007755"/><polygon points="44,18 50,12 100,96 94,102" fill="#00cc88"/><polygon points="84,108 84,18 104,18 104,108" fill="#00ffaa"/><polygon points="84,18 104,18 110,12 90,12" fill="#33ffbb"/><polygon points="104,18 110,12 110,102 104,108" fill="#007755"/></svg><span>48</span></div>
+      <div><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="32" height="32"><rect width="128" height="128" rx="22" fill="#080818"/><polygon points="24,108 24,18 44,18 44,108" fill="#00ffaa"/><polygon points="24,18 44,18 50,12 30,12" fill="#33ffbb"/><polygon points="44,18 50,12 50,102 44,108" fill="#007755"/><polygon points="44,18 50,12 100,96 94,102" fill="#00cc88"/><polygon points="84,108 84,18 104,18 104,108" fill="#00ffaa"/><polygon points="84,18 104,18 110,12 90,12" fill="#33ffbb"/><polygon points="104,18 110,12 110,102 104,108" fill="#007755"/></svg><span>32</span></div>
+      <div><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="16" height="16"><rect width="128" height="128" rx="22" fill="#080818"/><polygon points="24,108 24,18 44,18 44,108" fill="#00ffaa"/><polygon points="24,18 44,18 50,12 30,12" fill="#33ffbb"/><polygon points="44,18 50,12 50,102 44,108" fill="#007755"/><polygon points="44,18 50,12 100,96 94,102" fill="#00cc88"/><polygon points="84,108 84,18 104,18 104,108" fill="#00ffaa"/><polygon points="84,18 104,18 110,12 90,12" fill="#33ffbb"/><polygon points="104,18 110,12 110,102 104,108" fill="#007755"/></svg><span>16</span></div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

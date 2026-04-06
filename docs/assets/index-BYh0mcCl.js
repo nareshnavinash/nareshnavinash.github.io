@@ -100622,50 +100622,6 @@ https://github.com/browserify/crypto-browserify`);
       ]));
     }
   }
-  class Title {
-    constructor() {
-      this.game = Game.getInstance(), this.interval = 1 / 60, this.lastTime = 0, this.offset = 0, this.offsetRounded = 0, this.index = 0, this.length = 30, this.carPosition = 10, this.objectInterval = 18, this.game.ticker.events.on("tick", () => {
-        this.update();
-      }, 14);
-    }
-    update() {
-      this.offset += this.game.physicalVehicle.forwardSpeed * this.game.ticker.deltaScaled;
-      const e = Math.floor(this.offset);
-      if (this.game.ticker.elapsed - this.lastTime > this.interval && e !== this.offsetRounded) {
-        this.lastTime = this.game.ticker.elapsed, this.offsetRounded = e;
-        const s = [];
-        for (let a = 0; a < this.length; a++) a === this.carPosition && s.push({
-          character: "\u{1F697}",
-          size: 4,
-          position: a
-        }), (a - e) % this.objectInterval === 0 && s.push({
-          character: "\u{1F333}",
-          size: 4,
-          position: a
-        });
-        for (let a = 0; a < s.length - 1; a++) {
-          const h = s[a], c = s[a + 1];
-          if (h.position + h.size > c.position) {
-            const d = h.position + h.size - c.position;
-            let f = Math.ceil(d / 2);
-            h.position - f < 0 && (f = 0);
-            const p = d - f;
-            h.position -= f, c.position += p;
-          }
-        }
-        let o = Array(this.length).fill("\xA0");
-        for (let a = 0; a < s.length; a++) {
-          const h = s[a];
-          o.splice(h.position, h.size, h.character);
-          for (let c = a + 1; c < s.length; c++) {
-            const d = s[c];
-            d.position -= h.size - 1;
-          }
-        }
-        document.title = "Naresh" + o.join("");
-      }
-    }
-  }
   const NodeShaderStage = {
     VERTEX: "vertex"
   }, NodeUpdateType = {
@@ -108990,7 +108946,7 @@ ${e.tab}if ( ${m} ) {
           }
         ]
       ]), this.options = new Options(), this.respawns = new Respawns("landing"), this.view = new View(), this.rendering.setPostprocessing(), this.rendering.start(), this.reveal = new Reveal(), this.noises = new Noises(), this.weather = new Weather(), this.wind = new Wind(), this.tracks = new Tracks(), this.lighting = new Lighting(), this.fog = new Fog(), this.water = new Water(), this.materials = new Materials(), this.objects = new Objects(), this.explosions = new Explosions(), this.world = new World();
-      const e = __vitePreload(() => import("./rapier-BxGC_5Mb.js").then(async (m) => {
+      const e = __vitePreload(() => import("./rapier-deYzaSAt.js").then(async (m) => {
         await m.__tla;
         return m;
       }), [], import.meta.url), r = this.resourcesLoader.load([
@@ -109261,7 +109217,7 @@ ${e.tab}if ( ${m} ) {
       this.RAPIER = o, this.resources = {
         ...s,
         ...this.resources
-      }, this.terrain = new Terrain(), this.physics = new Physics(), this.wireframe = new PhysicsWireframe(), this.physicalVehicle = new PhysicsVehicle(), this.zones = new Zones(), this.player = new Player(), this.closingManager = new ClosingManager(), this.interactivePoints = new InteractivePoints(), this.konamiCode = new KonamiCode(), this.achievements = new Achievements(), this.tornado = new Tornado(), this.map = new Map$1(), this.miniMap = new MiniMap(), this.title = new Title(), this.world.step(1), this.overlay = new Overlay(), this.quality.level === 0 && this.rendering.renderer.backend.isWebGPUBackend && PreRenderer.render(), await this.world.intro.loadingComplete, this.reveal.updateStep(0), this.debug.active && this.achievements.setProgress("debug", 1);
+      }, this.terrain = new Terrain(), this.physics = new Physics(), this.wireframe = new PhysicsWireframe(), this.physicalVehicle = new PhysicsVehicle(), this.zones = new Zones(), this.player = new Player(), this.closingManager = new ClosingManager(), this.interactivePoints = new InteractivePoints(), this.konamiCode = new KonamiCode(), this.achievements = new Achievements(), this.tornado = new Tornado(), this.map = new Map$1(), this.miniMap = new MiniMap(), this.world.step(1), this.overlay = new Overlay(), this.quality.level === 0 && this.rendering.renderer.backend.isWebGPUBackend && PreRenderer.render(), await this.world.intro.loadingComplete, this.reveal.updateStep(0), this.debug.active && this.achievements.setProgress("debug", 1);
     }
     reset() {
       this.inputs.interactiveButtons.clearItems(), this.player.respawn(null, () => {

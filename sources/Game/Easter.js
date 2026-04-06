@@ -166,7 +166,7 @@ export class Easter {
             this.eggs.items.forEach((item) => {
                 title += item.caught ? '🐣' : '🥚'
             })
-            document.title = title
+            // Keep static HTML <title> for SEO
         }
 
         this.eggs.testOver = () => {
