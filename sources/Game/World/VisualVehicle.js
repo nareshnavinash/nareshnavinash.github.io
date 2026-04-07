@@ -437,7 +437,9 @@ export class VisualVehicle {
             this.game.ticker.deltaScaled *
             16
 
-        const wheelsRotation = (physicalVehicle.forwardSpeed / physicalVehicle.wheels.settings.radius) * 0.006
+        this.wheels.smoothedForwardSpeed = this.wheels.smoothedForwardSpeed || 0
+        this.wheels.smoothedForwardSpeed += (physicalVehicle.forwardSpeed - this.wheels.smoothedForwardSpeed) * Math.min(1, this.game.ticker.deltaScaled * 8)
+        const wheelsRotation = (this.wheels.smoothedForwardSpeed / physicalVehicle.wheels.settings.radius) * 0.006
 
         for (let i = 0; i < 4; i++) {
             const visualWheel = this.wheels.items[i]
@@ -464,7 +466,7 @@ export class VisualVehicle {
 
             visualWheel.container.position.x = physicalWheel.basePosition.x
             visualWheel.container.position.y +=
-                (wheelY - visualWheel.container.position.y) * 25 * this.game.ticker.deltaScaled
+                (wheelY - visualWheel.container.position.y) * 10 * this.game.ticker.deltaScaled
             visualWheel.container.position.z = physicalWheel.basePosition.z
 
             if (visualWheel.suspension) {

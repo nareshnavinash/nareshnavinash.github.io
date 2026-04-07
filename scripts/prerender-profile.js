@@ -238,8 +238,13 @@ function renderRepoCard(repo) {
         githubSvg +
         ' Source</a>' +
         '</div>'
+    var thumbHtml = repo.thumbnail
+        ? '<div class="card-thumbnail"><img src="' + esc(repo.thumbnail) + '" alt="" loading="lazy"></div>'
+        : ''
     return (
         '<div class="opensource-card reveal">' +
+        thumbHtml +
+        '<div class="card-body">' +
         '<h3><a href="' +
         esc(repo.url) +
         '" target="_blank" rel="noopener">' +
@@ -250,6 +255,7 @@ function renderRepoCard(repo) {
         '</p>' +
         metaHtml +
         linksHtml +
+        '</div>' +
         '</div>'
     )
 }
@@ -265,8 +271,13 @@ function renderArticleCard(article) {
         })
         .join('')
     var tagsContainer = tagsHtml ? '<div class="article-card-tags">' + tagsHtml + '</div>' : ''
+    var thumbHtml = article.thumbnail
+        ? '<div class="card-thumbnail"><img src="' + esc(article.thumbnail) + '" alt="" loading="lazy"></div>'
+        : ''
     return (
         '<div class="opensource-card reveal">' +
+        thumbHtml +
+        '<div class="card-body">' +
         '<h3><a href="' +
         esc(article.url) +
         '" target="_blank" rel="noopener">' +
@@ -285,6 +296,7 @@ function renderArticleCard(article) {
         '" target="_blank" rel="noopener" class="btn-source">' +
         mediumSvg +
         ' Read</a>' +
+        '</div>' +
         '</div>' +
         '</div>'
     )

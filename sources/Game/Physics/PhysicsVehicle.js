@@ -158,7 +158,7 @@ export class PhysicsVehicle {
             maxSuspensionTravel: 2,
             sideFrictionStiffness: 3,
             suspensionCompression: 10,
-            suspensionRelaxation: 2.7,
+            suspensionRelaxation: 4.5,
             suspensionStiffness: 25
         }
 
@@ -507,6 +507,15 @@ export class PhysicsVehicle {
 
                 this.controller.setWheelFrictionSlip(i, onIce ? iceFriction : this.wheels.settings.frictionSlip)
             }
+        }
+
+        // Increase damping when idle to prevent micro-oscillation
+        if (this.stop.active) {
+            this.chassis.physical.linearDamping = 5
+            this.chassis.physical.angularDamping = 5
+        } else {
+            this.chassis.physical.linearDamping = 0.1
+            this.chassis.physical.angularDamping = 0.1
         }
 
         // Update controller

@@ -497,7 +497,7 @@
                     "technology",
                     "management"
                 ],
-                "thumbnail": ""
+                "thumbnail": "https://miro.medium.com/v2/resize:fit:1200/1*O-LOq_wturAEmMcAqjxxsQ.png"
             },
             {
                 "title": "Beyond the Box: Domino’s Recipe for a Successful Project Landing",
@@ -511,7 +511,7 @@
                     "business",
                     "money"
                 ],
-                "thumbnail": ""
+                "thumbnail": "https://miro.medium.com/v2/resize:fit:1200/1*eoO4SPY3xDHHgTtPAbAb8w.png"
             },
             {
                 "title": "Vision Without Sight: The Google Glass Lesson in Project Landings",
@@ -525,7 +525,7 @@
                     "business",
                     "money"
                 ],
-                "thumbnail": ""
+                "thumbnail": "https://miro.medium.com/v2/resize:fit:1200/1*k4V4BhVHHVPhLRQnjgd9Ug.png"
             },
             {
                 "title": "Project Landing: Disney’s Billion-Dollar Wristband",
@@ -539,7 +539,7 @@
                     "business",
                     "leadership"
                 ],
-                "thumbnail": ""
+                "thumbnail": "https://miro.medium.com/v2/resize:fit:1200/1*KpdUQkq1R92ZmhF8WkSLCQ.png"
             },
             {
                 "title": "Avoiding Scope Creep: The Project Management Secrets of the Empire State Building",
@@ -553,7 +553,7 @@
                     "project-management",
                     "money"
                 ],
-                "thumbnail": ""
+                "thumbnail": "https://miro.medium.com/v2/resize:fit:1200/1*ZdVrk17g5XfjzhH6xKEo0w.png"
             },
             {
                 "title": "Taming the AI Tongue",
@@ -603,7 +603,8 @@
                         "python",
                         "rest-api",
                         "snap-mode"
-                    ]
+                    ],
+                    "thumbnail": "screenshots/PyRest-Python.png"
                 },
                 {
                     "name": "newman-run",
@@ -622,7 +623,8 @@
                         "npm-package",
                         "postman",
                         "runner"
-                    ]
+                    ],
+                    "thumbnail": "screenshots/newman-run.png"
                 },
                 {
                     "name": "Cypress-PageObjectModel",
@@ -639,7 +641,8 @@
                         "javascript",
                         "page-object-model",
                         "ui-automation"
-                    ]
+                    ],
+                    "thumbnail": "screenshots/Cypress-PageObjectModel.png"
                 },
                 {
                     "name": "Postman-Newman-Framework",
@@ -657,7 +660,8 @@
                         "postman",
                         "postman-collection",
                         "postman-test"
-                    ]
+                    ],
+                    "thumbnail": "screenshots/Postman-Newman-Framework.png"
                 },
                 {
                     "name": "Selpy-Python",
@@ -676,7 +680,8 @@
                         "selenium",
                         "snap-mode",
                         "web-automation"
-                    ]
+                    ],
+                    "thumbnail": "screenshots/Selpy-Python.png"
                 },
                 {
                     "name": "playwright-TS-pom",
@@ -694,7 +699,8 @@
                         "parallel",
                         "playwright-typescript",
                         "typescript"
-                    ]
+                    ],
+                    "thumbnail": "https://opengraph.githubassets.com/49aad84da287c5ab7154e1fa493a0769cae72927a457e4aa7a49b71f9f2a35e7/nareshnavinash/playwright-TS-pom"
                 }
             ],
             "recent": [
@@ -720,7 +726,8 @@
                         "on-device-ai",
                         "privacy",
                         "quantized-models"
-                    ]
+                    ],
+                    "thumbnail": "screenshots/bonsai.png"
                 },
                 {
                     "name": "dobbe",
@@ -741,7 +748,8 @@
                         "python",
                         "security",
                         "vulnerability"
-                    ]
+                    ],
+                    "thumbnail": "screenshots/dobbe.png"
                 },
                 {
                     "name": "aDictive",
@@ -752,7 +760,8 @@
                     "homepage": "https://nareshnavinash.github.io/aDictive/",
                     "hasPages": true,
                     "createdAt": "2026-03-17T12:14:42Z",
-                    "topics": []
+                    "topics": [],
+                    "thumbnail": "screenshots/aDictive.png"
                 },
                 {
                     "name": "GhostEdit",
@@ -770,7 +779,8 @@
                         "grammarly-alternative",
                         "offline-first",
                         "spell-checker"
-                    ]
+                    ],
+                    "thumbnail": "screenshots/GhostEdit.png"
                 },
                 {
                     "name": "shelldone",
@@ -799,7 +809,8 @@
                         "terminal",
                         "wsl",
                         "zsh"
-                    ]
+                    ],
+                    "thumbnail": "screenshots/shelldone.png"
                 },
                 {
                     "name": "pg-patrol",
@@ -810,7 +821,8 @@
                     "homepage": "https://nareshnavinash.github.io/pg-patrol/",
                     "hasPages": true,
                     "createdAt": "2026-03-14T15:48:52Z",
-                    "topics": []
+                    "topics": [],
+                    "thumbnail": "screenshots/pg-patrol.png"
                 }
             ]
         }

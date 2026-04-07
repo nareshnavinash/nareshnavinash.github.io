@@ -18,6 +18,7 @@ import {
     renderArticleCard,
     renderOpenSourceGrids,
     refreshGitHubRepos,
+    buildThumbnailMap,
     setText,
     setAttr,
     formatTemplate,
@@ -1475,6 +1476,31 @@ describe('resume-loader.js', () => {
             })
             expect(html).not.toContain('opensource-card-meta')
         })
+
+        it('should render thumbnail when present', () => {
+            const html = renderRepoCard({
+                name: 'x',
+                description: 'y',
+                url: 'https://github.com/t/x',
+                stars: 0,
+                language: null,
+                thumbnail: 'https://example.com/img.png'
+            })
+            expect(html).toContain('card-thumbnail')
+            expect(html).toContain('https://example.com/img.png')
+        })
+
+        it('should omit thumbnail when empty', () => {
+            const html = renderRepoCard({
+                name: 'x',
+                description: 'y',
+                url: 'https://github.com/t/x',
+                stars: 0,
+                language: null,
+                thumbnail: ''
+            })
+            expect(html).not.toContain('card-thumbnail')
+        })
     })
 
     describe('renderArticleCard()', () => {
@@ -1519,6 +1545,21 @@ describe('resume-loader.js', () => {
             expect(html).toContain('article-card-date')
             expect(html).not.toContain('undefined')
         })
+
+        it('should render thumbnail when present', () => {
+            const html = renderArticleCard({
+                title: 'x',
+                url: 'u',
+                thumbnail: 'https://cdn-images-1.medium.com/max/1024/img.png'
+            })
+            expect(html).toContain('card-thumbnail')
+            expect(html).toContain('https://cdn-images-1.medium.com/max/1024/img.png')
+        })
+
+        it('should omit thumbnail when empty', () => {
+            const html = renderArticleCard({ title: 'x', url: 'u', thumbnail: '' })
+            expect(html).not.toContain('card-thumbnail')
+        })
     })
 
     describe('renderOpenSourceGrids()', () => {
@@ -1535,6 +1576,33 @@ describe('resume-loader.js', () => {
             renderOpenSourceGrids([], [])
             expect(document.getElementById('opensource-starred').innerHTML).toBe('')
             expect(document.getElementById('opensource-recent').innerHTML).toBe('')
+        })
+    })
+
+    describe('buildThumbnailMap()', () => {
+        it('should build map from repos with thumbnails', () => {
+            const result = buildThumbnailMap({
+                openSource: {
+                    repos: {
+                        starred: [
+                            { name: 'a', thumbnail: 'https://example.com/a.png' },
+                            { name: 'b', thumbnail: '' }
+                        ],
+                        recent: [{ name: 'c', thumbnail: 'https://example.com/c.png' }]
+                    }
+                }
+            })
+            expect(result).toEqual({ a: 'https://example.com/a.png', c: 'https://example.com/c.png' })
+        })
+
+        it('should return empty map when no openSource', () => {
+            expect(buildThumbnailMap({})).toEqual({})
+            expect(buildThumbnailMap(null)).toEqual({})
+        })
+
+        it('should return empty map when no repos', () => {
+            expect(buildThumbnailMap({ openSource: {} })).toEqual({})
+            expect(buildThumbnailMap({ openSource: { repos: {} } })).toEqual({})
         })
     })
 
@@ -1579,6 +1647,63 @@ describe('resume-loader.js', () => {
             const recent = document.getElementById('opensource-recent')
             expect(recent.innerHTML).toContain('recent-app')
             expect(recent.innerHTML).toContain('btn-demo')
+        })
+
+        it('should use thumbnails from thumbnailsByName when provided', async () => {
+            const mockRepos = [
+                {
+                    name: 'my-repo',
+                    description: 'a repo',
+                    html_url: 'https://github.com/nareshnavinash/my-repo',
+                    stargazers_count: 10,
+                    language: 'JS',
+                    fork: false,
+                    archived: false,
+                    has_pages: false,
+                    homepage: '',
+                    created_at: '2020-01-01T00:00:00Z',
+                    topics: []
+                }
+            ]
+
+            globalThis.fetch = vi.fn().mockResolvedValue({
+                ok: true,
+                json: () => Promise.resolve(mockRepos)
+            })
+
+            await refreshGitHubRepos({ 'my-repo': 'https://example.com/thumb.png' })
+
+            const starred = document.getElementById('opensource-starred')
+            expect(starred.innerHTML).toContain('card-thumbnail')
+            expect(starred.innerHTML).toContain('https://example.com/thumb.png')
+        })
+
+        it('should render without thumbnails when thumbnailsByName is not provided', async () => {
+            const mockRepos = [
+                {
+                    name: 'no-thumb',
+                    description: 'a repo',
+                    html_url: 'https://github.com/nareshnavinash/no-thumb',
+                    stargazers_count: 5,
+                    language: 'JS',
+                    fork: false,
+                    archived: false,
+                    has_pages: false,
+                    homepage: '',
+                    created_at: '2020-01-01T00:00:00Z',
+                    topics: []
+                }
+            ]
+
+            globalThis.fetch = vi.fn().mockResolvedValue({
+                ok: true,
+                json: () => Promise.resolve(mockRepos)
+            })
+
+            await refreshGitHubRepos()
+
+            const starred = document.getElementById('opensource-starred')
+            expect(starred.innerHTML).not.toContain('card-thumbnail')
         })
 
         it('should exclude repos by name and keywords', async () => {

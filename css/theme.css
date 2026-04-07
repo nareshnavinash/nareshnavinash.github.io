@@ -6,6 +6,7 @@
 :root {
     --bg-body: #080818;
     --color-blue: #4488ff;
+    --color-medium: #55aaff;
     --color-peach: #ff7744;
     --color-mint: #00ffaa;
     --color-lavender: #aa77ff;
@@ -33,6 +34,7 @@
     --glow-peach: rgba(255, 119, 68, 0.35);
     --glow-gold: rgba(255, 204, 51, 0.3);
     --glow-blue: rgba(68, 136, 255, 0.3);
+    --glow-medium: rgba(85, 170, 255, 0.3);
 
     /* UI backgrounds */
     --bg-nav-scrolled: #080818;
@@ -55,10 +57,10 @@
     --border-certifications: rgba(170, 119, 255, 0.12);
     --bg-opensource: #082618;
     --border-opensource: rgba(0, 255, 170, 0.12);
-    --bg-medium: #0c1234;
-    --border-medium: rgba(68, 136, 255, 0.12);
-    --article-tag-bg: rgba(68, 136, 255, 0.1);
-    --article-tag-border: rgba(68, 136, 255, 0.2);
+    --bg-medium: #0c1830;
+    --border-medium: rgba(85, 170, 255, 0.12);
+    --article-tag-bg: rgba(85, 170, 255, 0.1);
+    --article-tag-border: rgba(85, 170, 255, 0.2);
     --bg-education: #080818;
     --border-education: rgba(100, 100, 180, 0.1);
     --bg-contact: #061c16;
@@ -87,6 +89,7 @@
 [data-theme='day'] {
     --bg-body: #e8e4f8;
     --color-blue: #3366dd;
+    --color-medium: #4488cc;
     --color-peach: #e85a2a;
     --color-mint: #00b880;
     --color-lavender: #7744cc;
@@ -102,6 +105,7 @@
     --glow-peach: rgba(232, 90, 42, 0.2);
     --glow-gold: rgba(212, 160, 16, 0.2);
     --glow-blue: rgba(51, 102, 221, 0.2);
+    --glow-medium: rgba(68, 136, 204, 0.2);
 
     /* UI backgrounds */
     --bg-nav-scrolled: #e8e4f8;
@@ -124,10 +128,10 @@
     --border-certifications: rgba(119, 68, 204, 0.18);
     --bg-opensource: #d8ece8;
     --border-opensource: rgba(0, 184, 128, 0.18);
-    --bg-medium: #dce0f8;
-    --border-medium: rgba(51, 102, 221, 0.18);
-    --article-tag-bg: rgba(51, 102, 221, 0.1);
-    --article-tag-border: rgba(51, 102, 221, 0.2);
+    --bg-medium: #dae8f8;
+    --border-medium: rgba(68, 136, 204, 0.18);
+    --article-tag-bg: rgba(68, 136, 204, 0.1);
+    --article-tag-border: rgba(68, 136, 204, 0.2);
     --bg-education: #e8e4f8;
     --border-education: rgba(100, 80, 180, 0.12);
     --bg-contact: #dae6f8;

@@ -163,6 +163,17 @@ async function fetchArticles(pinnedUrls, fallbackRecentUrls) {
         })
         .slice(0, MAX_RECENT)
 
+    // Fetch og:image for recent articles with missing thumbnails
+    for (var k = 0; k < recent.length; k++) {
+        if (!recent[k].thumbnail) {
+            console.log('Fetching thumbnail for recent article: ' + recent[k].url.split('/').pop().slice(0, 50))
+            var scraped = await fetchArticlePage(recent[k].url)
+            if (scraped && scraped.thumbnail) {
+                recent[k].thumbnail = scraped.thumbnail
+            }
+        }
+    }
+
     // Fetch additional recent articles from fallback URLs if RSS didn't provide enough
     if (recent.length < MAX_RECENT && fallbackRecentUrls && fallbackRecentUrls.length > 0) {
         var recentUrlSet = new Set(

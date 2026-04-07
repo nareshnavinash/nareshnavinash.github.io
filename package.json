@@ -5,11 +5,12 @@
     "scripts": {
         "sync-profile": "cp profile.html static/profile.html && (cmp -s resume.json static/data/resume.json || cp resume.json static/data/resume.json) && cp css/theme.css static/css/theme.css && cp css/styles.css static/css/styles.css && cp js/main.js static/js/main.js && cp js/resume-loader.js static/js/resume-loader.js && cp js/three-scene.js static/js/three-scene.js && cp public/assets/profile.jpg static/profile.jpg",
         "fetch-repos": "node scripts/fetch-github-repos.js",
+        "capture-screenshots": "node scripts/capture-repo-screenshots.js",
         "fetch-articles": "node scripts/fetch-medium-articles.js",
         "prerender-profile": "node scripts/prerender-profile.js",
         "predev": "npm run sync-profile",
         "dev": "vite --mode development",
-        "prebuild": "npm run fetch-repos && npm run fetch-articles && npm run sync-profile && npm run prerender-profile",
+        "prebuild": "npm run fetch-repos && npm run capture-screenshots && npm run fetch-articles && npm run sync-profile && npm run prerender-profile",
         "build": "vite build --mode production",
         "preview": "vite preview",
         "compress": "node scripts/compress.js static/",
@@ -57,6 +58,7 @@
         "eslint-plugin-import": "^2.32.0",
         "eslint-plugin-prettier": "^5.5.5",
         "jsdom": "^28.1.0",
+        "playwright": "^1.59.1",
         "prettier": "^3.8.1",
         "vitest": "^4.0.18"
     }

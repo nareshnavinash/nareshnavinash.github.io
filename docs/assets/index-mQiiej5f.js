@@ -93894,14 +93894,14 @@ https://github.com/browserify/crypto-browserify`);
     }
     update() {
       const e = this.game.physicalVehicle;
-      this.parts.chassis.position.copy(e.position), this.parts.chassis.quaternion.copy(e.quaternion), this.wheels.steering += (this.game.player.steering * e.steeringAmplitude - this.wheels.steering) * this.game.ticker.deltaScaled * 16;
-      const r = e.forwardSpeed / e.wheels.settings.radius * 6e-3;
+      this.parts.chassis.position.copy(e.position), this.parts.chassis.quaternion.copy(e.quaternion), this.wheels.steering += (this.game.player.steering * e.steeringAmplitude - this.wheels.steering) * this.game.ticker.deltaScaled * 16, this.wheels.smoothedForwardSpeed = this.wheels.smoothedForwardSpeed || 0, this.wheels.smoothedForwardSpeed += (e.forwardSpeed - this.wheels.smoothedForwardSpeed) * Math.min(1, this.game.ticker.deltaScaled * 8);
+      const r = this.wheels.smoothedForwardSpeed / e.wheels.settings.radius * 6e-3;
       for (let a = 0; a < 4; a++) {
         const h = this.wheels.items[a], c = e.wheels.items[a];
         (!this.game.inputs.actions.get("brake").active || this.game.inputs.actions.get("forward").active || this.game.inputs.actions.get("backward").active) && (a === 0 || a === 2 ? h.cylinder.rotation.z += r : h.cylinder.rotation.z -= r), a === 0 && (h.container.rotation.y = Math.PI + this.wheels.steering), a === 1 && (h.container.rotation.y = this.wheels.steering);
         const d = c.suspensionLength;
         let f = c.basePosition.y - d;
-        if (f = Math.min(f, -0.5), h.container.position.x = c.basePosition.x, h.container.position.y += (f - h.container.position.y) * 25 * this.game.ticker.deltaScaled, h.container.position.z = c.basePosition.z, h.suspension) {
+        if (f = Math.min(f, -0.5), h.container.position.x = c.basePosition.x, h.container.position.y += (f - h.container.position.y) * 10 * this.game.ticker.deltaScaled, h.container.position.z = c.basePosition.z, h.suspension) {
           const p = Math.abs(h.container.position.y) - 0.5;
           h.suspension.scale.y = p;
         }
@@ -97713,7 +97713,7 @@ https://github.com/browserify/crypto-browserify`);
         maxSuspensionTravel: 2,
         sideFrictionStiffness: 3,
         suspensionCompression: 10,
-        suspensionRelaxation: 2.7,
+        suspensionRelaxation: 4.5,
         suspensionStiffness: 25
       }, this.wheels.updateSettings = () => {
         this.wheels.perimeter = this.wheels.settings.radius * Math.PI * 2;
@@ -97844,6 +97844,7 @@ https://github.com/browserify/crypto-browserify`);
           this.controller.setWheelFrictionSlip(c, f ? p : this.wheels.settings.frictionSlip);
         }
       }
+      this.stop.active ? (this.chassis.physical.linearDamping = 5, this.chassis.physical.angularDamping = 5) : (this.chassis.physical.linearDamping = 0.1, this.chassis.physical.angularDamping = 0.1);
       const h = this.game.quality.level === 1 ? 1 / 60 : Math.min(1 / 60, this.game.ticker.deltaAverage);
       this.controller.updateVehicle(h);
     }
@@ -108798,7 +108799,7 @@ ${e.tab}if ( ${m} ) {
           }
         ]
       ]), this.options = new Options(), this.respawns = new Respawns("landing"), this.view = new View(), this.rendering.setPostprocessing(), this.rendering.start(), this.reveal = new Reveal(), this.noises = new Noises(), this.weather = new Weather(), this.wind = new Wind(), this.tracks = new Tracks(), this.lighting = new Lighting(), this.fog = new Fog(), this.water = new Water(), this.materials = new Materials(), this.objects = new Objects(), this.explosions = new Explosions(), this.world = new World();
-      const e = __vitePreload(() => import("./rapier-C2nLZf8M.js").then(async (m) => {
+      const e = __vitePreload(() => import("./rapier-BfFWDNoL.js").then(async (m) => {
         await m.__tla;
         return m;
       }), [], import.meta.url), r = this.resourcesLoader.load([

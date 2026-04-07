@@ -52,8 +52,13 @@ function renderRepoCard(repo) {
         GITHUB_SVG +
         ' Source</a>' +
         '</div>'
+    var thumbHtml = repo.thumbnail
+        ? '<div class="card-thumbnail"><img src="' + esc(repo.thumbnail) + '" alt="" loading="lazy"></div>'
+        : ''
     return (
         '<div class="opensource-card reveal visible">' +
+        thumbHtml +
+        '<div class="card-body">' +
         '<h3><a href="' +
         esc(repo.url) +
         '" target="_blank" rel="noopener">' +
@@ -64,6 +69,7 @@ function renderRepoCard(repo) {
         '</p>' +
         metaHtml +
         linksHtml +
+        '</div>' +
         '</div>'
     )
 }
@@ -79,8 +85,13 @@ function renderArticleCard(article) {
         })
         .join('')
     var tagsContainer = tagsHtml ? '<div class="article-card-tags">' + tagsHtml + '</div>' : ''
+    var thumbHtml = article.thumbnail
+        ? '<div class="card-thumbnail"><img src="' + esc(article.thumbnail) + '" alt="" loading="lazy"></div>'
+        : ''
     return (
         '<div class="opensource-card reveal visible">' +
+        thumbHtml +
+        '<div class="card-body">' +
         '<h3><a href="' +
         esc(article.url) +
         '" target="_blank" rel="noopener">' +
@@ -99,6 +110,7 @@ function renderArticleCard(article) {
         '" target="_blank" rel="noopener" class="btn-source">' +
         MEDIUM_SVG +
         ' Read</a>' +
+        '</div>' +
         '</div>' +
         '</div>'
     )
@@ -130,7 +142,17 @@ var PAGES_BASE = 'https://' + GITHUB_USER + '.github.io'
 var EXCLUDED_NAMES = ['nareshnavinash.github.io']
 var EXCLUDED_KEYWORDS = ['homebrew', 'scoop']
 
-function refreshGitHubRepos() {
+function buildThumbnailMap(resume) {
+    var thumbs = {}
+    var reposData = (resume && resume.openSource && resume.openSource.repos) || {}
+    var allRepos = (reposData.starred || []).concat(reposData.recent || [])
+    allRepos.forEach(function (r) {
+        if (r.thumbnail) thumbs[r.name] = r.thumbnail
+    })
+    return thumbs
+}
+
+function refreshGitHubRepos(thumbnailsByName) {
     return fetch(GITHUB_API_URL, {
         headers: { Accept: 'application/vnd.github.v3+json' }
     })
@@ -162,7 +184,8 @@ function refreshGitHubRepos() {
                     language: r.language,
                     homepage: r.homepage || (r.has_pages ? PAGES_BASE + '/' + r.name + '/' : ''),
                     hasPages: r.has_pages,
-                    createdAt: r.created_at
+                    createdAt: r.created_at,
+                    thumbnail: (thumbnailsByName && thumbnailsByName[r.name]) || ''
                 }
             }
 
@@ -825,7 +848,7 @@ function init() {
         .then(function (resume) {
             populate(resume)
             document.dispatchEvent(new Event('resume-loaded'))
-            refreshGitHubRepos()
+            refreshGitHubRepos(buildThumbnailMap(resume))
         })
         .catch(function (err) {
             console.error('Failed to load resume data:', err)
@@ -852,6 +875,7 @@ export {
     renderArticleCard,
     renderOpenSourceGrids,
     refreshGitHubRepos,
+    buildThumbnailMap,
     setText,
     setAttr,
     formatTemplate,
