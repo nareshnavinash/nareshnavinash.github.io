@@ -1364,6 +1364,62 @@ button {
     border: 1px solid var(--color-mint);
 }
 
+.btn-source svg {
+    width: 14px;
+    height: 14px;
+    vertical-align: -2px;
+    margin-right: 4px;
+}
+
+/* ============================================
+   08c. MEDIUM ARTICLES
+   ============================================ */
+
+#medium-articles {
+    background: var(--bg-medium);
+    border-top: 1px solid var(--border-medium);
+}
+
+.medium-articles {
+    padding: var(--section-padding) 0;
+}
+
+.medium-articles .opensource-card:hover {
+    border-color: var(--color-blue);
+    box-shadow: 0 0 20px var(--glow-blue);
+}
+
+.medium-articles .opensource-card h3 {
+    color: var(--color-blue);
+}
+
+.medium-articles .opensource-card-links .btn-source {
+    color: var(--color-blue);
+    border-color: var(--color-blue);
+}
+
+.article-card-date {
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    margin-bottom: 6px;
+}
+
+.article-card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 12px;
+}
+
+.article-tag {
+    font-size: 0.72rem;
+    padding: 2px 10px;
+    border-radius: 12px;
+    background: rgba(68, 136, 255, 0.1);
+    color: var(--color-blue);
+    border: 1px solid rgba(68, 136, 255, 0.2);
+}
+
 /* ============================================
    09. EDUCATION
    ============================================ */

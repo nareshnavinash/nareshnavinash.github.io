@@ -108946,7 +108946,7 @@ ${e.tab}if ( ${m} ) {
           }
         ]
       ]), this.options = new Options(), this.respawns = new Respawns("landing"), this.view = new View(), this.rendering.setPostprocessing(), this.rendering.start(), this.reveal = new Reveal(), this.noises = new Noises(), this.weather = new Weather(), this.wind = new Wind(), this.tracks = new Tracks(), this.lighting = new Lighting(), this.fog = new Fog(), this.water = new Water(), this.materials = new Materials(), this.objects = new Objects(), this.explosions = new Explosions(), this.world = new World();
-      const e = __vitePreload(() => import("./rapier-deYzaSAt.js").then(async (m) => {
+      const e = __vitePreload(() => import("./rapier-DAcqGEd2.js").then(async (m) => {
         await m.__tla;
         return m;
       }), [], import.meta.url), r = this.resourcesLoader.load([

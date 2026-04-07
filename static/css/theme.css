@@ -55,6 +55,8 @@
     --border-certifications: rgba(170, 119, 255, 0.12);
     --bg-opensource: #0a1a18;
     --border-opensource: rgba(0, 255, 170, 0.12);
+    --bg-medium: #0c0e24;
+    --border-medium: rgba(68, 136, 255, 0.12);
     --bg-education: #080818;
     --border-education: rgba(100, 100, 180, 0.1);
     --bg-contact: #061c16;
@@ -120,6 +122,8 @@
     --border-certifications: rgba(119, 68, 204, 0.18);
     --bg-opensource: #d8ece8;
     --border-opensource: rgba(0, 184, 128, 0.18);
+    --bg-medium: #dce0f8;
+    --border-medium: rgba(51, 102, 221, 0.18);
     --bg-education: #e8e4f8;
     --border-education: rgba(100, 80, 180, 0.12);
     --bg-contact: #dae6f8;

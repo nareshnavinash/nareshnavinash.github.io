@@ -15,6 +15,7 @@ import {
     triggerRevealObservers,
     bindTimelineDetails,
     renderRepoCard,
+    renderArticleCard,
     renderOpenSourceGrids,
     refreshGitHubRepos,
     setText,
@@ -294,6 +295,61 @@ describe('resume-loader.js', () => {
             const creds = schema['@graph'].filter((item) => item['@type'] === 'EducationalOccupationalCredential')
             expect(creds.length).toBe(resumeData.certifications.items.length)
             expect(creds[0].name).toBe(resumeData.certifications.items[0].name)
+        })
+
+        it('should include Article schemas when openSource has articles', () => {
+            const dataWithArticles = {
+                ...resumeData,
+                openSource: {
+                    ...resumeData.openSource,
+                    pinnedArticles: [
+                        { title: 'Pinned', url: 'https://medium.com/@t/p', date: '2026-03-01T00:00:00.000Z', description: 'D', tags: [] }
+                    ],
+                    recentArticles: [
+                        { title: 'Recent', url: 'https://medium.com/@t/r', date: '2026-04-01T00:00:00.000Z', description: 'D', tags: [] }
+                    ]
+                }
+            }
+            populateSeo(dataWithArticles, resumeData.site.seo)
+
+            const schema = JSON.parse(document.querySelector('#meta-ldjson').textContent)
+            const articles = schema['@graph'].filter((item) => item['@type'] === 'Article')
+            expect(articles.length).toBe(2)
+            expect(articles[0].headline).toBe('Pinned')
+            expect(articles[1].headline).toBe('Recent')
+            expect(articles[0].publisher.name).toBe('Medium')
+        })
+
+        it('should handle Article schemas with missing fields', () => {
+            const dataWithSparse = {
+                ...resumeData,
+                openSource: {
+                    ...resumeData.openSource,
+                    pinnedArticles: [
+                        { title: null, url: null, date: null, description: null, tags: [] }
+                    ],
+                    recentArticles: []
+                }
+            }
+            populateSeo(dataWithSparse, resumeData.site.seo)
+
+            const schema = JSON.parse(document.querySelector('#meta-ldjson').textContent)
+            const articles = schema['@graph'].filter((item) => item['@type'] === 'Article')
+            expect(articles.length).toBe(1)
+            expect(articles[0].headline).toBe('')
+            expect(articles[0].url).toBe('')
+        })
+
+        it('should not include Article schemas when openSource has no articles', () => {
+            const dataNoArticles = {
+                ...resumeData,
+                openSource: { repos: {} }
+            }
+            populateSeo(dataNoArticles, resumeData.site.seo)
+
+            const schema = JSON.parse(document.querySelector('#meta-ldjson').textContent)
+            const articles = schema['@graph'].filter((item) => item['@type'] === 'Article')
+            expect(articles.length).toBe(0)
         })
 
         it('should not include Book schema when publications is missing', () => {
@@ -1318,6 +1374,55 @@ describe('resume-loader.js', () => {
             const data = { ...resumeData, openSource: undefined }
             expect(() => populate(data)).not.toThrow()
         })
+
+        it('should render pinned articles in opensource-pinned-articles grid', () => {
+            const data = {
+                ...resumeData,
+                openSource: {
+                    ...resumeData.openSource,
+                    pinnedArticles: [
+                        { title: 'Pinned One', url: 'https://medium.com/@t/pinned-1', date: '2026-03-01T00:00:00.000Z', description: 'Desc', tags: ['ai'] },
+                        { title: 'Pinned Two', url: 'https://medium.com/@t/pinned-2', date: '2026-02-01T00:00:00.000Z', description: 'Desc2', tags: [] }
+                    ]
+                }
+            }
+            populate(data)
+
+            const grid = document.getElementById('opensource-pinned-articles')
+            expect(grid.querySelectorAll('.opensource-card').length).toBe(2)
+            expect(grid.innerHTML).toContain('Pinned One')
+            expect(grid.innerHTML).toContain('Pinned Two')
+        })
+
+        it('should render recent articles in opensource-recent-articles grid', () => {
+            const data = {
+                ...resumeData,
+                openSource: {
+                    ...resumeData.openSource,
+                    recentArticles: [
+                        { title: 'Recent One', url: 'https://medium.com/@t/recent-1', date: '2026-04-01T00:00:00.000Z', description: 'R desc', tags: ['testing'] }
+                    ]
+                }
+            }
+            populate(data)
+
+            const grid = document.getElementById('opensource-recent-articles')
+            expect(grid.querySelectorAll('.opensource-card').length).toBe(1)
+            expect(grid.innerHTML).toContain('Recent One')
+        })
+
+        it('should handle missing article arrays gracefully', () => {
+            const data = {
+                ...resumeData,
+                openSource: { repos: {} }
+            }
+            populate(data)
+
+            const pinned = document.getElementById('opensource-pinned-articles')
+            const recent = document.getElementById('opensource-recent-articles')
+            expect(pinned.innerHTML).toBe('')
+            expect(recent.innerHTML).toBe('')
+        })
     })
 
     describe('renderRepoCard()', () => {
@@ -1374,6 +1479,50 @@ describe('resume-loader.js', () => {
                 language: null
             })
             expect(html).not.toContain('opensource-card-meta')
+        })
+    })
+
+    describe('renderArticleCard()', () => {
+        it('should render a card with title, date, description, tags, and read link', () => {
+            const html = renderArticleCard({
+                title: 'Test Article',
+                url: 'https://medium.com/@test/article',
+                date: '2026-03-15T00:00:00.000Z',
+                description: 'A great article about testing',
+                tags: ['testing', 'javascript', 'ai']
+            })
+            expect(html).toContain('Test Article')
+            expect(html).toContain('https://medium.com/@test/article')
+            expect(html).toContain('Mar 15, 2026')
+            expect(html).toContain('A great article about testing')
+            expect(html).toContain('article-tag')
+            expect(html).toContain('testing')
+            expect(html).toContain('javascript')
+            expect(html).toContain('ai')
+            expect(html).toContain('btn-source')
+            expect(html).toContain('Read')
+        })
+
+        it('should limit tags to 3', () => {
+            const html = renderArticleCard({
+                title: 'x',
+                url: 'u',
+                tags: ['a', 'b', 'c', 'd', 'e']
+            })
+            const tagCount = (html.match(/article-tag/g) || []).length
+            expect(tagCount).toBe(3)
+        })
+
+        it('should handle missing optional fields', () => {
+            const html = renderArticleCard({ title: 'Only Title', url: 'u' })
+            expect(html).toContain('Only Title')
+            expect(html).not.toContain('article-card-tags')
+        })
+
+        it('should handle missing date', () => {
+            const html = renderArticleCard({ title: 'x', url: 'u', date: '' })
+            expect(html).toContain('article-card-date')
+            expect(html).not.toContain('undefined')
         })
     })
 

@@ -31,6 +31,10 @@ function loadResume(paths, index) {
 
 var STAR_SVG =
     '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>'
+var GITHUB_SVG =
+    '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>'
+var MEDIUM_SVG =
+    '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zm7.42 0c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z"/></svg>'
 
 function renderRepoCard(repo) {
     var starHtml = repo.stars ? '<span>' + STAR_SVG + ' ' + esc(String(repo.stars)) + '</span>' : ''
@@ -44,7 +48,9 @@ function renderRepoCard(repo) {
         exploreHtml +
         '<a href="' +
         esc(repo.url) +
-        '" target="_blank" rel="noopener" class="btn-source">Source</a>' +
+        '" target="_blank" rel="noopener" class="btn-source">' +
+        GITHUB_SVG +
+        ' Source</a>' +
         '</div>'
     return (
         '<div class="opensource-card reveal visible">' +
@@ -58,6 +64,42 @@ function renderRepoCard(repo) {
         '</p>' +
         metaHtml +
         linksHtml +
+        '</div>'
+    )
+}
+
+function renderArticleCard(article) {
+    var dateStr = article.date
+        ? new Date(article.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
+        : ''
+    var tagsHtml = (article.tags || [])
+        .slice(0, 3)
+        .map(function (tag) {
+            return '<span class="article-tag">' + esc(tag) + '</span>'
+        })
+        .join('')
+    var tagsContainer = tagsHtml ? '<div class="article-card-tags">' + tagsHtml + '</div>' : ''
+    return (
+        '<div class="opensource-card reveal visible">' +
+        '<h3><a href="' +
+        esc(article.url) +
+        '" target="_blank" rel="noopener">' +
+        esc(article.title) +
+        '</a></h3>' +
+        '<p class="article-card-date">' +
+        esc(dateStr) +
+        '</p>' +
+        '<p>' +
+        esc(article.description) +
+        '</p>' +
+        tagsContainer +
+        '<div class="opensource-card-links">' +
+        '<a href="' +
+        esc(article.url) +
+        '" target="_blank" rel="noopener" class="btn-source">' +
+        MEDIUM_SVG +
+        ' Read</a>' +
+        '</div>' +
         '</div>'
     )
 }
@@ -387,6 +429,27 @@ function populate(r) {
     var reposData = r.openSource && r.openSource.repos ? r.openSource.repos : {}
     renderOpenSourceGrids(reposData.starred || [], reposData.recent || [])
 
+    // Medium Articles
+    var pinnedArticles = r.openSource && r.openSource.pinnedArticles ? r.openSource.pinnedArticles : []
+    var pinnedGrid = document.getElementById('opensource-pinned-articles')
+    if (pinnedGrid && pinnedArticles.length > 0) {
+        pinnedGrid.innerHTML = pinnedArticles
+            .map(function (a) {
+                return renderArticleCard(a)
+            })
+            .join('')
+    }
+
+    var recentArticles = r.openSource && r.openSource.recentArticles ? r.openSource.recentArticles : []
+    var recentArticlesGrid = document.getElementById('opensource-recent-articles')
+    if (recentArticlesGrid && recentArticles.length > 0) {
+        recentArticlesGrid.innerHTML = recentArticles
+            .map(function (a) {
+                return renderArticleCard(a)
+            })
+            .join('')
+    }
+
     // Certifications
     setText('#certifications .section-title', r.certifications && r.certifications.title)
     setText('#certifications .section-subtitle', r.certifications && r.certifications.subtitle)
@@ -599,6 +662,22 @@ function populateSeo(r, seo) {
         })
     }
 
+    var allArticles = [].concat(
+        r.openSource && r.openSource.pinnedArticles ? r.openSource.pinnedArticles : [],
+        r.openSource && r.openSource.recentArticles ? r.openSource.recentArticles : []
+    )
+    allArticles.forEach(function (article) {
+        graph.push({
+            '@type': 'Article',
+            headline: article.title || '',
+            author: { '@id': personId },
+            datePublished: article.date || '',
+            description: article.description || '',
+            url: article.url || '',
+            publisher: { '@type': 'Organization', name: 'Medium' }
+        })
+    })
+
     if (r.certifications && r.certifications.items) {
         r.certifications.items.forEach(function (cert) {
             graph.push({
@@ -775,6 +854,7 @@ export {
     triggerRevealObservers,
     bindTimelineDetails,
     renderRepoCard,
+    renderArticleCard,
     renderOpenSourceGrids,
     refreshGitHubRepos,
     setText,

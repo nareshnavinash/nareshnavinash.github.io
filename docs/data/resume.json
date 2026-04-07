@@ -385,6 +385,160 @@
     },
     "openSource": {
         "url": "https://github.com/nareshnavinash",
+        "pinnedArticleUrls": [
+            "https://medium.com/@nareshnavinash/an-8b-model-that-fits-in-1-2-gb-changed-how-i-think-about-local-ai-78665d154f74",
+            "https://medium.com/@nareshnavinash/youre-paying-for-claude-max-but-are-you-actually-using-it-8125696d96f8",
+            "https://medium.com/@nareshnavinash/i-replaced-grammarly-with-local-ai-with-3-days-of-vibe-coding-72724bc37a39",
+            "https://medium.com/@nareshnavinash/why-i-ditched-grammarly-to-build-my-own-ai-writing-assistant-6504278ca754",
+            "https://medium.com/@nareshnavinash/a-fine-tuned-grammar-model-lost-to-a-1-bit-llm-with-a-two-sentence-prompt-bf1a6376f03b",
+            "https://medium.com/@nareshnavinash/taming-the-ai-tongue-f7e92333e306"
+        ],
+        "pinnedArticlesHeading": "Pinned Articles",
+        "recentArticlesHeading": "Latest Articles",
+        "pinnedArticles": [
+            {
+                "title": "A Fine-Tuned Grammar Model Lost to a 1-Bit LLM With a Two-Sentence Prompt",
+                "url": "https://medium.com/@nareshnavinash/a-fine-tuned-grammar-model-lost-to-a-1-bit-llm-with-a-two-sentence-prompt-bf1a6376f03b",
+                "date": "2026-04-04T14:49:17.000Z",
+                "description": "If It Fits in the Same Latency Budget, It’s a Fair Fight!In my last article, I built a CLI to run prism-ml’s Bonsai 1-bit models locally. That was about speed: getting from Ollama’s 4.5-second respons",
+                "tags": [
+                    "artificial-intelligence",
+                    "software-engineering",
+                    "ai",
+                    "machine-learning",
+                    "technology"
+                ],
+                "thumbnail": "https://cdn-images-1.medium.com/max/1024/1*M5fWKeBGtCorpvLYSmRlkg.png"
+            },
+            {
+                "title": "An 8B Model That Fits in 1.2 GB Changed How I Think About Local AI",
+                "url": "https://medium.com/@nareshnavinash/an-8b-model-that-fits-in-1-2-gb-changed-how-i-think-about-local-ai-78665d154f74",
+                "date": "2026-04-03T14:47:22.000Z",
+                "description": "How I went from 4.5s responses with Ollama to 56ms by building my own CLISo, prism-ml just dropped something that got me genuinely excited: Bonsai the first viable 1-bit quantized LLMs. An 8 billion p",
+                "tags": [
+                    "technology",
+                    "software-engineering",
+                    "machine-learning",
+                    "artificial-intelligence",
+                    "ai"
+                ],
+                "thumbnail": "https://cdn-images-1.medium.com/max/1024/1*_UPt-_s6yfBI2ogk9RhvPg.png"
+            },
+            {
+                "title": "You’re Paying for Claude Max. But Are You Actually Using It?",
+                "url": "https://medium.com/@nareshnavinash/youre-paying-for-claude-max-but-are-you-actually-using-it-8125696d96f8",
+                "date": "2026-03-24T15:06:27.000Z",
+                "description": "How I built a terminal notification tool to stop babysitting Claude Code.For a while, I had this uncomfortable feeling that I wasn’t getting my money’s worth. Not because the AI wasn’t good, but becau",
+                "tags": [
+                    "productivity",
+                    "technology",
+                    "claude-code",
+                    "artificial-intelligence",
+                    "ai"
+                ],
+                "thumbnail": "https://cdn-images-1.medium.com/max/1024/1*JzsErnm85wnVaBtWOD59Lw.png"
+            },
+            {
+                "title": "I Replaced Grammarly with Local AI with 3 days of Vibe coding",
+                "url": "https://medium.com/@nareshnavinash/i-replaced-grammarly-with-local-ai-with-3-days-of-vibe-coding-72724bc37a39",
+                "date": "2026-03-01T07:52:23.000Z",
+                "description": "From Cloud LLMs to On-Device Privacy! Here is the stack that made it possible.Last week, I shared my journey of “vibe coding” a replacement for Grammarly called GhostEdit. (If you missed that, you can",
+                "tags": [
+                    "business",
+                    "artificial-intelligence",
+                    "llm",
+                    "money",
+                    "machine-learning"
+                ],
+                "thumbnail": "https://cdn-images-1.medium.com/max/1024/1*Mx_DjXnjLhfz_DHWJ4PIvA.png"
+            },
+            {
+                "title": "Why I Ditched Grammarly to Build My Own AI Writing Assistant",
+                "url": "https://medium.com/@nareshnavinash/why-i-ditched-grammarly-to-build-my-own-ai-writing-assistant-6504278ca754",
+                "date": "2026-02-22T14:19:53.000Z",
+                "description": "And Why 100% Unit Test Coverage is the New Mandatory for Responsible Leverage of AI!TL;DR: Grammarly removed the “Fix All via Tab” feature. I got “brain itch,” and forced to create an alternative that",
+                "tags": [
+                    "ai-agent",
+                    "coding",
+                    "software-development",
+                    "ai",
+                    "ios"
+                ],
+                "thumbnail": "https://cdn-images-1.medium.com/max/1024/1*acLSsq9yULPrWOpF4lC8Nw.png"
+            }
+        ],
+        "recentArticles": [
+            {
+                "title": "How Spotify Rewrote the Rules of Agile at Scale",
+                "url": "https://medium.com/@nareshnavinash/how-spotify-rewrote-the-rules-of-agile-at-scale-90b6f870823c",
+                "date": "2025-10-13T17:46:41.000Z",
+                "description": "Spotify’s challenge was not one of survival, but of success. The company’s rapid growth was threatening to crush the very startup culture…",
+                "tags": [
+                    "business",
+                    "leadership",
+                    "agile-methodology",
+                    "technology",
+                    "management"
+                ],
+                "thumbnail": ""
+            },
+            {
+                "title": "Beyond the Box: Domino’s Recipe for a Successful Project Landing",
+                "url": "https://medium.com/@nareshnavinash/beyond-the-box-dominos-recipe-for-a-successful-project-landing-e9b3f0458e9f",
+                "date": "2025-09-10T16:52:18.000Z",
+                "description": "Domino’s Pizza engineered one of the most remarkable corporate turnarounds in modern history. Faced with a reputation for taste-free pizza…",
+                "tags": [
+                    "leadership",
+                    "management",
+                    "technology",
+                    "business",
+                    "money"
+                ],
+                "thumbnail": ""
+            },
+            {
+                "title": "Vision Without Sight: The Google Glass Lesson in Project Landings",
+                "url": "https://medium.com/@nareshnavinash/vision-without-sight-the-google-glass-lesson-in-project-landings-eb2974180a09",
+                "date": "2025-09-09T16:47:41.000Z",
+                "description": "Google launched its futuristic “Glass” wearable with one of the most spectacular product demonstrations in history.",
+                "tags": [
+                    "management",
+                    "leadership",
+                    "technology",
+                    "business",
+                    "money"
+                ],
+                "thumbnail": ""
+            },
+            {
+                "title": "Project Landing: Disney’s Billion-Dollar Wristband",
+                "url": "https://medium.com/@nareshnavinash/project-landing-disneys-billion-dollar-wristband-94d95de16887",
+                "date": "2025-09-08T16:41:41.000Z",
+                "description": "Disney Proved a Project’s True Success Lies in its Landing, Not its Launch",
+                "tags": [
+                    "money",
+                    "technology",
+                    "management",
+                    "business",
+                    "leadership"
+                ],
+                "thumbnail": ""
+            },
+            {
+                "title": "Avoiding Scope Creep: The Project Management Secrets of the Empire State Building",
+                "url": "https://medium.com/@nareshnavinash/avoiding-scope-creep-the-project-management-secrets-of-the-empire-state-building-16140791c673",
+                "date": "2025-09-05T16:47:29.000Z",
+                "description": "In the heart of the Great Depression, an icon was born not just from steel and stone, but from an unbreakable project scope. The Empire…",
+                "tags": [
+                    "business",
+                    "management",
+                    "leadership",
+                    "project-management",
+                    "money"
+                ],
+                "thumbnail": ""
+            }
+        ],
         "platforms": [
             "npm",
             "PyPI",
@@ -560,7 +714,7 @@
                 },
                 {
                     "name": "aDictive",
-                    "description": "Free, open-source alternative to Wispr Flow — local-first voice-to-text with whisper.cpp (offline) and optional Groq cloud transcription",
+                    "description": "Free, open-source alternative to Wispr Flow, local-first voice-to-text with whisper.cpp (offline) and optional Groq cloud transcription",
                     "url": "https://github.com/nareshnavinash/aDictive",
                     "stars": 0,
                     "language": "TypeScript",
