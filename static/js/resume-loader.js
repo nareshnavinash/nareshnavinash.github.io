@@ -742,11 +742,6 @@ function populateHero(r, hero) {
         )
     }
 
-    var heroName = document.querySelector('.hero-name')
-    if (heroName) {
-        heroName.textContent = r.personal && r.personal.name ? r.personal.name : ''
-    }
-
     var firstName = r.personal && r.personal.firstName ? r.personal.firstName : ''
     setText('.hero-greeting', (hero.greetingPrefix || '') + firstName + (hero.greetingSuffix || ''))
 

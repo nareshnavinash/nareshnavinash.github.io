@@ -634,11 +634,6 @@ describe('resume-loader.js', () => {
             expect(() => populateHero(resumeData, resumeData.site.hero)).not.toThrow()
         })
 
-        it('should not crash when .hero-name is missing', () => {
-            const heroName = document.querySelector('.hero-name')
-            if (heroName) heroName.remove()
-            expect(() => populateHero(resumeData, resumeData.site.hero)).not.toThrow()
-        })
     })
 
     describe('populate() - full integration', () => {

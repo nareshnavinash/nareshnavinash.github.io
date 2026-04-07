@@ -474,15 +474,6 @@ button {
     border-left: 1px solid var(--hero-right-border);
 }
 
-.hero-name {
-    font-family: var(--font-heading);
-    font-size: 2.4rem;
-    font-weight: 900;
-    color: var(--text-primary);
-    margin-bottom: 8px;
-    letter-spacing: -0.5px;
-}
-
 .hero-greeting {
     font-family: var(--font-script);
     font-size: 1.8rem;
@@ -1819,10 +1810,6 @@ button {
         font-size: 2.8rem;
     }
 
-    .hero-name {
-        font-size: 2rem;
-    }
-
     .hero-heading {
         font-size: 2.6rem;
     }
@@ -1898,10 +1885,6 @@ button {
     .hero-photo {
         width: 220px;
         height: 220px;
-    }
-
-    .hero-name {
-        font-size: 1.6rem;
     }
 
     .hero-heading {
@@ -1983,10 +1966,6 @@ button {
     .hero-photo {
         width: 180px;
         height: 180px;
-    }
-
-    .hero-name {
-        font-size: 1.4rem;
     }
 
     .hero-heading {

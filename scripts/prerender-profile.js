@@ -35,7 +35,6 @@ function setText(selector, text) {
 var hero = resume.site?.hero || {}
 var firstName = resume.personal?.firstName || ''
 
-setText('.hero-name', resume.personal?.name || '')
 setText('.hero-greeting', (hero.greetingPrefix || '') + firstName + (hero.greetingSuffix || ''))
 
 var heroHeading = document.querySelector('.hero-heading')
