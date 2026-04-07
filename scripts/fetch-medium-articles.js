@@ -191,6 +191,21 @@ try {
     var { pinned, recent } = await fetchArticles(pinnedUrls, fallbackRecentUrls)
     console.log('Fetched ' + pinned.length + ' pinned + ' + recent.length + ' recent articles')
 
+    // Preserve manually-set tags for scraped articles (page scraping can't extract tags)
+    var existingByUrl = {}
+    ;(resume.openSource.pinnedArticles || [])
+        .concat(resume.openSource.recentArticles || [])
+        .forEach(function (a) {
+            if (a.tags && a.tags.length) existingByUrl[a.url] = a.tags
+        })
+    ;[pinned, recent].forEach(function (list) {
+        list.forEach(function (a) {
+            if ((!a.tags || !a.tags.length) && existingByUrl[a.url]) {
+                a.tags = existingByUrl[a.url]
+            }
+        })
+    })
+
     resume.openSource = {
         ...resume.openSource,
         pinnedArticles: pinned,
