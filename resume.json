@@ -714,7 +714,7 @@
                 },
                 {
                     "name": "aDictive",
-                    "description": "Free, open-source alternative to Wispr Flow — local-first voice-to-text with whisper.cpp (offline) and optional Groq cloud transcription",
+                    "description": "Free, open-source alternative to Wispr Flow, local-first voice-to-text with whisper.cpp (offline) and optional Groq cloud transcription",
                     "url": "https://github.com/nareshnavinash/aDictive",
                     "stars": 0,
                     "language": "TypeScript",
