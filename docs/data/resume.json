@@ -391,25 +391,14 @@
             "https://medium.com/@nareshnavinash/i-replaced-grammarly-with-local-ai-with-3-days-of-vibe-coding-72724bc37a39",
             "https://medium.com/@nareshnavinash/why-i-ditched-grammarly-to-build-my-own-ai-writing-assistant-6504278ca754",
             "https://medium.com/@nareshnavinash/a-fine-tuned-grammar-model-lost-to-a-1-bit-llm-with-a-two-sentence-prompt-bf1a6376f03b",
+            "https://medium.com/@nareshnavinash/googles-20-time-policy-60d5706084be"
+        ],
+        "fallbackRecentUrls": [
             "https://medium.com/@nareshnavinash/taming-the-ai-tongue-f7e92333e306"
         ],
         "pinnedArticlesHeading": "Pinned Articles",
         "recentArticlesHeading": "Latest Articles",
         "pinnedArticles": [
-            {
-                "title": "A Fine-Tuned Grammar Model Lost to a 1-Bit LLM With a Two-Sentence Prompt",
-                "url": "https://medium.com/@nareshnavinash/a-fine-tuned-grammar-model-lost-to-a-1-bit-llm-with-a-two-sentence-prompt-bf1a6376f03b",
-                "date": "2026-04-04T14:49:17.000Z",
-                "description": "If It Fits in the Same Latency Budget, It’s a Fair Fight!In my last article, I built a CLI to run prism-ml’s Bonsai 1-bit models locally. That was about speed: getting from Ollama’s 4.5-second respons",
-                "tags": [
-                    "artificial-intelligence",
-                    "software-engineering",
-                    "ai",
-                    "machine-learning",
-                    "technology"
-                ],
-                "thumbnail": "https://cdn-images-1.medium.com/max/1024/1*M5fWKeBGtCorpvLYSmRlkg.png"
-            },
             {
                 "title": "An 8B Model That Fits in 1.2 GB Changed How I Think About Local AI",
                 "url": "https://medium.com/@nareshnavinash/an-8b-model-that-fits-in-1-2-gb-changed-how-i-think-about-local-ai-78665d154f74",
@@ -465,6 +454,28 @@
                     "ios"
                 ],
                 "thumbnail": "https://cdn-images-1.medium.com/max/1024/1*acLSsq9yULPrWOpF4lC8Nw.png"
+            },
+            {
+                "title": "A Fine-Tuned Grammar Model Lost to a 1-Bit LLM With a Two-Sentence Prompt",
+                "url": "https://medium.com/@nareshnavinash/a-fine-tuned-grammar-model-lost-to-a-1-bit-llm-with-a-two-sentence-prompt-bf1a6376f03b",
+                "date": "2026-04-04T14:49:17.000Z",
+                "description": "If It Fits in the Same Latency Budget, It’s a Fair Fight!In my last article, I built a CLI to run prism-ml’s Bonsai 1-bit models locally. That was about speed: getting from Ollama’s 4.5-second respons",
+                "tags": [
+                    "artificial-intelligence",
+                    "software-engineering",
+                    "ai",
+                    "machine-learning",
+                    "technology"
+                ],
+                "thumbnail": "https://cdn-images-1.medium.com/max/1024/1*M5fWKeBGtCorpvLYSmRlkg.png"
+            },
+            {
+                "title": "Google’s “20% Time” Policy",
+                "url": "https://medium.com/@nareshnavinash/googles-20-time-policy-60d5706084be",
+                "date": "2024-10-21T11:57:15.585Z",
+                "description": "Case Study",
+                "tags": [],
+                "thumbnail": "https://miro.medium.com/v2/da:true/resize:fit:1024/0*hA6ZKP0WaUZwarp8"
             }
         ],
         "recentArticles": [
@@ -537,6 +548,14 @@
                     "money"
                 ],
                 "thumbnail": ""
+            },
+            {
+                "title": "Taming the AI Tongue",
+                "url": "https://medium.com/@nareshnavinash/taming-the-ai-tongue-f7e92333e306",
+                "date": "2025-05-20T17:16:48.638Z",
+                "description": "A Step-by-Step Guide to Using Frequency and Presence Penalties in the OpenAI API",
+                "tags": [],
+                "thumbnail": "https://miro.medium.com/v2/resize:fit:1200/1*3NNhPBRa6egh0z_DGHSK5g.png"
             }
         ],
         "platforms": [

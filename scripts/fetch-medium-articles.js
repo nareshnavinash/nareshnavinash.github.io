@@ -69,7 +69,52 @@ function mapArticle(item) {
     }
 }
 
-async function fetchArticles(pinnedUrls) {
+async function fetchArticlePage(url) {
+    try {
+        var response = await fetch(url, {
+            headers: {
+                'User-Agent':
+                    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+                Accept: 'text/html'
+            },
+            redirect: 'follow'
+        })
+        if (!response.ok) return null
+        var html = await response.text()
+        var dom = new JSDOM(html)
+        var doc = dom.window.document
+
+        var title = ''
+        var metaTitle = doc.querySelector('meta[property="og:title"]')
+        if (metaTitle) title = metaTitle.getAttribute('content') || ''
+        if (!title) title = doc.querySelector('title')?.textContent || ''
+
+        var description = ''
+        var metaDesc = doc.querySelector('meta[property="og:description"]')
+        if (metaDesc) description = (metaDesc.getAttribute('content') || '').slice(0, 200)
+
+        var date = ''
+        var metaDate = doc.querySelector('meta[property="article:published_time"]')
+        if (metaDate) date = metaDate.getAttribute('content') || ''
+
+        var thumbnail = ''
+        var metaImage = doc.querySelector('meta[property="og:image"]')
+        if (metaImage) thumbnail = metaImage.getAttribute('content') || ''
+
+        return {
+            title: title,
+            url: stripQueryParams(url),
+            date: date,
+            description: stripHtml(description),
+            tags: [],
+            thumbnail: thumbnail
+        }
+    } catch (_e) {
+        return null
+    }
+}
+
+async function fetchArticles(pinnedUrls, fallbackRecentUrls) {
     var response = await fetch(FEED_URL, {
         headers: { 'User-Agent': 'naresh-portfolio-build' }
     })
@@ -87,11 +132,53 @@ async function fetchArticles(pinnedUrls) {
     var pinned = allArticles.filter(function (a) {
         return pinnedSet.has(a.url)
     })
+
+    // Fetch any pinned articles not found in RSS directly from Medium
+    var foundUrls = new Set(
+        pinned.map(function (a) {
+            return a.url
+        })
+    )
+    var missingUrls = (pinnedUrls || []).filter(function (u) {
+        return !foundUrls.has(u)
+    })
+    for (var i = 0; i < missingUrls.length; i++) {
+        console.log('Fetching missing pinned article: ' + missingUrls[i].split('/').pop().slice(0, 50))
+        var article = await fetchArticlePage(missingUrls[i])
+        if (article) pinned.push(article)
+    }
+
+    // Sort pinned to match configured order
+    var urlOrder = {}
+    ;(pinnedUrls || []).forEach(function (u, idx) {
+        urlOrder[u] = idx
+    })
+    pinned.sort(function (a, b) {
+        return (urlOrder[a.url] ?? 999) - (urlOrder[b.url] ?? 999)
+    })
+
     var recent = allArticles
         .filter(function (a) {
             return !pinnedSet.has(a.url)
         })
         .slice(0, MAX_RECENT)
+
+    // Fetch additional recent articles from fallback URLs if RSS didn't provide enough
+    if (recent.length < MAX_RECENT && fallbackRecentUrls && fallbackRecentUrls.length > 0) {
+        var recentUrlSet = new Set(
+            recent.map(function (a) {
+                return a.url
+            })
+        )
+        for (var j = 0; j < fallbackRecentUrls.length && recent.length < MAX_RECENT; j++) {
+            var fbUrl = fallbackRecentUrls[j]
+            if (!recentUrlSet.has(fbUrl) && !pinnedSet.has(fbUrl)) {
+                console.log('Fetching fallback recent article: ' + fbUrl.split('/').pop().slice(0, 50))
+                var extra = await fetchArticlePage(fbUrl)
+                if (extra) recent.push(extra)
+            }
+        }
+    }
 
     return { pinned, recent }
 }
@@ -100,7 +187,8 @@ try {
     console.log('Fetching Medium articles...')
     var resume = JSON.parse(readFileSync(resumePath, 'utf-8'))
     var pinnedUrls = (resume.openSource && resume.openSource.pinnedArticleUrls) || []
-    var { pinned, recent } = await fetchArticles(pinnedUrls)
+    var fallbackRecentUrls = (resume.openSource && resume.openSource.fallbackRecentUrls) || []
+    var { pinned, recent } = await fetchArticles(pinnedUrls, fallbackRecentUrls)
     console.log('Fetched ' + pinned.length + ' pinned + ' + recent.length + ' recent articles')
 
     resume.openSource = {
