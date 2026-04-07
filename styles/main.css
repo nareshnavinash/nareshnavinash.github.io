@@ -212,6 +212,11 @@ body {
     color: var(--color-mint);
 }
 
+#content-panel-inner .panel-tags--blue .panel-tag {
+    border-color: rgba(68, 136, 255, 0.3);
+    color: var(--color-blue);
+}
+
 #content-panel-inner .panel-card {
     background: var(--bg-card);
     border: 1px solid var(--border-color);

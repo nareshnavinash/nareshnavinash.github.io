@@ -66,6 +66,22 @@ export const education = {
     location: r.education.location
 }
 
+export const github = {
+    subtitle: 'Open source projects & frameworks',
+    url: r.openSource.url,
+    starred: (r.openSource.repos && r.openSource.repos.starred) || [],
+    recent: (r.openSource.repos && r.openSource.repos.recent) || []
+}
+
+export const medium = {
+    subtitle: 'Articles on engineering, AI, and leadership',
+    url: (r.blog && r.blog.url) || '',
+    pinnedHeading: r.openSource.pinnedArticlesHeading || 'Pinned Articles',
+    recentHeading: r.openSource.recentArticlesHeading || 'Latest Articles',
+    pinned: r.openSource.pinnedArticles || [],
+    recent: r.openSource.recentArticles || []
+}
+
 export const contact = {
     title: r.contact.title,
     subtitle: r.contact.subtitle,

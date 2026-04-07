@@ -66,6 +66,20 @@ export const areas = {
         color: 'mint',
         label: 'Contact',
         description: "Let's connect"
+    },
+    github: {
+        position: { x: -10, z: 32 },
+        radius: 12,
+        color: 'mint',
+        label: 'GitHub',
+        description: 'Open source repos'
+    },
+    medium: {
+        position: { x: 25, z: 25 },
+        radius: 12,
+        color: 'blue',
+        label: 'Medium',
+        description: 'Blog articles'
     }
 }
 
@@ -77,7 +91,9 @@ export const paths = [
     ['hero', 'leadership'],
     ['hero', 'publications'],
     ['hero', 'certifications'],
-    ['hero', 'contact']
+    ['hero', 'contact'],
+    ['hero', 'github'],
+    ['hero', 'medium']
 ]
 
 // Interactive points within each area
@@ -158,6 +174,26 @@ export const interactivePoints = {
             offset: { x: 0, z: 0 },
             label: 'Contact',
             contentKey: 'contact',
+            innerRadius: 3,
+            outerRadius: 8
+        }
+    ],
+    github: [
+        {
+            id: 'github-main',
+            offset: { x: 0, z: 0 },
+            label: 'GitHub',
+            contentKey: 'github',
+            innerRadius: 3,
+            outerRadius: 8
+        }
+    ],
+    medium: [
+        {
+            id: 'medium-main',
+            offset: { x: 0, z: 0 },
+            label: 'Medium',
+            contentKey: 'medium',
             innerRadius: 3,
             outerRadius: 8
         }

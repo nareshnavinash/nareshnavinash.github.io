@@ -235,7 +235,9 @@ function renderRepoCard(repo) {
         exploreHtml +
         '<a href="' +
         esc(repo.url) +
-        '" target="_blank" rel="noopener" class="btn-source">' + githubSvg + ' Source</a>' +
+        '" target="_blank" rel="noopener" class="btn-source">' +
+        githubSvg +
+        ' Source</a>' +
         '</div>'
     return (
         '<div class="opensource-card reveal">' +
@@ -257,18 +259,33 @@ function renderArticleCard(article) {
     var dateStr = article.date
         ? new Date(article.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
         : ''
-    var tagsHtml = (article.tags || []).slice(0, 3)
-        .map(function (tag) { return '<span class="article-tag">' + esc(tag) + '</span>' })
+    var tagsHtml = (article.tags || [])
+        .slice(0, 3)
+        .map(function (tag) {
+            return '<span class="article-tag">' + esc(tag) + '</span>'
+        })
         .join('')
     var tagsContainer = tagsHtml ? '<div class="article-card-tags">' + tagsHtml + '</div>' : ''
     return (
         '<div class="opensource-card reveal">' +
-        '<h3><a href="' + esc(article.url) + '" target="_blank" rel="noopener">' + esc(article.title) + '</a></h3>' +
-        '<p class="article-card-date">' + esc(dateStr) + '</p>' +
-        '<p>' + esc(article.description) + '</p>' +
+        '<h3><a href="' +
+        esc(article.url) +
+        '" target="_blank" rel="noopener">' +
+        esc(article.title) +
+        '</a></h3>' +
+        '<p class="article-card-date">' +
+        esc(dateStr) +
+        '</p>' +
+        '<p>' +
+        esc(article.description) +
+        '</p>' +
         tagsContainer +
         '<div class="opensource-card-links">' +
-        '<a href="' + esc(article.url) + '" target="_blank" rel="noopener" class="btn-source">' + mediumSvg + ' Read</a>' +
+        '<a href="' +
+        esc(article.url) +
+        '" target="_blank" rel="noopener" class="btn-source">' +
+        mediumSvg +
+        ' Read</a>' +
         '</div>' +
         '</div>'
     )
@@ -291,13 +308,21 @@ if (starredGrid && starredRepos.length > 0) {
 var pinnedArticles = resume.openSource?.pinnedArticles || []
 var pinnedGrid = document.getElementById('opensource-pinned-articles')
 if (pinnedGrid && pinnedArticles.length > 0) {
-    pinnedGrid.innerHTML = pinnedArticles.map(function (a) { return renderArticleCard(a) }).join('')
+    pinnedGrid.innerHTML = pinnedArticles
+        .map(function (a) {
+            return renderArticleCard(a)
+        })
+        .join('')
 }
 
 var recentArticles = resume.openSource?.recentArticles || []
 var recentArticlesGrid = document.getElementById('opensource-recent-articles')
 if (recentArticlesGrid && recentArticles.length > 0) {
-    recentArticlesGrid.innerHTML = recentArticles.map(function (a) { return renderArticleCard(a) }).join('')
+    recentArticlesGrid.innerHTML = recentArticles
+        .map(function (a) {
+            return renderArticleCard(a)
+        })
+        .join('')
 }
 
 // Certifications

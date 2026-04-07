@@ -9,6 +9,8 @@ import LeadershipArea from './LeadershipArea.js'
 import PublicationsArea from './PublicationsArea.js'
 import CertificationsArea from './CertificationsArea.js'
 import ContactArea from './ContactArea.js'
+import GitHubArea from './GitHubArea.js'
+import MediumArea from './MediumArea.js'
 
 export default class AreaManager {
     constructor(game) {
@@ -29,7 +31,9 @@ export default class AreaManager {
             leadership: new LeadershipArea(game, areas.leadership),
             publications: new PublicationsArea(game, areas.publications),
             certifications: new CertificationsArea(game, areas.certifications),
-            contact: new ContactArea(game, areas.contact)
+            contact: new ContactArea(game, areas.contact),
+            github: new GitHubArea(game, areas.github),
+            medium: new MediumArea(game, areas.medium)
         }
 
         // Create ground markers for each area

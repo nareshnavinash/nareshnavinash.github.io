@@ -1415,9 +1415,45 @@ button {
     font-size: 0.72rem;
     padding: 2px 10px;
     border-radius: 12px;
-    background: rgba(68, 136, 255, 0.1);
+    background: var(--article-tag-bg);
     color: var(--color-blue);
-    border: 1px solid rgba(68, 136, 255, 0.2);
+    border: 1px solid var(--article-tag-border);
+}
+
+#open-source .opensource-group-title {
+    color: var(--color-mint);
+}
+
+#medium-articles .opensource-group-title {
+    color: var(--color-blue);
+}
+
+.medium-articles .article-card-date {
+    color: var(--color-blue);
+    opacity: 0.8;
+}
+
+#open-source .section-subtitle {
+    color: var(--color-mint);
+    font-family: var(--font-mono);
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0.85;
+}
+
+#medium-articles .section-subtitle {
+    color: var(--color-blue);
+    font-family: var(--font-mono);
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0.85;
+}
+
+.medium-articles .section-title::after {
+    background: var(--color-blue);
+    box-shadow: var(--glow-sm) var(--glow-blue);
 }
 
 /* ============================================
@@ -1700,6 +1736,7 @@ button {
 #leadership,
 #publications,
 #open-source,
+#medium-articles,
 #certifications,
 #education,
 #contact {

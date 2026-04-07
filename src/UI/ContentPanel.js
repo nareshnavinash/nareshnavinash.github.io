@@ -255,6 +255,10 @@ export default class ContentPanel {
                 return this._renderCertifications()
             case 'contact':
                 return this._renderContact()
+            case 'github':
+                return this._renderGitHub()
+            case 'medium':
+                return this._renderMedium()
             default:
                 return null
         }
@@ -377,6 +381,72 @@ export default class ContentPanel {
           <a href="${c.extras.rubygems}" target="_blank" rel="noopener">RubyGems</a>
         </div>
       </div>
+    `
+    }
+
+    _renderGitHub() {
+        const g = data.github
+        const renderRepo = (repo) => {
+            const stars = repo.stars ? `<span>&#9733; ${repo.stars}</span>` : ''
+            const lang = repo.language ? `<span>${repo.language}</span>` : ''
+            const topics = (repo.topics || [])
+                .slice(0, 4)
+                .map((t) => `<span class="panel-tag">${t}</span>`)
+                .join('')
+            return `
+        <div class="panel-card">
+          <h4><a href="${repo.url}" target="_blank" rel="noopener">${repo.name}</a></h4>
+          <div class="card-meta">${lang} ${stars}</div>
+          <p>${repo.description || ''}</p>
+          ${topics ? `<div class="panel-tags">${topics}</div>` : ''}
+        </div>
+      `
+        }
+
+        return `
+      <h2>GitHub</h2>
+      <p class="panel-subtitle">${g.subtitle}</p>
+      <h3>&#9733; Most Starred</h3>
+      ${g.starred.map(renderRepo).join('')}
+      <h3>Recent Projects</h3>
+      ${g.recent.map(renderRepo).join('')}
+      <a href="${g.url}" target="_blank" rel="noopener" class="panel-link">View on GitHub</a>
+    `
+    }
+
+    _renderMedium() {
+        const m = data.medium
+        const renderArticle = (article) => {
+            const dateStr = article.date
+                ? new Date(article.date).toLocaleDateString('en-US', {
+                      year: 'numeric',
+                      month: 'short',
+                      day: 'numeric'
+                  })
+                : ''
+            const desc = article.description || ''
+            const tags = (article.tags || [])
+                .slice(0, 3)
+                .map((t) => `<span class="panel-tag">${t}</span>`)
+                .join('')
+            return `
+        <div class="panel-card">
+          <h4><a href="${article.url}" target="_blank" rel="noopener">${article.title}</a></h4>
+          <div class="card-meta">${dateStr}</div>
+          <p>${desc.slice(0, 120)}${desc.length > 120 ? '...' : ''}</p>
+          ${tags ? `<div class="panel-tags panel-tags--blue">${tags}</div>` : ''}
+        </div>
+      `
+        }
+
+        return `
+      <h2>Medium</h2>
+      <p class="panel-subtitle">${m.subtitle}</p>
+      <h3>${m.pinnedHeading}</h3>
+      ${m.pinned.map(renderArticle).join('')}
+      <h3>${m.recentHeading}</h3>
+      ${m.recent.map(renderArticle).join('')}
+      <a href="${m.url}" target="_blank" rel="noopener" class="panel-link">Read on Medium</a>
     `
     }
 
