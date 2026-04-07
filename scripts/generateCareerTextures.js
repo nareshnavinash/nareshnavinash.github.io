@@ -16,7 +16,7 @@ const careers = [
     { filename: 'careerImmersiveGarden', company: 'WeInvest', role: 'Senior SDET', color: '#b65fff' },
     { filename: 'careerIRLTeacher', company: 'Vue.ai', role: 'Lead SDET', color: '#a2ffab' },
     { filename: 'careerOnlineTeacher', company: 'Hopin', role: 'Senior SDET', color: '#5390ff' },
-    { filename: 'careerUzik', company: 'TestGorilla', role: 'Lead SDET → EM', color: '#ff8039' }
+    { filename: 'careerUzik', company: 'TestGorilla', role: 'Engineering Manager', color: '#ff8039' }
 ]
 
 for (const career of careers) {

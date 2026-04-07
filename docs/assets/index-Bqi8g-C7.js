@@ -89593,7 +89593,7 @@ https://github.com/browserify/crypto-browserify`);
     const e = l.roles, r = e.reduce((a, h) => a.startYear + (a.startMonth - 1) / 12 < h.startYear + (h.startMonth - 1) / 12 ? a : h), s = e.reduce((a, h) => {
       const c = a.endYear ? a.endYear + (a.endMonth - 1) / 12 : 1 / 0, d = h.endYear ? h.endYear + (h.endMonth - 1) / 12 : 1 / 0;
       return c > d ? a : h;
-    }), o = e.length > 1 ? e.map((a) => a.shortRole).join(" \u2192 ") : e[0].shortRole;
+    }), o = e[0].shortRole;
     return {
       company: l.company,
       role: o,
@@ -108799,7 +108799,7 @@ ${e.tab}if ( ${m} ) {
           }
         ]
       ]), this.options = new Options(), this.respawns = new Respawns("landing"), this.view = new View(), this.rendering.setPostprocessing(), this.rendering.start(), this.reveal = new Reveal(), this.noises = new Noises(), this.weather = new Weather(), this.wind = new Wind(), this.tracks = new Tracks(), this.lighting = new Lighting(), this.fog = new Fog(), this.water = new Water(), this.materials = new Materials(), this.objects = new Objects(), this.explosions = new Explosions(), this.world = new World();
-      const e = __vitePreload(() => import("./rapier-BfFWDNoL.js").then(async (m) => {
+      const e = __vitePreload(() => import("./rapier-BVMZSVWG.js").then(async (m) => {
         await m.__tla;
         return m;
       }), [], import.meta.url), r = this.resourcesLoader.load([

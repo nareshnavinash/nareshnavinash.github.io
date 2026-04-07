@@ -20,7 +20,7 @@ const careerEntries = resumeData.career.positions
             const bEnd = b.endYear ? b.endYear + (b.endMonth - 1) / 12 : Infinity
             return aEnd > bEnd ? a : b
         })
-        const role = roles.length > 1 ? roles.map((r) => r.shortRole).join(' \u2192 ') : roles[0].shortRole
+        const role = roles[0].shortRole
         return {
             company: company.company,
             role,
