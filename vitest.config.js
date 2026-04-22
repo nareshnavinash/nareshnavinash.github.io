@@ -12,8 +12,7 @@ export default defineConfig({
             // that requires a real GPU/canvas context and cannot run in jsdom.
             // It contains no business logic - only 3D visuals, shaders, and animation.
             include: [
-                'js/main.js',
-                'js/resume-loader.js',
+                'js/profile-render.js',
                 'sources/Game/utilities/maths.js',
                 'sources/Game/utilities/ObservableMap.js',
                 'sources/Game/utilities/ObservableSet.js'

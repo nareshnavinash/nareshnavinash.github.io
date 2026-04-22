@@ -6,8 +6,9 @@ import gsap from 'gsap'
  * choreographed GSAP entrance, and cinematic exit.
  */
 export default class LoadingScreen {
-    constructor(game) {
+    constructor(game, options = {}) {
         this.game = game
+        this._options = options
         this._ready = false
         this._progress = 0
         this._particles = []
@@ -15,6 +16,24 @@ export default class LoadingScreen {
         this._msgIndex = 0
         this._isMobile = window.innerWidth < 768
         this._reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+        // Skip the cinematic when the user reached /world.html from the boot
+        // chooser at /. The chooser already showed the boot splash and ran the
+        // game in an iframe, so re-playing it here feels like duplicate loading.
+        this._skipCinematic = false
+        try {
+            if (sessionStorage.getItem('skip-world-loading') === '1') {
+                sessionStorage.removeItem('skip-world-loading')
+                this._skipCinematic = true
+            }
+        } catch (e) {}
+
+        if (this._skipCinematic) {
+            // Don't build any DOM. Game boots straight into its Reveal/Click-to-start flow.
+            this.container = document.createElement('div')
+            this.container.style.display = 'none'
+            return
+        }
 
         this._statusMessages = [
             'Shaping terrain...',
@@ -79,7 +98,11 @@ export default class LoadingScreen {
         }
 
         this._startAmbientAnimations()
-        this._simulateLoading()
+        // When the boot orchestrator drives progress externally (e.g. the
+        // split-view chooser at /), skip the simulated loop.
+        if (this._options.autoLoad !== false) {
+            this._simulateLoading()
+        }
     }
 
     _buildHTML() {
@@ -865,21 +888,41 @@ export default class LoadingScreen {
 
     _finalizeEnter() {
         this.container.remove()
+        if (this._style) this._style.remove()
 
-        if (this.game.canvas) {
+        if (this._options.onEnter) {
+            this._options.onEnter()
+            return
+        }
+
+        if (this.game && this.game.canvas) {
             this.game.canvas.focus()
         }
+    }
+
+    // Public: let callers trigger the cinematic exit programmatically
+    // (the chooser uses this once both preview iframes finish loading).
+    enter() {
+        this._enter()
     }
 
     // ── Skip to profile ───────────────────────────────────────
 
     _skipToProfile() {
+        if (this._options.onSkip) {
+            this._options.onSkip()
+            return
+        }
         window.location.href = '/profile.html'
     }
 
     // ── Cleanup ───────────────────────────────────────────────
 
     destroy() {
+        if (this._skipCinematic) {
+            this.container?.remove()
+            return
+        }
         if (this._interval) clearInterval(this._interval)
         if (this._rafId) cancelAnimationFrame(this._rafId)
         window.removeEventListener('resize', this._onResize)

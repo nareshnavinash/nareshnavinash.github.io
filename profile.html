@@ -1,14 +1,15 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="day">
     <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
         <title id="meta-title">Naresh Sekar | Engineering Manager - AI Adoption & Leadership</title>
         <meta id="meta-description" name="description" content="Naresh Sekar - Engineering Manager with 11+ years in software engineering. Specializing in AI adoption strategy, AI-augmented development, and building high-performing engineering teams." />
         <meta id="meta-keywords" name="keywords" content="Engineering Manager, Software Engineering Manager, AI adoption strategy, AI governance, AI literacy, AI-augmented development, Generative AI strategy, Engineering leadership, Team leadership, Process optimization, Stakeholder management" />
         <meta id="meta-author" name="author" content="Naresh Sekar" />
         <meta id="meta-robots" name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-        <meta id="meta-theme-color" name="theme-color" content="#080818" />
+        <meta id="meta-theme-color" name="theme-color" content="#0b0820" />
 
         <link id="meta-canonical" rel="canonical" href="https://nareshnavinash.github.io/profile.html" />
 
@@ -122,31 +123,33 @@
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-            href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&family=Caveat:wght@600;700&family=VT323&display=swap"
-            rel="stylesheet"
-        />
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Caveat:wght@600;700&family=VT323&display=swap" rel="stylesheet" />
 
-        <link rel="stylesheet" href="css/theme.css" />
         <link rel="stylesheet" href="css/styles.css" />
+        <link rel="stylesheet" href="css/cinematic.css" />
+        <link rel="stylesheet" href="css/enhancements.css" />
 
-        <!-- FOUC prevention: apply saved theme before paint -->
+        <!-- FOUC prevention: apply saved theme + embed mode before paint -->
         <script>
             ;(function () {
-                var t = localStorage.getItem('profile-theme')
-                if (!t) t = 'day'
+                var t = localStorage.getItem('profile-theme') || 'day'
                 document.documentElement.setAttribute('data-theme', t)
+                try {
+                    if (new URLSearchParams(window.location.search).has('embed')) {
+                        document.documentElement.classList.add('is-embedded')
+                    }
+                } catch (e) {}
             })()
         </script>
     </head>
     <body>
-        <a href="#hero" class="skip-link">Skip to content</a>
+        <a href="#top" class="skip-link">Skip to content</a>
 
         <noscript>
-            <div style="max-width:700px;margin:60px auto;padding:24px;font-family:sans-serif;color:#e0e0e0;background:#080818;">
+            <div style="max-width:700px;margin:60px auto;padding:24px;font-family:sans-serif;color:#e0e0e0;background:#0b0820;">
                 <h1>Naresh Sekar</h1>
                 <p>Engineering Manager | Software Engineering Manager | AI Adoption Strategy</p>
-                <p>Engineering leader focused on AI adoption strategy, AI governance, and quality engineering. Over a decade of experience across startups and scale-ups, specializing in building high-performing teams, designing quality-first engineering cultures, and leveraging AI to accelerate product development.</p>
+                <p>Engineering leader focused on AI adoption strategy, AI governance, and engineering leadership at scale. Over a decade of experience across startups and scale-ups, specializing in building high-performing teams, AI-augmented development practices, and leveraging AI to accelerate product development.</p>
                 <h2>Key Skills</h2>
                 <ul>
                     <li>AI Adoption Strategy &amp; Governance</li>
@@ -157,252 +160,272 @@
                 </ul>
                 <p>Contact: <a href="mailto:nareshnavinash@gmail.com">nareshnavinash@gmail.com</a></p>
                 <p><a href="https://www.linkedin.com/in/nareshnavinash/">LinkedIn</a> | <a href="https://github.com/nareshnavinash">GitHub</a> | <a href="https://medium.com/@nareshnavinash">Medium</a></p>
+                <p><a href="/world.html">Explore the interactive 3D portfolio &rarr;</a></p>
             </div>
         </noscript>
 
-        <div class="scroll-progress" aria-hidden="true"></div>
+        <!-- cinematic atmosphere -->
+        <div class="nebula" aria-hidden="true"></div>
+        <div class="vignette-overlay" aria-hidden="true"></div>
+        <div class="grain-overlay" aria-hidden="true"></div>
 
-        <!-- ===================== NAVIGATION ===================== -->
-        <nav id="main-nav" class="nav" role="navigation" aria-label="Main navigation">
-            <div class="nav-inner">
-                <a id="nav-logo" href="#hero" class="nav-logo" aria-label="Home">profile</a>
-
-                <div class="nav-links">
-                    <a data-nav-key="about" href="#about">about</a>
-                    <a data-nav-key="experience" href="#career">experience</a>
-                    <a data-nav-key="skills" href="#skills">skills</a>
-                    <a data-nav-key="leadership" href="#leadership">leadership</a>
-                    <a data-nav-key="publications" href="#publications">publications</a>
-                    <a data-nav-key="certifications" href="#certifications">certifications</a>
-                    <a data-nav-key="contact" href="#contact">contact</a>
-                    <a id="nav-world-link" data-nav-world href="/" class="nav-3d-link" aria-label="Explore the 3D world"
-                        >3D World</a
-                    >
-                    <button class="theme-toggle" aria-label="Toggle dark mode">
-                        <span class="theme-toggle-icon sun-icon">☀</span>
-                        <span class="theme-toggle-icon moon-icon">☾</span>
-                    </button>
-                </div>
-
-                <div class="nav-mobile-actions">
-                    <button class="theme-toggle theme-toggle-mobile" aria-label="Toggle dark mode">
-                        <span class="theme-toggle-icon sun-icon">☀</span>
-                        <span class="theme-toggle-icon moon-icon">☾</span>
-                    </button>
-                    <button class="hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
-                        <span></span><span></span><span></span>
-                    </button>
-                </div>
+        <!-- ========== NAV ========== -->
+        <nav class="nav" aria-label="Main">
+            <a href="#top" class="nav__brand">
+                <span class="dot"></span>
+                <span>naresh sekar</span>
+            </a>
+            <div class="nav__links">
+                <a href="#about">About</a>
+                <a href="#career">Career</a>
+                <a href="#skills">Skills</a>
+                <a href="#leadership">Leadership</a>
+                <a href="#repos">Open Source</a>
+                <a href="#writing">Writing</a>
+                <a href="#contact">Contact</a>
+                <a id="nav-world-link" href="/world.html" class="nav-3d-link" aria-label="Explore the interactive 3D portfolio world">3D World</a>
+            </div>
+            <div class="nav__right">
+                <button id="theme-btn" class="theme-btn" aria-label="Toggle theme" title="Switch to night">☾</button>
+                <a href="#contact" class="nav__cta">Say hello →</a>
             </div>
         </nav>
 
-        <!-- Mobile menu overlay -->
-        <div id="mobile-menu" class="mobile-menu" role="dialog" aria-label="Mobile navigation">
-            <a data-nav-key="about" href="#about">about</a>
-            <a data-nav-key="experience" href="#career">experience</a>
-            <a data-nav-key="skills" href="#skills">skills</a>
-            <a data-nav-key="leadership" href="#leadership">leadership</a>
-            <a data-nav-key="publications" href="#publications">publications</a>
-            <a data-nav-key="certifications" href="#certifications">certifications</a>
-            <a data-nav-key="contact" href="#contact">contact</a>
-            <a id="mobile-world-link" data-nav-world href="/" class="nav-3d-link" aria-label="Explore the 3D world"
-                >3D World</a
-            >
-        </div>
+        <!-- ========== HERO : ASK ME ========== -->
+        <header id="top" class="hero">
+            <div class="hero__eyebrow">
+                <span>Engineering Manager · AI Adoption · Chennai → Remote</span>
+            </div>
 
-        <!-- ===================== HERO - Split Layout ===================== -->
-        <section id="hero" class="hero">
-            <div class="hero-split">
-                <div class="hero-left">
-                    <!-- Decorative organic blobs -->
-                    <svg
-                        class="hero-shapes"
-                        viewBox="0 0 600 600"
-                        xmlns="http://www.w3.org/2000/svg"
-                        aria-hidden="true"
-                    >
-                        <path
-                            d="M420,180 C480,220 520,320 460,400 C400,480 280,500 200,440 C120,380 100,260 160,180 C220,100 360,140 420,180Z"
-                            fill="var(--color-mint)"
-                            opacity="0.6"
-                        />
-                        <path
-                            d="M350,100 C430,130 480,230 440,320 C400,410 300,440 220,390 C140,340 120,230 180,150 C240,70 270,70 350,100Z"
-                            fill="var(--color-lavender)"
-                            opacity="0.5"
-                        />
-                        <path
-                            d="M300,220 C370,190 450,240 460,330 C470,420 400,490 310,480 C220,470 160,400 170,310 C180,220 230,250 300,220Z"
-                            fill="var(--color-peach)"
-                            opacity="0.45"
-                        />
-                        <path
-                            d="M250,300 C300,250 400,270 420,350 C440,430 380,510 290,500 C200,490 150,420 170,350 C190,280 200,350 250,300Z"
-                            fill="var(--color-gold)"
-                            opacity="0.4"
-                        />
-                    </svg>
-                    <!-- Profile photo -->
-                    <img src="assets/profile.jpg" alt="Naresh Sekar - Engineering Manager" class="hero-photo" />
+            <h1 class="hero__title">
+                I'm <em>Naresh</em>. I build <span class="flourish">teams</span> that ship quality software, powered by AI.
+            </h1>
+            <p class="hero__sub">
+                11+ years across startups and scale-ups, currently at <strong>TestGorilla</strong>, shipping AI-native hiring tools. Instead of scrolling through another résumé,
+                <strong>ask me anything</strong>. The answer is grounded in my actual work.
+            </p>
+
+            <!-- Ask me chat -->
+            <div class="ask" role="region" aria-label="Ask my résumé">
+                <div class="ask__head">
+                    <div class="ask__head-l">
+                        <span class="dot"></span>
+                        <span>naresh.ai · live</span>
+                    </div>
+                    <div class="ask__head-r">grounded in resume.json</div>
                 </div>
-                <div class="hero-right">
-                    <p class="hero-greeting"></p>
-                    <p class="hero-heading"></p>
+
+                <div id="ask-log" class="ask__log" aria-live="polite"></div>
+                <div id="ask-sugg" class="ask__sugg" aria-label="Suggested questions"></div>
+
+                <div class="ask__input">
+                    <span class="chev">›</span>
+                    <input id="ask-input" type="text" placeholder="Ask about AI adoption, leadership, a specific project…" autocomplete="off" />
+                    <button id="ask-send" type="button">Ask</button>
                 </div>
             </div>
-        </section>
 
-        <!-- ===================== ABOUT ===================== -->
-        <section id="about" class="about">
-            <div class="container">
-                <h2 class="section-title reveal"></h2>
-                <p class="section-subtitle reveal"></p>
-
-                <p class="about-mission reveal"></p>
-
-                <div id="about-cards" class="about-cards reveal-group"></div>
+            <div class="hero__or">
+                <span class="bar"></span>
+                <em>or</em>
+                <button id="scroll-btn" class="scroll-btn" type="button">
+                    just scroll the portfolio <span class="arrow">↓</span>
+                </button>
             </div>
-        </section>
 
-        <!-- ===================== LEARNING IN PUBLIC: GITHUB ===================== -->
-        <section id="open-source" class="open-source">
-            <div class="container">
-                <h2 class="section-title reveal">Learning In Public.</h2>
-                <p class="section-subtitle reveal">GitHub</p>
-
-                <h3 class="opensource-group-title reveal">Recent Projects</h3>
-                <div id="opensource-recent" class="opensource-grid reveal-group"></div>
-
-                <h3 class="opensource-group-title reveal">Most Starred</h3>
-                <div id="opensource-starred" class="opensource-grid reveal-group"></div>
+            <div class="hero__hint">
+                <span>scroll to explore</span>
+                <span>↓</span>
             </div>
-        </section>
+        </header>
 
-        <!-- ===================== LEARNING IN PUBLIC: MEDIUM ===================== -->
-        <section id="medium-articles" class="medium-articles">
-            <div class="container">
-                <h2 class="section-title reveal">Learning In Public.</h2>
-                <p class="section-subtitle reveal">Medium</p>
+        <!-- ========== ABOUT, STICKY DIORAMA ========== -->
+        <section id="about" class="section section--wash section--about">
+            <div class="diorama" id="diorama">
+                <div class="diorama__sticky">
+                    <div class="diorama__copy">
+                        <div class="section__eyebrow"><span class="num">01</span> / about</div>
+                        <h2 class="section__title">Engineering leadership, <em>multiplied by AI.</em></h2>
+                        <div class="diorama__progress">
+                            <span class="active"></span><span></span><span></span>
+                        </div>
+                    </div>
 
-                <h3 class="opensource-group-title reveal">Pinned Articles</h3>
-                <div id="opensource-pinned-articles" class="opensource-grid reveal-group"></div>
-
-                <h3 class="opensource-group-title reveal">Latest Articles</h3>
-                <div id="opensource-recent-articles" class="opensource-grid reveal-group"></div>
+                    <div class="diorama__stage">
+                        <div class="stage-card">
+                            <div class="icon">01</div>
+                            <h3>AI adoption strategy</h3>
+                            <p>Integrating AI into product workflows, from generative features to governance, intelligent test generation, and data-driven decision systems.</p>
+                            <div class="tag-row"><span>Claude Code</span><span>LangFuse</span><span>Evals</span></div>
+                        </div>
+                        <div class="stage-card">
+                            <div class="icon">02</div>
+                            <h3>Team building</h3>
+                            <p>Growing high-performing engineering teams. Career frameworks, hiring pipelines, and cultures of ownership and continuous improvement.</p>
+                            <div class="tag-row"><span>Hiring</span><span>Mentorship</span><span>Ladders</span></div>
+                        </div>
+                        <div class="stage-card">
+                            <div class="icon">03</div>
+                            <h3>Quality engineering</h3>
+                            <p>End-to-end quality strategies, automation, CI/CD, observability, and shift-left practices at scale.</p>
+                            <div class="tag-row"><span>Playwright</span><span>pytest</span><span>CI/CD</span></div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </section>
 
-        <!-- ===================== CAREER ===================== -->
-        <section id="career" class="career">
-            <div class="container">
-                <h2 class="section-title reveal"></h2>
-                <p class="section-subtitle reveal"></p>
-
-                <div id="career-grid" class="career-grid"></div>
-            </div>
-        </section>
-
-        <!-- ===================== SKILLS ===================== -->
-        <section id="skills" class="skills">
-            <div class="container">
-                <h2 class="section-title reveal"></h2>
-                <p class="section-subtitle reveal"></p>
-
-                <div id="skills-grid" class="skills-grid reveal-group"></div>
-            </div>
-        </section>
-
-        <!-- ===================== LEADERSHIP ===================== -->
-        <section id="leadership" class="leadership">
-            <div class="container">
-                <h2 class="section-title reveal"></h2>
-                <p class="section-subtitle reveal"></p>
-
-                <div id="leadership-grid" class="leadership-grid reveal-group"></div>
-            </div>
-        </section>
-
-        <!-- ===================== PUBLICATIONS ===================== -->
-        <section id="publications" class="publications">
-            <div class="container">
-                <h2 class="section-title reveal"></h2>
-                <p class="section-subtitle reveal"></p>
-
-                <div id="pub-content" class="pub-content reveal"></div>
-            </div>
-        </section>
-
-        <!-- ===================== CERTIFICATIONS ===================== -->
-        <section id="certifications" class="certifications">
-            <div class="container">
-                <h2 class="section-title reveal"></h2>
-                <p class="section-subtitle reveal"></p>
-
-                <div id="certs-grid" class="certs-grid reveal-group"></div>
-            </div>
-        </section>
-
-        <!-- ===================== EDUCATION ===================== -->
-        <section id="education" class="education">
-            <div class="container">
-                <h2 id="education-title" class="section-title reveal"></h2>
-
-                <div id="edu-card" class="edu-card reveal"></div>
-            </div>
-        </section>
-
-        <!-- ===================== CONTACT ===================== -->
-        <section id="contact" class="contact">
-            <div class="container">
-                <h2 class="section-title reveal"></h2>
-                <p class="section-subtitle reveal"></p>
-
-                <div class="contact-main-card reveal">
-                    <svg
-                        class="contact-blob"
-                        viewBox="0 0 200 200"
-                        xmlns="http://www.w3.org/2000/svg"
-                        aria-hidden="true"
-                    >
-                        <path d="M40 80c20-60 120-60 140 0s20 100-40 120-120-10-120-60 0-0 20-60z" fill="#9ad0c2" />
-                    </svg>
-                    <h3 id="contact-intro"></h3>
-                    <a id="contact-email" href="mailto:" class="contact-email"></a>
-                    <div id="contact-social" class="contact-social-icons"></div>
+            <div class="diorama-impact">
+                <div class="impact" role="list" aria-label="Key numbers">
+                    <div class="impact__cell" role="listitem">
+                        <div class="impact__num impact__num--timer">
+                            <span id="exp-years">0y 0m 0d</span>
+                            <span class="sub"><span id="exp-clock">00:00:00</span></span>
+                        </div>
+                        <div class="impact__lbl">since June 30, 2015</div>
+                    </div>
+                    <div class="impact__cell" role="listitem">
+                        <div class="impact__num"><span data-count="5">0</span><span class="sub">× daily</span></div>
+                        <div class="impact__lbl">release velocity</div>
+                    </div>
+                    <div class="impact__cell" role="listitem">
+                        <div class="impact__num"><span id="medium-count" data-count="0">0</span><span class="sub">+ posts</span></div>
+                        <div class="impact__lbl">written on Medium</div>
+                    </div>
+                    <div class="impact__cell" role="listitem">
+                        <div class="impact__num"><span id="repo-count" data-count="0">0</span><span class="sub">repos</span></div>
+                        <div class="impact__lbl">on GitHub</div>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- ===================== FOOTER ===================== -->
+        <!-- ========== CAREER, STICKY HORIZONTAL CINEMATIC ========== -->
+        <section id="career" class="section section--wash section--career">
+            <div class="career-cine" id="career-cine">
+                <div class="career-cine__sticky">
+                    <div class="career-cine__head">
+                        <div class="section__eyebrow"><span class="num">02</span> / career</div>
+                        <h2 class="section__title">A decade of growth, <em>hands-on to leading teams.</em></h2>
+                    </div>
+
+                    <div class="career-cine__track-wrap">
+                        <div id="career-list" class="career-cine__track"></div>
+                    </div>
+
+                    <div class="career-cine__progress">
+                        <div class="career-cine__progress-label">
+                            <span>now: <span class="now" id="career-now">&nbsp;</span></span>
+                            <span>scroll progress</span>
+                        </div>
+                        <div class="career-cine__bar"><div class="career-cine__fill" id="career-fill"></div></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== STACK, TERMINAL BOOT ========== -->
+        <section id="skills" class="section section--wash section--skills">
+            <div class="inner">
+                <div class="section__eyebrow"><span class="num">03</span> / stack</div>
+                <h2 class="section__title">A full-stack quality & AI toolkit, <em>honed over a decade.</em></h2>
+                <div class="stack-term" id="stack-term" aria-label="Skills terminal">
+                    <div class="stack-term__chrome">
+                        <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+                        <span class="stack-term__path">naresh@stack ~/skills</span>
+                    </div>
+                    <pre class="stack-term__body" id="stack-term-body"></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== LEADERSHIP, DIORAMA ========== -->
+        <section id="leadership" class="section section--wash section--leadership">
+            <div class="lead-dio" id="lead-dio">
+                <div class="lead-dio__sticky">
+                    <div class="lead-dio__copy">
+                        <div class="section__eyebrow"><span class="num">04</span> / leadership</div>
+                        <h2 class="section__title">How I build teams, ship products, <em>and drive impact.</em></h2>
+                        <p class="section__sub">Six principles I return to whenever a team or product needs a reset. Keep scrolling, each one steps forward.</p>
+                        <div class="lead-dio__progress" id="lead-dio-progress"></div>
+                    </div>
+
+                    <div class="lead-dio__stage" id="lead-dio-stage"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== OPEN SOURCE / GITHUB ========== -->
+        <section id="repos" class="section section--wash section--repos">
+            <div class="inner">
+                <div class="section__eyebrow"><span class="num">05</span> / open source</div>
+                <h2 class="section__title">Weekend <em>repositories.</em></h2>
+                <p class="section__sub">Tools I build to scratch my own itch, shipped to <a href="https://github.com/nareshnavinash" target="_blank" rel="noreferrer">GitHub</a>, free for anyone to use.</p>
+                <div id="repos-grid" class="card-grid card-grid--repos"></div>
+            </div>
+        </section>
+
+        <!-- ========== WRITING ========== -->
+        <section id="writing" class="section section--wash section--publications">
+            <div class="inner">
+                <div class="section__eyebrow"><span class="num">06</span> / writing</div>
+                <h2 class="section__title">Learning in <em>public.</em></h2>
+                <p class="section__sub">I write about AI engineering, leadership, and the tools I build on weekends. A few recent pieces from <a href="https://medium.com/@nareshnavinash" target="_blank" rel="noreferrer">Medium</a>.</p>
+
+                <div id="writing-grid" class="writing-col"></div>
+
+                <div class="book">
+                    <div class="book__cover">
+                        <div class="title">Management<br/>In Action</div>
+                        <div class="author">N. SEKAR</div>
+                    </div>
+                    <div class="book__info">
+                        <h3>Management In Action</h3>
+                        <div class="byline">A hands-on guide · Amazon Kindle</div>
+                        <p>Team building, decision-making, stakeholder alignment, and leadership practices that drive real impact in fast-paced technology organizations.</p>
+                        <a href="https://www.amazon.com/s?i=digital-text&rh=p_27%3ANaresh%2BSekar" target="_blank" rel="noreferrer">View on Amazon →</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== CERTIFICATIONS, TICKER ========== -->
+        <section id="certs" class="section section--certs-ticker">
+            <div class="inner">
+                <div class="certs-ticker__head">
+                    <div class="section__eyebrow"><span class="num">07</span> / certifications</div>
+                    <p class="certs-ticker__label">Also certified in:</p>
+                </div>
+                <div class="certs-ticker" id="certs-ticker" aria-label="Certifications">
+                    <div class="certs-ticker__track" id="certs-track"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== FOOTER (replaced by end-card via enhancements.js) ========== -->
         <footer class="footer">
-            <div class="container">
-                <div id="contact-extras" class="contact-extra-links"></div>
-                <div id="footer-greeting" class="footer-greeting"></div>
-                <div class="footer-inner">
-                    <span class="footer-copy"></span>
-                    <span id="footer-tagline" class="footer-tagline"></span>
-                </div>
-                <div class="footer-explore" style="margin-top:12px;">
-                    <a href="/" aria-label="Explore Naresh Sekar's interactive 3D portfolio world" style="color:var(--color-mint);font-size:0.9rem;">Explore the Interactive 3D Portfolio &rarr;</a>
-                </div>
-            </div>
+            <span>© <span id="year"></span> naresh sekar · built with vanilla html, css & a sprinkle of AI</span>
+            <span>have a good day.</span>
         </footer>
 
-        <!-- Back to top -->
-        <button id="back-to-top" class="back-to-top" aria-label="Back to top">
-            <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-            >
-                <polyline points="18 15 12 9 6 15" />
-            </svg>
-        </button>
+        <!-- ========== CAREER DETAIL MODAL ========== -->
+        <div class="career-modal" id="career-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="career-modal-title">
+            <div class="career-modal__backdrop" data-close></div>
+            <div class="career-modal__panel" role="document">
+                <button class="career-modal__close" type="button" data-close aria-label="Close">×</button>
+                <div class="career-modal__meta" id="career-modal-meta"></div>
+                <h3 class="career-modal__title" id="career-modal-title"></h3>
+                <div class="career-modal__byline" id="career-modal-byline"></div>
+                <div class="career-modal__desc" id="career-modal-desc"></div>
+                <div class="career-modal__nav">
+                    <button type="button" class="career-modal__prev" id="career-modal-prev">&larr; prev role</button>
+                    <span class="career-modal__count" id="career-modal-count"></span>
+                    <button type="button" class="career-modal__next" id="career-modal-next">next role &rarr;</button>
+                </div>
+            </div>
+        </div>
 
-        <script type="module" src="js/resume-loader.js"></script>
-        <script type="module" src="js/main.js"></script>
+        <script src="js/depth.js"></script>
+        <script src="js/enhancements.js"></script>
+        <script type="module" src="js/app.js"></script>
     </body>
 </html>

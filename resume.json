@@ -486,6 +486,20 @@
         ],
         "recentArticles": [
             {
+                "title": "My Daughter Asked Why Those Fans Were Showing Their Fingers.",
+                "url": "https://medium.com/@nareshnavinash/my-daughter-asked-why-those-fans-were-showing-their-fingers-91c1bd419f14",
+                "date": "2026-04-12T14:56:17.000Z",
+                "description": "So I Built a Browser Extension!How a five-year-old’s innocent question led to PG Patrol a Chrome extension that replaces profanity with “fiddlesticks” and NSFW images with kittens.We were looking for ",
+                "tags": [
+                    "privacy",
+                    "technology",
+                    "ai",
+                    "artificial-intelligence",
+                    "machine-learning"
+                ],
+                "thumbnail": "https://cdn-images-1.medium.com/max/1024/1*FU8tvmLlxZtnwvppJ1IxWg.png"
+            },
+            {
                 "title": "How Spotify Rewrote the Rules of Agile at Scale",
                 "url": "https://medium.com/@nareshnavinash/how-spotify-rewrote-the-rules-of-agile-at-scale-90b6f870823c",
                 "date": "2025-10-13T17:46:41.000Z",
@@ -542,20 +556,6 @@
                 "thumbnail": "https://miro.medium.com/v2/resize:fit:1200/1*KpdUQkq1R92ZmhF8WkSLCQ.png"
             },
             {
-                "title": "Avoiding Scope Creep: The Project Management Secrets of the Empire State Building",
-                "url": "https://medium.com/@nareshnavinash/avoiding-scope-creep-the-project-management-secrets-of-the-empire-state-building-16140791c673",
-                "date": "2025-09-05T16:47:29.000Z",
-                "description": "In the heart of the Great Depression, an icon was born not just from steel and stone, but from an unbreakable project scope. The Empire…",
-                "tags": [
-                    "business",
-                    "management",
-                    "leadership",
-                    "project-management",
-                    "money"
-                ],
-                "thumbnail": "https://miro.medium.com/v2/resize:fit:1200/1*ZdVrk17g5XfjzhH6xKEo0w.png"
-            },
-            {
                 "title": "Taming the AI Tongue",
                 "url": "https://medium.com/@nareshnavinash/taming-the-ai-tongue-f7e92333e306",
                 "date": "2025-05-20T17:16:48.638Z",
@@ -591,7 +591,7 @@
                     "name": "PyRest-Python",
                     "description": "REST API automation framework with snap mode, includes comparing image files",
                     "url": "https://github.com/nareshnavinash/PyRest-Python",
-                    "stars": 19,
+                    "stars": 20,
                     "language": "Python",
                     "homepage": "https://nareshnavinash.github.io/PyRest-Python/",
                     "hasPages": true,
@@ -610,7 +610,7 @@
                     "name": "newman-run",
                     "description": "Run multiple postman collections along with predefined configs using a single feed file. Reduces command-line arguments since reporting (allure, JSON, CLI, and HTML) is embedded internally.",
                     "url": "https://github.com/nareshnavinash/newman-run",
-                    "stars": 18,
+                    "stars": 19,
                     "language": "JavaScript",
                     "homepage": "https://nareshnavinash.github.io/newman-run/",
                     "hasPages": true,
@@ -705,10 +705,56 @@
             ],
             "recent": [
                 {
+                    "name": "chirp",
+                    "description": "Chirp - Free, cross-platform digital wellness app with smart break reminders, Pomodoro timer, blink & posture nudges, health score, and team dashboard. Zero tracking. MIT licensed.",
+                    "url": "https://github.com/nareshnavinash/chirp",
+                    "stars": 0,
+                    "language": "Dart",
+                    "homepage": "https://nareshnavinash.github.io/chirp/",
+                    "hasPages": true,
+                    "createdAt": "2026-04-10T07:53:27Z",
+                    "topics": [
+                        "20-20-20-rule",
+                        "break-reminder",
+                        "cross-platform",
+                        "desktop-app",
+                        "digital-wellness",
+                        "eye-care",
+                        "flutter",
+                        "health",
+                        "macos",
+                        "open-source",
+                        "pomodoro",
+                        "privacy-first"
+                    ],
+                    "thumbnail": "screenshots/chirp.png"
+                },
+                {
+                    "name": "dobbe-mcp",
+                    "description": "AI-powered MCP server + Claude Code skills - scan vulnerabilities, fix dependencies, review PRs, generate tests, triage incidents, track DORA metrics",
+                    "url": "https://github.com/nareshnavinash/dobbe-mcp",
+                    "stars": 0,
+                    "language": "TypeScript",
+                    "homepage": "https://nareshnavinash.github.io/dobbe-mcp/",
+                    "hasPages": true,
+                    "createdAt": "2026-04-09T13:33:55Z",
+                    "topics": [
+                        "automation",
+                        "claude-code",
+                        "devops",
+                        "finite-state-machine",
+                        "mcp",
+                        "npm-package",
+                        "security",
+                        "typescript"
+                    ],
+                    "thumbnail": "screenshots/dobbe-mcp.png"
+                },
+                {
                     "name": "bonsai",
                     "description": "CLI for running prism-ml's 1-bit Bonsai models locally. Auto-manages llama.cpp server, downloads from HuggingFace, exposes OpenAI-compatible API.",
                     "url": "https://github.com/nareshnavinash/bonsai",
-                    "stars": 0,
+                    "stars": 4,
                     "language": "Go",
                     "homepage": "https://nareshnavinash.github.io/bonsai/",
                     "hasPages": true,
@@ -760,7 +806,16 @@
                     "homepage": "https://nareshnavinash.github.io/aDictive/",
                     "hasPages": true,
                     "createdAt": "2026-03-17T12:14:42Z",
-                    "topics": [],
+                    "topics": [
+                        "desktop-app",
+                        "dictation",
+                        "electron",
+                        "groq",
+                        "speech-to-text",
+                        "typescript",
+                        "voice-to-text",
+                        "whisper-cpp"
+                    ],
                     "thumbnail": "screenshots/aDictive.png"
                 },
                 {
@@ -781,48 +836,6 @@
                         "spell-checker"
                     ],
                     "thumbnail": "screenshots/GhostEdit.png"
-                },
-                {
-                    "name": "shelldone",
-                    "description": "shelldone - terminal notifications for long-running commands. Desktop alerts, sounds, Slack, Discord, Telegram, Email, WhatsApp. Pure bash, zero deps. AI CLI hooks for Claude Code, Codex, Gemini, Copilot, Cursor.",
-                    "url": "https://github.com/nareshnavinash/shelldone",
-                    "stars": 1,
-                    "language": "Shell",
-                    "homepage": "https://nareshnavinash.github.io/shelldone/",
-                    "hasPages": true,
-                    "createdAt": "2026-03-16T04:35:50Z",
-                    "topics": [
-                        "bash",
-                        "claude-code",
-                        "cli",
-                        "developer-tools",
-                        "devops",
-                        "discord-bot",
-                        "dotfiles",
-                        "linux",
-                        "macos",
-                        "notifications",
-                        "productivity",
-                        "shell",
-                        "slack-notifications",
-                        "telegram-bot",
-                        "terminal",
-                        "wsl",
-                        "zsh"
-                    ],
-                    "thumbnail": "screenshots/shelldone.png"
-                },
-                {
-                    "name": "pg-patrol",
-                    "description": "Protect your kids from accidental exposure to 18+ content or distress-heavy content in the browser.",
-                    "url": "https://github.com/nareshnavinash/pg-patrol",
-                    "stars": 0,
-                    "language": "TypeScript",
-                    "homepage": "https://nareshnavinash.github.io/pg-patrol/",
-                    "hasPages": true,
-                    "createdAt": "2026-03-14T15:48:52Z",
-                    "topics": [],
-                    "thumbnail": "screenshots/pg-patrol.png"
                 }
             ]
         }

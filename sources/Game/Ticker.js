@@ -25,6 +25,8 @@ export class Ticker {
     }
 
     update(elapsed) {
+        if (typeof document !== 'undefined' && document.visibilityState === 'hidden') return
+
         const elapsedSeconds = elapsed / 1000
         this.delta = Math.min(elapsedSeconds - this.elapsed, this.maxDelta)
         this.elapsed = elapsedSeconds

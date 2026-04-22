@@ -4,3 +4,4 @@ node_modules/
 .DS_Store
 folio-2025/
 coverage/
+.lh/

@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "type": "module",
     "scripts": {
-        "sync-profile": "cp profile.html static/profile.html && (cmp -s resume.json static/data/resume.json || cp resume.json static/data/resume.json) && cp css/theme.css static/css/theme.css && cp css/styles.css static/css/styles.css && cp js/main.js static/js/main.js && cp js/resume-loader.js static/js/resume-loader.js && cp js/three-scene.js static/js/three-scene.js && cp public/assets/profile.jpg static/profile.jpg",
+        "sync-profile": "mkdir -p static/css static/js static/data static/assets && cp profile.html static/profile.html && (cmp -s resume.json static/data/resume.json || cp resume.json static/data/resume.json) && cp css/styles.css static/css/styles.css && cp css/cinematic.css static/css/cinematic.css && cp css/enhancements.css static/css/enhancements.css && cp js/app.js static/js/app.js && cp js/profile-render.js static/js/profile-render.js && cp js/depth.js static/js/depth.js && cp js/enhancements.js static/js/enhancements.js && cp js/three-scene.js static/js/three-scene.js && cp public/assets/profile.jpg static/assets/profile.jpg && cp public/assets/drivethrough.png static/assets/drivethrough.png && cp public/assets/profile-preview.png static/assets/profile-preview.png",
         "fetch-repos": "node scripts/fetch-github-repos.js",
         "capture-screenshots": "node scripts/capture-repo-screenshots.js",
         "fetch-articles": "node scripts/fetch-medium-articles.js",
@@ -14,6 +14,8 @@
         "build": "vite build --mode production",
         "preview": "vite preview",
         "compress": "node scripts/compress.js static/",
+        "lh": "node scripts/lh-run.js",
+        "lh:diff": "node scripts/lh-diff.js",
         "test": "vitest run --coverage",
         "lint": "eslint .",
         "format": "prettier --write .",
@@ -58,6 +60,7 @@
         "eslint-plugin-import": "^2.32.0",
         "eslint-plugin-prettier": "^5.5.5",
         "jsdom": "^28.1.0",
+        "lighthouse": "^13.1.0",
         "playwright": "^1.59.1",
         "prettier": "^3.8.1",
         "vitest": "^4.0.18"

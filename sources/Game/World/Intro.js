@@ -344,24 +344,35 @@ export class Intro {
     startLoadingAnimation() {
         this.visualProgress = { value: 0 }
 
+        let skipLoading = false
+        try {
+            if (sessionStorage.getItem('skip-world-intro-loading') === '1') {
+                sessionStorage.removeItem('skip-world-intro-loading')
+                skipLoading = true
+            }
+        } catch (e) {}
+        if (window.__embed) skipLoading = true
+
+        const applyProgress = (v) => {
+            this.circle.smoothedProgress.value = v
+            this.name.progress.value = v
+            const percentEl = document.querySelector('.js-loading-percentage')
+            if (percentEl) percentEl.textContent = `${Math.round(v * 100)}%`
+        }
+
         this.loadingComplete = new Promise((resolve) => {
+            if (skipLoading) {
+                this.visualProgress.value = 1
+                applyProgress(1)
+                resolve()
+                return
+            }
+
             gsap.to(this.visualProgress, {
                 value: 1,
                 duration: 5,
                 ease: 'none',
-                onUpdate: () => {
-                    const v = this.visualProgress.value
-
-                    // Update 3D circle
-                    this.circle.smoothedProgress.value = v
-
-                    // Update name fill (left-to-right reveal)
-                    this.name.progress.value = v
-
-                    // Update DOM percentage
-                    const percentEl = document.querySelector('.js-loading-percentage')
-                    if (percentEl) percentEl.textContent = `${Math.round(v * 100)}%`
-                },
+                onUpdate: () => applyProgress(this.visualProgress.value),
                 onComplete: resolve
             })
         })

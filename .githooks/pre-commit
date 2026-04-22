@@ -13,13 +13,16 @@ npm run build
 # Sync profile page files to static/ (Vite dev) and docs/ (deploy)
 echo "Syncing profile page to static/ and docs/..."
 for dest in static docs; do
+  mkdir -p "$dest/css" "$dest/js" "$dest/data" "$dest/assets"
   cp profile.html "$dest/profile.html"
   cp css/styles.css "$dest/css/styles.css"
-  cp js/main.js "$dest/js/main.js"
+  cp css/cinematic.css "$dest/css/cinematic.css"
+  cp css/enhancements.css "$dest/css/enhancements.css"
+  cp js/app.js "$dest/js/app.js"
+  cp js/profile-render.js "$dest/js/profile-render.js"
+  cp js/depth.js "$dest/js/depth.js"
+  cp js/enhancements.js "$dest/js/enhancements.js"
   cp js/three-scene.js "$dest/js/three-scene.js"
-
-  # Fix asset paths: root uses public/assets/ but static/ and docs/ have them at root level
-  sed -i '' 's|src="public/assets/|src="|g' "$dest/profile.html"
 done
 
 # Stage the updated docs/ and static/ folders
