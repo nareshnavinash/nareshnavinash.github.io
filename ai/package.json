@@ -1,0 +1,16 @@
+{
+    "name": "naresh-ai",
+    "version": "1.0.0",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "build": "vite build",
+        "dev": "vite build --watch"
+    },
+    "dependencies": {
+        "fuse.js": "^7.3.0"
+    },
+    "devDependencies": {
+        "vite": "^7.2.4"
+    }
+}

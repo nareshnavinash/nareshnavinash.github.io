@@ -1,0 +1,262 @@
+import { resolveIntent } from '../search/intentMatcher.js'
+import { META_INTENT } from '../search/intentCatalog.js'
+
+let ctx = null
+
+export function initChatAdapter(config) {
+    const { logEl, inputEl, sendEl, suggEl, search, chunks, handlers, suggestions, queryRAG } = config
+    if (!logEl || !inputEl || !sendEl) return
+
+    // Inject status badge into header
+    const headLeft = logEl.closest('.ask')?.querySelector('.ask__head-l')
+    let statusEl = null
+    if (headLeft) {
+        const liveSpan = headLeft.querySelector('span:last-child')
+        if (liveSpan) {
+            liveSpan.innerHTML = 'naresh.ai · <span class="ask__status" data-state="ready">ready</span>'
+            statusEl = liveSpan.querySelector('.ask__status')
+        }
+    }
+
+    const messages = [
+        {
+            role: 'a',
+            text: "Hi! Ask me anything about Naresh's work, leadership, or projects. I'll answer from his resume."
+        }
+    ]
+
+    ctx = { logEl, inputEl, sendEl, suggEl, statusEl, messages, search, chunks, handlers, suggestions, queryRAG }
+
+    const send = async (text) => {
+        const q = (text || inputEl.value || '').trim()
+        if (!q) return
+        inputEl.value = ''
+        messages.push({ role: 'u', text: q })
+        render()
+
+        // Show thinking
+        setStatus('thinking')
+        messages.push({ role: 't', stage: 'searching resume...' })
+        render()
+
+        try {
+            // Resolve intent
+            const resolution = resolveIntent(q, search, handlers)
+
+            // Meta intent — canned response
+            if (resolution?.intent?.type === 'meta') {
+                popThinking()
+                messages.push({ role: 'a', text: resolution.intent.response })
+                render()
+                setStatus('ready')
+                return
+            }
+
+            // Navigation intent with high confidence
+            if (resolution?.intent?.type === 'navigate' && resolution.confidence >= 0.7) {
+                const target = resolution.intent.target
+                popThinking()
+                if (target.startsWith('/')) {
+                    messages.push({ role: 'a', text: `Taking you to the 3D world...` })
+                    render()
+                    setStatus('ready')
+                    setTimeout(() => { window.location.href = target }, 600)
+                    return
+                }
+                messages.push({ role: 'a', text: `Scrolling to ${resolution.intent.id.replace('nav.', '')} section...` })
+                render()
+                setStatus('ready')
+                handlers.scrollTo?.(target)
+                return
+            }
+
+            // Query intent → RAG pipeline
+            updateThinking('generating answer...')
+            const result = await queryRAG(q)
+
+            popThinking()
+
+            if (result.type === 'answer') {
+                messages.push({ role: 'a', text: result.text })
+                if (result.sources?.length) {
+                    messages.push({ role: 'sources', items: result.sources })
+                }
+            } else {
+                // Fallback
+                messages.push({ role: 'a', text: result.text, variant: result.error ? 'error' : undefined })
+                if (result.chunks?.length) {
+                    messages.push({
+                        role: 'sources',
+                        items: result.chunks.map((c) => ({
+                            id: c.id,
+                            section: c.section,
+                            label: c.label,
+                            meta: c.meta
+                        }))
+                    })
+                }
+            }
+
+            render()
+            showFollowUps(resolution?.intent?.id)
+        } catch (err) {
+            popThinking()
+            messages.push({
+                role: 'a',
+                text: 'Something went wrong. Try asking in a different way.',
+                variant: 'error'
+            })
+            render()
+        }
+
+        setStatus('ready')
+    }
+
+    sendEl.addEventListener('click', () => send())
+    inputEl.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') send()
+    })
+
+    // Initial suggestions
+    renderSuggestions(suggestions, send)
+    render()
+
+    return { send }
+}
+
+function render() {
+    if (!ctx) return
+    const { logEl, messages, handlers } = ctx
+    logEl.innerHTML = ''
+
+    messages.forEach((m) => {
+        if (m.role === 'a') {
+            const tag = document.createElement('div')
+            tag.className = 'msg__tag'
+            tag.textContent = 'NARESH.AI'
+            const body = document.createElement('div')
+            body.textContent = m.text
+            const wrap = document.createElement('div')
+            wrap.className = `msg msg--a${m.variant === 'error' ? ' msg--error' : ''}`
+            wrap.append(tag, body)
+            logEl.append(wrap)
+        } else if (m.role === 'u') {
+            const div = document.createElement('div')
+            div.className = 'msg msg--u'
+            div.textContent = m.text
+            logEl.append(div)
+        } else if (m.role === 't') {
+            const div = document.createElement('div')
+            div.className = 'msg msg--think'
+            div.innerHTML = `<span class="thinking-dots"><span></span><span></span><span></span></span> <span class="thinking-label">${m.stage || 'thinking...'}</span>`
+            logEl.append(div)
+        } else if (m.role === 'sources') {
+            const wrap = document.createElement('div')
+            wrap.className = 'msg__sources'
+            ;(m.items || []).forEach((src) => {
+                const btn = document.createElement('button')
+                btn.className = 'msg__src'
+                btn.textContent = src.label || src.section
+                btn.addEventListener('click', () => handleSourceClick(src, handlers))
+                wrap.append(btn)
+            })
+            logEl.append(wrap)
+        }
+    })
+
+    logEl.scrollTop = logEl.scrollHeight
+}
+
+function handleSourceClick(src, handlers) {
+    const sectionMap = {
+        about: '#about',
+        career: '#career',
+        skills: '#skills',
+        leadership: '#leadership',
+        repos: '#open-source',
+        writing: '#writing',
+        certs: '#certs',
+        education: '#contact',
+        contact: '#contact'
+    }
+
+    if (src.section === 'career' && src.meta?.idx !== undefined) {
+        handlers.openCareerModal?.(src.meta.idx)
+        return
+    }
+    if (src.section === 'repos' && src.meta) {
+        handlers.openDetailModal?.('repo', src.meta.kind, src.meta.idx)
+        return
+    }
+    if (src.section === 'writing' && src.meta) {
+        handlers.openDetailModal?.('article', src.meta.kind, src.meta.idx)
+        return
+    }
+
+    const target = sectionMap[src.section]
+    if (target) handlers.scrollTo?.(target)
+}
+
+function setStatus(state) {
+    if (!ctx?.statusEl) return
+    ctx.statusEl.dataset.state = state
+    ctx.statusEl.textContent = state === 'ready' ? 'ready' : state === 'thinking' ? 'thinking...' : state
+}
+
+function popThinking() {
+    if (!ctx) return
+    const idx = ctx.messages.findIndex((m) => m.role === 't')
+    if (idx !== -1) ctx.messages.splice(idx, 1)
+}
+
+function updateThinking(stage) {
+    if (!ctx) return
+    const msg = ctx.messages.find((m) => m.role === 't')
+    if (msg) {
+        msg.stage = stage
+        render()
+    }
+}
+
+function renderSuggestions(suggestions, send) {
+    if (!ctx?.suggEl) return
+    ctx.suggEl.innerHTML = ''
+    ;(suggestions || []).forEach((s) => {
+        const btn = document.createElement('button')
+        btn.className = 'sugg'
+        btn.textContent = s
+        btn.addEventListener('click', () => {
+            ctx.suggEl.innerHTML = ''
+            send(s)
+        })
+        ctx.suggEl.append(btn)
+    })
+}
+
+const FOLLOW_UPS = {
+    'qa.career_detail': ['What technologies were used?', 'How large was the team?', 'What about the previous role?'],
+    'qa.skills_fit': ['Show me related projects', 'Where was this used?'],
+    'qa.leadership': ['How do you handle conflict?', 'Tell me about team growth'],
+    'qa.recruiter': ['What certifications does he have?', 'Tell me about his AI experience'],
+    'qa.general': ['Show leadership principles', 'What are his top projects?']
+}
+
+function showFollowUps(intentId) {
+    if (!ctx?.suggEl) return
+    const followUps = FOLLOW_UPS[intentId] || FOLLOW_UPS['qa.general']
+    ctx.suggEl.innerHTML = ''
+    followUps.forEach((text) => {
+        const btn = document.createElement('button')
+        btn.className = 'sugg'
+        btn.textContent = text
+        btn.addEventListener('click', () => {
+            ctx.suggEl.innerHTML = ''
+            const sendFn = ctx.inputEl?.closest('.ask')?.querySelector('#ask-send')
+            if (sendFn) {
+                ctx.inputEl.value = text
+                sendFn.click()
+            }
+        })
+        ctx.suggEl.append(btn)
+    })
+}

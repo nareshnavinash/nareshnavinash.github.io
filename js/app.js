@@ -931,9 +931,11 @@ function setupOnlyFans() {
 async function init() {
     let totalMediumPosts = 0
     let publicRepoCount = 0
+    let adapted = null
+    let rawResume = null
     try {
-        const resume = await loadResume()
-        const adapted = adaptResume(resume)
+        rawResume = await loadResume()
+        adapted = adaptResume(rawResume)
         CAREER = adapted.career
         CAREER_STAGE = adapted.careerStage || adapted.career
         SKILLS = adapted.skills
@@ -982,12 +984,37 @@ async function init() {
     setupChatFab()
     setupOnlyFans()
 
-    makeChat({
-        logEl: $('#ask-log'),
-        inputEl: $('#ask-input'),
-        sendEl: $('#ask-send'),
-        suggEl: $('#ask-sugg')
-    })
+    // AI-powered chat + Cmd+K search (replaces the old stub makeChat)
+    try {
+        const nareshAI = await import('./naresh-ai.mjs')
+        nareshAI.init({
+            resumeData: { ...adapted, rawResume },
+            chatRoot: {
+                logEl: $('#ask-log'),
+                inputEl: $('#ask-input'),
+                sendEl: $('#ask-send'),
+                suggEl: $('#ask-sugg')
+            },
+            handlers: {
+                scrollTo: (id) => {
+                    const target = $(id)
+                    if (target) window.scrollTo({ top: target.offsetTop - 70, behavior: 'smooth' })
+                },
+                openCareerModal,
+                openDetailModal,
+                showSnackbar
+            },
+            suggestions: SUGGESTIONS
+        })
+    } catch (e) {
+        console.warn('profile: AI module failed to load, falling back to stub chat.', e)
+        makeChat({
+            logEl: $('#ask-log'),
+            inputEl: $('#ask-input'),
+            sendEl: $('#ask-send'),
+            suggEl: $('#ask-sugg')
+        })
+    }
 
     // Signal depth.js + enhancements.js that dynamic DOM is ready.
     document.dispatchEvent(new CustomEvent('resume-loaded'))
