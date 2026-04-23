@@ -135,7 +135,7 @@ export class Area {
                 if (this.frustum.isIn === false || this.frustum.isIn === null) {
                     for (const object3D of this.objects.hideable) object3D.visible = true
 
-                    if (typeof helper !== 'undefined') helper.material.color.set('#44ff88').multiplyScalar(2)
+                    if (typeof helper !== 'undefined') helper.material.color.set('#44ff88').multiplyScalar(2) // eslint-disable-line no-undef
 
                     this.frustum.isIn = true
                     this.events.trigger('frustumIn')
@@ -144,7 +144,7 @@ export class Area {
                 if (this.frustum.isIn === true || this.frustum.isIn === null) {
                     for (const object3D of this.objects.hideable) object3D.visible = false
 
-                    if (typeof helper !== 'undefined') helper.material.color.set('#ff4488').multiplyScalar(2)
+                    if (typeof helper !== 'undefined') helper.material.color.set('#ff4488').multiplyScalar(2) // eslint-disable-line no-undef
 
                     this.frustum.isIn = false
                     this.events.trigger('frustumOut')

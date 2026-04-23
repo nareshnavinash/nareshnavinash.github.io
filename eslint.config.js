@@ -21,7 +21,7 @@ export default [
     js.configs.recommended,
     prettierConfig,
     {
-        files: ['**/*.js'],
+        files: ['**/*.js', '**/*.mjs'],
         languageOptions: {
             ecmaVersion: 'latest',
             sourceType: 'module',
@@ -85,7 +85,16 @@ export default [
                 removeEventListener: 'readonly',
                 location: 'readonly',
                 WebSocket: 'readonly',
-                Image: 'readonly'
+                Image: 'readonly',
+                Audio: 'readonly',
+                scrollY: 'readonly',
+                URLSearchParams: 'readonly',
+                Blob: 'readonly',
+                Map: 'readonly',
+                Set: 'readonly',
+                WeakMap: 'readonly',
+                Uint8Array: 'readonly',
+                ArrayBuffer: 'readonly'
             }
         },
         plugins: {

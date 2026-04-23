@@ -18,7 +18,12 @@ function diverseFallback(chunks) {
 
 export async function queryRAG(query, search, chunks) {
     const results = search.search(query, 5)
-    const contextChunks = results.length >= 3 ? results : results.length ? [...results, ...diverseFallback(chunks).filter((c) => !results.some((r) => r.id === c.id))].slice(0, 5) : diverseFallback(chunks)
+    const contextChunks =
+        results.length >= 3
+            ? results
+            : results.length
+              ? [...results, ...diverseFallback(chunks).filter((c) => !results.some((r) => r.id === c.id))].slice(0, 5)
+              : diverseFallback(chunks)
 
     const sources = contextChunks.map((c) => ({
         id: c.id,

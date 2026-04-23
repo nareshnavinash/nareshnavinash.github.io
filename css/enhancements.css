@@ -323,6 +323,9 @@
     .intro-splash {
         display: none !important;
     }
+    .sound-btn {
+        display: none !important;
+    }
 }
 
 /* ============================================
@@ -1795,7 +1798,9 @@
     background: var(--bg-card);
     border: 1px solid var(--border-strong);
     border-radius: 16px;
-    box-shadow: 0 40px 120px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.04) inset;
+    box-shadow:
+        0 40px 120px rgba(0, 0, 0, 0.45),
+        0 0 0 1px rgba(255, 255, 255, 0.04) inset;
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -1989,7 +1994,9 @@
     color: var(--color-lavender);
     border: 1px solid transparent;
     cursor: pointer;
-    transition: border-color 0.2s, color 0.2s;
+    transition:
+        border-color 0.2s,
+        color 0.2s;
 }
 .msg__src:hover {
     border-color: var(--color-lavender);
@@ -2035,7 +2042,9 @@
     display: flex;
     align-items: center;
     gap: 5px;
-    transition: color 0.2s, background 0.2s;
+    transition:
+        color 0.2s,
+        background 0.2s;
 }
 .search-btn:hover {
     color: var(--color-mint);

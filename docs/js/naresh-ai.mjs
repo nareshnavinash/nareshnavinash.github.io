@@ -1876,7 +1876,25 @@ function es(t, e, s) {
   };
 }
 function Fe(t) {
-  const e = ["what", "how", "why", "when", "where", "who", "tell", "describe", "explain", "show", "can", "do", "does", "is", "are", "have", "has"], s = t.split(/\s+/)[0];
+  const e = [
+    "what",
+    "how",
+    "why",
+    "when",
+    "where",
+    "who",
+    "tell",
+    "describe",
+    "explain",
+    "show",
+    "can",
+    "do",
+    "does",
+    "is",
+    "are",
+    "have",
+    "has"
+  ], s = t.split(/\s+/)[0];
   return t.includes("?") || e.includes(s);
 }
 const ts = `You are naresh.ai, a concise AI assistant for Naresh Sekar's professional portfolio.
@@ -2095,7 +2113,22 @@ function Es(t) {
       text: "Hi! Ask me anything about Naresh's work, leadership, or projects. I'll answer from his resume."
     }
   ];
-  b = { logEl: e, inputEl: s, sendEl: n, suggEl: i, statusEl: h, rateEl: k, messages: p, search: o, chunks: a, handlers: r, suggestions: c, queryRAG: d, getRemaining: l, getMax: f };
+  b = {
+    logEl: e,
+    inputEl: s,
+    sendEl: n,
+    suggEl: i,
+    statusEl: h,
+    rateEl: k,
+    messages: p,
+    search: o,
+    chunks: a,
+    handlers: r,
+    suggestions: c,
+    queryRAG: d,
+    getRemaining: l,
+    getMax: f
+  };
   const u = async (y) => {
     const E = (y || s.value || "").trim();
     if (E) {
@@ -2114,12 +2147,20 @@ function Es(t) {
             }, 600);
             return;
           }
-          p.push({ role: "a", text: `Scrolling to ${w.intent.id.replace("nav.", "")} section...` }), F(), K("ready"), r.scrollTo?.(I);
+          p.push({
+            role: "a",
+            text: `Scrolling to ${w.intent.id.replace("nav.", "")} section...`
+          }), F(), K("ready"), r.scrollTo?.(I);
           return;
         }
         As("generating answer...");
         const A = await d(E);
-        q(), A.type === "answer" ? (p.push({ role: "a", text: A.text, model: A.model }), A.sources?.length && p.push({ role: "sources", items: A.sources })) : (p.push({ role: "a", text: A.text, model: A.model, variant: A.error ? "error" : void 0 }), A.chunks?.length && p.push({
+        q(), A.type === "answer" ? (p.push({ role: "a", text: A.text, model: A.model }), A.sources?.length && p.push({ role: "sources", items: A.sources })) : (p.push({
+          role: "a",
+          text: A.text,
+          model: A.model,
+          variant: A.error ? "error" : void 0
+        }), A.chunks?.length && p.push({
           role: "sources",
           items: A.chunks.map((I) => ({
             id: I.id,

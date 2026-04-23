@@ -78,7 +78,25 @@ export function resolveIntent(query, search, handlers) {
 }
 
 function looksLikeQuestion(q) {
-    const starters = ['what', 'how', 'why', 'when', 'where', 'who', 'tell', 'describe', 'explain', 'show', 'can', 'do', 'does', 'is', 'are', 'have', 'has']
+    const starters = [
+        'what',
+        'how',
+        'why',
+        'when',
+        'where',
+        'who',
+        'tell',
+        'describe',
+        'explain',
+        'show',
+        'can',
+        'do',
+        'does',
+        'is',
+        'are',
+        'have',
+        'has'
+    ]
     const firstWord = q.split(/\s+/)[0]
     return q.includes('?') || starters.includes(firstWord)
 }

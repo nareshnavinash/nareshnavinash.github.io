@@ -10,9 +10,7 @@ Rules:
 - Be conversational and natural, not robotic.`
 
 export function buildPrompt(query, chunks) {
-    const contextBlocks = chunks
-        .map((c) => `[Section: ${c.label || c.section}]\n${c.text}`)
-        .join('\n---\n')
+    const contextBlocks = chunks.map((c) => `[Section: ${c.label || c.section}]\n${c.text}`).join('\n---\n')
 
     return {
         system: SYSTEM_PROMPT,

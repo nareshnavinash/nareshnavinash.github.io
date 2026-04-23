@@ -4,7 +4,8 @@ import { META_INTENT } from '../search/intentCatalog.js'
 let ctx = null
 
 export function initChatAdapter(config) {
-    const { logEl, inputEl, sendEl, suggEl, search, chunks, handlers, suggestions, queryRAG, getRemaining, getMax } = config
+    const { logEl, inputEl, sendEl, suggEl, search, chunks, handlers, suggestions, queryRAG, getRemaining, getMax } =
+        config
     if (!logEl || !inputEl || !sendEl) return
 
     const headLeft = logEl.closest('.ask')?.querySelector('.ask__head-l')
@@ -28,7 +29,22 @@ export function initChatAdapter(config) {
         }
     ]
 
-    ctx = { logEl, inputEl, sendEl, suggEl, statusEl, rateEl, messages, search, chunks, handlers, suggestions, queryRAG, getRemaining, getMax }
+    ctx = {
+        logEl,
+        inputEl,
+        sendEl,
+        suggEl,
+        statusEl,
+        rateEl,
+        messages,
+        search,
+        chunks,
+        handlers,
+        suggestions,
+        queryRAG,
+        getRemaining,
+        getMax
+    }
 
     const send = async (text) => {
         const q = (text || inputEl.value || '').trim()
@@ -63,10 +79,15 @@ export function initChatAdapter(config) {
                     messages.push({ role: 'a', text: `Taking you to the 3D world...` })
                     render()
                     setStatus('ready')
-                    setTimeout(() => { window.location.href = target }, 600)
+                    setTimeout(() => {
+                        window.location.href = target
+                    }, 600)
                     return
                 }
-                messages.push({ role: 'a', text: `Scrolling to ${resolution.intent.id.replace('nav.', '')} section...` })
+                messages.push({
+                    role: 'a',
+                    text: `Scrolling to ${resolution.intent.id.replace('nav.', '')} section...`
+                })
                 render()
                 setStatus('ready')
                 handlers.scrollTo?.(target)
@@ -85,7 +106,12 @@ export function initChatAdapter(config) {
                     messages.push({ role: 'sources', items: result.sources })
                 }
             } else {
-                messages.push({ role: 'a', text: result.text, model: result.model, variant: result.error ? 'error' : undefined })
+                messages.push({
+                    role: 'a',
+                    text: result.text,
+                    model: result.model,
+                    variant: result.error ? 'error' : undefined
+                })
                 if (result.chunks?.length) {
                     messages.push({
                         role: 'sources',

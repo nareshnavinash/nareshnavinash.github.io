@@ -310,6 +310,24 @@ h1 {
     color: var(--color-mint);
     transform: rotate(12deg);
 }
+.sound-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 1px solid var(--border-strong);
+    background: transparent;
+    color: var(--text-primary);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+.sound-btn:hover,
+.sound-btn[data-active='true'] {
+    border-color: var(--color-mint);
+    color: var(--color-mint);
+}
 .nav-3d-link {
     color: var(--color-mint);
     transition:
@@ -517,11 +535,22 @@ html.is-embedded body {
     align-self: flex-start;
     color: var(--text-primary);
 }
-.msg--a p { margin: 0 0 8px; }
-.msg--a p:last-child { margin-bottom: 0; }
-.msg--a ul { margin: 6px 0; padding-left: 18px; }
-.msg--a li { margin-bottom: 4px; }
-.msg--a strong { font-weight: 600; }
+.msg--a p {
+    margin: 0 0 8px;
+}
+.msg--a p:last-child {
+    margin-bottom: 0;
+}
+.msg--a ul {
+    margin: 6px 0;
+    padding-left: 18px;
+}
+.msg--a li {
+    margin-bottom: 4px;
+}
+.msg--a strong {
+    font-weight: 600;
+}
 .msg--a .msg__tag {
     font-family: var(--font-mono);
     font-size: 14px;

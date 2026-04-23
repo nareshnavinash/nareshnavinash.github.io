@@ -112,9 +112,13 @@ class MeshGridMaterial extends NodeMaterial {
         else if (this.reference === 'worldX') uvReference = positionWorld.yz
         else if (this.reference === 'worldY') uvReference = positionWorld.xz
         else if (this.reference === 'worldZ') uvReference = positionWorld.xy
+        // eslint-disable-next-line no-undef
         else if (this.reference === 'localTriplanar') uvReference = toTriplanarUv(positionLocal, mask)
+        // eslint-disable-next-line no-undef
         else if (this.reference === 'localX') uvReference = positionLocal.yz
+        // eslint-disable-next-line no-undef
         else if (this.reference === 'localY') uvReference = positionLocal.xz
+        // eslint-disable-next-line no-undef
         else if (this.reference === 'localZ') uvReference = positionLocal.xy
 
         let gridColor = uniform(this.color)

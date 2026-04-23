@@ -28,6 +28,7 @@
         if (reduced || sessionStorage.getItem('seen-intro-v2')) return Promise.resolve()
 
         const NAME = 'Naresh Sekar'
+        let dismiss
         const splash = el(
             'div',
             { class: 'intro-splash' },
@@ -52,6 +53,16 @@
             const typed = $('#intro-typed')
             const tag = $('#intro-tag')
             const hint = $('#intro-hint')
+
+            dismiss = () => {
+                splash.classList.add('gone')
+                sessionStorage.setItem('seen-intro-v2', '1')
+                setTimeout(() => {
+                    splash.remove()
+                    resolve()
+                }, 800)
+            }
+
             let i = 0
             const typeNext = () => {
                 if (i <= NAME.length) {
@@ -65,15 +76,6 @@
                 }
             }
             setTimeout(typeNext, 200)
-
-            const dismiss = () => {
-                splash.classList.add('gone')
-                sessionStorage.setItem('seen-intro-v2', '1')
-                setTimeout(() => {
-                    splash.remove()
-                    resolve()
-                }, 800)
-            }
             const onKey = (e) => {
                 if (!e.target.matches('input,textarea')) {
                     dismiss()

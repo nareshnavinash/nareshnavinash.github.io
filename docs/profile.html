@@ -190,7 +190,17 @@
         </script>
     </head>
     <body>
-        <div id="page-entry-overlay" style="position:fixed;inset:0;z-index:9998;background:#080818;transition:opacity 0.4s ease;pointer-events:none"></div>
+        <div
+            id="page-entry-overlay"
+            style="
+                position: fixed;
+                inset: 0;
+                z-index: 9998;
+                background: #080818;
+                transition: opacity 0.4s ease;
+                pointer-events: none;
+            "
+        ></div>
         <a href="#top" class="skip-link">Skip to content</a>
 
         <noscript>
@@ -259,8 +269,39 @@
             </div>
             <div class="nav__right">
                 <button id="search-btn" class="search-btn" aria-label="Search" title="Search (⌘K)">
-                    <svg viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="8.5" cy="8.5" r="6"/><line x1="13" y1="13" x2="18" y2="18" stroke-linecap="round"/></svg>
+                    <svg
+                        viewBox="0 0 20 20"
+                        width="18"
+                        height="18"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                    >
+                        <circle cx="8.5" cy="8.5" r="6" />
+                        <line x1="13" y1="13" x2="18" y2="18" stroke-linecap="round" />
+                    </svg>
                     <kbd class="search-btn__kbd">⌘K</kbd>
+                </button>
+                <button
+                    id="sound-btn"
+                    class="sound-btn"
+                    aria-label="Toggle sound effects"
+                    title="Turn on sound effects"
+                >
+                    <svg
+                        viewBox="0 0 24 24"
+                        width="18"
+                        height="18"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    >
+                        <path d="M11 5L6 9H2v6h4l5 4V5z" />
+                        <line x1="23" y1="9" x2="17" y2="15" />
+                        <line x1="17" y1="9" x2="23" y2="15" />
+                    </svg>
                 </button>
                 <button id="theme-btn" class="theme-btn" aria-label="Toggle theme" title="Switch to night">☾</button>
                 <a href="#contact" class="nav__cta">Say hello →</a>
@@ -559,6 +600,7 @@
         <div id="chat-fab-root"></div>
         <div id="snackbar-root" aria-live="polite"></div>
 
+        <script src="js/profile-sfx.js"></script>
         <script src="js/depth.js"></script>
         <script src="js/enhancements.js"></script>
         <script type="module" src="js/app.js"></script>

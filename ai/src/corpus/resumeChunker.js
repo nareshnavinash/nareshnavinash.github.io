@@ -164,5 +164,8 @@ export function chunkResume(adapted) {
 }
 
 function stripHtml(html) {
-    return html.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim()
+    return html
+        .replace(/<[^>]+>/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim()
 }
