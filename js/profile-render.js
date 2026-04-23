@@ -28,28 +28,92 @@ function buildCareerDesc(role) {
         .join('')
 }
 
+function buildCompanySummary(role) {
+    if (role.headline) return role.headline
+    const firstPoints = (role.sections || []).flatMap((s) => s.points || []).slice(0, 2)
+    return firstPoints.join(' ')
+}
+
 export function adaptResume(resume) {
     const r = resume || {}
 
-    const career = (r.career?.positions || []).flatMap((pos) =>
+    const positions = r.career?.positions || []
+
+    const career = positions.flatMap((pos) =>
         (pos.roles || []).map((role) => ({
             date: role.date || '',
             role: role.shortRole || role.role || '',
             co: pos.company || '',
             url: pos.url || '',
             teaser: role.headline || role.sections?.[0]?.points?.[0] || '',
-            desc: buildCareerDesc(role),
+            desc: buildCareerDesc(role)
         }))
     )
 
+    const recentCount = Number(r.career?.recentCount) || 0
+    const shouldTrim = recentCount > 0 && recentCount < career.length
+
+    let careerStage = career
+    if (shouldTrim) {
+        const recent = career.slice(0, recentCount)
+        const older = career.slice(recentCount)
+        const tailCfg = r.career?.tailCard || {}
+        const companies = [...new Set(older.map((x) => x.co).filter(Boolean))]
+        const tail = {
+            date: tailCfg.dateLabel || '',
+            role: tailCfg.role || 'Before that',
+            co: tailCfg.co || companies.join(' · '),
+            url: '',
+            teaser:
+                tailCfg.teaser ||
+                `${older.length} roles across ${companies.length} ${companies.length === 1 ? 'company' : 'companies'}`,
+            isTail: true,
+            targetIdx: recentCount
+        }
+        careerStage = [...recent, tail]
+    }
+
+    // Per-company cards for the "Before that" modal. One entry per unique
+    // company in the positions list, newest → oldest, summarising the latest
+    // role held there.
+    const careerCompanies = positions
+        .filter((pos) => pos.company && (pos.roles || []).length)
+        .map((pos) => {
+            const latest = pos.roles[0]
+            return {
+                company: pos.company,
+                url: pos.url || '',
+                role: latest.shortRole || latest.role || '',
+                date: latest.date || '',
+                summary: buildCompanySummary(latest),
+                roleCount: pos.roles.length,
+                location: latest.location || ''
+            }
+        })
+
+    // Focus index when the tail "Before that" card opens the modal: the first
+    // company whose roles are NOT all inside the recent-stage slice. Walks
+    // careerCompanies (not positions) so it stays aligned with the modal list.
+    let careerCompaniesInitialIdx = 0
+    if (shouldTrim && careerCompanies.length) {
+        let rolesSoFar = 0
+        for (let i = 0; i < careerCompanies.length; i++) {
+            rolesSoFar += careerCompanies[i].roleCount
+            if (rolesSoFar > recentCount) {
+                careerCompaniesInitialIdx = i
+                break
+            }
+        }
+    }
+
     const skills = (r.skills?.categories || []).map((c) => ({
         name: c.name,
-        items: Array.isArray(c.items) ? c.items.slice() : [],
+        items: Array.isArray(c.items) ? c.items.slice() : []
     }))
 
     const leadership = (r.leadership?.cards || []).map((c) => ({
         t: c.title || '',
-        d: c.description || '',
+        d: c.description || ''
     }))
 
     const articles = [...(r.openSource?.pinnedArticles || []), ...(r.openSource?.recentArticles || [])]
@@ -71,8 +135,14 @@ export function adaptResume(resume) {
         title: a.title || '',
         url: a.url,
         desc: (a.description || '').slice(0, 140),
-        tags: Array.isArray(a.tags) ? a.tags.slice(0, 3) : [],
+        tags: Array.isArray(a.tags) ? a.tags.slice(0, 3) : []
     }))
+
+    const articlesPinned = (r.openSource?.pinnedArticles || []).filter((a) => a && a.url).map(normaliseArticle)
+    const pinnedUrlSet = new Set(articlesPinned.map((a) => a.url))
+    const articlesRecent = (r.openSource?.recentArticles || [])
+        .filter((a) => a && a.url && !pinnedUrlSet.has(a.url))
+        .map(normaliseArticle)
 
     const repoSource = [...(r.openSource?.repos?.recent || []), ...(r.openSource?.repos?.starred || [])]
     const repoSeen = new Set()
@@ -91,34 +161,88 @@ export function adaptResume(resume) {
             desc: x.description || '',
             tags,
             url: x.url,
-            demo: x.hasPages && x.homepage ? x.homepage : undefined,
+            demo: x.hasPages && x.homepage ? x.homepage : undefined
         }
     })
 
+    const reposStarredRaw = (r.openSource?.repos?.starred || []).filter((x) => x && x.name)
+    const starredSeen = new Set()
+    const reposStarred = reposStarredRaw
+        .filter((x) => {
+            if (starredSeen.has(x.name)) return false
+            starredSeen.add(x.name)
+            return true
+        })
+        .map(normaliseRepo)
+    const reposRecent = (r.openSource?.repos?.recent || [])
+        .filter((x) => x && x.name && !starredSeen.has(x.name))
+        .filter((x, i, arr) => arr.findIndex((y) => y.name === x.name) === i)
+        .map(normaliseRepo)
+
+    const totalMediumPosts = Number.isFinite(r.openSource?.totalMediumPosts)
+        ? r.openSource.totalMediumPosts
+        : articleCount
+    const publicRepoCount = Number.isFinite(r.openSource?.publicRepoCount) ? r.openSource.publicRepoCount : repoCount
+
     const certs = (r.certifications?.items || []).map((c) => ({
         name: c.name,
-        issuer: c.issuer,
+        issuer: c.issuer
     }))
 
     const suggestions = r.site?.ask?.suggestions || [
         "What's your AI adoption philosophy?",
         'Tell me about your work at TestGorilla',
         'How do you scale engineering teams?',
-        'What open-source tools have you shipped?',
+        'What open-source tools have you shipped?'
     ]
 
     return {
         personal: r.personal || {},
         site: r.site || {},
         career,
+        careerStage,
+        careerCompanies,
+        careerCompaniesInitialIdx,
         skills,
         leadership,
         writing,
         articleCount,
+        articlesPinned,
+        articlesRecent,
         repos,
         repoCount,
+        reposStarred,
+        reposRecent,
+        totalMediumPosts,
+        publicRepoCount,
         certs,
-        suggestions,
+        suggestions
+    }
+}
+
+function normaliseRepo(x) {
+    const topics = Array.isArray(x.topics) ? x.topics.slice(0, 6) : []
+    const tags = topics.length ? topics : x.language ? [x.language] : []
+    return {
+        name: x.name,
+        tagline: x.tagline || '',
+        desc: x.description || '',
+        tags,
+        language: x.language || '',
+        url: x.url || '',
+        demo: x.hasPages && x.homepage ? x.homepage : '',
+        thumbnail: x.thumbnail || ''
+    }
+}
+
+function normaliseArticle(a) {
+    return {
+        date: formatMonthYear(a.date),
+        title: a.title || '',
+        url: a.url,
+        desc: (a.description || '').slice(0, 280),
+        tags: Array.isArray(a.tags) ? a.tags.slice(0, 4) : [],
+        thumbnail: a.thumbnail || ''
     }
 }
 
@@ -127,21 +251,27 @@ export function adaptResume(resume) {
 export function renderCareerHtml(career) {
     return career
         .map((c, i) => {
-            const chapter = 'Chapter ' + String(i + 1).padStart(2, '0')
+            const iconNum = String(i + 1).padStart(2, '0')
             const coHtml = c.url
                 ? `at <a href="${escapeHtml(c.url)}" target="_blank" rel="noreferrer">${escapeHtml(c.co)}</a>`
                 : 'at ' + escapeHtml(c.co)
+            const tailAttr = c.isTail ? ' data-tail="true"' : ''
+            const ctaLabel = c.isTail ? 'Before that' : 'Show more'
             return `
-        <div class="career-item" data-idx="${i}">
-          <div class="career-item__chapter">${escapeHtml(chapter)}</div>
-          <div class="career-item__date">${escapeHtml(c.date)}</div>
-          <h3 class="career-item__role">${escapeHtml(c.role)}</h3>
-          <div class="career-item__co">${coHtml}</div>
-          <p class="career-item__teaser">${escapeHtml(c.teaser)}</p>
-          <button type="button" class="career-item__more" data-career-idx="${i}">Show more <span class="arr">→</span></button>
+        <div class="stage-card stage-card--career" data-idx="${i}"${tailAttr}>
+          <div class="icon">${escapeHtml(iconNum)}</div>
+          <div class="stage-card__date">${escapeHtml(c.date)}</div>
+          <h3>${escapeHtml(c.role)}</h3>
+          <div class="stage-card__co">${coHtml}</div>
+          <p>${escapeHtml(c.teaser)}</p>
+          <button type="button" class="stage-card__more" data-career-idx="${i}">${escapeHtml(ctaLabel)} <span class="arr">→</span></button>
         </div>`
         })
         .join('')
+}
+
+export function renderCareerProgressHtml(career) {
+    return career.map((_, i) => `<span class="${i === 0 ? 'active' : ''}"></span>`).join('')
 }
 
 export function renderLeadershipHtml(leadership) {
@@ -215,12 +345,45 @@ export function renderCertsHtml(certs) {
     return certs.map(pill).join('') + certs.map(pill).join('')
 }
 
+export function renderRepoTermRows(repos, kind) {
+    return repos
+        .map((r, i) => {
+            const tag = r.tags[0] || r.language || 'repo'
+            return (
+                `<div class="repo-term__row" style="--stagger: ${i * 70}ms">` +
+                `<span class="prompt">❯</span>` +
+                `<span class="name">${escapeHtml(r.name)}</span>` +
+                `<span class="tag">${escapeHtml(tag)}</span>` +
+                `<button type="button" class="repo-term__more" data-kind="${escapeHtml(kind)}" data-idx="${i}">show more →</button>` +
+                `</div>`
+            )
+        })
+        .join('')
+}
+
+export function renderScrollRows(articles, kind) {
+    return articles
+        .map((a, i) => {
+            const tag = (a.tags[0] || '').toUpperCase()
+            return (
+                `<li class="scroll__row" style="--stagger: ${i * 70}ms">` +
+                `<div class="scroll__main">` +
+                `<a class="scroll__title-link" href="${escapeHtml(a.url)}" target="_blank" rel="noreferrer">${escapeHtml(a.title)}</a>` +
+                `<div class="scroll__meta">${escapeHtml(a.date)}${tag ? ' · ' + escapeHtml(tag) : ''}</div>` +
+                `</div>` +
+                `<button type="button" class="scroll__more" data-kind="${escapeHtml(kind)}" data-idx="${i}">show more →</button>` +
+                `</li>`
+            )
+        })
+        .join('')
+}
+
 export function renderSkillsTerminalLines(skills) {
     const lines = [
         { k: 'cmd', text: 'naresh@stack ~/skills % cat stack.toml' },
         { k: 'blank', text: '' },
         { k: 'title', text: '# 11+ years. Teams grown. One toolkit.' },
-        { k: 'blank', text: '' },
+        { k: 'blank', text: '' }
     ]
     skills.forEach((cat) => {
         lines.push({ k: 'key', text: '[' + cat.name.toLowerCase().replace(/\s+/g, '_') + ']' })

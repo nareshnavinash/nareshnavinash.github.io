@@ -21,12 +21,17 @@ const el = (tag, attrs = {}, ...kids) => {
 
 // ---------- data ----------
 let CAREER = []
+let CAREER_STAGE = []
 let SKILLS = []
 let LEADERSHIP = []
-let WRITING = []
 let CERTS = []
-let REPOS = []
 let SUGGESTIONS = []
+let REPOS_STARRED = []
+let REPOS_RECENT = []
+let ARTICLES_PINNED = []
+let ARTICLES_RECENT = []
+let REPO_LIST = [] // flattened [...starred, ...recent] with .kind
+let ARTICLE_LIST = [] // flattened [...pinned, ...recent] with .kind
 
 async function loadResume() {
     const candidates = ['data/resume.json', '/data/resume.json', 'resume.json', '/resume.json', '../resume.json']
@@ -43,38 +48,58 @@ async function loadResume() {
 
 // ---------- render sections ----------
 function renderCareer() {
-    const host = $('#career-list')
-    if (!host) return
-    host.innerHTML = ''
-    CAREER.forEach((c, i) => {
+    const stage = $('#career-stage')
+    const progress = $('#career-progress')
+    if (!stage) return
+    stage.innerHTML = ''
+    if (progress) progress.innerHTML = ''
+
+    CAREER_STAGE.forEach((c, i) => {
+        const iconNum = String(i + 1).padStart(2, '0')
         const byline = c.url
             ? el(
                   'div',
-                  { class: 'career-item__co' },
+                  { class: 'stage-card__co' },
                   'at ',
                   el('a', { href: c.url, target: '_blank', rel: 'noreferrer' }, c.co)
               )
-            : el('div', { class: 'career-item__co' }, 'at ' + c.co)
+            : el('div', { class: 'stage-card__co' }, 'at ' + c.co)
+        const targetIdx = c.isTail ? c.targetIdx : i
+        const onCardClick = (ev) => {
+            if (ev && ev.target && ev.target.closest('a')) return
+            openCareerModal(targetIdx)
+        }
+        const cardAttrs = {
+            class: 'stage-card stage-card--career',
+            'data-idx': String(i),
+            onclick: onCardClick
+        }
+        if (c.isTail) cardAttrs['data-tail'] = 'true'
         const card = el(
             'div',
-            { class: 'career-item', 'data-idx': String(i) },
-            el('div', { class: 'career-item__chapter' }, 'Chapter ' + String(i + 1).padStart(2, '0')),
-            el('div', { class: 'career-item__date' }, c.date),
-            el('h3', { class: 'career-item__role' }, c.role),
+            cardAttrs,
+            el('div', { class: 'icon' }, iconNum),
+            el('div', { class: 'stage-card__date' }, c.date || ''),
+            el('h3', {}, c.role),
             byline,
-            el('p', { class: 'career-item__teaser' }, c.teaser || ''),
+            el('p', {}, c.teaser || ''),
             el(
                 'button',
                 {
                     type: 'button',
-                    class: 'career-item__more',
-                    onclick: () => openCareerModal(i),
+                    class: 'stage-card__more',
+                    onclick: (ev) => {
+                        ev.stopPropagation()
+                        openCareerModal(targetIdx)
+                    }
                 },
-                'Show more ',
+                c.isTail ? 'Before that ' : 'Show more ',
                 el('span', { class: 'arr' }, '→')
             )
         )
-        host.append(card)
+        stage.append(card)
+
+        if (progress) progress.append(el('span', { class: i === 0 ? 'active' : '' }))
     })
 }
 
@@ -138,7 +163,7 @@ function renderSkills() {
         { k: 'cmd', text: 'naresh@stack ~/skills % cat stack.toml' },
         { k: 'blank', text: '' },
         { k: 'title', text: '# 11+ years. Teams grown. One toolkit.' },
-        { k: 'blank', text: '' },
+        { k: 'blank', text: '' }
     ]
     SKILLS.forEach((cat) => {
         lines.push({ k: 'key', text: '[' + cat.name.toLowerCase().replace(/\s+/g, '_') + ']' })
@@ -237,78 +262,242 @@ function renderLeadership() {
     })
 }
 
-function renderRepos() {
-    const host = $('#repos-grid')
-    if (!host) return
-    host.innerHTML = ''
-    REPOS.forEach((r) => {
-        const card = el(
-            'div',
-            { class: 'repo-card' },
-            el(
+function renderRepoTerminals() {
+    const render = (hostId, list, kind) => {
+        const host = $(hostId)
+        if (!host) return
+        host.innerHTML = ''
+        list.forEach((r, i) => {
+            const tag = r.tags[0] || r.language || 'repo'
+            const row = el(
                 'div',
-                { class: 'repo-card__top' },
-                el('div', { class: 'repo-card__meta' }, 'OSS · ' + (r.tags[0] || 'repo')),
-                el('h3', { class: 'repo-card__title' }, r.name),
-                el('div', { class: 'repo-card__tagline' }, r.tagline)
-            ),
-            el(
-                'div',
-                { class: 'repo-card__body' },
-                el('p', { class: 'repo-card__desc' }, r.desc),
+                { class: 'repo-term__row', style: '--stagger: ' + i * 110 + 'ms' },
+                el('span', { class: 'prompt' }, '❯'),
+                el('span', { class: 'name' }, r.name),
+                el('span', { class: 'tag' }, tag),
                 el(
-                    'div',
-                    { class: 'repo-card__tags' },
-                    r.tags.map((t) => el('span', {}, t))
+                    'button',
+                    {
+                        type: 'button',
+                        class: 'repo-term__more',
+                        'data-kind': kind,
+                        'data-idx': String(i)
+                    },
+                    'show more →'
                 )
-            ),
-            el(
-                'div',
-                { class: 'repo-card__footer' },
-                el(
-                    'a',
-                    { class: 'repo-card__link', href: r.url, target: '_blank', rel: 'noreferrer' },
-                    'source ↗'
-                ),
-                r.demo
-                    ? el(
-                          'a',
-                          { class: 'repo-card__link', href: r.demo, target: '_blank', rel: 'noreferrer' },
-                          'demo ↗'
-                      )
-                    : null
             )
-        )
-        host.append(card)
-    })
+            host.append(row)
+        })
+    }
+    render('#repo-term-starred', REPOS_STARRED, 'starred')
+    render('#repo-term-recent', REPOS_RECENT, 'recent')
+    observeForClass('.repo-term', 'is-typed', 0.2)
 }
 
-function renderWriting() {
-    const host = $('#writing-grid')
-    if (!host) return
-    host.innerHTML = ''
-    WRITING.forEach((w, i) => {
-        const row = el(
-            'a',
-            {
-                class: 'writing-row',
-                href: w.url,
-                target: '_blank',
-                rel: 'noreferrer',
-                style: '--stagger: ' + i * 80 + 'ms',
-            },
-            el(
-                'div',
-                { class: 'writing-row__meta' },
-                el('span', { class: 'writing-row__date' }, w.date),
-                el('span', { class: 'writing-row__sep' }, '·'),
-                el('span', { class: 'writing-row__tag' }, (w.tags[0] || '').toUpperCase())
-            ),
-            el('h3', { class: 'writing-row__title' }, w.title),
-            el('p', { class: 'writing-row__desc' }, w.desc),
-            el('span', { class: 'writing-row__arr' }, '↗')
-        )
-        host.append(row)
+function renderScrolls() {
+    const render = (hostId, list, kind) => {
+        const host = $(hostId)
+        if (!host) return
+        host.innerHTML = ''
+        list.forEach((a, i) => {
+            const tag = (a.tags[0] || '').toUpperCase()
+            const metaText = tag ? a.date + ' · ' + tag : a.date
+            const row = el(
+                'li',
+                { class: 'scroll__row', style: '--stagger: ' + i * 70 + 'ms' },
+                el(
+                    'div',
+                    { class: 'scroll__main' },
+                    el(
+                        'a',
+                        {
+                            class: 'scroll__title-link',
+                            href: a.url,
+                            target: '_blank',
+                            rel: 'noreferrer'
+                        },
+                        a.title
+                    ),
+                    el('div', { class: 'scroll__meta' }, metaText)
+                ),
+                el(
+                    'button',
+                    {
+                        type: 'button',
+                        class: 'scroll__more',
+                        'data-kind': kind,
+                        'data-idx': String(i)
+                    },
+                    'show more →'
+                )
+            )
+            host.append(row)
+        })
+    }
+    render('#scroll-pinned', ARTICLES_PINNED, 'pinned')
+    render('#scroll-recent', ARTICLES_RECENT, 'recent')
+    observeScrollsUnroll()
+}
+
+function observeScrollsUnroll() {
+    const wrapper = $('.scrolls')
+    const scrolls = $$('.scroll')
+    if (!wrapper || !scrolls.length) return
+    if (typeof IntersectionObserver === 'undefined') {
+        scrolls.forEach((s) => s.classList.add('is-unrolled'))
+        return
+    }
+    const io = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    scrolls.forEach((s, i) => {
+                        setTimeout(() => s.classList.add('is-unrolled'), i * 180)
+                    })
+                    io.disconnect()
+                }
+            })
+        },
+        { threshold: 0.15 }
+    )
+    io.observe(wrapper)
+}
+
+function observeForClass(selector, className, threshold) {
+    const targets = $$(selector)
+    if (!targets.length || typeof IntersectionObserver === 'undefined') {
+        targets.forEach((t) => t.classList.add(className))
+        return
+    }
+    const io = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add(className)
+                    io.unobserve(entry.target)
+                }
+            })
+        },
+        { threshold }
+    )
+    targets.forEach((t) => io.observe(t))
+}
+
+// ---------- detail modal (repos + articles) ----------
+let detailType = 'repo' // 'repo' | 'article'
+let detailIdx = 0
+
+function detailList() {
+    return detailType === 'repo' ? REPO_LIST : ARTICLE_LIST
+}
+
+function resolveKindLabel(type, kind) {
+    if (kind === 'starred') return 'Starred'
+    if (kind === 'pinned') return 'Pinned'
+    if (kind === 'recent') return type === 'repo' ? 'Recent' : 'Latest'
+    return kind
+}
+
+function openDetailModal(type, kind, localIdx) {
+    detailType = type
+    const list = detailList()
+    if (!list.length) return
+    const target = resolveKindLabel(type, kind)
+    const offset = list.findIndex((it) => it.__kind === target)
+    const idx = offset >= 0 ? offset + localIdx : localIdx
+    renderDetail(((idx % list.length) + list.length) % list.length)
+}
+
+function renderDetail(idx) {
+    const modal = $('#detail-modal')
+    if (!modal) return
+    const list = detailList()
+    if (!list.length) return
+    detailIdx = ((idx % list.length) + list.length) % list.length
+    const it = list[detailIdx]
+
+    const chip = $('#detail-modal-chip')
+    chip.textContent = it.__kind
+    chip.setAttribute('data-variant', it.__kind.toLowerCase())
+
+    const thumb = $('#detail-modal-thumb')
+    thumb.innerHTML = ''
+    if (it.thumbnail) {
+        thumb.append(el('img', { src: it.thumbnail, alt: '', loading: 'lazy' }))
+    }
+
+    const title = detailType === 'repo' ? it.name : it.title
+    $('#detail-modal-title').textContent = title
+
+    const meta = $('#detail-modal-meta')
+    if (detailType === 'repo') {
+        const bits = []
+        if (it.language) bits.push(it.language)
+        if (it.tagline) bits.push(it.tagline)
+        meta.textContent = bits.join(' · ')
+    } else {
+        meta.textContent = it.date
+    }
+
+    $('#detail-modal-desc').textContent = it.desc || ''
+
+    const tags = $('#detail-modal-tags')
+    tags.innerHTML = ''
+    ;(it.tags || []).forEach((t) => tags.append(el('span', {}, t)))
+
+    const links = $('#detail-modal-links')
+    links.innerHTML = ''
+    if (detailType === 'repo') {
+        if (it.url) {
+            links.append(el('a', { href: it.url, target: '_blank', rel: 'noreferrer' }, 'source ↗'))
+        }
+        if (it.demo) {
+            links.append(el('a', { href: it.demo, target: '_blank', rel: 'noreferrer' }, 'live demo ↗'))
+        }
+    } else if (it.url) {
+        links.append(el('a', { href: it.url, target: '_blank', rel: 'noreferrer' }, 'read on Medium ↗'))
+    }
+
+    $('#detail-modal-count').textContent = detailIdx + 1 + ' / ' + list.length
+
+    modal.classList.add('open')
+    modal.setAttribute('aria-hidden', 'false')
+    document.body.style.overflow = 'hidden'
+}
+
+function closeDetailModal() {
+    const modal = $('#detail-modal')
+    if (!modal) return
+    modal.classList.remove('open')
+    modal.setAttribute('aria-hidden', 'true')
+    document.body.style.overflow = ''
+}
+
+function setupDetailModal() {
+    const modal = $('#detail-modal')
+    if (!modal) return
+    modal.querySelectorAll('[data-detail-close]').forEach((n) => {
+        n.addEventListener('click', closeDetailModal)
+    })
+    $('#detail-modal-prev')?.addEventListener('click', () => renderDetail(detailIdx - 1))
+    $('#detail-modal-next')?.addEventListener('click', () => renderDetail(detailIdx + 1))
+    document.addEventListener('keydown', (e) => {
+        if (!modal.classList.contains('open')) return
+        if (e.key === 'Escape') closeDetailModal()
+        else if (e.key === 'ArrowLeft') renderDetail(detailIdx - 1)
+        else if (e.key === 'ArrowRight') renderDetail(detailIdx + 1)
+    })
+    // If prerender populated the DOM, wire the existing buttons too.
+    document.addEventListener('click', (e) => {
+        const btn = e.target.closest('[data-kind][data-idx]')
+        if (!btn) return
+        const kind = btn.dataset.kind
+        const localIdx = parseInt(btn.dataset.idx, 10)
+        if (btn.classList.contains('repo-term__more')) {
+            openDetailModal('repo', kind, localIdx)
+        } else if (btn.classList.contains('scroll__more')) {
+            openDetailModal('article', kind, localIdx)
+        }
     })
 }
 
@@ -348,7 +537,10 @@ function renderSuggestions(host, onPick) {
 function makeChat({ logEl, inputEl, sendEl, suggEl }) {
     if (!logEl || !inputEl || !sendEl || !suggEl) return null
     const messages = [
-        { role: 'a', text: "Hi, ask me anything about Naresh's work, leadership, or projects. I'll answer from his resume." },
+        {
+            role: 'a',
+            text: "Hi, ask me anything about Naresh's work, leadership, or projects. I'll answer from his resume."
+        }
     ]
     const render = () => {
         logEl.innerHTML = ''
@@ -494,65 +686,274 @@ function setYear() {
     if (y) y.textContent = new Date().getFullYear()
 }
 
-// ---------- experience timer ----------
+// ---------- live timers ----------
 const CAREER_START = new Date('2015-06-30T00:00:00Z').getTime()
+const LEADING_START = new Date('2023-08-01T00:00:00Z').getTime()
 function pad2(n) {
     return String(n).padStart(2, '0')
 }
-function setupExperienceTimer() {
-    const yearsEl = $('#exp-years')
-    const clockEl = $('#exp-clock')
+function computeYmd(startMs, now) {
+    const startDate = new Date(startMs)
+    const nowDate = new Date(now)
+    let years = nowDate.getUTCFullYear() - startDate.getUTCFullYear()
+    let months = nowDate.getUTCMonth() - startDate.getUTCMonth()
+    let days = nowDate.getUTCDate() - startDate.getUTCDate()
+    if (days < 0) {
+        months--
+        const prevMonth = new Date(Date.UTC(nowDate.getUTCFullYear(), nowDate.getUTCMonth(), 0))
+        days += prevMonth.getUTCDate()
+    }
+    if (months < 0) {
+        years--
+        months += 12
+    }
+    return { years, months, days }
+}
+function setupTimer(startMs, yearsElId, clockElId) {
+    const yearsEl = $(yearsElId)
+    const clockEl = $(clockElId)
     if (!yearsEl || !clockEl) return
     const tick = () => {
         const now = Date.now()
-        const startDate = new Date(CAREER_START)
-        const nowDate = new Date(now)
-        let years = nowDate.getUTCFullYear() - startDate.getUTCFullYear()
-        let months = nowDate.getUTCMonth() - startDate.getUTCMonth()
-        let days = nowDate.getUTCDate() - startDate.getUTCDate()
-        if (days < 0) {
-            months--
-            const prevMonth = new Date(Date.UTC(nowDate.getUTCFullYear(), nowDate.getUTCMonth(), 0))
-            days += prevMonth.getUTCDate()
-        }
-        if (months < 0) {
-            years--
-            months += 12
-        }
-        const totalSec = Math.floor((now - CAREER_START) / 1000)
+        const { years, months, days } = computeYmd(startMs, now)
+        const totalSec = Math.floor((now - startMs) / 1000)
         const hrs = Math.floor(totalSec / 3600) % 24
         const min = Math.floor(totalSec / 60) % 60
         const sec = totalSec % 60
         yearsEl.textContent = `${years}y ${months}m ${days}d`
         clockEl.textContent = `${pad2(hrs)}:${pad2(min)}:${pad2(sec)}`
     }
-    tick()
-    setInterval(tick, 1000)
+
+    // Render seed values synchronously so SSR/prerendered text stays sane.
+    yearsEl.textContent = '0y 0m 0d'
+    clockEl.textContent = '00:00:00'
+
+    let started = false
+    const animateThenLive = () => {
+        if (started) return
+        started = true
+        const { years: tY, months: tM, days: tD } = computeYmd(startMs, Date.now())
+        const duration = 1200
+        let raf
+        let animStart
+        const animate = (t) => {
+            if (!animStart) animStart = t
+            const p = Math.min(1, (t - animStart) / duration)
+            const eased = 1 - Math.pow(1 - p, 3)
+            const y = Math.round(tY * eased)
+            const m = Math.round(tM * eased)
+            const d = Math.round(tD * eased)
+            yearsEl.textContent = `${y}y ${m}m ${d}d`
+            if (p < 1) {
+                raf = requestAnimationFrame(animate)
+            } else {
+                tick()
+                setInterval(tick, 1000)
+            }
+        }
+        raf = requestAnimationFrame(animate)
+    }
+
+    const io = new IntersectionObserver(
+        (ents) => {
+            if (ents.some((e) => e.isIntersecting)) {
+                animateThenLive()
+                io.disconnect()
+            }
+        },
+        { threshold: 0.4 }
+    )
+    io.observe(yearsEl)
+}
+function setupExperienceTimer() {
+    setupTimer(CAREER_START, '#exp-years', '#exp-clock')
+}
+function setupLeadingTimer() {
+    setupTimer(LEADING_START, '#lead-years', '#lead-clock')
 }
 
-function setLiveCounts(articleCount, repoCount) {
+function setLiveCounts(totalMediumPosts, publicRepoCount) {
     const medium = $('#medium-count')
     const gh = $('#repo-count')
-    if (medium) medium.dataset.count = String(articleCount)
-    if (gh) gh.dataset.count = String(repoCount)
+    if (medium) medium.dataset.count = String(totalMediumPosts)
+    if (gh) gh.dataset.count = String(publicRepoCount)
+}
+
+// ---------- chat FAB ----------
+function setupChatFab() {
+    const root = $('#chat-fab-root')
+    if (!root) return
+    root.innerHTML = `
+        <button id="chat-fab" class="chat-fab" type="button" aria-label="Ask naresh.ai" aria-expanded="false">
+            <svg class="chat-fab__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path fill="currentColor" d="M20 2H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h4l4 4 4-4h4a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2Zm-3 11H7v-2h10v2Zm0-4H7V7h10v2Z"/>
+            </svg>
+            <span class="chat-fab__dot" aria-hidden="true"></span>
+        </button>
+        <aside id="chat-panel" class="chat-panel" aria-hidden="true" aria-label="Ask naresh.ai" role="dialog">
+            <div class="ask chat-panel__ask" role="region">
+                <div class="ask__head">
+                    <div class="ask__head-l">
+                        <span class="dot"></span>
+                        <span>naresh.ai · live</span>
+                    </div>
+                    <button id="chat-panel-close" class="chat-panel__close" type="button" aria-label="Close chat">×</button>
+                </div>
+                <div id="ask-log" class="ask__log" aria-live="polite"></div>
+                <div id="ask-sugg" class="ask__sugg" aria-label="Suggested questions"></div>
+                <div class="ask__input">
+                    <span class="chev">›</span>
+                    <input id="ask-input" type="text" placeholder="Ask about AI adoption, leadership, a specific project…" autocomplete="off" />
+                    <button id="ask-send" type="button">Ask</button>
+                </div>
+            </div>
+        </aside>
+    `
+    const fab = $('#chat-fab')
+    const panel = $('#chat-panel')
+    const closeBtn = $('#chat-panel-close')
+    const input = $('#ask-input')
+    const setOpen = (open) => {
+        panel.classList.toggle('is-open', open)
+        panel.setAttribute('aria-hidden', open ? 'false' : 'true')
+        fab.setAttribute('aria-expanded', open ? 'true' : 'false')
+        document.body.classList.toggle('chat-open', open)
+        if (open) setTimeout(() => input?.focus(), 80)
+    }
+    fab.addEventListener('click', () => setOpen(!panel.classList.contains('is-open')))
+    closeBtn.addEventListener('click', () => setOpen(false))
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && panel.classList.contains('is-open')) setOpen(false)
+    })
+}
+
+// ---------- snackbar ----------
+function showSnackbar(message, { duration = 5000, variant } = {}) {
+    const root = $('#snackbar-root')
+    if (!root) return
+    const classes = 'snackbar' + (variant ? ` snackbar--${variant}` : '')
+    const children = []
+    if (variant === 'of') {
+        children.push(el('span', { class: 'snackbar__heart', 'aria-hidden': 'true' }, '♥'))
+    }
+    children.push(el('span', { class: 'snackbar__msg' }, message))
+    children.push(el('button', { class: 'snackbar__close', type: 'button', 'aria-label': 'Dismiss' }, '×'))
+    const bar = el('div', { class: classes, role: 'status' }, ...children)
+    const dismiss = () => {
+        bar.classList.remove('is-visible')
+        setTimeout(() => bar.remove(), 280)
+    }
+    bar.querySelector('.snackbar__close').addEventListener('click', dismiss)
+    root.append(bar)
+    requestAnimationFrame(() => bar.classList.add('is-visible'))
+    setTimeout(dismiss, duration)
+}
+
+// ---------- confetti (birthday popper) ----------
+function burstConfetti(anchor) {
+    const rect =
+        anchor && anchor.getBoundingClientRect
+            ? anchor.getBoundingClientRect()
+            : { left: window.innerWidth / 2, top: window.innerHeight / 2, width: 0, height: 0 }
+    const originX = rect.left + rect.width / 2
+    const originY = rect.top + rect.height / 2
+    const palette = [
+        'var(--color-mint)',
+        'var(--color-peach)',
+        'var(--color-lavender)',
+        'var(--color-gold)',
+        'var(--color-blue)'
+    ]
+    const count = 90
+    const duration = 2400
+    const pieces = []
+    for (let i = 0; i < count; i++) {
+        const piece = document.createElement('div')
+        const isStreamer = Math.random() < 0.25
+        piece.className = 'confetti-piece' + (isStreamer ? ' streamer' : '')
+        piece.style.background = palette[i % palette.length]
+        piece.style.left = `${originX}px`
+        piece.style.top = `${originY}px`
+        document.body.appendChild(piece)
+        // initial burst: radial upward-biased angles
+        const angle = -Math.PI / 2 + (Math.random() - 0.5) * Math.PI * 1.1
+        const speed = 380 + Math.random() * 460
+        pieces.push({
+            node: piece,
+            vx: Math.cos(angle) * speed,
+            vy: Math.sin(angle) * speed,
+            rot: Math.random() * 360,
+            spin: (Math.random() - 0.5) * 720,
+            drift: (Math.random() - 0.5) * 60
+        })
+    }
+    const gravity = 900 // px/s^2
+    let last
+    let startTs
+    const tick = (ts) => {
+        if (!startTs) {
+            startTs = ts
+            last = ts
+        }
+        const dt = Math.min(0.032, (ts - last) / 1000)
+        last = ts
+        const elapsed = (ts - startTs) / duration
+        pieces.forEach((p) => {
+            p.vy += gravity * dt
+            p.vx += Math.sin((ts + p.drift) / 300) * 30 * dt
+            const x = (parseFloat(p.node.style.left) || originX) + p.vx * dt
+            const y = (parseFloat(p.node.style.top) || originY) + p.vy * dt
+            p.node.style.left = `${x}px`
+            p.node.style.top = `${y}px`
+            p.rot += p.spin * dt
+            p.node.style.transform = `rotate(${p.rot}deg)`
+            p.node.style.opacity = String(Math.max(0, 1 - elapsed * 1.1))
+        })
+        if (elapsed < 1) {
+            requestAnimationFrame(tick)
+        } else {
+            pieces.forEach((p) => p.node.remove())
+        }
+    }
+    requestAnimationFrame(tick)
+}
+
+function setupOnlyFans() {
+    const btn = document.getElementById('only-fans-btn')
+    if (!btn) return
+    btn.addEventListener('click', () => {
+        burstConfetti(btn)
+        showSnackbar('You are my only fan. Thank you for clicking.', { variant: 'of', duration: 4000 })
+    })
 }
 
 // ---------- boot ----------
 async function init() {
-    let articleCount = 0
-    let repoCount = 0
+    let totalMediumPosts = 0
+    let publicRepoCount = 0
     try {
         const resume = await loadResume()
         const adapted = adaptResume(resume)
         CAREER = adapted.career
+        CAREER_STAGE = adapted.careerStage || adapted.career
         SKILLS = adapted.skills
         LEADERSHIP = adapted.leadership
-        WRITING = adapted.writing
-        REPOS = adapted.repos
         CERTS = adapted.certs
         SUGGESTIONS = adapted.suggestions
-        articleCount = adapted.articleCount
-        repoCount = adapted.repoCount
+        REPOS_STARRED = adapted.reposStarred || []
+        REPOS_RECENT = adapted.reposRecent || []
+        ARTICLES_PINNED = adapted.articlesPinned || []
+        ARTICLES_RECENT = adapted.articlesRecent || []
+        REPO_LIST = [
+            ...REPOS_STARRED.map((r) => ({ ...r, __kind: 'Starred' })),
+            ...REPOS_RECENT.map((r) => ({ ...r, __kind: 'Recent' }))
+        ]
+        ARTICLE_LIST = [
+            ...ARTICLES_PINNED.map((a) => ({ ...a, __kind: 'Pinned' })),
+            ...ARTICLES_RECENT.map((a) => ({ ...a, __kind: 'Latest' }))
+        ]
+        totalMediumPosts = adapted.totalMediumPosts
+        publicRepoCount = adapted.publicRepoCount
     } catch (e) {
         console.warn('profile: resume.json load failed; rendering from prerender output only.', e)
     }
@@ -562,31 +963,30 @@ async function init() {
     if (CAREER.length) renderCareer()
     if (SKILLS.length) renderSkills()
     if (LEADERSHIP.length) renderLeadership()
-    if (REPOS.length) renderRepos()
-    if (WRITING.length) renderWriting()
+    if (REPOS_STARRED.length || REPOS_RECENT.length) renderRepoTerminals()
+    if (ARTICLES_PINNED.length || ARTICLES_RECENT.length) renderScrolls()
     if (CERTS.length) renderCerts()
 
-    setLiveCounts(articleCount, repoCount)
+    setLiveCounts(totalMediumPosts, publicRepoCount)
 
     setupCareerModal()
+    setupDetailModal()
     setupNavScroll()
     setupSmoothScroll()
     setupReveals()
     setupCountUps()
     setupExperienceTimer()
+    setupLeadingTimer()
     setupTheme()
     setYear()
+    setupChatFab()
+    setupOnlyFans()
 
     makeChat({
         logEl: $('#ask-log'),
         inputEl: $('#ask-input'),
         sendEl: $('#ask-send'),
-        suggEl: $('#ask-sugg'),
-    })
-
-    $('#scroll-btn')?.addEventListener('click', () => {
-        const target = $('#about')
-        if (target) window.scrollTo({ top: target.offsetTop - 70, behavior: 'smooth' })
+        suggEl: $('#ask-sugg')
     })
 
     // Signal depth.js + enhancements.js that dynamic DOM is ready.

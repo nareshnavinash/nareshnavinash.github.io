@@ -12,12 +12,13 @@ import { JSDOM } from 'jsdom'
 import {
     adaptResume,
     renderCareerHtml,
+    renderCareerProgressHtml,
     renderLeadershipHtml,
     renderLeadershipProgressHtml,
-    renderReposHtml,
-    renderWritingHtml,
+    renderRepoTermRows,
+    renderScrollRows,
     renderCertsHtml,
-    renderSkillsTerminalHtml,
+    renderSkillsTerminalHtml
 } from '../js/profile-render.js'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
@@ -38,11 +39,14 @@ function setHtml(selector, htmlStr) {
     if (el) el.innerHTML = htmlStr
 }
 
-setHtml('#career-list', renderCareerHtml(data.career))
+setHtml('#career-stage', renderCareerHtml(data.careerStage))
+setHtml('#career-progress', renderCareerProgressHtml(data.careerStage))
 setHtml('#lead-dio-stage', renderLeadershipHtml(data.leadership))
 setHtml('#lead-dio-progress', renderLeadershipProgressHtml(data.leadership))
-setHtml('#repos-grid', renderReposHtml(data.repos))
-setHtml('#writing-grid', renderWritingHtml(data.writing))
+setHtml('#repo-term-starred', renderRepoTermRows(data.reposStarred, 'starred'))
+setHtml('#repo-term-recent', renderRepoTermRows(data.reposRecent, 'recent'))
+setHtml('#scroll-pinned', renderScrollRows(data.articlesPinned, 'pinned'))
+setHtml('#scroll-recent', renderScrollRows(data.articlesRecent, 'recent'))
 setHtml('#certs-track', renderCertsHtml(data.certs))
 setHtml('#stack-term-body', renderSkillsTerminalHtml(data.skills))
 
