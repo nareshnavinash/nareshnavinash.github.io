@@ -517,6 +517,11 @@ html.is-embedded body {
     align-self: flex-start;
     color: var(--text-primary);
 }
+.msg--a p { margin: 0 0 8px; }
+.msg--a p:last-child { margin-bottom: 0; }
+.msg--a ul { margin: 6px 0; padding-left: 18px; }
+.msg--a li { margin-bottom: 4px; }
+.msg--a strong { font-weight: 600; }
 .msg--a .msg__tag {
     font-family: var(--font-mono);
     font-size: 14px;

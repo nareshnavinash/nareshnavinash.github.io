@@ -28,7 +28,7 @@ function nt(t) {
   }
   (t.career || []).forEach((u, y) => {
     if (u.isTail) return;
-    const b = it(u.desc || ""), w = `${s.name || "Naresh Sekar"} worked as ${u.role} at ${u.co} (${u.date}). ${b}`;
+    const E = it(u.desc || ""), w = `${s.name || "Naresh Sekar"} worked as ${u.role} at ${u.co} (${u.date}). ${E}`;
     e.push({
       id: `career:${y}`,
       section: "career",
@@ -51,39 +51,39 @@ function nt(t) {
       text: `Leadership - ${u.t}: ${u.d}`
     });
   }), (t.reposStarred || []).forEach((u, y) => {
-    const b = u.tags?.join(", ") || "";
+    const E = u.tags?.join(", ") || "";
     e.push({
       id: `repo:starred:${y}`,
       section: "repos",
       label: u.name,
-      text: `Open source repo: ${u.name} - ${u.tagline || u.desc}. Language: ${u.language || "N/A"}. Tags: ${b}`,
+      text: `Open source repo: ${u.name} - ${u.tagline || u.desc}. Language: ${u.language || "N/A"}. Tags: ${E}`,
       meta: { kind: "Starred", idx: y, name: u.name, url: u.url }
     });
   }), (t.reposRecent || []).forEach((u, y) => {
-    const b = u.tags?.join(", ") || "";
+    const E = u.tags?.join(", ") || "";
     e.push({
       id: `repo:recent:${y}`,
       section: "repos",
       label: u.name,
-      text: `Recent project: ${u.name} - ${u.tagline || u.desc}. Language: ${u.language || "N/A"}. Tags: ${b}`,
+      text: `Recent project: ${u.name} - ${u.tagline || u.desc}. Language: ${u.language || "N/A"}. Tags: ${E}`,
       meta: { kind: "Recent", idx: y, name: u.name, url: u.url }
     });
   }), (t.articlesPinned || []).forEach((u, y) => {
-    const b = u.tags?.join(", ") || "";
+    const E = u.tags?.join(", ") || "";
     e.push({
       id: `article:pinned:${y}`,
       section: "writing",
       label: u.title,
-      text: `Article: ${u.title} (${u.date}). ${u.desc} Tags: ${b}`,
+      text: `Article: ${u.title} (${u.date}). ${u.desc} Tags: ${E}`,
       meta: { kind: "Pinned", idx: y, title: u.title, url: u.url }
     });
   }), (t.articlesRecent || []).forEach((u, y) => {
-    const b = u.tags?.join(", ") || "";
+    const E = u.tags?.join(", ") || "";
     e.push({
       id: `article:recent:${y}`,
       section: "writing",
       label: u.title,
-      text: `Article: ${u.title} (${u.date}). ${u.desc} Tags: ${b}`,
+      text: `Article: ${u.title} (${u.date}). ${u.desc} Tags: ${E}`,
       meta: { kind: "Recent", idx: y, title: u.title, url: u.url }
     });
   });
@@ -256,12 +256,12 @@ const pt = {
   ...pt,
   ...yt,
   ...kt
-}), Et = /[^ ]+/g;
-function bt(t = 1, e = 3) {
+}), bt = /[^ ]+/g;
+function Et(t = 1, e = 3) {
   const s = /* @__PURE__ */ new Map(), n = Math.pow(10, e);
   return {
     get(i) {
-      const o = i.match(Et).length;
+      const o = i.match(bt).length;
       if (s.has(o))
         return s.get(o);
       const a = 1 / Math.pow(o, 0.5 * t), r = parseFloat(Math.round(a * n) / n);
@@ -272,12 +272,12 @@ function bt(t = 1, e = 3) {
     }
   };
 }
-class be {
+class Ee {
   constructor({
     getFn: e = m.getFn,
     fieldNormWeight: s = m.fieldNormWeight
   } = {}) {
-    this.norm = bt(s, 3), this.getFn = e, this.isCreated = !1, this.docs = [], this.keys = [], this._keysMap = {}, this.setIndexRecords();
+    this.norm = Et(s, 3), this.getFn = e, this.isCreated = !1, this.docs = [], this.keys = [], this._keysMap = {}, this.setIndexRecords();
   }
   setSources(e = []) {
     this.docs = e;
@@ -392,7 +392,7 @@ function Ke(t, e, {
   getFn: s = m.getFn,
   fieldNormWeight: n = m.fieldNormWeight
 } = {}) {
-  const i = new be({
+  const i = new Ee({
     getFn: s,
     fieldNormWeight: n
   });
@@ -405,7 +405,7 @@ function wt(t, {
   const {
     keys: n,
     records: i
-  } = t, o = new be({
+  } = t, o = new Ee({
     getFn: e,
     fieldNormWeight: s
   });
@@ -440,13 +440,13 @@ function _t(t, e, s, {
     const z = Math.abs(g - $);
     return i ? C + z / i : z ? 1 : C;
   }, u = r > 1 || c, y = u ? Array(f) : [];
-  let b;
-  for (; (b = t.indexOf(e, k)) > -1; ) {
-    const x = p(0, b);
-    if (h = Math.min(x, h), k = b + l, u) {
+  let E;
+  for (; (E = t.indexOf(e, k)) > -1; ) {
+    const x = p(0, E);
+    if (h = Math.min(x, h), k = E + l, u) {
       let $ = 0;
       for (; $ < l; )
-        y[b + $] = 1, $ += 1;
+        y[E + $] = 1, $ += 1;
     }
   }
   k = -1;
@@ -598,7 +598,7 @@ class Ae {
       startIndex: y
     }) => {
       const {
-        isMatch: b,
+        isMatch: E,
         score: w,
         indices: A
       } = _t(e, p, u, {
@@ -610,7 +610,7 @@ class Ae {
         includeMatches: i,
         ignoreLocation: l
       });
-      b && (h = !0), g += w, b && A && f.push(...A);
+      E && (h = !0), g += w, E && A && f.push(...A);
     });
     const k = {
       isMatch: h,
@@ -944,10 +944,10 @@ class Nt {
         const p = g[h], {
           isMatch: u,
           indices: y,
-          score: b
+          score: E
         } = p.search(e);
         if (u) {
-          a += 1, c += b;
+          a += 1, c += E;
           const w = p.constructor.type;
           w.startsWith("inverse") && (d = !0), n && (Rt.has(w) ? r.push(...y) : r.push(y));
         } else {
@@ -1246,7 +1246,7 @@ class L {
     return this._lastQuery = e, this._lastSearcher = n, n;
   }
   setCollection(e, s) {
-    if (this._docs = e, s && !(s instanceof be))
+    if (this._docs = e, s && !(s instanceof Ee))
       throw new Error(at);
     if (this._myIndex = s || Ke(this.options.keys, this._docs, {
       getFn: this.options.getFn,
@@ -1887,7 +1887,7 @@ Rules:
 - Keep answers under 3 short paragraphs. Be specific: include company names, technologies, and dates when available.
 - For recruiter-style questions, be honest and factual. Don't oversell.
 - If asked about something not in the context, suggest which section of the portfolio might help.
-- Do not use markdown formatting. Use plain text only.
+- Format with **bold** for emphasis and bullet points (using -) for lists. Use short paragraphs separated by blank lines.
 - Be conversational and natural, not robotic.`;
 function ss(t, e) {
   const s = e.map((n) => `[Section: ${n.label || n.section}]
@@ -2042,7 +2042,7 @@ function Be(t) {
       break;
   return s;
 }
-async function Es(t, e, s) {
+async function bs(t, e, s) {
   const n = e.search(t, 5), i = n.length >= 3 ? n : n.length ? [...n, ...Be(s).filter((c) => !n.some((d) => d.id === c.id))].slice(0, 5) : Be(s), o = i.map((c) => ({
     id: c.id,
     section: c.section,
@@ -2079,8 +2079,8 @@ async function Es(t, e, s) {
     };
   }
 }
-let E = null;
-function bs(t) {
+let b = null;
+function Es(t) {
   const { logEl: e, inputEl: s, sendEl: n, suggEl: i, search: o, chunks: a, handlers: r, suggestions: c, queryRAG: d, getRemaining: l, getMax: f } = t;
   if (!e || !s || !n) return;
   const g = e.closest(".ask")?.querySelector(".ask__head-l");
@@ -2095,13 +2095,13 @@ function bs(t) {
       text: "Hi! Ask me anything about Naresh's work, leadership, or projects. I'll answer from his resume."
     }
   ];
-  E = { logEl: e, inputEl: s, sendEl: n, suggEl: i, statusEl: h, rateEl: k, messages: p, search: o, chunks: a, handlers: r, suggestions: c, queryRAG: d, getRemaining: l, getMax: f };
+  b = { logEl: e, inputEl: s, sendEl: n, suggEl: i, statusEl: h, rateEl: k, messages: p, search: o, chunks: a, handlers: r, suggestions: c, queryRAG: d, getRemaining: l, getMax: f };
   const u = async (y) => {
-    const b = (y || s.value || "").trim();
-    if (b) {
-      s.value = "", p.push({ role: "u", text: b }), F(), K("thinking"), p.push({ role: "t", stage: "searching resume..." }), F();
+    const E = (y || s.value || "").trim();
+    if (E) {
+      s.value = "", p.push({ role: "u", text: E }), F(), K("thinking"), p.push({ role: "t", stage: "searching resume..." }), F();
       try {
-        const w = es(b, o, r);
+        const w = es(E, o, r);
         if (w?.intent?.type === "meta") {
           q(), p.push({ role: "a", text: w.intent.response }), F(), K("ready");
           return;
@@ -2118,7 +2118,7 @@ function bs(t) {
           return;
         }
         As("generating answer...");
-        const A = await d(b);
+        const A = await d(E);
         q(), A.type === "answer" ? (p.push({ role: "a", text: A.text, model: A.model }), A.sources?.length && p.push({ role: "sources", items: A.sources })) : (p.push({ role: "a", text: A.text, model: A.model, variant: A.error ? "error" : void 0 }), A.chunks?.length && p.push({
           role: "sources",
           items: A.chunks.map((I) => ({
@@ -2127,7 +2127,7 @@ function bs(t) {
             label: I.label,
             meta: I.meta
           }))
-        })), F(), Re(), xs(w?.intent?.id);
+        })), F(), Re(), vs(w?.intent?.id);
       } catch {
         q(), p.push({
           role: "a",
@@ -2143,14 +2143,14 @@ function bs(t) {
   }), _s(c, u), F(), { send: u };
 }
 function F() {
-  if (!E) return;
-  const { logEl: t, messages: e, handlers: s } = E;
+  if (!b) return;
+  const { logEl: t, messages: e, handlers: s } = b;
   t.innerHTML = "", e.forEach((n) => {
     if (n.role === "a") {
       const i = document.createElement("div");
       i.className = "msg__tag", i.textContent = n.model ? `NARESH.AI · via ${n.model}` : "NARESH.AI";
       const o = document.createElement("div");
-      o.textContent = n.text;
+      o.innerHTML = xs(n.text);
       const a = document.createElement("div");
       a.className = `msg msg--a${n.variant === "error" ? " msg--error" : ""}`, a.append(i, o), t.append(a);
     } else if (n.role === "u") {
@@ -2196,28 +2196,36 @@ function ws(t, e) {
   n && e.scrollTo?.(n);
 }
 function K(t) {
-  E?.statusEl && (E.statusEl.dataset.state = t, E.statusEl.textContent = t === "ready" ? "ready" : t === "thinking" ? "thinking..." : t);
+  b?.statusEl && (b.statusEl.dataset.state = t, b.statusEl.textContent = t === "ready" ? "ready" : t === "thinking" ? "thinking..." : t);
 }
 function Re() {
-  !E?.rateEl || !E.getRemaining || (E.rateEl.textContent = `${E.getRemaining()}/${E.getMax()}`);
+  !b?.rateEl || !b.getRemaining || (b.rateEl.textContent = `${b.getRemaining()}/${b.getMax()}`);
 }
 function q() {
-  if (!E) return;
-  const t = E.messages.findIndex((e) => e.role === "t");
-  t !== -1 && E.messages.splice(t, 1);
+  if (!b) return;
+  const t = b.messages.findIndex((e) => e.role === "t");
+  t !== -1 && b.messages.splice(t, 1);
 }
 function As(t) {
-  if (!E) return;
-  const e = E.messages.find((s) => s.role === "t");
+  if (!b) return;
+  const e = b.messages.find((s) => s.role === "t");
   e && (e.stage = t, F());
 }
 function _s(t, e) {
-  E?.suggEl && (E.suggEl.innerHTML = "", (t || []).forEach((s) => {
+  b?.suggEl && (b.suggEl.innerHTML = "", (t || []).forEach((s) => {
     const n = document.createElement("button");
     n.className = "sugg", n.textContent = s, n.addEventListener("click", () => {
-      E.suggEl.innerHTML = "", e(s);
-    }), E.suggEl.append(n);
+      b.suggEl.innerHTML = "", e(s);
+    }), b.suggEl.append(n);
   }));
+}
+function xs(t) {
+  let e = String(t ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  return e = e.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>"), e.split(/\n{2,}/).map((n) => {
+    const i = n.split(`
+`);
+    return i.every((o) => /^[-•]\s/.test(o.trim()) || !o.trim()) ? `<ul>${i.filter((a) => a.trim()).map((a) => `<li>${a.replace(/^[-•]\s+/, "")}</li>`).join("")}</ul>` : `<p>${i.join("<br>")}</p>`;
+  }).join("");
 }
 const Ne = {
   "qa.career_detail": ["What technologies were used?", "How large was the team?", "What about the previous role?"],
@@ -2226,22 +2234,22 @@ const Ne = {
   "qa.recruiter": ["What certifications does he have?", "Tell me about his AI experience"],
   "qa.general": ["Show leadership principles", "What are his top projects?"]
 };
-function xs(t) {
-  if (!E?.suggEl) return;
+function vs(t) {
+  if (!b?.suggEl) return;
   const e = Ne[t] || Ne["qa.general"];
-  E.suggEl.innerHTML = "", e.forEach((s) => {
+  b.suggEl.innerHTML = "", e.forEach((s) => {
     const n = document.createElement("button");
     n.className = "sugg", n.textContent = s, n.addEventListener("click", () => {
-      E.suggEl.innerHTML = "";
-      const i = E.inputEl?.closest(".ask")?.querySelector("#ask-send");
-      i && (E.inputEl.value = s, i.click());
-    }), E.suggEl.append(n);
+      b.suggEl.innerHTML = "";
+      const i = b.inputEl?.closest(".ask")?.querySelector("#ask-send");
+      i && (b.inputEl.value = s, i.click());
+    }), b.suggEl.append(n);
   });
 }
-let D = null, O = null, T = null, Ee = null, S = 0, xe = [], ve = null, Q = null, j = null, V = null;
-function vs({ resumeData: t, search: e, handlers: s, getRemaining: n, getMax: i }) {
+let D = null, O = null, T = null, be = null, S = 0, xe = [], ve = null, Q = null, j = null, V = null;
+function Is({ resumeData: t, search: e, handlers: s, getRemaining: n, getMax: i }) {
   V = { getRemaining: n, getMax: i };
-  const o = Is(t);
+  const o = Cs(t);
   ve = new L(o, {
     keys: [
       { name: "label", weight: 0.5 },
@@ -2251,9 +2259,9 @@ function vs({ resumeData: t, search: e, handlers: s, getRemaining: n, getMax: i 
     threshold: 0.4,
     includeScore: !0,
     ignoreLocation: !0
-  }), xe = o, Cs(), Ss(s);
+  }), xe = o, Ss(), Ms(s);
 }
-function Is(t) {
+function Cs(t) {
   const e = [];
   return [
     { id: "#about", label: "About", subtitle: "Who is Naresh" },
@@ -2319,7 +2327,7 @@ function Is(t) {
     });
   }), e;
 }
-function Cs() {
+function Ss() {
   if (document.getElementById("cmdk-overlay")) return;
   document.body.insertAdjacentHTML("beforeend", `
         <div id="cmdk-overlay" class="cmdk" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Quick search">
@@ -2340,7 +2348,7 @@ function Cs() {
                     <span class="cmdk__rate"></span>
                 </div>
             </div>
-        </div>`), D = document.getElementById("cmdk-overlay"), O = document.getElementById("cmdk-input"), T = document.getElementById("cmdk-results"), Ee = D.querySelector(".cmdk__rate"), D.querySelector(".cmdk__backdrop").addEventListener("click", ee);
+        </div>`), D = document.getElementById("cmdk-overlay"), O = document.getElementById("cmdk-input"), T = document.getElementById("cmdk-results"), be = D.querySelector(".cmdk__rate"), D.querySelector(".cmdk__backdrop").addEventListener("click", ee);
   let e = null;
   O.addEventListener("input", () => {
     clearTimeout(e), e = setTimeout(() => {
@@ -2348,10 +2356,10 @@ function Cs() {
     }, 80);
   }), O.addEventListener("keydown", (s) => {
     const n = T.querySelectorAll(".cmdk__item").length;
-    s.key === "ArrowDown" ? (s.preventDefault(), S = (S + 1) % Math.max(n, 1), te()) : s.key === "ArrowUp" ? (s.preventDefault(), S = (S - 1 + Math.max(n, 1)) % Math.max(n, 1), te()) : s.key === "Enter" ? (s.preventDefault(), Ms()) : s.key === "Escape" && (s.preventDefault(), ee());
+    s.key === "ArrowDown" ? (s.preventDefault(), S = (S + 1) % Math.max(n, 1), te()) : s.key === "ArrowUp" ? (s.preventDefault(), S = (S - 1 + Math.max(n, 1)) % Math.max(n, 1), te()) : s.key === "Enter" ? (s.preventDefault(), $s()) : s.key === "Escape" && (s.preventDefault(), ee());
   });
 }
-function Ss(t) {
+function Ms(t) {
   j = t, document.addEventListener("keydown", (s) => {
     (s.metaKey || s.ctrlKey) && s.key === "k" && (s.preventDefault(), D?.classList.contains("open") ? ee() : Oe());
   });
@@ -2359,7 +2367,7 @@ function Ss(t) {
   e && e.addEventListener("click", () => Oe());
 }
 function Oe() {
-  D && (Q = document.activeElement, D.classList.add("open"), D.setAttribute("aria-hidden", "false"), document.body.classList.add("cmdk-open"), O.value = "", S = 0, et(""), Ee && V?.getRemaining && (Ee.textContent = `${V.getRemaining()}/${V.getMax()} AI queries today`), setTimeout(() => O.focus(), 50));
+  D && (Q = document.activeElement, D.classList.add("open"), D.setAttribute("aria-hidden", "false"), document.body.classList.add("cmdk-open"), O.value = "", S = 0, et(""), be && V?.getRemaining && (be.textContent = `${V.getRemaining()}/${V.getMax()} AI queries today`), setTimeout(() => O.focus(), 50));
 }
 function ee() {
   D && (D.classList.remove("open"), D.setAttribute("aria-hidden", "true"), document.body.classList.remove("cmdk-open"), Q && (Q.focus(), Q = null));
@@ -2404,7 +2412,7 @@ function te() {
   const e = t[S];
   e && e.scrollIntoView({ block: "nearest" });
 }
-function Ms() {
+function $s() {
   if (!T.querySelectorAll(".cmdk__item")[S]) return;
   const e = O.value.trim();
   let s;
@@ -2426,29 +2434,29 @@ function tt(t) {
         j.openDetailModal?.("article", (t.kind || "").toLowerCase(), t.idx);
         break;
       case "ask":
-        $s(t.query);
+        Ds(t.query);
         break;
     }
 }
-function $s(t) {
+function Ds(t) {
   const e = document.getElementById("chat-panel"), s = document.getElementById("chat-fab"), n = document.getElementById("ask-input"), i = document.getElementById("ask-send");
   e && !e.classList.contains("is-open") && (e.classList.add("is-open"), e.setAttribute("aria-hidden", "false"), s && s.setAttribute("aria-expanded", "true"), document.body.classList.add("chat-open")), n && i && (n.value = t, setTimeout(() => i.click(), 100));
 }
 function re(t) {
   return String(t ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 }
-function Ls({ resumeData: t, chatRoot: e, handlers: s, suggestions: n }) {
+function Fs({ resumeData: t, chatRoot: e, handlers: s, suggestions: n }) {
   const i = nt(t), o = Jt(i);
-  bs({
+  Es({
     ...e,
     search: o,
     chunks: i,
     handlers: s,
     suggestions: n,
-    queryRAG: (a) => Es(a, o, i),
+    queryRAG: (a) => bs(a, o, i),
     getRemaining: ye,
     getMax: ke
-  }), vs({
+  }), Is({
     resumeData: t,
     search: o,
     handlers: s,
@@ -2456,9 +2464,9 @@ function Ls({ resumeData: t, chatRoot: e, handlers: s, suggestions: n }) {
     getMax: ke
   });
 }
-function Fs() {
+function Ts() {
 }
 export {
-  Fs as destroy,
-  Ls as init
+  Ts as destroy,
+  Fs as init
 };

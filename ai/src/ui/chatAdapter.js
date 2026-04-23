@@ -139,7 +139,7 @@ function render() {
             tag.className = 'msg__tag'
             tag.textContent = m.model ? `NARESH.AI · via ${m.model}` : 'NARESH.AI'
             const body = document.createElement('div')
-            body.textContent = m.text
+            body.innerHTML = formatResponse(m.text)
             const wrap = document.createElement('div')
             wrap.className = `msg msg--a${m.variant === 'error' ? ' msg--error' : ''}`
             wrap.append(tag, body)
@@ -240,6 +240,28 @@ function renderSuggestions(suggestions, send) {
         })
         ctx.suggEl.append(btn)
     })
+}
+
+function formatResponse(text) {
+    let s = String(text ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+
+    s = s.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+
+    const blocks = s.split(/\n{2,}/)
+    return blocks
+        .map((block) => {
+            const lines = block.split('\n')
+            if (lines.every((l) => /^[-•]\s/.test(l.trim()) || !l.trim())) {
+                const items = lines.filter((l) => l.trim()).map((l) => `<li>${l.replace(/^[-•]\s+/, '')}</li>`)
+                return `<ul>${items.join('')}</ul>`
+            }
+            return `<p>${lines.join('<br>')}</p>`
+        })
+        .join('')
 }
 
 const FOLLOW_UPS = {
