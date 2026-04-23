@@ -2009,6 +2009,18 @@
 .ask__status[data-state='offline'] {
     color: var(--color-peach);
 }
+.ask__rate {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-faint);
+    letter-spacing: 0.02em;
+}
+.cmdk__rate {
+    margin-left: auto;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-faint);
+}
 
 /* ============================================
    AI Search — Nav search button
@@ -2022,12 +2034,25 @@
     border-radius: 8px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    gap: 5px;
     transition: color 0.2s, background 0.2s;
 }
 .search-btn:hover {
     color: var(--color-mint);
     background: var(--glow-mint);
+}
+.search-btn__kbd {
+    font-family: var(--font-mono, monospace);
+    font-size: 11px;
+    line-height: 18px;
+    padding: 0 5px;
+    border-radius: 4px;
+    background: var(--bg-elev);
+    color: var(--text-faint);
+    border: 1px solid var(--border);
+    pointer-events: none;
+    display: flex;
+    align-items: center;
 }
 
 /* Prevent scroll when popover is open */

@@ -1,9 +1,8 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["./rapier-8x8gmEVp.js","./MiniMap-CePJcjpb.js","./three.core-RE2ucuTm.js","./index-DDlvirwQ.js","./preload-helper-PPVm8Dsz.js"])))=>i.map(i=>d[i]);
-import { _ as m } from "./preload-helper-PPVm8Dsz.js";
-import { D as c, R as w, Q as f, S as x, T, a as b, b as M, Y as y, I as F, A as v, N as u, c as k, V as S, M as P, d as R, e as K, O as C, f as I, g as L, h as E, i as V, W as G, j as W, k as A, L as U, F as Y, l as j, m as N, n as O, E as q, o as D, p as z, P as _, q as B, r as H, Z as Q, s as Z, C as J, t as X, K as $, u as ee, v as te, w as se, x as ae, y as ie, z as re, __tla as __tla_0 } from "./MiniMap-CePJcjpb.js";
-import { g as ne } from "./index-DDlvirwQ.js";
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["./rapier-Djdf5Dys.js","./MiniMap-zzNa36af.js","./three.core-RE2ucuTm.js","./preload-helper-PPVm8Dsz.js"])))=>i.map(i=>d[i]);
+import { _ as c } from "./preload-helper-PPVm8Dsz.js";
+import { D as m, R as w, Q as f, S as x, T, a as b, b as M, Y as y, I as F, A as v, N as u, c as k, V as S, M as P, d as R, e as K, O as C, f as I, g as L, h as E, i as V, W as G, j as W, k as A, L as U, F as Y, l as j, m as N, n as O, E as q, o as D, p as z, P as B, q as _, r as H, Z as Q, s as Z, C as J, t as X, K as $, u as ee, v as te, w as se, x as ae, y as ie, z as re, B as ne, __tla as __tla_0 } from "./MiniMap-zzNa36af.js";
 import { S as le, a as n, N as s, R as i, L as t, C as a } from "./three.core-RE2ucuTm.js";
-import { __tla as __tla_1 } from "./Game-BYQM5Rfs.js";
+import { __tla as __tla_1 } from "./Game-D1ZW8F1e.js";
 let r;
 let __tla = Promise.all([
   (() => {
@@ -28,7 +27,7 @@ let __tla = Promise.all([
       r.instance = this, this.init();
     }
     async init() {
-      this.domElement = document.querySelector(".game"), this.canvasElement = this.domElement.querySelector(".js-canvas"), document.documentElement.classList.add("is-started"), this.scene = new le(), this.debug = new c(), this.resourcesLoader = new w(), this.quality = new f(), this.server = new x(), this.ticker = new T(), this.time = new b(), this.dayCycles = new M(), this.yearCycles = new y(), this.inputs = new F([], [
+      this.domElement = document.querySelector(".game"), this.canvasElement = this.domElement.querySelector(".js-canvas"), document.documentElement.classList.add("is-started"), this.scene = new le(), this.debug = new m(), this.resourcesLoader = new w(), this.quality = new f(), this.server = new x(), this.ticker = new T(), this.time = new b(), this.dayCycles = new M(), this.yearCycles = new y(), this.inputs = new F([], [
         "intro"
       ]), this.audio = new v(), this.notifications = new u(), this.rayCursor = new k(), this.viewport = new S(this.domElement), this.modals = new P(), this.menu = new R(), this.rendering = new K(), await this.rendering.setRenderer(), this.resources = await this.resourcesLoader.load([
         [
@@ -61,10 +60,10 @@ let __tla = Promise.all([
           }
         ]
       ]), this.options = new C(), this.respawns = new I("landing"), this.view = new L(), this.rendering.setPostprocessing(), this.rendering.start(), this.reveal = new E(), this.noises = new V(), this.weather = new G(), this.wind = new W(), this.tracks = new A(), this.lighting = new U(), this.fog = new Y(), this.water = new j(), this.materials = new N(), this.objects = new O(), this.explosions = new q(), this.world = new D();
-      const l = m(() => import("./rapier-8x8gmEVp.js").then(async (m2) => {
+      const l = c(() => import("./rapier-Djdf5Dys.js").then(async (m2) => {
         await m2.__tla;
         return m2;
-      }), __vite__mapDeps([0,1,2,3,4]), import.meta.url), o = this.resourcesLoader.load([
+      }), __vite__mapDeps([0,1,2,3]), import.meta.url), o = this.resourcesLoader.load([
         [
           "foliageTexture",
           "foliage/foliageSDF.ktx",
@@ -332,7 +331,7 @@ let __tla = Promise.all([
       this.RAPIER = h, this.resources = {
         ...p,
         ...this.resources
-      }, this.terrain = new z(), this.physics = new _(), this.wireframe = new B(), this.physicalVehicle = new H(), this.zones = new Q(), this.player = new Z(), this.closingManager = new J(), this.interactivePoints = new X(), this.konamiCode = new $(), this.achievements = new ee(), this.tornado = new te(), this.map = new se(), this.miniMap = new ae(), this.world.step(1), this.overlay = new ie(), this.quality.level === 0 && this.rendering.renderer.backend.isWebGPUBackend && re.render(), await this.world.intro.loadingComplete, this.reveal.updateStep(0), this.debug.active && this.achievements.setProgress("debug", 1);
+      }, this.terrain = new z(), this.physics = new B(), this.wireframe = new _(), this.physicalVehicle = new H(), this.zones = new Q(), this.player = new Z(), this.closingManager = new J(), this.interactivePoints = new X(), this.konamiCode = new $(), this.achievements = new ee(), this.tornado = new te(), this.map = new se(), this.miniMap = new ae(), this.world.step(1), this.overlay = new ie(), this.quality.level === 0 && this.rendering.renderer.backend.isWebGPUBackend && re.render(), await this.world.intro.loadingComplete, this.reveal.updateStep(0), this.debug.active && this.achievements.setProgress("debug", 1);
     }
     reset() {
       this.inputs.interactiveButtons.clearItems(), this.player.respawn(null, () => {

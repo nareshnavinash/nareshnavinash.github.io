@@ -1,9 +1,3 @@
-import LoadingScreen from './LoadingScreen.js'
-
-const MIN_BOOT_MS = 2500
-const READY_PAUSE_MS = 700
-const FADE_MS = 180
-
 const WORLD_URL = '/world.html'
 const PROFILE_URL = '/profile.html'
 
@@ -31,9 +25,24 @@ function revealChooser() {
 function enterPanel(panel, destination, otherPanel) {
     document.body.classList.add('is-entering')
     otherPanel.classList.add('is-fading')
-    setTimeout(() => {
-        location.assign(destination)
-    }, FADE_MS)
+
+    if (destination === PROFILE_URL) {
+        sessionStorage.setItem('seen-intro-v2', '1')
+    }
+
+    const overlay = document.createElement('div')
+    Object.assign(overlay.style, {
+        position: 'fixed',
+        inset: '0',
+        zIndex: '9999',
+        background: '#080818',
+        opacity: '0',
+        transition: 'opacity 0.3s ease',
+        pointerEvents: 'none'
+    })
+    document.body.appendChild(overlay)
+    requestAnimationFrame(() => { overlay.style.opacity = '1' })
+    setTimeout(() => location.assign(destination), 320)
 }
 
 function setupChooserInteractions() {
@@ -62,53 +71,184 @@ function setupChooserInteractions() {
     profilePanel.addEventListener('keydown', onKey(activateProfile))
 }
 
-function buildStubGame() {
-    return {
-        resumeData: {
-            personal: {
-                name: 'Naresh Sekar',
-                roleTags: ['Engineering Manager', 'AI Adoption', 'Builder']
-            }
-        },
-        canvas: null
-    }
-}
+// ---------- Typing splash ----------
 
-function driveProgress(loadingScreen) {
-    const start = performance.now()
-    let triggered = false
-
-    const loop = () => {
-        if (triggered) return
-        const elapsed = performance.now() - start
-        const timeP = Math.min(1, elapsed / MIN_BOOT_MS)
-        const eased = 1 - Math.pow(1 - timeP, 3)
-        loadingScreen.setProgress(Math.min(0.99, eased))
-
-        if (elapsed >= MIN_BOOT_MS) {
-            triggered = true
-            loadingScreen.setProgress(1)
-            setTimeout(() => loadingScreen.enter(), READY_PAUSE_MS)
-            return
+function injectSplashStyles() {
+    const style = document.createElement('style')
+    style.textContent = `
+        .intro-splash {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: #0b0820;
+            display: grid;
+            place-items: center;
+            color: #f0eafa;
+            transition: opacity 0.7s ease, visibility 0.7s;
         }
-        requestAnimationFrame(loop)
-    }
-    requestAnimationFrame(loop)
+        .intro-splash.gone {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+        .intro-content {
+            text-align: center;
+            max-width: 80ch;
+            padding: 0 40px;
+        }
+        .intro-bar {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'VT323', monospace;
+            font-size: 16px;
+            letter-spacing: 0.08em;
+            color: rgba(240, 234, 250, 0.6);
+            margin-bottom: 32px;
+        }
+        .intro-bar::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #2fe0a9;
+            box-shadow: 0 0 14px #2fe0a9;
+            animation: boot-pulse 1.4s ease-in-out infinite;
+        }
+        .intro-name {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 800;
+            font-size: clamp(48px, 9vw, 120px);
+            letter-spacing: -0.03em;
+            line-height: 0.95;
+            margin: 0 0 18px;
+            min-height: 1.1em;
+        }
+        .intro-name .cursor-pipe {
+            display: inline-block;
+            width: 0.08em;
+            height: 0.85em;
+            background: #2fe0a9;
+            margin-left: 0.04em;
+            vertical-align: -0.08em;
+            animation: boot-blink 0.9s steps(2) infinite;
+        }
+        .intro-tag {
+            font-family: 'Caveat', cursive;
+            font-size: clamp(22px, 3vw, 34px);
+            color: #2fe0a9;
+            margin: 0 0 40px;
+            opacity: 0;
+            transition: opacity 0.5s 0.4s ease;
+        }
+        .intro-tag.on { opacity: 1; }
+        .intro-hint {
+            font-family: 'VT323', monospace;
+            font-size: 15px;
+            color: rgba(240, 234, 250, 0.45);
+            opacity: 0;
+            transition: opacity 0.5s 0.8s ease;
+        }
+        .intro-hint.on { opacity: 1; }
+        .intro-skip {
+            position: absolute;
+            bottom: 30px;
+            right: 40px;
+            background: transparent;
+            border: 1px solid rgba(240, 234, 250, 0.2);
+            color: rgba(240, 234, 250, 0.7);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .intro-skip:hover {
+            border-color: #2fe0a9;
+            color: #2fe0a9;
+        }
+        @keyframes boot-pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.35; }
+        }
+        @keyframes boot-blink {
+            50% { opacity: 0; }
+        }
+    `
+    document.head.appendChild(style)
 }
+
+function mountBootSplash() {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (reduced || sessionStorage.getItem('seen-intro-v2')) {
+        return Promise.resolve()
+    }
+
+    const NAME = 'Naresh Sekar'
+
+    const splash = document.createElement('div')
+    splash.className = 'intro-splash'
+    splash.innerHTML = `
+        <div class="intro-content">
+            <div class="intro-bar">naresh.ai · booting</div>
+            <h1 class="intro-name">
+                <span class="typed" id="boot-typed"></span>
+                <span class="cursor-pipe"></span>
+            </h1>
+            <p class="intro-tag" id="boot-tag">engineering manager · ai adoption</p>
+            <p class="intro-hint" id="boot-hint">press any key or wait</p>
+        </div>
+        <button class="intro-skip" id="boot-skip">skip →</button>
+    `
+    document.body.appendChild(splash)
+
+    return new Promise((resolve) => {
+        const typed = document.getElementById('boot-typed')
+        const tag = document.getElementById('boot-tag')
+        const hint = document.getElementById('boot-hint')
+        const skip = document.getElementById('boot-skip')
+        let dismissed = false
+        let i = 0
+
+        const dismiss = () => {
+            if (dismissed) return
+            dismissed = true
+            splash.classList.add('gone')
+            sessionStorage.setItem('seen-intro-v2', '1')
+            setTimeout(() => {
+                splash.remove()
+                resolve()
+            }, 800)
+        }
+
+        const typeNext = () => {
+            if (dismissed) return
+            if (i <= NAME.length) {
+                typed.textContent = NAME.slice(0, i)
+                i++
+                setTimeout(typeNext, 90)
+            } else {
+                tag.classList.add('on')
+                setTimeout(() => hint.classList.add('on'), 400)
+                setTimeout(dismiss, 1600)
+            }
+        }
+        setTimeout(typeNext, 200)
+
+        skip.addEventListener('click', dismiss)
+        window.addEventListener('keydown', (e) => {
+            if (!e.target.matches('input,textarea')) dismiss()
+        }, { once: true })
+    })
+}
+
+// ---------- Boot ----------
 
 function boot() {
     if (bypassIfRequested()) return
-
-    const stubGame = buildStubGame()
-    const ls = new LoadingScreen(stubGame, {
-        autoLoad: false,
-        onEnter: () => revealChooser(),
-        onSkip: () => {
-            location.assign(PROFILE_URL)
-        }
-    })
-
-    driveProgress(ls)
+    injectSplashStyles()
+    mountBootSplash().then(() => revealChooser())
 }
 
 if (document.readyState === 'loading') {

@@ -37,8 +37,14 @@ jobs:
             - name: Prerender profile
               run: npm run prerender-profile
 
+            - name: Install AI dependencies
+              run: cd ai && npm ci
+
             - name: Build
               run: npm run build
+              env:
+                  VITE_GROQ_API_KEY: ${{ secrets.VITE_GROQ_API_KEY }}
+                  VITE_GEMINI_API_KEY: ${{ secrets.VITE_GEMINI_API_KEY }}
 
             - name: Check for changes
               id: changes

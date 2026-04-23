@@ -1,10 +1,24 @@
 import { buildPrompt } from './promptTemplates.js'
-import { generate, hasApiKey } from './geminiClient.js'
+import { generate, hasAnyApiKey, getRemaining, getMax } from './providerManager.js'
+
+export { getRemaining, getMax }
+
+function diverseFallback(chunks) {
+    const seen = new Set()
+    const picks = []
+    for (const c of chunks) {
+        if (!seen.has(c.section)) {
+            seen.add(c.section)
+            picks.push(c)
+            if (picks.length >= 5) break
+        }
+    }
+    return picks
+}
 
 export async function queryRAG(query, search, chunks) {
-    // Retrieve relevant chunks
     const results = search.search(query, 5)
-    const contextChunks = results.length ? results : chunks.slice(0, 3)
+    const contextChunks = results.length >= 3 ? results : results.length ? [...results, ...diverseFallback(chunks).filter((c) => !results.some((r) => r.id === c.id))].slice(0, 5) : diverseFallback(chunks)
 
     const sources = contextChunks.map((c) => ({
         id: c.id,
@@ -13,34 +27,34 @@ export async function queryRAG(query, search, chunks) {
         meta: c.meta
     }))
 
-    // If no API key, return local results only
-    if (!hasApiKey()) {
+    if (!hasAnyApiKey()) {
         return {
             type: 'fallback',
             text: "Here's what I found in the resume:",
             sources,
-            chunks: contextChunks
+            chunks: contextChunks,
+            model: null
         }
     }
 
-    // Build prompt and call Gemini
     const { system, user } = buildPrompt(query, contextChunks)
 
     try {
-        const answer = await generate(system, user)
+        const result = await generate(system, user)
         return {
             type: 'answer',
-            text: answer,
-            sources
+            text: result.text,
+            sources,
+            model: result.model
         }
     } catch (err) {
         const code = err.message || 'UNKNOWN'
         let fallbackText = "I couldn't reach the AI. Here's what I found locally:"
 
-        if (code === 'RATE_LIMITED') {
+        if (code === 'DAILY_LIMIT') {
+            fallbackText = `You've reached the daily limit (${getRemaining()}/${getMax()}). Come back tomorrow! Here's what I found locally:`
+        } else if (code === 'RATE_LIMITED') {
             fallbackText = "naresh.ai is popular today — I've hit the rate limit. Here's what I found locally:"
-        } else if (code === 'SESSION_LIMIT') {
-            fallbackText = "You've asked a lot of great questions! I've reached the session limit. Here's what I found locally:"
         } else if (code === 'NO_API_KEY') {
             fallbackText = "AI answers aren't configured. Here's what I found in the resume:"
         }
@@ -50,7 +64,8 @@ export async function queryRAG(query, search, chunks) {
             text: fallbackText,
             sources,
             chunks: contextChunks,
-            error: code
+            error: code,
+            model: null
         }
     }
 }

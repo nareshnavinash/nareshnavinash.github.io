@@ -211,8 +211,19 @@
     document.addEventListener('DOMContentLoaded', async () => {
         const embedded = document.documentElement.classList.contains('is-embedded')
 
+        const entryOverlay = document.getElementById('page-entry-overlay')
+        if (entryOverlay) {
+            entryOverlay.style.opacity = '0'
+            entryOverlay.addEventListener('transitionend', () => entryOverlay.remove())
+        }
+
         mountEndCard()
         mountMagnetic()
+
+        if (!/Mac|iPhone|iPad/.test(navigator.platform)) {
+            const kbd = document.querySelector('.search-btn__kbd')
+            if (kbd) kbd.textContent = 'Ctrl K'
+        }
 
         if (embedded) {
             // In embed mode (boot chooser iframe) skip the intro splash and hero

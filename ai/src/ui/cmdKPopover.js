@@ -3,13 +3,16 @@ import Fuse from 'fuse.js'
 let popoverEl = null
 let inputEl = null
 let resultsEl = null
+let rateEl = null
 let activeIndex = 0
 let items = []
 let fuse = null
 let prevFocused = null
 let closeCb = null
+let rateFns = null
 
-export function initCmdK({ resumeData, search, handlers }) {
+export function initCmdK({ resumeData, search, handlers, getRemaining, getMax }) {
+    rateFns = { getRemaining, getMax }
     const index = buildCmdKIndex(resumeData)
     fuse = new Fuse(index, {
         keys: [
@@ -36,7 +39,7 @@ function buildCmdKIndex(data) {
         { id: '#career', label: 'Career', subtitle: 'Experience & work history' },
         { id: '#skills', label: 'Skills', subtitle: 'Tech stack & tools' },
         { id: '#leadership', label: 'Leadership', subtitle: 'Management principles' },
-        { id: '#open-source', label: 'Open Source', subtitle: 'GitHub repos & projects' },
+        { id: '#repos', label: 'Open Source', subtitle: 'GitHub repos & projects' },
         { id: '#writing', label: 'Writing', subtitle: 'Articles & publications' },
         { id: '#certs', label: 'Certifications', subtitle: 'AWS, Reforge, Cisco...' },
         { id: '#contact', label: 'Contact', subtitle: 'Email, LinkedIn, social' }
@@ -135,6 +138,7 @@ function injectPopover() {
                     <span><kbd>↑</kbd><kbd>↓</kbd> navigate</span>
                     <span><kbd>↵</kbd> select</span>
                     <span><kbd>esc</kbd> close</span>
+                    <span class="cmdk__rate"></span>
                 </div>
             </div>
         </div>`
@@ -143,6 +147,7 @@ function injectPopover() {
     popoverEl = document.getElementById('cmdk-overlay')
     inputEl = document.getElementById('cmdk-input')
     resultsEl = document.getElementById('cmdk-results')
+    rateEl = popoverEl.querySelector('.cmdk__rate')
 
     // Backdrop click closes
     popoverEl.querySelector('.cmdk__backdrop').addEventListener('click', close)
@@ -208,6 +213,9 @@ function open() {
     inputEl.value = ''
     activeIndex = 0
     renderResults('')
+    if (rateEl && rateFns?.getRemaining) {
+        rateEl.textContent = `${rateFns.getRemaining()}/${rateFns.getMax()} AI queries today`
+    }
     setTimeout(() => inputEl.focus(), 50)
 }
 
@@ -330,10 +338,10 @@ function executeAction(action) {
             closeCb.openCareerModal?.(action.idx)
             break
         case 'repo':
-            closeCb.openDetailModal?.('repo', action.kind, action.idx)
+            closeCb.openDetailModal?.('repo', (action.kind || '').toLowerCase(), action.idx)
             break
         case 'article':
-            closeCb.openDetailModal?.('article', action.kind, action.idx)
+            closeCb.openDetailModal?.('article', (action.kind || '').toLowerCase(), action.idx)
             break
         case 'ask':
             openChatAndSend(action.query)

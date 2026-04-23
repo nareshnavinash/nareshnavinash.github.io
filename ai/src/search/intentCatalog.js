@@ -30,7 +30,7 @@ export const NAV_INTENTS = [
     {
         id: 'nav.repos',
         type: 'navigate',
-        target: '#open-source',
+        target: '#repos',
         keywords: ['repos', 'repositories', 'open source', 'github', 'projects', 'oss', 'code'],
         examples: ['open source projects', 'github repos', 'your projects', 'show repos']
     },
@@ -167,7 +167,7 @@ export const META_INTENT = {
     type: 'meta',
     keywords: ['how does this work', 'what model', 'are you ai', 'who are you', 'naresh.ai', 'what powers you'],
     response:
-        "I'm naresh.ai — a lightweight AI assistant built into this portfolio. I use Fuse.js to search through Naresh's resume data and Gemini Flash to generate natural language answers. Everything runs client-side except the Gemini API call. Try asking about his career, skills, or leadership philosophy!"
+        "I'm naresh.ai — a lightweight AI assistant built into this portfolio. I use Fuse.js to search through Naresh's resume data and LLM providers (Groq and Gemini as fallback) to generate natural language answers. Everything runs client-side except the API calls. You get 10 AI queries per day. Try asking about his career, skills, or leadership philosophy!"
 }
 
 export const ALL_INTENTS = [...NAV_INTENTS, ...QUERY_INTENTS, META_INTENT]

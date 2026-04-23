@@ -4,17 +4,20 @@ import { META_INTENT } from '../search/intentCatalog.js'
 let ctx = null
 
 export function initChatAdapter(config) {
-    const { logEl, inputEl, sendEl, suggEl, search, chunks, handlers, suggestions, queryRAG } = config
+    const { logEl, inputEl, sendEl, suggEl, search, chunks, handlers, suggestions, queryRAG, getRemaining, getMax } = config
     if (!logEl || !inputEl || !sendEl) return
 
-    // Inject status badge into header
     const headLeft = logEl.closest('.ask')?.querySelector('.ask__head-l')
     let statusEl = null
+    let rateEl = null
     if (headLeft) {
         const liveSpan = headLeft.querySelector('span:last-child')
         if (liveSpan) {
-            liveSpan.innerHTML = 'naresh.ai · <span class="ask__status" data-state="ready">ready</span>'
+            liveSpan.innerHTML =
+                'naresh.ai · <span class="ask__status" data-state="ready">ready</span> · <span class="ask__rate"></span>'
             statusEl = liveSpan.querySelector('.ask__status')
+            rateEl = liveSpan.querySelector('.ask__rate')
+            if (rateEl && getRemaining) rateEl.textContent = `${getRemaining()}/${getMax()}`
         }
     }
 
@@ -25,7 +28,7 @@ export function initChatAdapter(config) {
         }
     ]
 
-    ctx = { logEl, inputEl, sendEl, suggEl, statusEl, messages, search, chunks, handlers, suggestions, queryRAG }
+    ctx = { logEl, inputEl, sendEl, suggEl, statusEl, rateEl, messages, search, chunks, handlers, suggestions, queryRAG, getRemaining, getMax }
 
     const send = async (text) => {
         const q = (text || inputEl.value || '').trim()
@@ -77,13 +80,12 @@ export function initChatAdapter(config) {
             popThinking()
 
             if (result.type === 'answer') {
-                messages.push({ role: 'a', text: result.text })
+                messages.push({ role: 'a', text: result.text, model: result.model })
                 if (result.sources?.length) {
                     messages.push({ role: 'sources', items: result.sources })
                 }
             } else {
-                // Fallback
-                messages.push({ role: 'a', text: result.text, variant: result.error ? 'error' : undefined })
+                messages.push({ role: 'a', text: result.text, model: result.model, variant: result.error ? 'error' : undefined })
                 if (result.chunks?.length) {
                     messages.push({
                         role: 'sources',
@@ -98,6 +100,7 @@ export function initChatAdapter(config) {
             }
 
             render()
+            updateRate()
             showFollowUps(resolution?.intent?.id)
         } catch (err) {
             popThinking()
@@ -107,6 +110,7 @@ export function initChatAdapter(config) {
                 variant: 'error'
             })
             render()
+            updateRate()
         }
 
         setStatus('ready')
@@ -133,7 +137,7 @@ function render() {
         if (m.role === 'a') {
             const tag = document.createElement('div')
             tag.className = 'msg__tag'
-            tag.textContent = 'NARESH.AI'
+            tag.textContent = m.model ? `NARESH.AI · via ${m.model}` : 'NARESH.AI'
             const body = document.createElement('div')
             body.textContent = m.text
             const wrap = document.createElement('div')
@@ -173,7 +177,7 @@ function handleSourceClick(src, handlers) {
         career: '#career',
         skills: '#skills',
         leadership: '#leadership',
-        repos: '#open-source',
+        repos: '#repos',
         writing: '#writing',
         certs: '#certs',
         education: '#contact',
@@ -185,11 +189,11 @@ function handleSourceClick(src, handlers) {
         return
     }
     if (src.section === 'repos' && src.meta) {
-        handlers.openDetailModal?.('repo', src.meta.kind, src.meta.idx)
+        handlers.openDetailModal?.('repo', (src.meta.kind || '').toLowerCase(), src.meta.idx)
         return
     }
     if (src.section === 'writing' && src.meta) {
-        handlers.openDetailModal?.('article', src.meta.kind, src.meta.idx)
+        handlers.openDetailModal?.('article', (src.meta.kind || '').toLowerCase(), src.meta.idx)
         return
     }
 
@@ -201,6 +205,11 @@ function setStatus(state) {
     if (!ctx?.statusEl) return
     ctx.statusEl.dataset.state = state
     ctx.statusEl.textContent = state === 'ready' ? 'ready' : state === 'thinking' ? 'thinking...' : state
+}
+
+function updateRate() {
+    if (!ctx?.rateEl || !ctx.getRemaining) return
+    ctx.rateEl.textContent = `${ctx.getRemaining()}/${ctx.getMax()}`
 }
 
 function popThinking() {

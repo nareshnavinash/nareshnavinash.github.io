@@ -1,9 +1,8 @@
-import { B as Jt, __tla as __tla_0 } from "./MiniMap-CePJcjpb.js";
+import { G as Jt, __tla as __tla_0 } from "./MiniMap-zzNa36af.js";
 import "./three.core-RE2ucuTm.js";
-import { __tla as __tla_1 } from "./Game-BYQM5Rfs.js";
+import { __tla as __tla_1 } from "./Game-D1ZW8F1e.js";
 import "./preload-helper-PPVm8Dsz.js";
-import "./index-DDlvirwQ.js";
-let Pt, Et, At, xe, Dr, kr, Ee, Vr, ht, ge, z, Kr, mt, Le, jt, je, He, Br, Or, Jr, Jh, at, Sr, Pr, Ir, Gr, le, ke, X, Ar, vr, Hr, ce, q, N, Ur, rt, _e, et, Mr, Lr, Wr, he, Xr, ut, bt, Fe, xr, zr, ae, ue, Xh, Nt, pt, gt, jr, Fr, oe, J, yr, V, Rr, v, Ne, It, Ie, De, ze, fr, se, Ae, de, k, ot, st, F, pe, Er, Tr, Cr, qr, Nr, Me, we, Pe, Re, Ce, mr, w, Te, Gt, ep, Kh, qh;
+let Pt, Et, At, xe, Dr, kr, Ee, Vr, ht, ge, z, Kr, mt, Le, jt, je, He, Br, Or, Jr, Jh, at, Sr, Pr, Ir, Gr, le, ke, X, Ar, vr, Hr, ce, q, N, Ur, rt, _e, et, Mr, Lr, Wr, he, Xr, ut, bt, Fe, xr, zr, ae, ue, Xh, Nt, pt, gt, jr, Fr, oe, J, yr, V, Rr, v, Ne, It, Ie, De, ze, fr, se, Ae, de, k, ot, st, F, pe, Er, Tr, Cr, qr, Nr, Me, we, Pe, Re, Ce, mr, w, Te, Gt, tp, Kh, qh;
 let __tla = Promise.all([
   (() => {
     try {
@@ -5887,7 +5886,7 @@ let __tla = Promise.all([
   Kh = function(s) {
     ii(s);
   };
-  ep = Object.freeze(Object.defineProperty({
+  tp = Object.freeze(Object.defineProperty({
     __proto__: null,
     get ActiveCollisionTypes() {
       return Pt;
@@ -6111,7 +6110,7 @@ export {
   Te as Voxels,
   Gt as World,
   __tla,
-  ep as default,
+  tp as default,
   Kh as reserveMemory,
   qh as version
 };

@@ -1,4 +1,4 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["./Game-BYQM5Rfs.js","./preload-helper-PPVm8Dsz.js","./MiniMap-CePJcjpb.js","./three.core-RE2ucuTm.js","./index-DDlvirwQ.js","./threejs-override-CR_l8rl2.js"])))=>i.map(i=>d[i]);
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["./Game-D1ZW8F1e.js","./preload-helper-PPVm8Dsz.js","./MiniMap-zzNa36af.js","./three.core-RE2ucuTm.js","./threejs-override-CR_l8rl2.js"])))=>i.map(i=>d[i]);
 import "./modulepreload-polyfill-B5Qt9EMX.js";
 import { _ as l } from "./preload-helper-PPVm8Dsz.js";
 import { b as c } from "./three.core-RE2ucuTm.js";
@@ -62,14 +62,14 @@ import { b as c } from "./three.core-RE2ucuTm.js";
   if (window.__embed) document.documentElement.classList.add("is-embedded");
   else {
     const { Game: o } = await l(async () => {
-      const { Game: t } = await import("./Game-BYQM5Rfs.js").then(async (m2) => {
+      const { Game: t } = await import("./Game-D1ZW8F1e.js").then(async (m2) => {
         await m2.__tla;
         return m2;
       });
       return {
         Game: t
       };
-    }, __vite__mapDeps([0,1,2,3,4]), import.meta.url);
-    await l(() => import("./threejs-override-CR_l8rl2.js"), __vite__mapDeps([5,3]), import.meta.url), new o();
+    }, __vite__mapDeps([0,1,2,3]), import.meta.url);
+    await l(() => import("./threejs-override-CR_l8rl2.js"), __vite__mapDeps([4,3]), import.meta.url), new o();
   }
 })();
