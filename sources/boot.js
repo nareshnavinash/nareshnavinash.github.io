@@ -41,7 +41,9 @@ function enterPanel(panel, destination, otherPanel) {
         pointerEvents: 'none'
     })
     document.body.appendChild(overlay)
-    requestAnimationFrame(() => { overlay.style.opacity = '1' })
+    requestAnimationFrame(() => {
+        overlay.style.opacity = '1'
+    })
     setTimeout(() => location.assign(destination), 320)
 }
 
@@ -237,9 +239,13 @@ function mountBootSplash() {
         setTimeout(typeNext, 200)
 
         skip.addEventListener('click', dismiss)
-        window.addEventListener('keydown', (e) => {
-            if (!e.target.matches('input,textarea')) dismiss()
-        }, { once: true })
+        window.addEventListener(
+            'keydown',
+            (e) => {
+                if (!e.target.matches('input,textarea')) dismiss()
+            },
+            { once: true }
+        )
     })
 }
 

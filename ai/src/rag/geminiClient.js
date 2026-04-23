@@ -1,13 +1,12 @@
-const ENDPOINT = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent'
+const PROXY_URL = import.meta.env.VITE_PROXY_URL || ''
 const MODEL = 'gemini-flash'
-const API_KEY = import.meta.env.VITE_GEMINI_API_KEY || ''
 
-export function hasApiKey() {
-    return API_KEY.length > 0
+export function hasProxy() {
+    return PROXY_URL.length > 0
 }
 
 export async function generate(systemPrompt, userPrompt) {
-    if (!API_KEY) {
+    if (!PROXY_URL) {
         throw new Error('NO_API_KEY')
     }
 
@@ -26,7 +25,7 @@ export async function generate(systemPrompt, userPrompt) {
         }
     }
 
-    const res = await fetch(`${ENDPOINT}?key=${API_KEY}`, {
+    const res = await fetch(`${PROXY_URL}/api/gemini`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body)

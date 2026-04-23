@@ -1,14 +1,13 @@
-const ENDPOINT = 'https://api.groq.com/openai/v1/chat/completions'
+const PROXY_URL = import.meta.env.VITE_PROXY_URL || ''
 const MODEL = 'openai/gpt-oss-20b'
 const DISPLAY_MODEL = 'gpt-oss-20b'
-const API_KEY = import.meta.env.VITE_GROQ_API_KEY || ''
 
-export function hasApiKey() {
-    return API_KEY.length > 0
+export function hasProxy() {
+    return PROXY_URL.length > 0
 }
 
 export async function generate(systemPrompt, userPrompt) {
-    if (!API_KEY) {
+    if (!PROXY_URL) {
         throw new Error('NO_API_KEY')
     }
 
@@ -22,12 +21,9 @@ export async function generate(systemPrompt, userPrompt) {
         max_tokens: 512
     }
 
-    const res = await fetch(ENDPOINT, {
+    const res = await fetch(`${PROXY_URL}/api/groq`, {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${API_KEY}`
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body)
     })
 

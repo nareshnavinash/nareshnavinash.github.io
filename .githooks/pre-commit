@@ -24,6 +24,7 @@ for dest in static docs; do
   cp js/enhancements.js "$dest/js/enhancements.js"
   cp js/three-scene.js "$dest/js/three-scene.js"
   cp js/profile-sfx.js "$dest/js/profile-sfx.js"
+  [ -f static/data/ai-cache.json ] && cp static/data/ai-cache.json "$dest/data/ai-cache.json"
 done
 
 # Stage the updated docs/ and static/ folders

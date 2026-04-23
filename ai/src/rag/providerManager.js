@@ -10,8 +10,8 @@ const PROVIDERS = [
     { name: 'gemini', client: gemini }
 ]
 
-export function hasAnyApiKey() {
-    return PROVIDERS.some((p) => p.client.hasApiKey())
+export function hasAnyProvider() {
+    return PROVIDERS.some((p) => p.client.hasProxy())
 }
 
 export async function generate(systemPrompt, userPrompt) {
@@ -28,7 +28,7 @@ export async function generate(systemPrompt, userPrompt) {
 
     let lastError = null
     for (const { name, client } of PROVIDERS) {
-        if (!client.hasApiKey()) continue
+        if (!client.hasProxy()) continue
         try {
             const result = await client.generate(systemPrompt, userPrompt)
             return { ...result, provider: name }

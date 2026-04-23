@@ -1,7 +1,57 @@
 import { buildPrompt } from './promptTemplates.js'
-import { generate, hasAnyApiKey, getRemaining, getMax } from './providerManager.js'
+import { generate, hasAnyProvider, getRemaining, getMax } from './providerManager.js'
 
 export { getRemaining, getMax }
+
+let cache = null
+let cacheLoading = null
+
+async function loadCache() {
+    if (cache) return cache
+    if (cacheLoading) return cacheLoading
+    cacheLoading = fetch('data/ai-cache.json')
+        .then((r) => (r.ok ? r.json() : []))
+        .catch(() => [])
+        .then((data) => {
+            cache = data
+            cacheLoading = null
+            return cache
+        })
+    return cacheLoading
+}
+
+function normalize(q) {
+    return q
+        .toLowerCase()
+        .replace(/[?!.,;:'"]/g, '')
+        .replace(/\s+/g, ' ')
+        .trim()
+}
+
+function findCachedAnswer(query, entries) {
+    if (!entries || !entries.length) return null
+    const nq = normalize(query)
+    for (const entry of entries) {
+        if (normalize(entry.q) === nq) return entry
+    }
+    const words = nq.split(' ').filter((w) => w.length > 2)
+    if (!words.length) return null
+    let best = null
+    let bestScore = 0
+    for (const entry of entries) {
+        const en = normalize(entry.q)
+        let matched = 0
+        for (const w of words) {
+            if (en.includes(w)) matched++
+        }
+        const score = matched / Math.max(words.length, en.split(' ').filter((w) => w.length > 2).length)
+        if (score > bestScore) {
+            bestScore = score
+            best = entry
+        }
+    }
+    return bestScore >= 0.7 ? best : null
+}
 
 function diverseFallback(chunks) {
     const seen = new Set()
@@ -32,7 +82,18 @@ export async function queryRAG(query, search, chunks) {
         meta: c.meta
     }))
 
-    if (!hasAnyApiKey()) {
+    const entries = await loadCache()
+    const cached = findCachedAnswer(query, entries)
+    if (cached) {
+        return {
+            type: 'answer',
+            text: cached.a,
+            sources: cached.sources || sources,
+            model: cached.model || 'cached'
+        }
+    }
+
+    if (!hasAnyProvider()) {
         return {
             type: 'fallback',
             text: "Here's what I found in the resume:",

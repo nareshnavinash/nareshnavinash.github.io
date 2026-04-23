@@ -1,4 +1,4 @@
-function nt(t) {
+function ot(t) {
   const e = [], s = t.personal || {}, n = t.site || {};
   if (s.name) {
     const u = s.mission || s.bio || "";
@@ -28,12 +28,12 @@ function nt(t) {
   }
   (t.career || []).forEach((u, y) => {
     if (u.isTail) return;
-    const E = it(u.desc || ""), w = `${s.name || "Naresh Sekar"} worked as ${u.role} at ${u.co} (${u.date}). ${E}`;
+    const b = ct(u.desc || ""), E = `${s.name || "Naresh Sekar"} worked as ${u.role} at ${u.co} (${u.date}). ${b}`;
     e.push({
       id: `career:${y}`,
       section: "career",
       label: `${u.role} at ${u.co}`,
-      text: w,
+      text: E,
       meta: { idx: y, co: u.co, role: u.role, date: u.date }
     });
   }), (t.skills || []).forEach((u, y) => {
@@ -51,39 +51,39 @@ function nt(t) {
       text: `Leadership - ${u.t}: ${u.d}`
     });
   }), (t.reposStarred || []).forEach((u, y) => {
-    const E = u.tags?.join(", ") || "";
+    const b = u.tags?.join(", ") || "";
     e.push({
       id: `repo:starred:${y}`,
       section: "repos",
       label: u.name,
-      text: `Open source repo: ${u.name} - ${u.tagline || u.desc}. Language: ${u.language || "N/A"}. Tags: ${E}`,
+      text: `Open source repo: ${u.name} - ${u.tagline || u.desc}. Language: ${u.language || "N/A"}. Tags: ${b}`,
       meta: { kind: "Starred", idx: y, name: u.name, url: u.url }
     });
   }), (t.reposRecent || []).forEach((u, y) => {
-    const E = u.tags?.join(", ") || "";
+    const b = u.tags?.join(", ") || "";
     e.push({
       id: `repo:recent:${y}`,
       section: "repos",
       label: u.name,
-      text: `Recent project: ${u.name} - ${u.tagline || u.desc}. Language: ${u.language || "N/A"}. Tags: ${E}`,
+      text: `Recent project: ${u.name} - ${u.tagline || u.desc}. Language: ${u.language || "N/A"}. Tags: ${b}`,
       meta: { kind: "Recent", idx: y, name: u.name, url: u.url }
     });
   }), (t.articlesPinned || []).forEach((u, y) => {
-    const E = u.tags?.join(", ") || "";
+    const b = u.tags?.join(", ") || "";
     e.push({
       id: `article:pinned:${y}`,
       section: "writing",
       label: u.title,
-      text: `Article: ${u.title} (${u.date}). ${u.desc} Tags: ${E}`,
+      text: `Article: ${u.title} (${u.date}). ${u.desc} Tags: ${b}`,
       meta: { kind: "Pinned", idx: y, title: u.title, url: u.url }
     });
   }), (t.articlesRecent || []).forEach((u, y) => {
-    const E = u.tags?.join(", ") || "";
+    const b = u.tags?.join(", ") || "";
     e.push({
       id: `article:recent:${y}`,
       section: "writing",
       label: u.title,
-      text: `Article: ${u.title} (${u.date}). ${u.desc} Tags: ${E}`,
+      text: `Article: ${u.title} (${u.date}). ${u.desc} Tags: ${b}`,
       meta: { kind: "Recent", idx: y, title: u.title, url: u.url }
     });
   });
@@ -112,13 +112,13 @@ function nt(t) {
     text: `Book: ${p.title} by ${p.author || "Naresh Sekar"}. ${p.description || ""} Published on ${p.publisher || "Amazon Kindle"}.`
   }), e;
 }
-function it(t) {
+function ct(t) {
   return t.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
 }
 function B(t) {
-  return Array.isArray ? Array.isArray(t) : je(t) === "[object Array]";
+  return Array.isArray ? Array.isArray(t) : We(t) === "[object Array]";
 }
-function rt(t) {
+function at(t) {
   if (typeof t == "string")
     return t;
   if (typeof t == "bigint")
@@ -126,40 +126,40 @@ function rt(t) {
   const e = t + "";
   return e == "0" && 1 / t == -1 / 0 ? "-0" : e;
 }
-function oe(t) {
-  return t == null ? "" : rt(t);
+function le(t) {
+  return t == null ? "" : at(t);
 }
 function _(t) {
   return typeof t == "string";
 }
-function G(t) {
+function Q(t) {
   return typeof t == "number";
 }
-function ot(t) {
-  return t === !0 || t === !1 || ct(t) && je(t) == "[object Boolean]";
+function lt(t) {
+  return t === !0 || t === !1 || ut(t) && We(t) == "[object Boolean]";
 }
-function Pe(t) {
+function He(t) {
   return typeof t == "object";
 }
-function ct(t) {
-  return Pe(t) && t !== null;
+function ut(t) {
+  return He(t) && t !== null;
 }
 function v(t) {
   return t != null;
 }
-function Y(t) {
+function q(t) {
   return !t.trim().length;
 }
-function je(t) {
+function We(t) {
   return t == null ? t === void 0 ? "[object Undefined]" : "[object Null]" : Object.prototype.toString.call(t);
 }
-const at = "Incorrect 'index' type", lt = (t) => `Invalid value for key ${t}`, ut = (t) => `Pattern length exceeds max of ${t}.`, ht = (t) => `Missing ${t} property in key`, dt = (t) => `Property 'weight' in key '${t}' must be a positive integer`, Ce = Object.prototype.hasOwnProperty;
-class ft {
+const ht = "Incorrect 'index' type", dt = (t) => `Invalid value for key ${t}`, ft = (t) => `Pattern length exceeds max of ${t}.`, gt = (t) => `Missing ${t} property in key`, pt = (t) => `Property 'weight' in key '${t}' must be a positive integer`, $e = Object.prototype.hasOwnProperty;
+class mt {
   constructor(e) {
     this._keys = [], this._keyMap = {};
     let s = 0;
     e.forEach((n) => {
-      const i = ze(n);
+      const i = Ke(n);
       this._keys.push(i), this._keyMap[i.id] = i, s += i.weight;
     }), this._keys.forEach((n) => {
       n.weight /= s;
@@ -175,17 +175,17 @@ class ft {
     return JSON.stringify(this._keys);
   }
 }
-function ze(t) {
+function Ke(t) {
   let e = null, s = null, n = null, i = 1, o = null;
   if (_(t) || B(t))
-    n = t, e = Se(t), s = ce(t);
+    n = t, e = De(t), s = ue(t);
   else {
-    if (!Ce.call(t, "name"))
-      throw new Error(ht("name"));
-    const a = t.name;
-    if (n = a, Ce.call(t, "weight") && (i = t.weight, i <= 0))
-      throw new Error(dt(a));
-    e = Se(a), s = ce(a), o = t.getFn;
+    if (!$e.call(t, "name"))
+      throw new Error(gt("name"));
+    const c = t.name;
+    if (n = c, $e.call(t, "weight") && (i = t.weight, i <= 0))
+      throw new Error(pt(c));
+    e = De(c), s = ue(c), o = t.getFn;
   }
   return {
     path: e,
@@ -195,76 +195,76 @@ function ze(t) {
     getFn: o
   };
 }
-function Se(t) {
+function De(t) {
   return B(t) ? t : t.split(".");
 }
-function ce(t) {
+function ue(t) {
   return B(t) ? t.join(".") : t;
 }
-function gt(t, e) {
+function yt(t, e) {
   const s = [];
   let n = !1;
-  const i = (o, a, r, c) => {
+  const i = (o, c, r, a) => {
     if (v(o))
-      if (!a[r])
-        s.push(c !== void 0 ? {
+      if (!c[r])
+        s.push(a !== void 0 ? {
           v: o,
-          i: c
+          i: a
         } : o);
       else {
-        const d = a[r], l = o[d];
+        const d = c[r], l = o[d];
         if (!v(l))
           return;
-        if (r === a.length - 1 && (_(l) || G(l) || ot(l) || typeof l == "bigint"))
-          s.push(c !== void 0 ? {
-            v: oe(l),
-            i: c
-          } : oe(l));
+        if (r === c.length - 1 && (_(l) || Q(l) || lt(l) || typeof l == "bigint"))
+          s.push(a !== void 0 ? {
+            v: le(l),
+            i: a
+          } : le(l));
         else if (B(l)) {
           n = !0;
           for (let f = 0, g = l.length; f < g; f += 1)
-            i(l[f], a, r + 1, f);
-        } else a.length && i(l, a, r + 1, c);
+            i(l[f], c, r + 1, f);
+        } else c.length && i(l, c, r + 1, a);
       }
   };
   return i(t, _(e) ? e.split(".") : e, 0), n ? s : s[0];
 }
-const pt = {
+const kt = {
   includeMatches: !1,
   findAllMatches: !1,
   minMatchCharLength: 1
-}, mt = {
+}, wt = {
   isCaseSensitive: !1,
   ignoreDiacritics: !1,
   includeScore: !1,
   keys: [],
   shouldSort: !0,
   sortFn: (t, e) => t.score === e.score ? t.idx < e.idx ? -1 : 1 : t.score < e.score ? -1 : 1
-}, yt = {
+}, bt = {
   location: 0,
   threshold: 0.6,
   distance: 100
-}, kt = {
+}, Et = {
   useExtendedSearch: !1,
   useTokenSearch: !1,
-  getFn: gt,
+  getFn: yt,
   ignoreLocation: !1,
   ignoreFieldNorm: !1,
   fieldNormWeight: 1
 }, m = Object.freeze({
-  ...mt,
-  ...pt,
-  ...yt,
-  ...kt
-}), bt = /[^ ]+/g;
-function Et(t = 1, e = 3) {
+  ...wt,
+  ...kt,
+  ...bt,
+  ...Et
+}), At = /[^ ]+/g;
+function _t(t = 1, e = 3) {
   const s = /* @__PURE__ */ new Map(), n = Math.pow(10, e);
   return {
     get(i) {
-      const o = i.match(bt).length;
+      const o = i.match(At).length;
       if (s.has(o))
         return s.get(o);
-      const a = 1 / Math.pow(o, 0.5 * t), r = parseFloat(Math.round(a * n) / n);
+      const c = 1 / Math.pow(o, 0.5 * t), r = parseFloat(Math.round(c * n) / n);
       return s.set(o, r), r;
     },
     clear() {
@@ -272,12 +272,12 @@ function Et(t = 1, e = 3) {
     }
   };
 }
-class Ee {
+class _e {
   constructor({
     getFn: e = m.getFn,
     fieldNormWeight: s = m.fieldNormWeight
   } = {}) {
-    this.norm = Et(s, 3), this.getFn = e, this.isCreated = !1, this.docs = [], this.keys = [], this._keysMap = {}, this.setIndexRecords();
+    this.norm = _t(s, 3), this.getFn = e, this.isCreated = !1, this.docs = [], this.keys = [], this._keysMap = {}, this.setIndexRecords();
   }
   setSources(e = []) {
     this.docs = e;
@@ -322,7 +322,7 @@ class Ee {
     return this.records.length;
   }
   _addString(e, s) {
-    if (!v(e) || Y(e))
+    if (!v(e) || q(e))
       return;
     const n = {
       v: e,
@@ -337,25 +337,25 @@ class Ee {
       $: {}
     };
     this.keys.forEach((i, o) => {
-      const a = i.getFn ? i.getFn(e) : this.getFn(e, i.path);
-      if (v(a)) {
-        if (B(a)) {
+      const c = i.getFn ? i.getFn(e) : this.getFn(e, i.path);
+      if (v(c)) {
+        if (B(c)) {
           const r = [];
-          for (let c = 0, d = a.length; c < d; c += 1) {
-            const l = a[c];
+          for (let a = 0, d = c.length; a < d; a += 1) {
+            const l = c[a];
             if (v(l)) {
               if (_(l)) {
-                if (!Y(l)) {
+                if (!q(l)) {
                   const f = {
                     v: l,
-                    i: c,
+                    i: a,
                     n: this.norm.get(l)
                   };
                   r.push(f);
                 }
               } else if (v(l.v)) {
-                const f = _(l.v) ? l.v : oe(l.v);
-                if (!Y(f)) {
+                const f = _(l.v) ? l.v : le(l.v);
+                if (!q(f)) {
                   const g = {
                     v: f,
                     i: l.i,
@@ -367,10 +367,10 @@ class Ee {
             }
           }
           n.$[o] = r;
-        } else if (_(a) && !Y(a)) {
+        } else if (_(c) && !q(c)) {
           const r = {
-            v: a,
-            n: this.norm.get(a)
+            v: c,
+            n: this.norm.get(c)
           };
           n.$[o] = r;
         }
@@ -388,102 +388,102 @@ class Ee {
     };
   }
 }
-function Ke(t, e, {
+function Ye(t, e, {
   getFn: s = m.getFn,
   fieldNormWeight: n = m.fieldNormWeight
 } = {}) {
-  const i = new Ee({
+  const i = new _e({
     getFn: s,
     fieldNormWeight: n
   });
-  return i.setKeys(t.map(ze)), i.setSources(e), i.create(), i;
+  return i.setKeys(t.map(Ke)), i.setSources(e), i.create(), i;
 }
-function wt(t, {
+function xt(t, {
   getFn: e = m.getFn,
   fieldNormWeight: s = m.fieldNormWeight
 } = {}) {
   const {
     keys: n,
     records: i
-  } = t, o = new Ee({
+  } = t, o = new _e({
     getFn: e,
     fieldNormWeight: s
   });
   return o.setKeys(n), o.setIndexRecords(i), o;
 }
-function At(t = [], e = m.minMatchCharLength) {
+function vt(t = [], e = m.minMatchCharLength) {
   const s = [];
   let n = -1, i = -1, o = 0;
-  for (let a = t.length; o < a; o += 1) {
+  for (let c = t.length; o < c; o += 1) {
     const r = t[o];
     r && n === -1 ? n = o : !r && n !== -1 && (i = o - 1, i - n + 1 >= e && s.push([n, i]), n = -1);
   }
   return t[o - 1] && o - n >= e && s.push([n, o - 1]), s;
 }
 const N = 32;
-function _t(t, e, s, {
+function Ct(t, e, s, {
   location: n = m.location,
   distance: i = m.distance,
   threshold: o = m.threshold,
-  findAllMatches: a = m.findAllMatches,
+  findAllMatches: c = m.findAllMatches,
   minMatchCharLength: r = m.minMatchCharLength,
-  includeMatches: c = m.includeMatches,
+  includeMatches: a = m.includeMatches,
   ignoreLocation: d = m.ignoreLocation
 } = {}) {
   if (e.length > N)
-    throw new Error(ut(N));
+    throw new Error(ft(N));
   const l = e.length, f = t.length, g = Math.max(0, Math.min(n, f));
   let h = o, k = g;
   const p = (x, $) => {
-    const C = x / l;
-    if (d) return C;
+    const S = x / l;
+    if (d) return S;
     const z = Math.abs(g - $);
-    return i ? C + z / i : z ? 1 : C;
-  }, u = r > 1 || c, y = u ? Array(f) : [];
-  let E;
-  for (; (E = t.indexOf(e, k)) > -1; ) {
-    const x = p(0, E);
-    if (h = Math.min(x, h), k = E + l, u) {
+    return i ? S + z / i : z ? 1 : S;
+  }, u = r > 1 || a, y = u ? Array(f) : [];
+  let b;
+  for (; (b = t.indexOf(e, k)) > -1; ) {
+    const x = p(0, b);
+    if (h = Math.min(x, h), k = b + l, u) {
       let $ = 0;
       for (; $ < l; )
-        y[E + $] = 1, $ += 1;
+        y[b + $] = 1, $ += 1;
     }
   }
   k = -1;
-  let w = [], A = 1, I = l + f;
-  const st = 1 << l - 1;
+  let E = [], A = 1, C = l + f;
+  const rt = 1 << l - 1;
   for (let x = 0; x < l; x += 1) {
-    let $ = 0, C = I;
-    for (; $ < C; )
-      p(x, g + C) <= h ? $ = C : I = C, C = Math.floor((I - $) / 2 + $);
-    I = C;
-    let z = Math.max(1, g - C + 1);
-    const ne = a ? f : Math.min(g + C, f) + l, P = Array(ne + 2);
-    P[ne + 1] = (1 << x) - 1;
-    for (let M = ne; M >= z; M -= 1) {
-      const W = M - 1, Ie = s[t[W]];
-      if (u && (y[W] = +!!Ie), P[M] = (P[M + 1] << 1 | 1) & Ie, x && (P[M] |= (w[M + 1] | w[M]) << 1 | 1 | w[M + 1]), P[M] & st && (A = p(x, W), A <= h)) {
-        if (h = A, k = W, k <= g)
+    let $ = 0, S = C;
+    for (; $ < S; )
+      p(x, g + S) <= h ? $ = S : C = S, S = Math.floor((C - $) / 2 + $);
+    C = S;
+    let z = Math.max(1, g - S + 1);
+    const re = c ? f : Math.min(g + S, f) + l, P = Array(re + 2);
+    P[re + 1] = (1 << x) - 1;
+    for (let M = re; M >= z; M -= 1) {
+      const Y = M - 1, Me = s[t[Y]];
+      if (u && (y[Y] = +!!Me), P[M] = (P[M + 1] << 1 | 1) & Me, x && (P[M] |= (E[M + 1] | E[M]) << 1 | 1 | E[M + 1]), P[M] & rt && (A = p(x, Y), A <= h)) {
+        if (h = A, k = Y, k <= g)
           break;
         z = Math.max(1, 2 * g - k);
       }
     }
     if (p(x + 1, g) > h)
       break;
-    w = P;
+    E = P;
   }
-  const se = {
+  const ie = {
     isMatch: k >= 0,
     // Count exact matches (those with a score of 0) to be "almost" exact
     score: Math.max(1e-3, A)
   };
   if (u) {
-    const x = At(y, r);
-    x.length ? c && (se.indices = x) : se.isMatch = !1;
+    const x = vt(y, r);
+    x.length ? a && (ie.indices = x) : ie.isMatch = !1;
   }
-  return se;
+  return ie;
 }
-function xt(t) {
+function St(t) {
   const e = {};
   for (let s = 0, n = t.length; s < n; s += 1) {
     const i = t.charAt(s);
@@ -491,7 +491,7 @@ function xt(t) {
   }
   return e;
 }
-function we(t) {
+function xe(t) {
   if (t.length <= 1) return t;
   t.sort((s, n) => s[0] - n[0] || s[1] - n[1]);
   const e = [t[0]];
@@ -501,7 +501,7 @@ function we(t) {
   }
   return e;
 }
-const He = {
+const qe = {
   ł: "l",
   // ł
   Ł: "L",
@@ -526,16 +526,16 @@ const He = {
   // ı
   ß: "ss"
   // ß
-}, vt = new RegExp("[" + Object.keys(He).join("") + "]", "g"), H = String.prototype.normalize ? (t) => t.normalize("NFD").replace(/[\u0300-\u036F\u0483-\u0489\u0591-\u05BD\u05BF\u05C1\u05C2\u05C4\u05C5\u05C7\u0610-\u061A\u064B-\u065F\u0670\u06D6-\u06DC\u06DF-\u06E4\u06E7\u06E8\u06EA-\u06ED\u0711\u0730-\u074A\u07A6-\u07B0\u07EB-\u07F3\u07FD\u0816-\u0819\u081B-\u0823\u0825-\u0827\u0829-\u082D\u0859-\u085B\u08D3-\u08E1\u08E3-\u0903\u093A-\u093C\u093E-\u094F\u0951-\u0957\u0962\u0963\u0981-\u0983\u09BC\u09BE-\u09C4\u09C7\u09C8\u09CB-\u09CD\u09D7\u09E2\u09E3\u09FE\u0A01-\u0A03\u0A3C\u0A3E-\u0A42\u0A47\u0A48\u0A4B-\u0A4D\u0A51\u0A70\u0A71\u0A75\u0A81-\u0A83\u0ABC\u0ABE-\u0AC5\u0AC7-\u0AC9\u0ACB-\u0ACD\u0AE2\u0AE3\u0AFA-\u0AFF\u0B01-\u0B03\u0B3C\u0B3E-\u0B44\u0B47\u0B48\u0B4B-\u0B4D\u0B56\u0B57\u0B62\u0B63\u0B82\u0BBE-\u0BC2\u0BC6-\u0BC8\u0BCA-\u0BCD\u0BD7\u0C00-\u0C04\u0C3E-\u0C44\u0C46-\u0C48\u0C4A-\u0C4D\u0C55\u0C56\u0C62\u0C63\u0C81-\u0C83\u0CBC\u0CBE-\u0CC4\u0CC6-\u0CC8\u0CCA-\u0CCD\u0CD5\u0CD6\u0CE2\u0CE3\u0D00-\u0D03\u0D3B\u0D3C\u0D3E-\u0D44\u0D46-\u0D48\u0D4A-\u0D4D\u0D57\u0D62\u0D63\u0D82\u0D83\u0DCA\u0DCF-\u0DD4\u0DD6\u0DD8-\u0DDF\u0DF2\u0DF3\u0E31\u0E34-\u0E3A\u0E47-\u0E4E\u0EB1\u0EB4-\u0EB9\u0EBB\u0EBC\u0EC8-\u0ECD\u0F18\u0F19\u0F35\u0F37\u0F39\u0F3E\u0F3F\u0F71-\u0F84\u0F86\u0F87\u0F8D-\u0F97\u0F99-\u0FBC\u0FC6\u102B-\u103E\u1056-\u1059\u105E-\u1060\u1062-\u1064\u1067-\u106D\u1071-\u1074\u1082-\u108D\u108F\u109A-\u109D\u135D-\u135F\u1712-\u1714\u1732-\u1734\u1752\u1753\u1772\u1773\u17B4-\u17D3\u17DD\u180B-\u180D\u1885\u1886\u18A9\u1920-\u192B\u1930-\u193B\u1A17-\u1A1B\u1A55-\u1A5E\u1A60-\u1A7C\u1A7F\u1AB0-\u1ABE\u1B00-\u1B04\u1B34-\u1B44\u1B6B-\u1B73\u1B80-\u1B82\u1BA1-\u1BAD\u1BE6-\u1BF3\u1C24-\u1C37\u1CD0-\u1CD2\u1CD4-\u1CE8\u1CED\u1CF2-\u1CF4\u1CF7-\u1CF9\u1DC0-\u1DF9\u1DFB-\u1DFF\u20D0-\u20F0\u2CEF-\u2CF1\u2D7F\u2DE0-\u2DFF\u302A-\u302F\u3099\u309A\uA66F-\uA672\uA674-\uA67D\uA69E\uA69F\uA6F0\uA6F1\uA802\uA806\uA80B\uA823-\uA827\uA880\uA881\uA8B4-\uA8C5\uA8E0-\uA8F1\uA8FF\uA926-\uA92D\uA947-\uA953\uA980-\uA983\uA9B3-\uA9C0\uA9E5\uAA29-\uAA36\uAA43\uAA4C\uAA4D\uAA7B-\uAA7D\uAAB0\uAAB2-\uAAB4\uAAB7\uAAB8\uAABE\uAABF\uAAC1\uAAEB-\uAAEF\uAAF5\uAAF6\uABE3-\uABEA\uABEC\uABED\uFB1E\uFE00-\uFE0F\uFE20-\uFE2F]/g, "").replace(vt, (e) => He[e]) : (t) => t;
-class Ae {
+}, It = new RegExp("[" + Object.keys(qe).join("") + "]", "g"), K = String.prototype.normalize ? (t) => t.normalize("NFD").replace(/[\u0300-\u036F\u0483-\u0489\u0591-\u05BD\u05BF\u05C1\u05C2\u05C4\u05C5\u05C7\u0610-\u061A\u064B-\u065F\u0670\u06D6-\u06DC\u06DF-\u06E4\u06E7\u06E8\u06EA-\u06ED\u0711\u0730-\u074A\u07A6-\u07B0\u07EB-\u07F3\u07FD\u0816-\u0819\u081B-\u0823\u0825-\u0827\u0829-\u082D\u0859-\u085B\u08D3-\u08E1\u08E3-\u0903\u093A-\u093C\u093E-\u094F\u0951-\u0957\u0962\u0963\u0981-\u0983\u09BC\u09BE-\u09C4\u09C7\u09C8\u09CB-\u09CD\u09D7\u09E2\u09E3\u09FE\u0A01-\u0A03\u0A3C\u0A3E-\u0A42\u0A47\u0A48\u0A4B-\u0A4D\u0A51\u0A70\u0A71\u0A75\u0A81-\u0A83\u0ABC\u0ABE-\u0AC5\u0AC7-\u0AC9\u0ACB-\u0ACD\u0AE2\u0AE3\u0AFA-\u0AFF\u0B01-\u0B03\u0B3C\u0B3E-\u0B44\u0B47\u0B48\u0B4B-\u0B4D\u0B56\u0B57\u0B62\u0B63\u0B82\u0BBE-\u0BC2\u0BC6-\u0BC8\u0BCA-\u0BCD\u0BD7\u0C00-\u0C04\u0C3E-\u0C44\u0C46-\u0C48\u0C4A-\u0C4D\u0C55\u0C56\u0C62\u0C63\u0C81-\u0C83\u0CBC\u0CBE-\u0CC4\u0CC6-\u0CC8\u0CCA-\u0CCD\u0CD5\u0CD6\u0CE2\u0CE3\u0D00-\u0D03\u0D3B\u0D3C\u0D3E-\u0D44\u0D46-\u0D48\u0D4A-\u0D4D\u0D57\u0D62\u0D63\u0D82\u0D83\u0DCA\u0DCF-\u0DD4\u0DD6\u0DD8-\u0DDF\u0DF2\u0DF3\u0E31\u0E34-\u0E3A\u0E47-\u0E4E\u0EB1\u0EB4-\u0EB9\u0EBB\u0EBC\u0EC8-\u0ECD\u0F18\u0F19\u0F35\u0F37\u0F39\u0F3E\u0F3F\u0F71-\u0F84\u0F86\u0F87\u0F8D-\u0F97\u0F99-\u0FBC\u0FC6\u102B-\u103E\u1056-\u1059\u105E-\u1060\u1062-\u1064\u1067-\u106D\u1071-\u1074\u1082-\u108D\u108F\u109A-\u109D\u135D-\u135F\u1712-\u1714\u1732-\u1734\u1752\u1753\u1772\u1773\u17B4-\u17D3\u17DD\u180B-\u180D\u1885\u1886\u18A9\u1920-\u192B\u1930-\u193B\u1A17-\u1A1B\u1A55-\u1A5E\u1A60-\u1A7C\u1A7F\u1AB0-\u1ABE\u1B00-\u1B04\u1B34-\u1B44\u1B6B-\u1B73\u1B80-\u1B82\u1BA1-\u1BAD\u1BE6-\u1BF3\u1C24-\u1C37\u1CD0-\u1CD2\u1CD4-\u1CE8\u1CED\u1CF2-\u1CF4\u1CF7-\u1CF9\u1DC0-\u1DF9\u1DFB-\u1DFF\u20D0-\u20F0\u2CEF-\u2CF1\u2D7F\u2DE0-\u2DFF\u302A-\u302F\u3099\u309A\uA66F-\uA672\uA674-\uA67D\uA69E\uA69F\uA6F0\uA6F1\uA802\uA806\uA80B\uA823-\uA827\uA880\uA881\uA8B4-\uA8C5\uA8E0-\uA8F1\uA8FF\uA926-\uA92D\uA947-\uA953\uA980-\uA983\uA9B3-\uA9C0\uA9E5\uAA29-\uAA36\uAA43\uAA4C\uAA4D\uAA7B-\uAA7D\uAAB0\uAAB2-\uAAB4\uAAB7\uAAB8\uAABE\uAABF\uAAC1\uAAEB-\uAAEF\uAAF5\uAAF6\uABE3-\uABEA\uABEC\uABED\uFB1E\uFE00-\uFE0F\uFE20-\uFE2F]/g, "").replace(It, (e) => qe[e]) : (t) => t;
+class ve {
   constructor(e, {
     location: s = m.location,
     threshold: n = m.threshold,
     distance: i = m.distance,
     includeMatches: o = m.includeMatches,
-    findAllMatches: a = m.findAllMatches,
+    findAllMatches: c = m.findAllMatches,
     minMatchCharLength: r = m.minMatchCharLength,
-    isCaseSensitive: c = m.isCaseSensitive,
+    isCaseSensitive: a = m.isCaseSensitive,
     ignoreDiacritics: d = m.ignoreDiacritics,
     ignoreLocation: l = m.ignoreLocation
   } = {}) {
@@ -544,17 +544,17 @@ class Ae {
       threshold: n,
       distance: i,
       includeMatches: o,
-      findAllMatches: a,
+      findAllMatches: c,
       minMatchCharLength: r,
-      isCaseSensitive: c,
+      isCaseSensitive: a,
       ignoreDiacritics: d,
       ignoreLocation: l
-    }, e = c ? e : e.toLowerCase(), e = d ? H(e) : e, this.pattern = e, this.chunks = [], !this.pattern.length)
+    }, e = a ? e : e.toLowerCase(), e = d ? K(e) : e, this.pattern = e, this.chunks = [], !this.pattern.length)
       return;
     const f = (h, k) => {
       this.chunks.push({
         pattern: h,
-        alphabet: xt(h),
+        alphabet: St(h),
         startIndex: k
       });
     }, g = this.pattern.length;
@@ -576,7 +576,7 @@ class Ae {
       ignoreDiacritics: n,
       includeMatches: i
     } = this.options;
-    if (e = s ? e : e.toLowerCase(), e = n ? H(e) : e, this.pattern === e) {
+    if (e = s ? e : e.toLowerCase(), e = n ? K(e) : e, this.pattern === e) {
       const p = {
         isMatch: !0,
         score: 0
@@ -585,9 +585,9 @@ class Ae {
     }
     const {
       location: o,
-      distance: a,
+      distance: c,
       threshold: r,
-      findAllMatches: c,
+      findAllMatches: a,
       minMatchCharLength: d,
       ignoreLocation: l
     } = this.options, f = [];
@@ -598,25 +598,25 @@ class Ae {
       startIndex: y
     }) => {
       const {
-        isMatch: E,
-        score: w,
+        isMatch: b,
+        score: E,
         indices: A
-      } = _t(e, p, u, {
+      } = Ct(e, p, u, {
         location: o + y,
-        distance: a,
+        distance: c,
         threshold: r,
-        findAllMatches: c,
+        findAllMatches: a,
         minMatchCharLength: d,
         includeMatches: i,
         ignoreLocation: l
       });
-      E && (h = !0), g += w, E && A && f.push(...A);
+      b && (h = !0), g += E, b && A && f.push(...A);
     });
     const k = {
       isMatch: h,
       score: h ? g / this.chunks.length : 1
     };
-    return h && i && (k.indices = we(f)), k;
+    return h && i && (k.indices = xe(f)), k;
   }
 }
 class R {
@@ -624,10 +624,10 @@ class R {
     this.pattern = e;
   }
   static isMultiMatch(e) {
-    return Me(e, this.multiRegex);
+    return Le(e, this.multiRegex);
   }
   static isSingleMatch(e) {
-    return Me(e, this.singleRegex);
+    return Le(e, this.singleRegex);
   }
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   search(e) {
@@ -637,11 +637,11 @@ class R {
     };
   }
 }
-function Me(t, e) {
+function Le(t, e) {
   const s = t.match(e);
   return s ? s[1] : null;
 }
-class It extends R {
+class Mt extends R {
   constructor(e) {
     super(e);
   }
@@ -663,7 +663,7 @@ class It extends R {
     };
   }
 }
-class Ct extends R {
+class $t extends R {
   constructor(e) {
     super(e);
   }
@@ -685,7 +685,7 @@ class Ct extends R {
     };
   }
 }
-class St extends R {
+class Dt extends R {
   constructor(e) {
     super(e);
   }
@@ -707,7 +707,7 @@ class St extends R {
     };
   }
 }
-class Mt extends R {
+class Lt extends R {
   constructor(e) {
     super(e);
   }
@@ -729,7 +729,7 @@ class Mt extends R {
     };
   }
 }
-class $t extends R {
+class Ft extends R {
   constructor(e) {
     super(e);
   }
@@ -751,7 +751,7 @@ class $t extends R {
     };
   }
 }
-class Dt extends R {
+class Tt extends R {
   constructor(e) {
     super(e);
   }
@@ -773,26 +773,26 @@ class Dt extends R {
     };
   }
 }
-class We extends R {
+class Ue extends R {
   constructor(e, {
     location: s = m.location,
     threshold: n = m.threshold,
     distance: i = m.distance,
     includeMatches: o = m.includeMatches,
-    findAllMatches: a = m.findAllMatches,
+    findAllMatches: c = m.findAllMatches,
     minMatchCharLength: r = m.minMatchCharLength,
-    isCaseSensitive: c = m.isCaseSensitive,
+    isCaseSensitive: a = m.isCaseSensitive,
     ignoreDiacritics: d = m.ignoreDiacritics,
     ignoreLocation: l = m.ignoreLocation
   } = {}) {
-    super(e), this._bitapSearch = new Ae(e, {
+    super(e), this._bitapSearch = new ve(e, {
       location: s,
       threshold: n,
       distance: i,
       includeMatches: o,
-      findAllMatches: a,
+      findAllMatches: c,
       minMatchCharLength: r,
-      isCaseSensitive: c,
+      isCaseSensitive: a,
       ignoreDiacritics: d,
       ignoreLocation: l
     });
@@ -810,7 +810,7 @@ class We extends R {
     return this._bitapSearch.searchIn(e);
   }
 }
-class Ye extends R {
+class Ge extends R {
   constructor(e) {
     super(e);
   }
@@ -828,16 +828,16 @@ class Ye extends R {
     const i = [], o = this.pattern.length;
     for (; (n = e.indexOf(this.pattern, s)) > -1; )
       s = n + o, i.push([n, s - 1]);
-    const a = !!i.length;
+    const c = !!i.length;
     return {
-      isMatch: a,
-      score: a ? 0 : 1,
+      isMatch: c,
+      score: c ? 0 : 1,
       indices: i
     };
   }
 }
-const ae = [It, Ye, St, Mt, Dt, $t, Ct, We], $e = ae.length, Lt = "\0", Ft = "|";
-function Tt(t) {
+const he = [Mt, Ge, Dt, Lt, Tt, Ft, $t, Ue], Fe = he.length, Bt = "\0", Rt = "|";
+function Nt(t) {
   const e = [], s = t.length;
   let n = 0;
   for (; n < s; ) {
@@ -868,38 +868,38 @@ function Tt(t) {
   }
   return e;
 }
-function Bt(t, e = {}) {
-  return t.replace(/\\\|/g, Lt).split(Ft).map((n) => {
-    const i = n.replace(/\u0000/g, "|"), o = Tt(i.trim()).filter((r) => r && !!r.trim()), a = [];
-    for (let r = 0, c = o.length; r < c; r += 1) {
+function Ot(t, e = {}) {
+  return t.replace(/\\\|/g, Bt).split(Rt).map((n) => {
+    const i = n.replace(/\u0000/g, "|"), o = Nt(i.trim()).filter((r) => r && !!r.trim()), c = [];
+    for (let r = 0, a = o.length; r < a; r += 1) {
       const d = o[r];
       let l = !1, f = -1;
-      for (; !l && ++f < $e; ) {
-        const g = ae[f], h = g.isMultiMatch(d);
-        h && (a.push(new g(h, e)), l = !0);
+      for (; !l && ++f < Fe; ) {
+        const g = he[f], h = g.isMultiMatch(d);
+        h && (c.push(new g(h, e)), l = !0);
       }
       if (!l)
-        for (f = -1; ++f < $e; ) {
-          const g = ae[f], h = g.isSingleMatch(d);
+        for (f = -1; ++f < Fe; ) {
+          const g = he[f], h = g.isSingleMatch(d);
           if (h) {
-            a.push(new g(h, e));
+            c.push(new g(h, e));
             break;
           }
         }
     }
-    return a;
+    return c;
   });
 }
-const Rt = /* @__PURE__ */ new Set([We.type, Ye.type]);
-class Nt {
+const Pt = /* @__PURE__ */ new Set([Ue.type, Ge.type]);
+class jt {
   constructor(e, {
     isCaseSensitive: s = m.isCaseSensitive,
     ignoreDiacritics: n = m.ignoreDiacritics,
     includeMatches: i = m.includeMatches,
     minMatchCharLength: o = m.minMatchCharLength,
-    ignoreLocation: a = m.ignoreLocation,
+    ignoreLocation: c = m.ignoreLocation,
     findAllMatches: r = m.findAllMatches,
-    location: c = m.location,
+    location: a = m.location,
     threshold: d = m.threshold,
     distance: l = m.distance
   } = {}) {
@@ -909,11 +909,11 @@ class Nt {
       includeMatches: i,
       minMatchCharLength: o,
       findAllMatches: r,
-      ignoreLocation: a,
-      location: c,
+      ignoreLocation: c,
+      location: a,
       threshold: d,
       distance: l
-    }, e = s ? e : e.toLowerCase(), e = n ? H(e) : e, this.pattern = e, this.query = Bt(this.pattern, this.options);
+    }, e = s ? e : e.toLowerCase(), e = n ? K(e) : e, this.pattern = e, this.query = Ot(this.pattern, this.options);
   }
   static condition(e, s) {
     return s.useExtendedSearch;
@@ -933,34 +933,34 @@ class Nt {
       isCaseSensitive: i,
       ignoreDiacritics: o
     } = this.options;
-    e = i ? e : e.toLowerCase(), e = o ? H(e) : e;
-    let a = 0;
+    e = i ? e : e.toLowerCase(), e = o ? K(e) : e;
+    let c = 0;
     const r = [];
-    let c = 0, d = !1;
+    let a = 0, d = !1;
     for (let l = 0, f = s.length; l < f; l += 1) {
       const g = s[l];
-      r.length = 0, a = 0, d = !1;
+      r.length = 0, c = 0, d = !1;
       for (let h = 0, k = g.length; h < k; h += 1) {
         const p = g[h], {
           isMatch: u,
           indices: y,
-          score: E
+          score: b
         } = p.search(e);
         if (u) {
-          a += 1, c += E;
-          const w = p.constructor.type;
-          w.startsWith("inverse") && (d = !0), n && (Rt.has(w) ? r.push(...y) : r.push(y));
+          c += 1, a += b;
+          const E = p.constructor.type;
+          E.startsWith("inverse") && (d = !0), n && (Pt.has(E) ? r.push(...y) : r.push(y));
         } else {
-          c = 0, a = 0, r.length = 0, d = !1;
+          a = 0, c = 0, r.length = 0, d = !1;
           break;
         }
       }
-      if (a) {
+      if (c) {
         const h = {
           isMatch: !0,
-          score: c / a
+          score: a / c
         };
-        return d && (h.hasInverse = !0), n && (h.indices = we(r)), h;
+        return d && (h.hasInverse = !0), n && (h.indices = xe(r)), h;
       }
     }
     return {
@@ -969,67 +969,67 @@ class Nt {
     };
   }
 }
-const le = [];
-function _e(...t) {
-  le.push(...t);
+const de = [];
+function Ce(...t) {
+  de.push(...t);
 }
-function J(t, e) {
-  for (let s = 0, n = le.length; s < n; s += 1) {
-    const i = le[s];
+function Z(t, e) {
+  for (let s = 0, n = de.length; s < n; s += 1) {
+    const i = de[s];
     if (i.condition(t, e))
       return new i(t, e);
   }
-  return new Ae(t, e);
+  return new ve(t, e);
 }
-const X = {
+const ee = {
   AND: "$and",
   OR: "$or"
-}, ue = {
+}, fe = {
   PATH: "$path",
   PATTERN: "$val"
-}, he = (t) => !!(t[X.AND] || t[X.OR]), Ot = (t) => !!t[ue.PATH], Pt = (t) => !B(t) && Pe(t) && !he(t), De = (t) => ({
-  [X.AND]: Object.keys(t).map((e) => ({
+}, ge = (t) => !!(t[ee.AND] || t[ee.OR]), zt = (t) => !!t[fe.PATH], Ht = (t) => !B(t) && He(t) && !ge(t), Te = (t) => ({
+  [ee.AND]: Object.keys(t).map((e) => ({
     [e]: t[e]
   }))
 });
-function qe(t, e, {
+function Qe(t, e, {
   auto: s = !0
 } = {}) {
   const n = (i) => {
     if (_(i)) {
-      const c = {
+      const a = {
         keyId: null,
         pattern: i
       };
-      return s && (c.searcher = J(i, e)), c;
+      return s && (a.searcher = Z(i, e)), a;
     }
-    const o = Object.keys(i), a = Ot(i);
-    if (!a && o.length > 1 && !he(i))
-      return n(De(i));
-    if (Pt(i)) {
-      const c = a ? i[ue.PATH] : o[0], d = a ? i[ue.PATTERN] : i[c];
+    const o = Object.keys(i), c = zt(i);
+    if (!c && o.length > 1 && !ge(i))
+      return n(Te(i));
+    if (Ht(i)) {
+      const a = c ? i[fe.PATH] : o[0], d = c ? i[fe.PATTERN] : i[a];
       if (!_(d))
-        throw new Error(lt(c));
+        throw new Error(dt(a));
       const l = {
-        keyId: ce(c),
+        keyId: ue(a),
         pattern: d
       };
-      return s && (l.searcher = J(d, e)), l;
+      return s && (l.searcher = Z(d, e)), l;
     }
     const r = {
       children: [],
       operator: o[0]
     };
-    return o.forEach((c) => {
-      const d = i[c];
+    return o.forEach((a) => {
+      const d = i[a];
       B(d) && d.forEach((l) => {
         r.children.push(n(l));
       });
     }), r;
   };
-  return he(t) || (t = De(t)), n(t);
+  return ge(t) || (t = Te(t)), n(t);
 }
-function de(t, {
+function pe(t, {
   ignoreFieldNorm: e = m.ignoreFieldNorm
 }) {
   let s = 1;
@@ -1038,20 +1038,20 @@ function de(t, {
     norm: i,
     score: o
   }) => {
-    const a = n ? n.weight : null;
-    s *= Math.pow(o === 0 && a ? Number.EPSILON : o, (a || 1) * (e ? 1 : i));
+    const c = n ? n.weight : null;
+    s *= Math.pow(o === 0 && c ? Number.EPSILON : o, (c || 1) * (e ? 1 : i));
   }), s;
 }
-function jt(t, {
+function Wt(t, {
   ignoreFieldNorm: e = m.ignoreFieldNorm
 }) {
   t.forEach((s) => {
-    s.score = de(s.matches, {
+    s.score = pe(s.matches, {
       ignoreFieldNorm: e
     });
   });
 }
-class zt {
+class Kt {
   constructor(e) {
     this.limit = e, this.heap = [];
   }
@@ -1081,15 +1081,15 @@ class zt {
     let i = e;
     do {
       e = i;
-      const o = 2 * e + 1, a = 2 * e + 2;
-      if (o < n && s[o].score > s[i].score && (i = o), a < n && s[a].score > s[i].score && (i = a), i !== e) {
+      const o = 2 * e + 1, c = 2 * e + 2;
+      if (o < n && s[o].score > s[i].score && (i = o), c < n && s[c].score > s[i].score && (i = c), i !== e) {
         const r = s[e];
         s[e] = s[i], s[i] = r;
       }
     } while (i !== e);
   }
 }
-function Kt(t, e) {
+function Yt(t, e) {
   const s = t.matches;
   e.matches = [], v(s) && s.forEach((n) => {
     if (!v(n.indices) || !n.indices.length)
@@ -1097,48 +1097,48 @@ function Kt(t, e) {
     const {
       indices: i,
       value: o
-    } = n, a = {
+    } = n, c = {
       indices: i,
       value: o
     };
-    n.key && (a.key = n.key.src), n.idx > -1 && (a.refIndex = n.idx), e.matches.push(a);
+    n.key && (c.key = n.key.src), n.idx > -1 && (c.refIndex = n.idx), e.matches.push(c);
   });
 }
-function Ht(t, e) {
+function qt(t, e) {
   e.score = t.score;
 }
-function Wt(t, e, {
+function Ut(t, e, {
   includeMatches: s = m.includeMatches,
   includeScore: n = m.includeScore
 } = {}) {
   const i = [];
-  return s && i.push(Kt), n && i.push(Ht), t.map((o) => {
+  return s && i.push(Yt), n && i.push(qt), t.map((o) => {
     const {
-      idx: a
+      idx: c
     } = o, r = {
-      item: e[a],
-      refIndex: a
+      item: e[c],
+      refIndex: c
     };
-    return i.length && i.forEach((c) => {
-      c(o, r);
+    return i.length && i.forEach((a) => {
+      a(o, r);
     }), r;
   });
 }
-const Yt = /\b\w+\b/g;
-function fe({
+const Gt = /\b\w+\b/g;
+function me({
   isCaseSensitive: t = !1,
   ignoreDiacritics: e = !1
 } = {}) {
   return {
     tokenize(s) {
-      return t || (s = s.toLowerCase()), e && (s = H(s)), s.match(Yt) || [];
+      return t || (s = s.toLowerCase()), e && (s = K(s)), s.match(Gt) || [];
     }
   };
 }
-function qt(t, e, s) {
+function Qt(t, e, s) {
   const n = /* @__PURE__ */ new Map(), i = /* @__PURE__ */ new Map();
   let o = 0;
-  function a(r, c, d, l) {
+  function c(r, a, d, l) {
     const f = s.tokenize(r);
     if (!f.length) return;
     o++;
@@ -1147,7 +1147,7 @@ function qt(t, e, s) {
       g.set(h, (g.get(h) || 0) + 1);
     for (const [h, k] of g) {
       const p = {
-        docIdx: c,
+        docIdx: a,
         keyIdx: d,
         subIdx: l,
         tf: k
@@ -1158,12 +1158,12 @@ function qt(t, e, s) {
   }
   for (const r of t) {
     const {
-      i: c,
+      i: a,
       v: d,
       $: l
     } = r;
     if (d !== void 0) {
-      a(d, c, -1, -1);
+      c(d, a, -1, -1);
       continue;
     }
     if (l)
@@ -1172,9 +1172,9 @@ function qt(t, e, s) {
         if (g)
           if (Array.isArray(g))
             for (const h of g)
-              a(h.v, c, f, h.i ?? -1);
+              c(h.v, a, f, h.i ?? -1);
           else
-            a(g.v, c, f, -1);
+            c(g.v, a, f, -1);
       }
   }
   return {
@@ -1183,14 +1183,14 @@ function qt(t, e, s) {
     df: i
   };
 }
-function Gt(t, e, s, n) {
+function Vt(t, e, s, n) {
   const {
     i,
     v: o,
-    $: a
+    $: c
   } = e;
-  function r(c, d, l) {
-    const f = n.tokenize(c);
+  function r(a, d, l) {
+    const f = n.tokenize(a);
     if (!f.length) return;
     t.fieldCount++;
     const g = /* @__PURE__ */ new Map();
@@ -1211,20 +1211,20 @@ function Gt(t, e, s, n) {
     r(o, -1, -1);
     return;
   }
-  if (a)
-    for (let c = 0; c < s; c++) {
-      const d = a[c];
+  if (c)
+    for (let a = 0; a < s; a++) {
+      const d = c[a];
       if (d)
         if (Array.isArray(d))
           for (const l of d)
-            r(l.v, c, l.i ?? -1);
+            r(l.v, a, l.i ?? -1);
         else
-          r(d.v, c, -1);
+          r(d.v, a, -1);
     }
 }
-function Le(t, e) {
+function Be(t, e) {
   for (const [s, n] of t.terms) {
-    const i = n.filter((a) => a.docIdx !== e), o = n.length - i.length;
+    const i = n.filter((c) => c.docIdx !== e), o = n.length - i.length;
     o > 0 && (t.fieldCount -= o, t.df.set(s, (t.df.get(s) || 0) - o), i.length === 0 ? (t.terms.delete(s), t.df.delete(s)) : t.terms.set(s, i));
   }
 }
@@ -1234,7 +1234,7 @@ class L {
     this.options = {
       ...m,
       ...s
-    }, this.options.useExtendedSearch, this.options.useTokenSearch, this._keyStore = new ft(this.options.keys), this._docs = e, this._myIndex = null, this._invertedIndex = null, this.setCollection(e, n), this._lastQuery = null, this._lastSearcher = null;
+    }, this.options.useExtendedSearch, this.options.useTokenSearch, this._keyStore = new mt(this.options.keys), this._docs = e, this._myIndex = null, this._invertedIndex = null, this.setCollection(e, n), this._lastQuery = null, this._lastSearcher = null;
   }
   _getSearcher(e) {
     if (this._lastQuery === e)
@@ -1242,30 +1242,30 @@ class L {
     const s = this._invertedIndex ? {
       ...this.options,
       _invertedIndex: this._invertedIndex
-    } : this.options, n = J(e, s);
+    } : this.options, n = Z(e, s);
     return this._lastQuery = e, this._lastSearcher = n, n;
   }
   setCollection(e, s) {
-    if (this._docs = e, s && !(s instanceof Ee))
-      throw new Error(at);
-    if (this._myIndex = s || Ke(this.options.keys, this._docs, {
+    if (this._docs = e, s && !(s instanceof _e))
+      throw new Error(ht);
+    if (this._myIndex = s || Ye(this.options.keys, this._docs, {
       getFn: this.options.getFn,
       fieldNormWeight: this.options.fieldNormWeight
     }), this.options.useTokenSearch) {
-      const n = fe({
+      const n = me({
         isCaseSensitive: this.options.isCaseSensitive,
         ignoreDiacritics: this.options.ignoreDiacritics
       });
-      this._invertedIndex = qt(this._myIndex.records, this._myIndex.keys.length, n);
+      this._invertedIndex = Qt(this._myIndex.records, this._myIndex.keys.length, n);
     }
   }
   add(e) {
     if (v(e) && (this._docs.push(e), this._myIndex.add(e), this._invertedIndex)) {
-      const s = this._myIndex.records[this._myIndex.records.length - 1], n = fe({
+      const s = this._myIndex.records[this._myIndex.records.length - 1], n = me({
         isCaseSensitive: this.options.isCaseSensitive,
         ignoreDiacritics: this.options.ignoreDiacritics
       });
-      Gt(this._invertedIndex, s, this._myIndex.keys.length, n);
+      Vt(this._invertedIndex, s, this._myIndex.keys.length, n);
     }
   }
   remove(e = () => !1) {
@@ -1275,7 +1275,7 @@ class L {
     if (n.length) {
       if (this._invertedIndex)
         for (const i of n)
-          Le(this._invertedIndex, i);
+          Be(this._invertedIndex, i);
       for (let i = n.length - 1; i >= 0; i -= 1)
         this._docs.splice(n[i], 1);
       this._myIndex.removeAll(n);
@@ -1283,7 +1283,7 @@ class L {
     return s;
   }
   removeAt(e) {
-    this._invertedIndex && Le(this._invertedIndex, e);
+    this._invertedIndex && Be(this._invertedIndex, e);
     const s = this._docs.splice(e, 1)[0];
     return this._myIndex.removeAt(e), s;
   }
@@ -1296,33 +1296,33 @@ class L {
     } = s || {}, {
       includeMatches: i,
       includeScore: o,
-      shouldSort: a,
+      shouldSort: c,
       sortFn: r,
-      ignoreFieldNorm: c
+      ignoreFieldNorm: a
     } = this.options;
     if (_(e) && !e.trim()) {
       let f = this._docs.map((g, h) => ({
         item: g,
         refIndex: h
       }));
-      return G(n) && n > -1 && (f = f.slice(0, n)), f;
+      return Q(n) && n > -1 && (f = f.slice(0, n)), f;
     }
-    const d = G(n) && n > 0 && _(e);
+    const d = Q(n) && n > 0 && _(e);
     let l;
     if (d) {
-      const f = new zt(n);
+      const f = new Kt(n);
       _(this._docs[0]) ? this._searchStringList(e, {
         heap: f,
-        ignoreFieldNorm: c
+        ignoreFieldNorm: a
       }) : this._searchObjectList(e, {
         heap: f,
-        ignoreFieldNorm: c
+        ignoreFieldNorm: a
       }), l = f.extractSorted(r);
     } else
-      l = _(e) ? _(this._docs[0]) ? this._searchStringList(e) : this._searchObjectList(e) : this._searchLogical(e), jt(l, {
-        ignoreFieldNorm: c
-      }), a && l.sort(r), G(n) && n > -1 && (l = l.slice(0, n));
-    return Wt(l, this._docs, {
+      l = _(e) ? _(this._docs[0]) ? this._searchStringList(e) : this._searchObjectList(e) : this._searchLogical(e), Wt(l, {
+        ignoreFieldNorm: a
+      }), c && l.sort(r), Q(n) && n > -1 && (l = l.slice(0, n));
+    return Ut(l, this._docs, {
       includeMatches: i,
       includeScore: o
     });
@@ -1333,10 +1333,10 @@ class L {
   } = {}) {
     const i = this._getSearcher(e), {
       records: o
-    } = this._myIndex, a = s ? null : [];
+    } = this._myIndex, c = s ? null : [];
     return o.forEach(({
       v: r,
-      i: c,
+      i: a,
       n: d
     }) => {
       if (!v(r))
@@ -1349,7 +1349,7 @@ class L {
       if (l) {
         const h = {
           item: r,
-          idx: c,
+          idx: a,
           matches: [{
             score: f,
             value: r,
@@ -1357,14 +1357,14 @@ class L {
             indices: g
           }]
         };
-        s ? (h.score = de(h.matches, {
+        s ? (h.score = pe(h.matches, {
           ignoreFieldNorm: n
-        }), s.shouldInsert(h.score) && s.insert(h)) : a.push(h);
+        }), s.shouldInsert(h.score) && s.insert(h)) : c.push(h);
       }
-    }), a;
+    }), c;
   }
   _searchLogical(e) {
-    const s = qe(e, this.options), n = (r, c, d) => {
+    const s = Qe(e, this.options), n = (r, a, d) => {
       if (!("children" in r)) {
         const {
           keyId: h,
@@ -1374,16 +1374,16 @@ class L {
         return h === null ? (p = [], this._myIndex.keys.forEach((u, y) => {
           p.push(...this._findMatches({
             key: u,
-            value: c[y],
+            value: a[y],
             searcher: k
           }));
         })) : p = this._findMatches({
           key: this._keyStore.get(h),
-          value: this._myIndex.getValueForItemAtKeyId(c, h),
+          value: this._myIndex.getValueForItemAtKeyId(a, h),
           searcher: k
         }), p && p.length ? [{
           idx: d,
-          item: c,
+          item: a,
           matches: p
         }] : [];
       }
@@ -1392,31 +1392,31 @@ class L {
         operator: f
       } = r, g = [];
       for (let h = 0, k = l.length; h < k; h += 1) {
-        const p = l[h], u = n(p, c, d);
+        const p = l[h], u = n(p, a, d);
         if (u.length)
           g.push(...u);
-        else if (f === X.AND)
+        else if (f === ee.AND)
           return [];
       }
       return g;
-    }, i = this._myIndex.records, o = /* @__PURE__ */ new Map(), a = [];
+    }, i = this._myIndex.records, o = /* @__PURE__ */ new Map(), c = [];
     return i.forEach(({
       $: r,
-      i: c
+      i: a
     }) => {
       if (v(r)) {
-        const d = n(s, r, c);
-        d.length && (o.has(c) || (o.set(c, {
-          idx: c,
+        const d = n(s, r, a);
+        d.length && (o.has(a) || (o.set(a, {
+          idx: a,
           item: r,
           matches: []
-        }), a.push(o.get(c))), d.forEach(({
+        }), c.push(o.get(a))), d.forEach(({
           matches: l
         }) => {
-          o.get(c).matches.push(...l);
+          o.get(a).matches.push(...l);
         }));
       }
-    }), a;
+    }), c;
   }
   // When a search involves inverse patterns (e.g. !Syrup), the aggregation
   // across keys switches from "ANY key matches" to "ALL keys must match."
@@ -1432,30 +1432,30 @@ class L {
   } = {}) {
     const i = this._getSearcher(e), {
       keys: o,
-      records: a
+      records: c
     } = this._myIndex, r = s ? null : [];
-    return a.forEach(({
-      $: c,
+    return c.forEach(({
+      $: a,
       i: d
     }) => {
-      if (!v(c))
+      if (!v(a))
         return;
       const l = [];
       let f = !1, g = !1;
       if (o.forEach((h, k) => {
         const p = this._findMatches({
           key: h,
-          value: c[k],
+          value: a[k],
           searcher: i
         });
         p.length ? (l.push(...p), p[0].hasInverse && (g = !0)) : f = !0;
       }), !(g && f) && l.length) {
         const h = {
           idx: d,
-          item: c,
+          item: a,
           matches: l
         };
-        s ? (h.score = de(h.matches, {
+        s ? (h.score = pe(h.matches, {
           ignoreFieldNorm: n
         }), s.shouldInsert(h.score) && s.insert(h)) : r.push(h);
       }
@@ -1472,22 +1472,22 @@ class L {
     if (B(s))
       s.forEach(({
         v: o,
-        i: a,
+        i: c,
         n: r
       }) => {
         if (!v(o))
           return;
         const {
-          isMatch: c,
+          isMatch: a,
           score: d,
           indices: l,
           hasInverse: f
         } = n.searchIn(o);
-        c && i.push({
+        a && i.push({
           score: d,
           key: e,
           value: o,
-          idx: a,
+          idx: c,
           norm: r,
           indices: l,
           hasInverse: f
@@ -1496,18 +1496,18 @@ class L {
     else {
       const {
         v: o,
-        n: a
+        n: c
       } = s, {
         isMatch: r,
-        score: c,
+        score: a,
         indices: d,
         hasInverse: l
       } = n.searchIn(o);
       r && i.push({
-        score: c,
+        score: a,
         key: e,
         value: o,
-        norm: a,
+        norm: c,
         indices: d,
         hasInverse: l
       });
@@ -1515,22 +1515,22 @@ class L {
     return i;
   }
 }
-class Ut {
+class Jt {
   static condition(e, s) {
     return s.useTokenSearch;
   }
   constructor(e, s) {
-    this.options = s, this.analyzer = fe({
+    this.options = s, this.analyzer = me({
       isCaseSensitive: s.isCaseSensitive,
       ignoreDiacritics: s.ignoreDiacritics
     });
     const n = this.analyzer.tokenize(e), i = s._invertedIndex, {
       df: o,
-      fieldCount: a
+      fieldCount: c
     } = i;
     this.termSearchers = [], this.idfWeights = [];
     for (const r of n) {
-      this.termSearchers.push(new Ae(r, {
+      this.termSearchers.push(new ve(r, {
         location: s.location,
         threshold: s.threshold,
         distance: s.distance,
@@ -1541,7 +1541,7 @@ class Ut {
         ignoreDiacritics: s.ignoreDiacritics,
         ignoreLocation: !0
       }));
-      const c = o.get(r) || 0, d = Math.log(1 + (a - c + 0.5) / (c + 0.5));
+      const a = o.get(r) || 0, d = Math.log(1 + (c - a + 0.5) / (a + 0.5));
       this.idfWeights.push(d);
     }
   }
@@ -1553,8 +1553,8 @@ class Ut {
       };
     const s = [];
     let n = 0, i = 0, o = 0;
-    for (let c = 0; c < this.termSearchers.length; c++) {
-      const d = this.termSearchers[c].searchIn(e), l = this.idfWeights[c];
+    for (let a = 0; a < this.termSearchers.length; a++) {
+      const d = this.termSearchers[a].searchIn(e), l = this.idfWeights[a];
       i += l, d.isMatch && (o++, n += l * (1 - d.score), d.indices && s.push(...d.indices));
     }
     if (o === 0)
@@ -1562,30 +1562,30 @@ class Ut {
         isMatch: !1,
         score: 1
       };
-    const a = i > 0 ? 1 - n / i : 0, r = {
+    const c = i > 0 ? 1 - n / i : 0, r = {
       isMatch: !0,
-      score: Math.max(1e-3, a)
+      score: Math.max(1e-3, c)
     };
-    return this.options.includeMatches && s.length && (r.indices = we(s)), r;
+    return this.options.includeMatches && s.length && (r.indices = xe(s)), r;
   }
 }
 L.version = "7.3.0";
-L.createIndex = Ke;
-L.parseIndex = wt;
+L.createIndex = Ye;
+L.parseIndex = xt;
 L.config = m;
 L.match = function(t, e, s) {
-  return J(t, {
+  return Z(t, {
     ...m,
     ...s
   }).searchIn(e);
 };
-L.parseQuery = qe;
-_e(Nt);
-_e(Ut);
+L.parseQuery = Qe;
+Ce(jt);
+Ce(Jt);
 L.use = function(...t) {
-  t.forEach((e) => _e(e));
+  t.forEach((e) => Ce(e));
 };
-const Qt = /* @__PURE__ */ new Set([
+const Xt = /* @__PURE__ */ new Set([
   "what",
   "which",
   "who",
@@ -1640,11 +1640,11 @@ const Qt = /* @__PURE__ */ new Set([
   "been",
   "being"
 ]);
-function Vt(t) {
-  const e = t.toLowerCase().split(/\s+/).filter((s) => !Qt.has(s.replace(/[?!.,]/g, "")));
+function Zt(t) {
+  const e = t.toLowerCase().split(/\s+/).filter((s) => !Xt.has(s.replace(/[?!.,]/g, "")));
   return e.length ? e.join(" ") : t;
 }
-function Jt(t) {
+function es(t) {
   const e = new L(t, {
     keys: [
       { name: "text", weight: 0.6 },
@@ -1659,10 +1659,10 @@ function Jt(t) {
   return {
     search(s, n = 5) {
       if (!s || !s.trim()) return [];
-      const i = Vt(s.trim());
-      return e.search(i, { limit: n }).map((a) => ({
-        ...a.item,
-        score: a.score
+      const i = Zt(s.trim());
+      return e.search(i, { limit: n }).map((c) => ({
+        ...c.item,
+        score: c.score
       }));
     },
     getAllDocs() {
@@ -1670,7 +1670,7 @@ function Jt(t) {
     }
   };
 }
-const Ge = [
+const Ve = [
   {
     id: "nav.about",
     type: "navigate",
@@ -1734,7 +1734,7 @@ const Ge = [
     keywords: ["3d", "world", "game", "explore", "interactive", "drive"],
     examples: ["3d portfolio", "explore the world", "interactive version", "play the game"]
   }
-], ge = [
+], ye = [
   {
     id: "qa.career_detail",
     type: "query",
@@ -1830,52 +1830,52 @@ const Ge = [
     keywords: [],
     examples: ["summarize your experience", "tell me about yourself", "what makes you unique"]
   }
-], pe = {
+], ke = {
   id: "meta.about_ai",
   type: "meta",
   keywords: ["how does this work", "what model", "are you ai", "who are you", "naresh.ai", "what powers you"],
   response: "I'm naresh.ai — a lightweight AI assistant built into this portfolio. I use Fuse.js to search through Naresh's resume data and LLM providers (Groq and Gemini as fallback) to generate natural language answers. Everything runs client-side except the API calls. You get 10 AI queries per day. Try asking about his career, skills, or leadership philosophy!"
-}, Ue = [...Ge, ...ge, pe], Xt = Ue.flatMap((t) => [
+}, Je = [...Ve, ...ye, ke], ts = Je.flatMap((t) => [
   ...t.keywords.map((e) => ({ text: e, intentId: t.id })),
   ...(t.examples || []).map((e) => ({ text: e, intentId: t.id }))
-]), Zt = new L(Xt, {
+]), ss = new L(ts, {
   keys: ["text"],
   threshold: 0.35,
   includeScore: !0,
   ignoreLocation: !0
 });
-function es(t, e, s) {
+function ns(t, e, s) {
   const n = t.trim().toLowerCase();
   if (!n) return null;
-  if (pe.keywords.some((r) => n.includes(r)))
-    return { intent: pe, confidence: 1 };
-  for (const r of Ge)
+  if (ke.keywords.some((r) => n.includes(r)))
+    return { intent: ke, confidence: 1 };
+  for (const r of Ve)
     if (r.keywords.some((d) => {
       const l = d.toLowerCase();
       return n === l || n.includes(l);
-    }) && (n.split(/\s+/).length <= 4 || !Fe(n)))
+    }) && (n.split(/\s+/).length <= 4 || !Re(n)))
       return { intent: r, confidence: 0.9 };
   const o = ["testgorilla", "hopin", "vue.ai", "weinvest", "freshworks", "cognizant"].find((r) => n.includes(r));
-  if (o && Fe(n))
+  if (o && Re(n))
     return {
-      intent: ge.find((r) => r.id === "qa.career_detail"),
+      intent: ye.find((r) => r.id === "qa.career_detail"),
       confidence: 0.85,
       params: { company: o }
     };
-  const a = Zt.search(n, { limit: 5 });
-  if (a.length) {
-    const r = a[0], c = 1 - r.score, d = r.item.intentId, l = Ue.find((f) => f.id === d);
-    if (l && c > 0.7)
-      return l.type === "navigate" ? { intent: l, confidence: c } : { intent: l, confidence: c };
-    if (l && c > 0.4)
-      return { intent: l, confidence: c };
+  const c = ss.search(n, { limit: 5 });
+  if (c.length) {
+    const r = c[0], a = 1 - r.score, d = r.item.intentId, l = Je.find((f) => f.id === d);
+    if (l && a > 0.7)
+      return l.type === "navigate" ? { intent: l, confidence: a } : { intent: l, confidence: a };
+    if (l && a > 0.4)
+      return { intent: l, confidence: a };
   }
   return {
-    intent: ge.find((r) => r.id === "qa.general"),
+    intent: ye.find((r) => r.id === "qa.general"),
     confidence: 0.3
   };
 }
-function Fe(t) {
+function Re(t) {
   const e = [
     "what",
     "how",
@@ -1897,7 +1897,7 @@ function Fe(t) {
   ], s = t.split(/\s+/)[0];
   return t.includes("?") || e.includes(s);
 }
-const ts = `You are naresh.ai, a concise AI assistant for Naresh Sekar's professional portfolio.
+const is = `You are naresh.ai, a concise AI assistant for Naresh Sekar's professional portfolio.
 
 Rules:
 - Answer ONLY from the provided context. If the context doesn't contain the answer, say so honestly.
@@ -1907,13 +1907,13 @@ Rules:
 - If asked about something not in the context, suggest which section of the portfolio might help.
 - Format with **bold** for emphasis and bullet points (using -) for lists. Use short paragraphs separated by blank lines.
 - Be conversational and natural, not robotic.`;
-function ss(t, e) {
+function rs(t, e) {
   const s = e.map((n) => `[Section: ${n.label || n.section}]
 ${n.text}`).join(`
 ---
 `);
   return {
-    system: ts,
+    system: is,
     user: `CONTEXT:
 ---
 ${s}
@@ -1922,25 +1922,22 @@ ${s}
 QUESTION: ${t}`
   };
 }
-const ns = "https://api.groq.com/openai/v1/chat/completions", is = "openai/gpt-oss-20b", rs = "gpt-oss-20b", Qe = "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";
-function os() {
-  return Qe.length > 0;
+const Xe = "https://naresh-ai-proxy.nareshnavinash.workers.dev", os = "openai/gpt-oss-20b", cs = "gpt-oss-20b";
+function as() {
+  return Xe.length > 0;
 }
-async function cs(t, e) {
+async function ls(t, e) {
   const s = {
-    model: is,
+    model: os,
     messages: [
       { role: "system", content: t },
       { role: "user", content: e }
     ],
     temperature: 0.4,
     max_tokens: 512
-  }, n = await fetch(ns, {
+  }, n = await fetch(`${Xe}/api/groq`, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${Qe}`
-    },
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify(s)
   });
   if (n.status === 429)
@@ -1950,17 +1947,17 @@ async function cs(t, e) {
   const o = (await n.json())?.choices?.[0]?.message?.content;
   if (!o)
     throw new Error("EMPTY_RESPONSE");
-  return { text: o, model: rs };
+  return { text: o, model: cs };
 }
-const as = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const us = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
-  generate: cs,
-  hasApiKey: os
-}, Symbol.toStringTag, { value: "Module" })), ls = "https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent", us = "gemini-flash", Ve = "AIzaSyCRViJoYFLh8f0BvKnbelmeQgyudUC8Gdo";
-function hs() {
-  return Ve.length > 0;
+  generate: ls,
+  hasProxy: as
+}, Symbol.toStringTag, { value: "Module" })), Ze = "https://naresh-ai-proxy.nareshnavinash.workers.dev", hs = "gemini-flash";
+function ds() {
+  return Ze.length > 0;
 }
-async function ds(t, e) {
+async function fs(t, e) {
   const s = {
     system_instruction: {
       parts: [{ text: t }]
@@ -1974,7 +1971,7 @@ async function ds(t, e) {
       temperature: 0.4,
       maxOutputTokens: 512
     }
-  }, n = await fetch(`${ls}?key=${Ve}`, {
+  }, n = await fetch(`${Ze}/api/gemini`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(s)
@@ -1986,88 +1983,120 @@ async function ds(t, e) {
   const o = (await n.json())?.candidates?.[0]?.content?.parts?.[0]?.text;
   if (!o)
     throw new Error("EMPTY_RESPONSE");
-  return { text: o, model: us };
+  return { text: o, model: hs };
 }
-const fs = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const gs = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
-  generate: ds,
-  hasApiKey: hs
-}, Symbol.toStringTag, { value: "Module" })), Je = "naresh_ai_rate", Z = 10;
-let U = null;
-function me() {
+  generate: fs,
+  hasProxy: ds
+}, Symbol.toStringTag, { value: "Module" })), et = "naresh_ai_rate", te = 10;
+let V = null;
+function we() {
   return (/* @__PURE__ */ new Date()).toISOString().slice(0, 10);
 }
-function gs() {
+function ps() {
   try {
-    const t = localStorage.getItem(Je);
+    const t = localStorage.getItem(et);
     if (t) {
       const e = JSON.parse(t);
-      if (e.date === me()) return e;
+      if (e.date === we()) return e;
     }
   } catch {
   }
-  return { date: me(), count: 0 };
+  return { date: we(), count: 0 };
 }
-function ps(t) {
+function ms(t) {
   try {
-    localStorage.setItem(Je, JSON.stringify(t));
+    localStorage.setItem(et, JSON.stringify(t));
   } catch {
-    U = t;
+    V = t;
   }
 }
-function Xe() {
-  return U && U.date === me() ? U : gs();
+function tt() {
+  return V && V.date === we() ? V : ps();
 }
-function ms() {
-  const t = Xe();
-  return t.count >= Z ? { remaining: 0, allowed: !1 } : (t.count++, ps(t), { remaining: Z - t.count, allowed: !0 });
-}
-function ye() {
-  return Z - Xe().count;
-}
-function ke() {
-  return Z;
-}
-const Te = 1500;
-let ie = 0;
-const Ze = [
-  { name: "groq", client: as },
-  { name: "gemini", client: fs }
-];
 function ys() {
-  return Ze.some((t) => t.client.hasApiKey());
+  const t = tt();
+  return t.count >= te ? { remaining: 0, allowed: !1 } : (t.count++, ms(t), { remaining: te - t.count, allowed: !0 });
 }
-async function ks(t, e) {
-  if (!ms().allowed)
+function be() {
+  return te - tt().count;
+}
+function Ee() {
+  return te;
+}
+const Ne = 1500;
+let oe = 0;
+const st = [
+  { name: "groq", client: us },
+  { name: "gemini", client: gs }
+];
+function ks() {
+  return st.some((t) => t.client.hasProxy());
+}
+async function ws(t, e) {
+  if (!ys().allowed)
     throw new Error("DAILY_LIMIT");
   const n = Date.now();
-  n - ie < Te && await new Promise((o) => setTimeout(o, Te - (n - ie))), ie = Date.now();
+  n - oe < Ne && await new Promise((o) => setTimeout(o, Ne - (n - oe))), oe = Date.now();
   let i = null;
-  for (const { name: o, client: a } of Ze)
-    if (a.hasApiKey())
+  for (const { name: o, client: c } of st)
+    if (c.hasProxy())
       try {
-        return { ...await a.generate(t, e), provider: o };
+        return { ...await c.generate(t, e), provider: o };
       } catch (r) {
         i = r;
         continue;
       }
   throw i || new Error("NO_API_KEY");
 }
-function Be(t) {
+let U = null, H = null;
+async function bs() {
+  return U || H || (H = fetch("data/ai-cache.json").then((t) => t.ok ? t.json() : []).catch(() => []).then((t) => (U = t, H = null, U)), H);
+}
+function ce(t) {
+  return t.toLowerCase().replace(/[?!.,;:'"]/g, "").replace(/\s+/g, " ").trim();
+}
+function Es(t, e) {
+  if (!e || !e.length) return null;
+  const s = ce(t);
+  for (const c of e)
+    if (ce(c.q) === s) return c;
+  const n = s.split(" ").filter((c) => c.length > 2);
+  if (!n.length) return null;
+  let i = null, o = 0;
+  for (const c of e) {
+    const r = ce(c.q);
+    let a = 0;
+    for (const l of n)
+      r.includes(l) && a++;
+    const d = a / Math.max(n.length, r.split(" ").filter((l) => l.length > 2).length);
+    d > o && (o = d, i = c);
+  }
+  return o >= 0.7 ? i : null;
+}
+function Oe(t) {
   const e = /* @__PURE__ */ new Set(), s = [];
   for (const n of t)
     if (!e.has(n.section) && (e.add(n.section), s.push(n), s.length >= 5))
       break;
   return s;
 }
-async function bs(t, e, s) {
-  const n = e.search(t, 5), i = n.length >= 3 ? n : n.length ? [...n, ...Be(s).filter((c) => !n.some((d) => d.id === c.id))].slice(0, 5) : Be(s), o = i.map((c) => ({
-    id: c.id,
-    section: c.section,
-    label: c.label,
-    meta: c.meta
-  }));
-  if (!ys())
+async function As(t, e, s) {
+  const n = e.search(t, 5), i = n.length >= 3 ? n : n.length ? [...n, ...Oe(s).filter((l) => !n.some((f) => f.id === l.id))].slice(0, 5) : Oe(s), o = i.map((l) => ({
+    id: l.id,
+    section: l.section,
+    label: l.label,
+    meta: l.meta
+  })), c = await bs(), r = Es(t, c);
+  if (r)
+    return {
+      type: "answer",
+      text: r.a,
+      sources: r.sources || o,
+      model: r.model || "cached"
+    };
+  if (!ks())
     return {
       type: "fallback",
       text: "Here's what I found in the resume:",
@@ -2075,31 +2104,31 @@ async function bs(t, e, s) {
       chunks: i,
       model: null
     };
-  const { system: a, user: r } = ss(t, i);
+  const { system: a, user: d } = rs(t, i);
   try {
-    const c = await ks(a, r);
+    const l = await ws(a, d);
     return {
       type: "answer",
-      text: c.text,
+      text: l.text,
       sources: o,
-      model: c.model
+      model: l.model
     };
-  } catch (c) {
-    const d = c.message || "UNKNOWN";
-    let l = "I couldn't reach the AI. Here's what I found locally:";
-    return d === "DAILY_LIMIT" ? l = `You've reached the daily limit (${ye()}/${ke()}). Come back tomorrow! Here's what I found locally:` : d === "RATE_LIMITED" ? l = "naresh.ai is popular today — I've hit the rate limit. Here's what I found locally:" : d === "NO_API_KEY" && (l = "AI answers aren't configured. Here's what I found in the resume:"), {
+  } catch (l) {
+    const f = l.message || "UNKNOWN";
+    let g = "I couldn't reach the AI. Here's what I found locally:";
+    return f === "DAILY_LIMIT" ? g = `You've reached the daily limit (${be()}/${Ee()}). Come back tomorrow! Here's what I found locally:` : f === "RATE_LIMITED" ? g = "naresh.ai is popular today — I've hit the rate limit. Here's what I found locally:" : f === "NO_API_KEY" && (g = "AI answers aren't configured. Here's what I found in the resume:"), {
       type: "fallback",
-      text: l,
+      text: g,
       sources: o,
       chunks: i,
-      error: d,
+      error: f,
       model: null
     };
   }
 }
-let b = null;
-function Es(t) {
-  const { logEl: e, inputEl: s, sendEl: n, suggEl: i, search: o, chunks: a, handlers: r, suggestions: c, queryRAG: d, getRemaining: l, getMax: f } = t;
+let w = null;
+function _s(t) {
+  const { logEl: e, inputEl: s, sendEl: n, suggEl: i, search: o, chunks: c, handlers: r, suggestions: a, queryRAG: d, getRemaining: l, getMax: f } = t;
   if (!e || !s || !n) return;
   const g = e.closest(".ask")?.querySelector(".ask__head-l");
   let h = null, k = null;
@@ -2113,7 +2142,7 @@ function Es(t) {
       text: "Hi! Ask me anything about Naresh's work, leadership, or projects. I'll answer from his resume."
     }
   ];
-  b = {
+  w = {
     logEl: e,
     inputEl: s,
     sendEl: n,
@@ -2122,78 +2151,78 @@ function Es(t) {
     rateEl: k,
     messages: p,
     search: o,
-    chunks: a,
+    chunks: c,
     handlers: r,
-    suggestions: c,
+    suggestions: a,
     queryRAG: d,
     getRemaining: l,
     getMax: f
   };
   const u = async (y) => {
-    const E = (y || s.value || "").trim();
-    if (E) {
-      s.value = "", p.push({ role: "u", text: E }), F(), K("thinking"), p.push({ role: "t", stage: "searching resume..." }), F();
+    const b = (y || s.value || "").trim();
+    if (b) {
+      s.value = "", p.push({ role: "u", text: b }), F(), W("thinking"), p.push({ role: "t", stage: "searching resume..." }), F();
       try {
-        const w = es(E, o, r);
-        if (w?.intent?.type === "meta") {
-          q(), p.push({ role: "a", text: w.intent.response }), F(), K("ready");
+        const E = ns(b, o, r);
+        if (E?.intent?.type === "meta") {
+          G(), p.push({ role: "a", text: E.intent.response }), F(), W("ready");
           return;
         }
-        if (w?.intent?.type === "navigate" && w.confidence >= 0.7) {
-          const I = w.intent.target;
-          if (q(), I.startsWith("/")) {
-            p.push({ role: "a", text: "Taking you to the 3D world..." }), F(), K("ready"), setTimeout(() => {
-              window.location.href = I;
+        if (E?.intent?.type === "navigate" && E.confidence >= 0.7) {
+          const C = E.intent.target;
+          if (G(), C.startsWith("/")) {
+            p.push({ role: "a", text: "Taking you to the 3D world..." }), F(), W("ready"), setTimeout(() => {
+              window.location.href = C;
             }, 600);
             return;
           }
           p.push({
             role: "a",
-            text: `Scrolling to ${w.intent.id.replace("nav.", "")} section...`
-          }), F(), K("ready"), r.scrollTo?.(I);
+            text: `Scrolling to ${E.intent.id.replace("nav.", "")} section...`
+          }), F(), W("ready"), r.scrollTo?.(C);
           return;
         }
-        As("generating answer...");
-        const A = await d(E);
-        q(), A.type === "answer" ? (p.push({ role: "a", text: A.text, model: A.model }), A.sources?.length && p.push({ role: "sources", items: A.sources })) : (p.push({
+        vs("generating answer...");
+        const A = await d(b);
+        G(), A.type === "answer" ? (p.push({ role: "a", text: A.text, model: A.model }), A.sources?.length && p.push({ role: "sources", items: A.sources })) : (p.push({
           role: "a",
           text: A.text,
           model: A.model,
           variant: A.error ? "error" : void 0
         }), A.chunks?.length && p.push({
           role: "sources",
-          items: A.chunks.map((I) => ({
-            id: I.id,
-            section: I.section,
-            label: I.label,
-            meta: I.meta
+          items: A.chunks.map((C) => ({
+            id: C.id,
+            section: C.section,
+            label: C.label,
+            meta: C.meta
           }))
-        })), F(), Re(), vs(w?.intent?.id);
+        })), F(), Pe(), Is(E?.intent?.id);
       } catch {
-        q(), p.push({
+        G(), p.push({
           role: "a",
           text: "Something went wrong. Try asking in a different way.",
           variant: "error"
-        }), F(), Re();
+        }), F(), Pe();
       }
-      K("ready");
+      W("ready");
     }
   };
   return n.addEventListener("click", () => u()), s.addEventListener("keydown", (y) => {
     y.key === "Enter" && u();
-  }), _s(c, u), F(), { send: u };
+  }), Cs(a, u), F(), { send: u };
 }
 function F() {
-  if (!b) return;
-  const { logEl: t, messages: e, handlers: s } = b;
+  if (!w) return;
+  const { logEl: t, messages: e, handlers: s } = w;
   t.innerHTML = "", e.forEach((n) => {
     if (n.role === "a") {
       const i = document.createElement("div");
       i.className = "msg__tag", i.textContent = n.model ? `NARESH.AI · via ${n.model}` : "NARESH.AI";
       const o = document.createElement("div");
-      o.innerHTML = xs(n.text);
-      const a = document.createElement("div");
-      a.className = `msg msg--a${n.variant === "error" ? " msg--error" : ""}`, a.append(i, o), t.append(a);
+      o.innerHTML = Ss(n.text);
+      const c = document.createElement("div");
+      c.className = `msg msg--a${n.variant === "error" ? " msg--error" : ""}`, c.append(i, o), t.append(c);
     } else if (n.role === "u") {
       const i = document.createElement("div");
       i.className = "msg msg--u", i.textContent = n.text, t.append(i);
@@ -2203,13 +2232,13 @@ function F() {
     } else if (n.role === "sources") {
       const i = document.createElement("div");
       i.className = "msg__sources", (n.items || []).forEach((o) => {
-        const a = document.createElement("button");
-        a.className = "msg__src", a.textContent = o.label || o.section, a.addEventListener("click", () => ws(o, s)), i.append(a);
+        const c = document.createElement("button");
+        c.className = "msg__src", c.textContent = o.label || o.section, c.addEventListener("click", () => xs(o, s)), i.append(c);
       }), t.append(i);
     }
   }), t.scrollTop = t.scrollHeight;
 }
-function ws(t, e) {
+function xs(t, e) {
   const s = {
     about: "#about",
     career: "#career",
@@ -2236,62 +2265,62 @@ function ws(t, e) {
   const n = s[t.section];
   n && e.scrollTo?.(n);
 }
-function K(t) {
-  b?.statusEl && (b.statusEl.dataset.state = t, b.statusEl.textContent = t === "ready" ? "ready" : t === "thinking" ? "thinking..." : t);
+function W(t) {
+  w?.statusEl && (w.statusEl.dataset.state = t, w.statusEl.textContent = t === "ready" ? "ready" : t === "thinking" ? "thinking..." : t);
 }
-function Re() {
-  !b?.rateEl || !b.getRemaining || (b.rateEl.textContent = `${b.getRemaining()}/${b.getMax()}`);
+function Pe() {
+  !w?.rateEl || !w.getRemaining || (w.rateEl.textContent = `${w.getRemaining()}/${w.getMax()}`);
 }
-function q() {
-  if (!b) return;
-  const t = b.messages.findIndex((e) => e.role === "t");
-  t !== -1 && b.messages.splice(t, 1);
+function G() {
+  if (!w) return;
+  const t = w.messages.findIndex((e) => e.role === "t");
+  t !== -1 && w.messages.splice(t, 1);
 }
-function As(t) {
-  if (!b) return;
-  const e = b.messages.find((s) => s.role === "t");
+function vs(t) {
+  if (!w) return;
+  const e = w.messages.find((s) => s.role === "t");
   e && (e.stage = t, F());
 }
-function _s(t, e) {
-  b?.suggEl && (b.suggEl.innerHTML = "", (t || []).forEach((s) => {
+function Cs(t, e) {
+  w?.suggEl && (w.suggEl.innerHTML = "", (t || []).forEach((s) => {
     const n = document.createElement("button");
     n.className = "sugg", n.textContent = s, n.addEventListener("click", () => {
-      b.suggEl.innerHTML = "", e(s);
-    }), b.suggEl.append(n);
+      w.suggEl.innerHTML = "", e(s);
+    }), w.suggEl.append(n);
   }));
 }
-function xs(t) {
+function Ss(t) {
   let e = String(t ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
   return e = e.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>"), e.split(/\n{2,}/).map((n) => {
     const i = n.split(`
 `);
-    return i.every((o) => /^[-•]\s/.test(o.trim()) || !o.trim()) ? `<ul>${i.filter((a) => a.trim()).map((a) => `<li>${a.replace(/^[-•]\s+/, "")}</li>`).join("")}</ul>` : `<p>${i.join("<br>")}</p>`;
+    return i.every((o) => /^[-•]\s/.test(o.trim()) || !o.trim()) ? `<ul>${i.filter((c) => c.trim()).map((c) => `<li>${c.replace(/^[-•]\s+/, "")}</li>`).join("")}</ul>` : `<p>${i.join("<br>")}</p>`;
   }).join("");
 }
-const Ne = {
+const je = {
   "qa.career_detail": ["What technologies were used?", "How large was the team?", "What about the previous role?"],
   "qa.skills_fit": ["Show me related projects", "Where was this used?"],
   "qa.leadership": ["How do you handle conflict?", "Tell me about team growth"],
   "qa.recruiter": ["What certifications does he have?", "Tell me about his AI experience"],
   "qa.general": ["Show leadership principles", "What are his top projects?"]
 };
-function vs(t) {
-  if (!b?.suggEl) return;
-  const e = Ne[t] || Ne["qa.general"];
-  b.suggEl.innerHTML = "", e.forEach((s) => {
+function Is(t) {
+  if (!w?.suggEl) return;
+  const e = je[t] || je["qa.general"];
+  w.suggEl.innerHTML = "", e.forEach((s) => {
     const n = document.createElement("button");
     n.className = "sugg", n.textContent = s, n.addEventListener("click", () => {
-      b.suggEl.innerHTML = "";
-      const i = b.inputEl?.closest(".ask")?.querySelector("#ask-send");
-      i && (b.inputEl.value = s, i.click());
-    }), b.suggEl.append(n);
+      w.suggEl.innerHTML = "";
+      const i = w.inputEl?.closest(".ask")?.querySelector("#ask-send");
+      i && (w.inputEl.value = s, i.click());
+    }), w.suggEl.append(n);
   });
 }
-let D = null, O = null, T = null, be = null, S = 0, xe = [], ve = null, Q = null, j = null, V = null;
-function Is({ resumeData: t, search: e, handlers: s, getRemaining: n, getMax: i }) {
-  V = { getRemaining: n, getMax: i };
-  const o = Cs(t);
-  ve = new L(o, {
+let D = null, O = null, T = null, Ae = null, I = 0, Se = [], Ie = null, J = null, j = null, X = null;
+function Ms({ resumeData: t, search: e, handlers: s, getRemaining: n, getMax: i }) {
+  X = { getRemaining: n, getMax: i };
+  const o = $s(t);
+  Ie = new L(o, {
     keys: [
       { name: "label", weight: 0.5 },
       { name: "subtitle", weight: 0.3 },
@@ -2300,9 +2329,9 @@ function Is({ resumeData: t, search: e, handlers: s, getRemaining: n, getMax: i 
     threshold: 0.4,
     includeScore: !0,
     ignoreLocation: !0
-  }), xe = o, Ss(), Ms(s);
+  }), Se = o, Ds(), Ls(s);
 }
-function Cs(t) {
+function $s(t) {
   const e = [];
   return [
     { id: "#about", label: "About", subtitle: "Who is Naresh" },
@@ -2322,18 +2351,18 @@ function Cs(t) {
       searchText: `${r.label} ${r.subtitle}`,
       action: { type: "scroll", target: r.id }
     });
-  }), (t.career || []).forEach((r, c) => {
+  }), (t.career || []).forEach((r, a) => {
     r.isTail || e.push({
       category: "Career",
       icon: r.role?.includes("Manager") ? "EM" : r.role?.substring(0, 2) || ">>",
       label: `${r.role} at ${r.co}`,
       subtitle: r.date,
       searchText: `${r.role} ${r.co} ${r.date} ${r.teaser}`,
-      action: { type: "career", idx: c }
+      action: { type: "career", idx: a }
     });
   }), [
-    ...(t.reposStarred || []).map((r, c) => ({ ...r, __kind: "Starred", __idx: c })),
-    ...(t.reposRecent || []).map((r, c) => ({ ...r, __kind: "Recent", __idx: c }))
+    ...(t.reposStarred || []).map((r, a) => ({ ...r, __kind: "Starred", __idx: a })),
+    ...(t.reposRecent || []).map((r, a) => ({ ...r, __kind: "Recent", __idx: a }))
   ].forEach((r) => {
     e.push({
       category: "Repos",
@@ -2344,8 +2373,8 @@ function Cs(t) {
       action: { type: "repo", kind: r.__kind, idx: r.__idx }
     });
   }), [
-    ...(t.articlesPinned || []).map((r, c) => ({ ...r, __kind: "Pinned", __idx: c })),
-    ...(t.articlesRecent || []).map((r, c) => ({ ...r, __kind: "Recent", __idx: c }))
+    ...(t.articlesPinned || []).map((r, a) => ({ ...r, __kind: "Pinned", __idx: a })),
+    ...(t.articlesRecent || []).map((r, a) => ({ ...r, __kind: "Recent", __idx: a }))
   ].forEach((r) => {
     e.push({
       category: "Articles",
@@ -2356,19 +2385,19 @@ function Cs(t) {
       action: { type: "article", kind: r.__kind, idx: r.__idx }
     });
   }), (t.skills || []).forEach((r) => {
-    r.items.forEach((c) => {
+    r.items.forEach((a) => {
       e.push({
         category: "Skills",
         icon: "[S]",
-        label: c,
+        label: a,
         subtitle: r.name,
-        searchText: `${c} ${r.name} skill`,
+        searchText: `${a} ${r.name} skill`,
         action: { type: "scroll", target: "#skills" }
       });
     });
   }), e;
 }
-function Ss() {
+function Ds() {
   if (document.getElementById("cmdk-overlay")) return;
   document.body.insertAdjacentHTML("beforeend", `
         <div id="cmdk-overlay" class="cmdk" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Quick search">
@@ -2389,79 +2418,79 @@ function Ss() {
                     <span class="cmdk__rate"></span>
                 </div>
             </div>
-        </div>`), D = document.getElementById("cmdk-overlay"), O = document.getElementById("cmdk-input"), T = document.getElementById("cmdk-results"), be = D.querySelector(".cmdk__rate"), D.querySelector(".cmdk__backdrop").addEventListener("click", ee);
+        </div>`), D = document.getElementById("cmdk-overlay"), O = document.getElementById("cmdk-input"), T = document.getElementById("cmdk-results"), Ae = D.querySelector(".cmdk__rate"), D.querySelector(".cmdk__backdrop").addEventListener("click", se);
   let e = null;
   O.addEventListener("input", () => {
     clearTimeout(e), e = setTimeout(() => {
-      S = 0, et(O.value.trim());
+      I = 0, nt(O.value.trim());
     }, 80);
   }), O.addEventListener("keydown", (s) => {
     const n = T.querySelectorAll(".cmdk__item").length;
-    s.key === "ArrowDown" ? (s.preventDefault(), S = (S + 1) % Math.max(n, 1), te()) : s.key === "ArrowUp" ? (s.preventDefault(), S = (S - 1 + Math.max(n, 1)) % Math.max(n, 1), te()) : s.key === "Enter" ? (s.preventDefault(), $s()) : s.key === "Escape" && (s.preventDefault(), ee());
+    s.key === "ArrowDown" ? (s.preventDefault(), I = (I + 1) % Math.max(n, 1), ne()) : s.key === "ArrowUp" ? (s.preventDefault(), I = (I - 1 + Math.max(n, 1)) % Math.max(n, 1), ne()) : s.key === "Enter" ? (s.preventDefault(), Fs()) : s.key === "Escape" && (s.preventDefault(), se());
   });
 }
-function Ms(t) {
+function Ls(t) {
   j = t, document.addEventListener("keydown", (s) => {
-    (s.metaKey || s.ctrlKey) && s.key === "k" && (s.preventDefault(), D?.classList.contains("open") ? ee() : Oe());
+    (s.metaKey || s.ctrlKey) && s.key === "k" && (s.preventDefault(), D?.classList.contains("open") ? se() : ze());
   });
   const e = document.getElementById("search-btn");
-  e && e.addEventListener("click", () => Oe());
+  e && e.addEventListener("click", () => ze());
 }
-function Oe() {
-  D && (Q = document.activeElement, D.classList.add("open"), D.setAttribute("aria-hidden", "false"), document.body.classList.add("cmdk-open"), O.value = "", S = 0, et(""), be && V?.getRemaining && (be.textContent = `${V.getRemaining()}/${V.getMax()} AI queries today`), setTimeout(() => O.focus(), 50));
+function ze() {
+  D && (J = document.activeElement, D.classList.add("open"), D.setAttribute("aria-hidden", "false"), document.body.classList.add("cmdk-open"), O.value = "", I = 0, nt(""), Ae && X?.getRemaining && (Ae.textContent = `${X.getRemaining()}/${X.getMax()} AI queries today`), setTimeout(() => O.focus(), 50));
 }
-function ee() {
-  D && (D.classList.remove("open"), D.setAttribute("aria-hidden", "true"), document.body.classList.remove("cmdk-open"), Q && (Q.focus(), Q = null));
+function se() {
+  D && (D.classList.remove("open"), D.setAttribute("aria-hidden", "true"), document.body.classList.remove("cmdk-open"), J && (J.focus(), J = null));
 }
-function et(t) {
+function nt(t) {
   if (!T) return;
   T.innerHTML = "";
   let e;
-  t ? (e = ve.search(t, { limit: 8 }).map((o) => o.item), t.length >= 3 && e.push({
+  t ? (e = Ie.search(t, { limit: 8 }).map((o) => o.item), t.length >= 3 && e.push({
     category: "Ask AI",
     icon: "✦",
     label: `Ask naresh.ai: "${t}"`,
     subtitle: "Get an AI-powered answer",
     action: { type: "ask", query: t }
-  })) : e = xe.filter((i) => i.category === "Sections" || i.category === "Career");
+  })) : e = Se.filter((i) => i.category === "Sections" || i.category === "Career");
   const s = /* @__PURE__ */ new Map();
   e.forEach((i) => {
     s.has(i.category) || s.set(i.category, []), s.get(i.category).push(i);
   });
   let n = 0;
   s.forEach((i, o) => {
-    const a = document.createElement("div");
-    a.className = "cmdk__group-label", a.textContent = o, T.append(a), i.forEach((r) => {
-      const c = document.createElement("div");
-      c.className = "cmdk__item", c.setAttribute("role", "option"), c.dataset.idx = n, c.innerHTML = `
-                <span class="cmdk__item-icon">${re(r.icon)}</span>
+    const c = document.createElement("div");
+    c.className = "cmdk__group-label", c.textContent = o, T.append(c), i.forEach((r) => {
+      const a = document.createElement("div");
+      a.className = "cmdk__item", a.setAttribute("role", "option"), a.dataset.idx = n, a.innerHTML = `
+                <span class="cmdk__item-icon">${ae(r.icon)}</span>
                 <div class="cmdk__item-text">
-                    <div class="cmdk__item-title">${re(r.label)}</div>
-                    <div class="cmdk__item-subtitle">${re(r.subtitle)}</div>
-                </div>`, c.addEventListener("click", () => tt(r.action)), c.addEventListener("mouseenter", () => {
-        S = parseInt(c.dataset.idx, 10), te();
-      }), T.append(c), n++;
+                    <div class="cmdk__item-title">${ae(r.label)}</div>
+                    <div class="cmdk__item-subtitle">${ae(r.subtitle)}</div>
+                </div>`, a.addEventListener("click", () => it(r.action)), a.addEventListener("mouseenter", () => {
+        I = parseInt(a.dataset.idx, 10), ne();
+      }), T.append(a), n++;
     });
-  }), te();
+  }), ne();
 }
-function te() {
+function ne() {
   if (!T) return;
   const t = T.querySelectorAll(".cmdk__item");
   t.forEach((s, n) => {
-    s.setAttribute("aria-selected", n === S ? "true" : "false");
+    s.setAttribute("aria-selected", n === I ? "true" : "false");
   });
-  const e = t[S];
+  const e = t[I];
   e && e.scrollIntoView({ block: "nearest" });
 }
-function $s() {
-  if (!T.querySelectorAll(".cmdk__item")[S]) return;
+function Fs() {
+  if (!T.querySelectorAll(".cmdk__item")[I]) return;
   const e = O.value.trim();
   let s;
-  e ? (s = ve.search(e, { limit: 8 }).map((n) => n.item), e.length >= 3 && s.push({ action: { type: "ask", query: e } })) : s = xe.filter((n) => n.category === "Sections" || n.category === "Career"), s[S] && tt(s[S].action);
+  e ? (s = Ie.search(e, { limit: 8 }).map((n) => n.item), e.length >= 3 && s.push({ action: { type: "ask", query: e } })) : s = Se.filter((n) => n.category === "Sections" || n.category === "Career"), s[I] && it(s[I].action);
 }
-function tt(t) {
+function it(t) {
   if (!(!t || !j))
-    switch (ee(), t.type) {
+    switch (se(), t.type) {
       case "scroll":
         j.scrollTo?.(t.target);
         break;
@@ -2475,39 +2504,39 @@ function tt(t) {
         j.openDetailModal?.("article", (t.kind || "").toLowerCase(), t.idx);
         break;
       case "ask":
-        Ds(t.query);
+        Ts(t.query);
         break;
     }
 }
-function Ds(t) {
+function Ts(t) {
   const e = document.getElementById("chat-panel"), s = document.getElementById("chat-fab"), n = document.getElementById("ask-input"), i = document.getElementById("ask-send");
   e && !e.classList.contains("is-open") && (e.classList.add("is-open"), e.setAttribute("aria-hidden", "false"), s && s.setAttribute("aria-expanded", "true"), document.body.classList.add("chat-open")), n && i && (n.value = t, setTimeout(() => i.click(), 100));
 }
-function re(t) {
+function ae(t) {
   return String(t ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 }
-function Fs({ resumeData: t, chatRoot: e, handlers: s, suggestions: n }) {
-  const i = nt(t), o = Jt(i);
-  Es({
+function Rs({ resumeData: t, chatRoot: e, handlers: s, suggestions: n }) {
+  const i = ot(t), o = es(i);
+  _s({
     ...e,
     search: o,
     chunks: i,
     handlers: s,
     suggestions: n,
-    queryRAG: (a) => bs(a, o, i),
-    getRemaining: ye,
-    getMax: ke
-  }), Is({
+    queryRAG: (c) => As(c, o, i),
+    getRemaining: be,
+    getMax: Ee
+  }), Ms({
     resumeData: t,
     search: o,
     handlers: s,
-    getRemaining: ye,
-    getMax: ke
+    getRemaining: be,
+    getMax: Ee
   });
 }
-function Ts() {
+function Ns() {
 }
 export {
-  Ts as destroy,
-  Fs as init
+  Ns as destroy,
+  Rs as init
 };
