@@ -37,7 +37,7 @@ async function loadResume() {
     const candidates = ['data/resume.json', '/data/resume.json', 'resume.json', '/resume.json', '../resume.json']
     for (const p of candidates) {
         try {
-            const r = await fetch(p, { cache: 'no-cache' })
+            const r = await fetch(p)
             if (r.ok) return await r.json()
         } catch (_) {
             /* try next */
