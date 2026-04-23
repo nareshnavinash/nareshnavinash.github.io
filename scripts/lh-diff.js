@@ -36,7 +36,10 @@ const metricLine = (id, label) => {
     const dx = (av ?? 0) - (bv ?? 0)
     const tag = id === 'cumulative-layout-shift' ? '' : 'ms'
     const fmt = (v) => (v == null ? '—' : id === 'cumulative-layout-shift' ? v.toFixed(3) : fmtMs(v))
-    const delta = dx === 0 ? '·' : `${dx > 0 ? '+' : ''}${id === 'cumulative-layout-shift' ? dx.toFixed(3) : Math.round(dx) + tag}`
+    const delta =
+        dx === 0
+            ? '·'
+            : `${dx > 0 ? '+' : ''}${id === 'cumulative-layout-shift' ? dx.toFixed(3) : Math.round(dx) + tag}`
     return `  ${label.padEnd(24)} ${fmt(bv)} → ${fmt(av)}  (${delta})`
 }
 
@@ -78,13 +81,18 @@ auditRows.sort((x, y) => y.delta - x.delta)
 const regressions = auditRows.filter((r) => r.delta > 50).slice(0, 5)
 if (regressions.length) {
     console.log(`\n## Regressions (audit numericValue went up)`)
-    for (const r of regressions) console.log(`  ${r.title}: ${Math.round(r.before)} → ${Math.round(r.after)} (+${Math.round(r.delta)})`)
+    for (const r of regressions)
+        console.log(`  ${r.title}: ${Math.round(r.before)} → ${Math.round(r.after)} (+${Math.round(r.delta)})`)
 }
 
-const improvements = auditRows.filter((r) => r.delta < -50).sort((x, y) => x.delta - y.delta).slice(0, 5)
+const improvements = auditRows
+    .filter((r) => r.delta < -50)
+    .sort((x, y) => x.delta - y.delta)
+    .slice(0, 5)
 if (improvements.length) {
     console.log(`\n## Improvements`)
-    for (const r of improvements) console.log(`  ${r.title}: ${Math.round(r.before)} → ${Math.round(r.after)} (${Math.round(r.delta)})`)
+    for (const r of improvements)
+        console.log(`  ${r.title}: ${Math.round(r.before)} → ${Math.round(r.after)} (${Math.round(r.delta)})`)
 }
 
 console.log('')

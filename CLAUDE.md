@@ -8,22 +8,23 @@ Interactive 3D portfolio for Naresh Sekar, built on Bruno Simon's folio-2025. Fe
 
 ## Commands
 
-| Task | Command |
-|------|---------|
-| Dev server | `npm run dev` (runs at localhost with Vite, auto-opens browser) |
-| Production build | `npm run build` (outputs to `docs/`) |
-| Preview build | `npm run preview` |
-| Tests | `npm test` (vitest with 100% coverage thresholds) |
-| Lint | `npm run lint` |
-| Format | `npm run format` |
-| Fetch GitHub repos | `npm run fetch-repos` (requires `VITE_GITHUB_TOKEN` in `.env`) |
-| Compress static assets | `npm run compress` |
+| Task                   | Command                                                         |
+| ---------------------- | --------------------------------------------------------------- |
+| Dev server             | `npm run dev` (runs at localhost with Vite, auto-opens browser) |
+| Production build       | `npm run build` (outputs to `docs/`)                            |
+| Preview build          | `npm run preview`                                               |
+| Tests                  | `npm test` (vitest with 100% coverage thresholds)               |
+| Lint                   | `npm run lint`                                                  |
+| Format                 | `npm run format`                                                |
+| Fetch GitHub repos     | `npm run fetch-repos` (requires `VITE_GITHUB_TOKEN` in `.env`)  |
+| Compress static assets | `npm run compress`                                              |
 
 ## Architecture
 
 There are **two separate apps** in this repo:
 
 ### 1. 3D Game World (Vite app)
+
 - **Entry:** `sources/index.js` → `sources/Game/Game.js`
 - **Vite root:** `sources/` (configured in `vite.config.js` with `root: 'sources/'`)
 - **Static assets:** `static/` (served as Vite's `publicDir`)
@@ -31,6 +32,7 @@ There are **two separate apps** in this repo:
 - **Original folio-2025 code:** `sources/Game/` — singleton-based architecture with subsystems (Physics, Rendering, Inputs, World, Weather, etc.)
 
 ### 2. Custom 3D Game Layer (`src/`)
+
 - **Entry:** `src/main.js` → `src/Game/Game.js`
 - Extends the base world with portfolio-specific areas: `src/Game/World/Areas/` (Career, Skills, About, Contact, etc.)
 - Each area extends `BaseArea.js` and places 3D objects + interactive points in the world
@@ -38,6 +40,7 @@ There are **two separate apps** in this repo:
 - Color palette and world config in `src/Data/`
 
 ### 3. Static Profile Page
+
 - **Files:** `profile.html`, `js/`, `css/`
 - Standalone HTML page (no Vite bundling) with its own Three.js background scene (`js/three-scene.js`)
 - Content loaded from `resume.json` via `js/resume-loader.js`

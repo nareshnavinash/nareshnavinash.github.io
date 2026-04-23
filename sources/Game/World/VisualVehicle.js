@@ -438,7 +438,9 @@ export class VisualVehicle {
             16
 
         this.wheels.smoothedForwardSpeed = this.wheels.smoothedForwardSpeed || 0
-        this.wheels.smoothedForwardSpeed += (physicalVehicle.forwardSpeed - this.wheels.smoothedForwardSpeed) * Math.min(1, this.game.ticker.deltaScaled * 8)
+        this.wheels.smoothedForwardSpeed +=
+            (physicalVehicle.forwardSpeed - this.wheels.smoothedForwardSpeed) *
+            Math.min(1, this.game.ticker.deltaScaled * 8)
         const wheelsRotation = (this.wheels.smoothedForwardSpeed / physicalVehicle.wheels.settings.radius) * 0.006
 
         for (let i = 0; i < 4; i++) {

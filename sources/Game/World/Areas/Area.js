@@ -50,7 +50,9 @@ export class Area {
                 if (object.physical && object.physical.type === 'dynamic') {
                     const colliderCount = object.physical.colliders.length
                     const bodyPos = object.physical.body.translation()
-                    console.log(`[Physics] ${child.name} → type=${object.physical.type}, colliders=${colliderCount}, pos=(${bodyPos.x.toFixed(1)}, ${bodyPos.y.toFixed(1)}, ${bodyPos.z.toFixed(1)})`)
+                    console.log(
+                        `[Physics] ${child.name} → type=${object.physical.type}, colliders=${colliderCount}, pos=(${bodyPos.x.toFixed(1)}, ${bodyPos.y.toFixed(1)}, ${bodyPos.z.toFixed(1)})`
+                    )
                     if (colliderCount === 0) {
                         console.warn(`[Physics] ⚠ ${child.name} has NO colliders - car will pass through!`)
                     }

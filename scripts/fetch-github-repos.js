@@ -172,16 +172,44 @@ async function fetchRepos() {
     return { starred, recent }
 }
 
+async function fetchPublicRepoCount() {
+    try {
+        var response = await fetch(`https://api.github.com/users/${GITHUB_USER}`, {
+            headers: {
+                Accept: 'application/vnd.github.v3+json',
+                'User-Agent': 'naresh-portfolio-build'
+            },
+            signal: AbortSignal.timeout(5000)
+        })
+        if (!response.ok) return null
+        var data = await response.json()
+        return Number.isFinite(data.public_repos) ? data.public_repos : null
+    } catch (_e) {
+        return null
+    }
+}
+
 try {
     console.log('Fetching GitHub repos...')
     var { starred, recent } = await fetchRepos()
     console.log(`Fetched ${starred.length} starred + ${recent.length} recent repos`)
 
+    var publicRepoCount = await fetchPublicRepoCount()
+    if (publicRepoCount != null) {
+        console.log(`Public repo count: ${publicRepoCount}`)
+    } else {
+        console.log('Public repo count: (unavailable, keeping existing value)')
+    }
+
     var resume = JSON.parse(readFileSync(resumePath, 'utf-8'))
-    resume.openSource = {
+    var nextOpenSource = {
         ...resume.openSource,
         repos: { starred, recent }
     }
+    if (publicRepoCount != null) {
+        nextOpenSource.publicRepoCount = publicRepoCount
+    }
+    resume.openSource = nextOpenSource
     writeFileSync(resumePath, JSON.stringify(resume, null, 4) + '\n', 'utf-8')
     console.log('Updated resume.json with GitHub repos')
 } catch (err) {

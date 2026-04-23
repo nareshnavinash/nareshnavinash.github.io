@@ -180,6 +180,12 @@
     "career": {
         "title": "Experience.",
         "subtitle": "A decade of growth - from hands-on engineering to leading teams.",
+        "recentCount": 3,
+        "tailCard": {
+            "role": "Before that",
+            "teaser": "~5 years as SDET and early-career engineer across four companies",
+            "dateLabel": "June 2015 - March 2020"
+        },
         "positions": [
             {
                 "company": "TestGorilla",
@@ -385,6 +391,7 @@
     },
     "openSource": {
         "url": "https://github.com/nareshnavinash",
+        "totalMediumPosts": 850,
         "pinnedArticleUrls": [
             "https://medium.com/@nareshnavinash/an-8b-model-that-fits-in-1-2-gb-changed-how-i-think-about-local-ai-78665d154f74",
             "https://medium.com/@nareshnavinash/youre-paying-for-claude-max-but-are-you-actually-using-it-8125696d96f8",
@@ -838,7 +845,8 @@
                     "thumbnail": "screenshots/GhostEdit.png"
                 }
             ]
-        }
+        },
+        "publicRepoCount": 40
     },
     "blog": {
         "url": "https://medium.com/@nareshnavinash",

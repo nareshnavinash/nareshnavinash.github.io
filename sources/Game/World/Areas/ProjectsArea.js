@@ -605,7 +605,6 @@ export class ProjectsArea extends Area {
 
                 // Intersect
                 item.intersectReference = intersectPagination[i]
-
                 ;((item.intersect = this.game.rayCursor.addIntersect({
                     active: false,
                     shape: new THREE.Sphere(new THREE.Vector3(), item.intersectReference.scale.x),

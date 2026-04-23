@@ -204,11 +204,9 @@ try {
 
     // Preserve manually-set tags for scraped articles (page scraping can't extract tags)
     var existingByUrl = {}
-    ;(resume.openSource.pinnedArticles || [])
-        .concat(resume.openSource.recentArticles || [])
-        .forEach(function (a) {
-            if (a.tags && a.tags.length) existingByUrl[a.url] = a.tags
-        })
+    ;(resume.openSource.pinnedArticles || []).concat(resume.openSource.recentArticles || []).forEach(function (a) {
+        if (a.tags && a.tags.length) existingByUrl[a.url] = a.tags
+    })
     ;[pinned, recent].forEach(function (list) {
         list.forEach(function (a) {
             if ((!a.tags || !a.tags.length) && existingByUrl[a.url]) {

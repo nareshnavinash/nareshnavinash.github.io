@@ -141,7 +141,9 @@ export class Objects {
 
             // Colliders
             const children = [..._model.children]
-            console.log(`[getFromModel] ${name} → physical=${physical}, type=${_physicalDescription.type}, children=${children.length} [${children.map(c => c.name).join(', ')}]`)
+            console.log(
+                `[getFromModel] ${name} → physical=${physical}, type=${_physicalDescription.type}, children=${children.length} [${children.map((c) => c.name).join(', ')}]`
+            )
             for (const _child of children) {
                 const collider = {
                     position: _child.position,
