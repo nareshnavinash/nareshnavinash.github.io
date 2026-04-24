@@ -47,7 +47,10 @@ function enterPanel(panel, destination, otherPanel) {
     setTimeout(() => location.assign(destination), 320)
 }
 
+let chooserWired = false
 function setupChooserInteractions() {
+    if (chooserWired) return
+    chooserWired = true
     const worldPanel = document.getElementById('boot-panel-world')
     const profilePanel = document.getElementById('boot-panel-profile')
 
@@ -76,7 +79,9 @@ function setupChooserInteractions() {
 // ---------- Typing splash ----------
 
 function injectSplashStyles() {
+    if (document.getElementById('boot-splash-styles')) return
     const style = document.createElement('style')
+    style.id = 'boot-splash-styles'
     style.textContent = `
         .intro-splash {
             position: fixed;
@@ -262,3 +267,30 @@ if (document.readyState === 'loading') {
 } else {
     boot()
 }
+
+window.addEventListener('pageshow', (event) => {
+    if (!event.persisted) return
+
+    document.querySelectorAll('body > div').forEach((div) => {
+        if (div.style.zIndex === '9999' && div.style.position === 'fixed') {
+            div.remove()
+        }
+    })
+
+    document.body.classList.remove('is-entering')
+    document.querySelectorAll('.boot-chooser__panel').forEach((p) => p.classList.remove('is-fading'))
+
+    const chooser = document.getElementById('boot-chooser')
+    if (chooser) {
+        chooser.classList.remove('is-ready')
+        chooser.setAttribute('aria-hidden', 'true')
+    }
+
+    const oldSplash = document.querySelector('.intro-splash')
+    if (oldSplash) oldSplash.remove()
+
+    sessionStorage.removeItem('seen-intro-v2')
+
+    injectSplashStyles()
+    mountBootSplash().then(() => revealChooser())
+})
