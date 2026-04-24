@@ -310,6 +310,13 @@
         transition-duration: 0.01ms !important;
         scroll-behavior: auto !important;
     }
+    .intro-splash {
+        transition-duration: 0.7s !important;
+    }
+    .intro-tag,
+    .intro-hint {
+        transition-duration: 0.5s !important;
+    }
     .stage-card,
     .lead-stage-card {
         transition: none !important;
