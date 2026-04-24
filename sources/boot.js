@@ -189,7 +189,25 @@ function injectSplashStyles() {
 function mountBootSplash() {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     if (reduced) {
-        return Promise.resolve()
+        const splash = document.createElement('div')
+        splash.className = 'intro-splash'
+        splash.innerHTML = `
+            <div class="intro-content">
+                <div class="intro-bar">naresh.ai · booting</div>
+                <h1 class="intro-name">Naresh Sekar</h1>
+                <p class="intro-tag on">engineering manager · ai adoption</p>
+            </div>
+        `
+        document.body.appendChild(splash)
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                splash.classList.add('gone')
+                setTimeout(() => {
+                    splash.remove()
+                    resolve()
+                }, 700)
+            }, 1200)
+        })
     }
 
     const NAME = 'Naresh Sekar'

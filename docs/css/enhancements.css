@@ -310,8 +310,10 @@
         transition-duration: 0.01ms !important;
         scroll-behavior: auto !important;
     }
-    .diorama__stage,
     .stage-card,
+    .lead-stage-card {
+        transition: none !important;
+    }
     .cursor-spot,
     .grain-overlay,
     .nebula {
@@ -319,12 +321,6 @@
     }
     .cursor-spot {
         opacity: 0.2;
-    }
-    .intro-splash {
-        display: none !important;
-    }
-    .sound-btn {
-        display: none !important;
     }
 }
 

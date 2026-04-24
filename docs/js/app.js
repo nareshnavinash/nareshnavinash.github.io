@@ -839,7 +839,13 @@ function showSnackbar(message, { duration = 5000, variant } = {}) {
     const classes = 'snackbar' + (variant ? ` snackbar--${variant}` : '')
     const children = []
     if (variant === 'of') {
-        children.push(el('span', { class: 'snackbar__heart', 'aria-hidden': 'true' }, '♥'))
+        children.push(
+            el('span', {
+                class: 'snackbar__heart',
+                'aria-hidden': 'true',
+                html: '<svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>'
+            })
+        )
     }
     children.push(el('span', { class: 'snackbar__msg' }, message))
     children.push(el('button', { class: 'snackbar__close', type: 'button', 'aria-label': 'Dismiss' }, '×'))
@@ -865,12 +871,13 @@ function burstConfetti(anchor) {
     const originY = isMobile
         ? Math.min(rect.top + rect.height / 2, window.innerHeight * 0.55)
         : rect.top + rect.height / 2
+    const root = window.getComputedStyle(document.documentElement)
     const palette = [
-        'var(--color-mint)',
-        'var(--color-peach)',
-        'var(--color-lavender)',
-        'var(--color-gold)',
-        'var(--color-blue)'
+        root.getPropertyValue('--color-mint').trim() || '#00b880',
+        root.getPropertyValue('--color-peach').trim() || '#e85a2a',
+        root.getPropertyValue('--color-lavender').trim() || '#7744cc',
+        root.getPropertyValue('--color-gold').trim() || '#d4a010',
+        root.getPropertyValue('--color-blue').trim() || '#3366dd'
     ]
     const count = isMobile ? 50 : 90
     const duration = 2400

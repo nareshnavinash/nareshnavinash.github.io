@@ -1,7 +1,7 @@
 ;(() => {
     'use strict'
 
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    const _reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
     const STORAGE_KEY = 'profile-sfx-mute'
     let muted = localStorage.getItem(STORAGE_KEY) === '1'
@@ -64,12 +64,8 @@
         unlocked = true
         for (const p of Object.values(pools)) {
             for (const el of p.els) {
-                const v = el.volume
                 el.volume = 0
-                el.play()
-                    .then(() => el.pause())
-                    .catch(() => {})
-                el.volume = v
+                el.play().catch(() => {})
             }
         }
     }
@@ -116,6 +112,7 @@
     // ---- Interaction wiring ----
 
     function wireIntroTyping() {
+        if (_reduced) return
         const tryObserve = () => {
             const typed = document.getElementById('intro-typed')
             if (!typed) return false
