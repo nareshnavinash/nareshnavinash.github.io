@@ -15,7 +15,8 @@ export default [
             '**/.claude/**',
             '**/.playwright/**',
             '**/.playwright-mcp/**',
-            'package-lock.json'
+            'package-lock.json',
+            'js/naresh-ai.mjs'
         ]
     },
     js.configs.recommended,
