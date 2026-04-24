@@ -521,6 +521,11 @@ function renderCerts() {
     }
     build()
     build() // two passes for seamless marquee loop
+    // Force layout so max-content width is computed before animation evaluates -50%
+    void track.scrollWidth
+    track.style.animation = 'none'
+    void track.offsetHeight
+    track.style.animation = ''
 }
 
 // ---------- ask-me chat (stubbed for static hosting) ----------
@@ -786,7 +791,7 @@ function setupChatFab() {
     root.innerHTML = `
         <button id="chat-fab" class="chat-fab" type="button" aria-label="Ask naresh.ai" aria-expanded="false">
             <svg class="chat-fab__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                <path fill="currentColor" d="M20 2H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h4l4 4 4-4h4a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2Zm-3 11H7v-2h10v2Zm0-4H7V7h10v2Z"/>
+                <path fill="currentColor" d="M10 1L7.78 6.22 2 8l5.78 1.78L10 16l2.22-5.22L18 9l-5.78-1.78zm8 4l-1.5 3.5L13 10l3.5 1.5L18 15l1.5-3.5L23 10l-3.5-1.5zm-4 10l-1.34 3.16L9.5 19.5l3.16 1.34L14 24l1.34-3.16 3.16-1.34-3.16-1.34z"/>
             </svg>
             <span class="chat-fab__dot" aria-hidden="true"></span>
         </button>
@@ -855,8 +860,11 @@ function burstConfetti(anchor) {
         anchor && anchor.getBoundingClientRect
             ? anchor.getBoundingClientRect()
             : { left: window.innerWidth / 2, top: window.innerHeight / 2, width: 0, height: 0 }
+    const isMobile = window.innerWidth < 640
     const originX = rect.left + rect.width / 2
-    const originY = rect.top + rect.height / 2
+    const originY = isMobile
+        ? Math.min(rect.top + rect.height / 2, window.innerHeight * 0.55)
+        : rect.top + rect.height / 2
     const palette = [
         'var(--color-mint)',
         'var(--color-peach)',
@@ -864,7 +872,7 @@ function burstConfetti(anchor) {
         'var(--color-gold)',
         'var(--color-blue)'
     ]
-    const count = 90
+    const count = isMobile ? 50 : 90
     const duration = 2400
     const pieces = []
     for (let i = 0; i < count; i++) {
@@ -887,7 +895,7 @@ function burstConfetti(anchor) {
             drift: (Math.random() - 0.5) * 60
         })
     }
-    const gravity = 900 // px/s^2
+    const gravity = isMobile ? 600 : 900
     let last
     let startTs
     const tick = (ts) => {

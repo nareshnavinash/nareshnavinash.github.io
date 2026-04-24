@@ -183,7 +183,7 @@ function injectSplashStyles() {
 
 function mountBootSplash() {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (reduced || sessionStorage.getItem('seen-intro-v2')) {
+    if (reduced) {
         return Promise.resolve()
     }
 

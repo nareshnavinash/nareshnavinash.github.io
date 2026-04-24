@@ -130,7 +130,7 @@ function x() {
     `, document.head.appendChild(e);
 }
 function k() {
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || sessionStorage.getItem("seen-intro-v2")) return Promise.resolve();
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return Promise.resolve();
   const t = "Naresh Sekar", n = document.createElement("div");
   return n.className = "intro-splash", n.innerHTML = `
         <div class="intro-content">

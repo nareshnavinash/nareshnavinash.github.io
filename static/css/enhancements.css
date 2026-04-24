@@ -1253,6 +1253,7 @@
     align-items: center;
     width: max-content;
     animation: certsDrift 48s linear infinite;
+    will-change: transform;
     padding: 12px 0;
 }
 .certs-ticker:hover .certs-ticker__track {
