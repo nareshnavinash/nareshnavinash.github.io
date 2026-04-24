@@ -868,9 +868,7 @@ function burstConfetti(anchor) {
             : { left: window.innerWidth / 2, top: window.innerHeight / 2, width: 0, height: 0 }
     const isMobile = window.innerWidth < 640
     const originX = rect.left + rect.width / 2
-    const originY = isMobile
-        ? Math.min(rect.top + rect.height / 2, window.innerHeight * 0.55)
-        : rect.top + rect.height / 2
+    const originY = rect.top + rect.height / 2
     const root = window.getComputedStyle(document.documentElement)
     const palette = [
         root.getPropertyValue('--color-mint').trim() || '#00b880',
@@ -890,11 +888,12 @@ function burstConfetti(anchor) {
         piece.style.left = `${originX}px`
         piece.style.top = `${originY}px`
         document.body.appendChild(piece)
-        // initial burst: radial upward-biased angles
         const angle = -Math.PI / 2 + (Math.random() - 0.5) * Math.PI * 1.1
         const speed = 380 + Math.random() * 460
         pieces.push({
             node: piece,
+            x: 0,
+            y: 0,
             vx: Math.cos(angle) * speed,
             vy: Math.sin(angle) * speed,
             rot: Math.random() * 360,
@@ -916,12 +915,10 @@ function burstConfetti(anchor) {
         pieces.forEach((p) => {
             p.vy += gravity * dt
             p.vx += Math.sin((ts + p.drift) / 300) * 30 * dt
-            const x = (parseFloat(p.node.style.left) || originX) + p.vx * dt
-            const y = (parseFloat(p.node.style.top) || originY) + p.vy * dt
-            p.node.style.left = `${x}px`
-            p.node.style.top = `${y}px`
+            p.x += p.vx * dt
+            p.y += p.vy * dt
             p.rot += p.spin * dt
-            p.node.style.transform = `rotate(${p.rot}deg)`
+            p.node.style.transform = `translate(${p.x}px, ${p.y}px) rotate(${p.rot}deg)`
             p.node.style.opacity = String(Math.max(0, 1 - elapsed * 1.1))
         })
         if (elapsed < 1) {

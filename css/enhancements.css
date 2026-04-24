@@ -329,6 +329,9 @@
     .cursor-spot {
         opacity: 0.2;
     }
+    .confetti-piece {
+        transition: none !important;
+    }
 }
 
 /* ============================================
