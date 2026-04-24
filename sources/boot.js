@@ -224,19 +224,25 @@ function mountBootSplash() {
             }, 800)
         }
 
-        const typeNext = () => {
+        let lastCharTs = 0
+        const typeNext = (ts) => {
             if (dismissed) return
-            if (i <= NAME.length) {
+            if (ts - lastCharTs >= 90) {
                 typed.textContent = NAME.slice(0, i)
                 i++
-                setTimeout(typeNext, 90)
+                lastCharTs = ts
+            }
+            if (i <= NAME.length) {
+                requestAnimationFrame(typeNext)
             } else {
                 tag.classList.add('on')
                 setTimeout(() => hint.classList.add('on'), 400)
                 setTimeout(dismiss, 1600)
             }
         }
-        setTimeout(typeNext, 200)
+        requestAnimationFrame(() => {
+            requestAnimationFrame(typeNext)
+        })
 
         skip.addEventListener('click', dismiss)
         window.addEventListener(

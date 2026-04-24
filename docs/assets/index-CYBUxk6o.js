@@ -1,25 +1,25 @@
 import "./modulepreload-polyfill-B5Qt9EMX.js";
-const y = "/world.html", l = "/profile.html";
-function x() {
+const h = "/world.html", p = "/profile.html";
+function k() {
   const e = new URLSearchParams(location.search).get("go");
-  return e === "world" ? (location.assign(y), true) : e === "profile" ? (location.assign(l), true) : false;
+  return e === "world" ? (location.assign(h), true) : e === "profile" ? (location.assign(p), true) : false;
 }
-function g() {
+function b() {
   const e = document.getElementById("boot-chooser");
-  e && (e.classList.add("is-ready"), e.removeAttribute("aria-hidden"), k());
+  e && (e.classList.add("is-ready"), e.removeAttribute("aria-hidden"), E());
 }
-function m(e, t, i) {
-  document.body.classList.add("is-entering"), i.classList.add("is-fading"), t === l && sessionStorage.setItem("seen-intro-v2", "1");
+function f(e, t, i) {
+  document.body.classList.add("is-entering"), i.classList.add("is-fading"), t === p && sessionStorage.setItem("seen-intro-v2", "1");
   const o = document.createElement("div");
   Object.assign(o.style, { position: "fixed", inset: "0", zIndex: "9999", background: "#080818", opacity: "0", transition: "opacity 0.3s ease", pointerEvents: "none" }), document.body.appendChild(o), requestAnimationFrame(() => {
     o.style.opacity = "1";
   }), setTimeout(() => location.assign(t), 320);
 }
-let u = false;
-function k() {
-  if (u) return;
-  u = true;
-  const e = document.getElementById("boot-panel-world"), t = document.getElementById("boot-panel-profile"), i = () => m(e, y, t), o = () => m(t, l, e), a = (s) => (n) => {
+let y = false;
+function E() {
+  if (y) return;
+  y = true;
+  const e = document.getElementById("boot-panel-world"), t = document.getElementById("boot-panel-profile"), i = () => f(e, h, t), o = () => f(t, p, e), a = (s) => (n) => {
     n.target instanceof HTMLElement && n.target.closest("a.boot-chooser__cta") && n.preventDefault(), s();
   };
   e.addEventListener("click", a(i)), t.addEventListener("click", a(o));
@@ -28,7 +28,7 @@ function k() {
   };
   e.addEventListener("keydown", r(i)), t.addEventListener("keydown", r(o));
 }
-function h() {
+function v() {
   if (document.getElementById("boot-splash-styles")) return;
   const e = document.createElement("style");
   e.id = "boot-splash-styles", e.textContent = `
@@ -133,7 +133,7 @@ function h() {
         }
     `, document.head.appendChild(e);
 }
-function b() {
+function x() {
   const e = "Naresh Sekar", t = document.createElement("div");
   return t.className = "intro-splash", t.innerHTML = `
         <div class="intro-content">
@@ -148,23 +148,27 @@ function b() {
         <button class="intro-skip" id="boot-skip">skip \u2192</button>
     `, document.body.appendChild(t), new Promise((i) => {
     const o = document.getElementById("boot-typed"), a = document.getElementById("boot-tag"), r = document.getElementById("boot-hint"), s = document.getElementById("boot-skip");
-    let n = false, c = 0;
-    const d = () => {
+    let n = false, d = 0;
+    const l = () => {
       n || (n = true, t.classList.add("gone"), sessionStorage.setItem("seen-intro-v2", "1"), setTimeout(() => {
         t.remove(), i();
       }, 800));
-    }, p = () => {
-      n || (c <= e.length ? (o.textContent = e.slice(0, c), c++, setTimeout(p, 90)) : (a.classList.add("on"), setTimeout(() => r.classList.add("on"), 400), setTimeout(d, 1600)));
     };
-    setTimeout(p, 200), s.addEventListener("click", d), window.addEventListener("keydown", (v) => {
-      v.target.matches("input,textarea") || d();
+    let m = 0;
+    const u = (c) => {
+      n || (c - m >= 90 && (o.textContent = e.slice(0, d), d++, m = c), d <= e.length ? requestAnimationFrame(u) : (a.classList.add("on"), setTimeout(() => r.classList.add("on"), 400), setTimeout(l, 1600)));
+    };
+    requestAnimationFrame(() => {
+      requestAnimationFrame(u);
+    }), s.addEventListener("click", l), window.addEventListener("keydown", (c) => {
+      c.target.matches("input,textarea") || l();
     }, { once: true });
   });
 }
-function f() {
-  x() || (h(), b().then(() => g()));
+function g() {
+  k() || (v(), x().then(() => b()));
 }
-document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", f) : f();
+document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", g) : g();
 window.addEventListener("pageshow", (e) => {
   if (!e.persisted) return;
   document.querySelectorAll("body > div").forEach((o) => {
@@ -173,5 +177,5 @@ window.addEventListener("pageshow", (e) => {
   const t = document.getElementById("boot-chooser");
   t && (t.classList.remove("is-ready"), t.setAttribute("aria-hidden", "true"));
   const i = document.querySelector(".intro-splash");
-  i && i.remove(), sessionStorage.removeItem("seen-intro-v2"), h(), b().then(() => g());
+  i && i.remove(), sessionStorage.removeItem("seen-intro-v2"), v(), x().then(() => b());
 });
