@@ -1,5 +1,6 @@
 import { resolveIntent } from '../search/intentMatcher.js'
 import { META_INTENT } from '../search/intentCatalog.js'
+import { initTopicGuard, isOffTopic, getOffTopicResponse, GREETING_RESPONSE } from '../search/topicGuard.js'
 
 let ctx = null
 
@@ -94,6 +95,24 @@ export function initChatAdapter(config) {
                 return
             }
 
+            // Off-topic guard — catch before burning an API call
+            const topicCheck = isOffTopic(q, search)
+            if (topicCheck.greeting) {
+                popThinking()
+                messages.push({ role: 'a', text: GREETING_RESPONSE })
+                render()
+                setStatus('ready')
+                return
+            }
+            if (topicCheck.offTopic) {
+                popThinking()
+                messages.push({ role: 'a', text: getOffTopicResponse() })
+                render()
+                showFollowUps('qa.general')
+                setStatus('ready')
+                return
+            }
+
             // Query intent → RAG pipeline
             updateThinking('generating answer...')
             const result = await queryRAG(q)
@@ -146,6 +165,8 @@ export function initChatAdapter(config) {
     inputEl.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') send()
     })
+
+    initTopicGuard(chunks)
 
     // Initial suggestions
     renderSuggestions(suggestions, send)
