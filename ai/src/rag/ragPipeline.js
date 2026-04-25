@@ -120,7 +120,7 @@ export async function queryRAG(query, search, chunks) {
         if (code === 'DAILY_LIMIT') {
             fallbackText = `You've reached the daily limit (${getRemaining()}/${getMax()}). Come back tomorrow! Here's what I found locally:`
         } else if (code === 'RATE_LIMITED') {
-            fallbackText = "naresh.ai is popular today — I've hit the rate limit. Here's what I found locally:"
+            fallbackText = "naresh.ai is popular today - I've hit the rate limit. Here's what I found locally:"
         } else if (code === 'NO_API_KEY') {
             fallbackText = "AI answers aren't configured. Here's what I found in the resume:"
         }

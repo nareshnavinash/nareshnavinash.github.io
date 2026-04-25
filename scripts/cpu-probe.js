@@ -61,7 +61,7 @@ for (const path of PATHS) {
     const result = await page.evaluate(probeScript(DURATION_MS))
     results[path] = result
     console.log(
-        `  fps=${result.fps} frames=${result.frames} p50=${result.p50frame}ms p95=${result.p95frame}ms p99=${result.p99frame}ms longTasks=${result.longTaskMs}ms memMB=${result.memoryMB?.used ?? '—'}`
+        `  fps=${result.fps} frames=${result.frames} p50=${result.p50frame}ms p95=${result.p95frame}ms p99=${result.p99frame}ms longTasks=${result.longTaskMs}ms memMB=${result.memoryMB?.used ?? '-'}`
     )
     await ctx.close()
 }

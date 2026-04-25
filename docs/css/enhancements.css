@@ -1,5 +1,5 @@
 /* ============================================
-   Profile v2 — Enhancements layer
+   Profile v2 - Enhancements layer
    Intro splash · end card · magnetic · toast
    ============================================ */
 
@@ -510,7 +510,7 @@
     --dossier-accent: var(--color-blue);
 }
 
-/* card shadow rest state — lifted, cinematic */
+/* card shadow rest state - lifted, cinematic */
 .dossier-card {
     box-shadow:
         0 1px 2px rgba(20, 10, 60, 0.05),
@@ -524,7 +524,7 @@
         0 40px 70px rgba(0, 0, 0, 0.3);
 }
 
-/* Open source section — share the writing section background slot */
+/* Open source section - share the writing section background slot */
 .section--repos {
     background: var(--bg-skills);
     border-top: 1px solid var(--border-skills, var(--border-color));
@@ -838,7 +838,7 @@
 }
 
 /* ============================================
-   12. Stack — terminal boot sequence
+   12. Stack - terminal boot sequence
    ============================================ */
 .stack-term {
     max-width: 920px;
@@ -938,7 +938,7 @@
 }
 
 /* ============================================
-   13. Open Source — hover unfold repo cards
+   13. Open Source - hover unfold repo cards
    ============================================ */
 #repos-grid.card-grid--repos {
     /* inherits grid; nothing more needed */
@@ -1097,7 +1097,7 @@
 }
 
 /* ============================================
-   14. Writing — magazine column
+   14. Writing - magazine column
    ============================================ */
 .writing-col {
     position: relative;
@@ -1229,7 +1229,7 @@
 }
 
 /* ============================================
-   15. Certifications — ticker marquee
+   15. Certifications - ticker marquee
    ============================================ */
 .section--certs-ticker {
     padding-top: 56px !important;
@@ -1315,7 +1315,13 @@
 
 @media (prefers-reduced-motion: reduce) {
     .certs-ticker__track {
-        animation: none;
+        animation: none !important;
+    }
+    .certs-ticker {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        mask-image: none;
+        -webkit-mask-image: none;
     }
     .term-caret {
         animation: none;
@@ -1377,7 +1383,7 @@
     padding: 6px 0;
     border-bottom: 1px dashed rgba(120, 100, 180, 0.08);
 }
-/* Initial hidden state — revealed when the terminal has .is-typed */
+/* Initial hidden state - revealed when the terminal has .is-typed */
 .repo-term .repo-term__row > * {
     opacity: 0;
 }
@@ -1595,7 +1601,7 @@
 }
 
 /* ==============================================
-   Detail modal (repos + articles) — clone of career modal
+   Detail modal (repos + articles) - clone of career modal
    ============================================== */
 .detail-modal {
     position: fixed;
@@ -1777,7 +1783,7 @@
 }
 
 /* ============================================
-   AI Search — Cmd+K Popover
+   AI Search - Cmd+K Popover
    ============================================ */
 .cmdk {
     position: fixed;
@@ -1939,7 +1945,7 @@
 }
 
 /* ============================================
-   AI Search — Chat enhancements
+   AI Search - Chat enhancements
    ============================================ */
 .msg--error {
     color: var(--color-peach);
@@ -2037,7 +2043,7 @@
 }
 
 /* ============================================
-   AI Search — Nav search button
+   AI Search - Nav search button
    ============================================ */
 .search-btn {
     background: none;

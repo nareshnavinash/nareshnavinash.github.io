@@ -64,7 +64,7 @@ export function resolveIntent(query, search, handlers) {
             return { intent, confidence: bestScore }
         }
 
-        // Lower confidence — still return best guess for RAG fallback
+        // Lower confidence - still return best guess for RAG fallback
         if (intent && bestScore > 0.4) {
             return { intent, confidence: bestScore }
         }

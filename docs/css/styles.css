@@ -1,5 +1,5 @@
 /* ============================================
-   Naresh Sekar — Profile v2
+   Naresh Sekar - Profile v2
    Tokens pulled from the 3D-world theme.css (day + night)
    Default = day (light). Toggle writes data-theme on <html>.
    ============================================ */
@@ -1309,7 +1309,7 @@ html.is-embedded body {
     background: var(--glow-mint);
 }
 
-/* section depth — each sectional wash becomes a floating slab */
+/* section depth - each sectional wash becomes a floating slab */
 .section--wash {
     position: relative;
     box-shadow:
@@ -1354,7 +1354,7 @@ html.is-embedded body {
         0 0 0 1px rgba(255, 255, 255, 0.12) inset !important;
 }
 
-/* night-mode shadow override — dark bg needs black shadows */
+/* night-mode shadow override - dark bg needs black shadows */
 [data-theme='night'] .about-card,
 [data-theme='night'] .lead-card,
 [data-theme='night'] .write-card,
@@ -1384,6 +1384,116 @@ html.is-embedded body {
     color: var(--text-faint);
     flex-wrap: wrap;
     gap: 10px;
+}
+
+/* ============================================
+   AI Chat Section (full-page, between hero and about)
+   ============================================ */
+.ai-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px var(--pad);
+    background: var(--bg-body);
+}
+.ai-section__inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: center;
+    max-width: var(--max);
+    width: 100%;
+}
+.ai-section__eyebrow {
+    font-family: var(--font-mono);
+    font-size: 16px;
+    letter-spacing: 0.08em;
+    color: var(--color-mint);
+    margin-bottom: 12px;
+}
+.ai-section__title {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: clamp(28px, 4vw, 42px);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin: 0 0 16px;
+    color: var(--text-primary);
+}
+.ai-section__title em {
+    font-family: var(--font-script);
+    font-style: normal;
+    color: var(--color-mint);
+    font-weight: 700;
+    font-size: 1.1em;
+}
+.ai-section__sub {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    max-width: 42ch;
+    margin: 0 0 28px;
+}
+.ai-section__pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.ai-section__pill {
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 500;
+    padding: 10px 16px;
+    border-radius: 20px;
+    background: transparent;
+    border: 1px solid var(--border-strong);
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition:
+        border-color 0.2s,
+        color 0.2s,
+        background 0.2s;
+}
+.ai-section__pill:hover {
+    border-color: var(--color-mint);
+    color: var(--color-mint);
+    background: var(--glow-mint);
+}
+.ai-section__chat {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.ai-section__ask {
+    width: 100%;
+    max-width: 480px;
+}
+.ai-section__ask .ask__log {
+    max-height: min(420px, 50vh);
+    min-height: 180px;
+}
+@media (max-width: 900px) {
+    .ai-section {
+        min-height: auto;
+        padding: 60px var(--pad) 48px;
+    }
+    .ai-section__inner {
+        grid-template-columns: 1fr;
+        gap: 28px;
+    }
+    .ai-section__sub {
+        max-width: none;
+    }
+    .ai-section__chat {
+        justify-content: stretch;
+    }
+    .ai-section__ask {
+        max-width: none;
+    }
+    .ai-section__ask .ask__log {
+        max-height: 260px;
+    }
 }
 
 /* ============================================
@@ -1426,28 +1536,6 @@ html.is-embedded body {
 .chat-fab__icon {
     width: 26px;
     height: 26px;
-}
-.chat-fab__dot {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--color-peach);
-    box-shadow: 0 0 10px var(--color-peach);
-    animation: chatFabPulse 2s ease-in-out infinite;
-}
-@keyframes chatFabPulse {
-    0%,
-    100% {
-        transform: scale(1);
-        opacity: 1;
-    }
-    50% {
-        transform: scale(1.4);
-        opacity: 0.6;
-    }
 }
 
 .chat-panel {

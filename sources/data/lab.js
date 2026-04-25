@@ -3,7 +3,7 @@ const resume = await res.json()
 
 const entries = []
 
-// GitHub repos — starred
+// GitHub repos - starred
 const starredRepos = (resume.openSource.repos && resume.openSource.repos.starred) || []
 starredRepos.forEach((repo, i) => {
     const stars = repo.stars ? '  \u2605 ' + repo.stars : ''
@@ -23,7 +23,7 @@ starredRepos.forEach((repo, i) => {
     })
 })
 
-// GitHub repos — recent
+// GitHub repos - recent
 const recentRepos = (resume.openSource.repos && resume.openSource.repos.recent) || []
 recentRepos.forEach((repo, i) => {
     const stars = repo.stars ? '  \u2605 ' + repo.stars : ''
@@ -43,7 +43,7 @@ recentRepos.forEach((repo, i) => {
     })
 })
 
-// Medium articles — pinned
+// Medium articles - pinned
 const pinnedArticles = resume.openSource.pinnedArticles || []
 pinnedArticles.forEach((article, i) => {
     const dateStr = article.date
@@ -69,7 +69,7 @@ pinnedArticles.forEach((article, i) => {
     })
 })
 
-// Medium articles — recent
+// Medium articles - recent
 const recentArticles = resume.openSource.recentArticles || []
 recentArticles.forEach((article, i) => {
     const dateStr = article.date

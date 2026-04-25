@@ -362,6 +362,40 @@
             </div>
         </div>
 
+        <!-- ========== AI CHAT SECTION ========== -->
+        <section id="ai-chat-section" class="ai-section">
+            <div class="ai-section__inner">
+                <div class="ai-section__copy">
+                    <div class="ai-section__eyebrow">naresh.ai</div>
+                    <h2 class="ai-section__title">Don't scroll through another résumé - <em>ask me.</em></h2>
+                    <p class="ai-section__sub">Ask anything about my career, skills, leadership, or projects. I'll answer from my actual work.</p>
+                    <div class="ai-section__pills">
+                        <button class="ai-section__pill" type="button">What's your AI adoption strategy?</button>
+                        <button class="ai-section__pill" type="button">Tell me about your leadership style</button>
+                        <button class="ai-section__pill" type="button">What tech stack do you use?</button>
+                        <button class="ai-section__pill" type="button">Describe your most impactful project</button>
+                    </div>
+                </div>
+                <div class="ai-section__chat">
+                    <div class="ask ai-section__ask" role="region">
+                        <div class="ask__head">
+                            <div class="ask__head-l">
+                                <span class="dot"></span>
+                                <span>naresh.ai · live</span>
+                            </div>
+                        </div>
+                        <div id="ai-log" class="ask__log" aria-live="polite"></div>
+                        <div id="ai-sugg" class="ask__sugg" aria-label="Suggested questions"></div>
+                        <div class="ask__input">
+                            <span class="chev">›</span>
+                            <input id="ai-input" type="text" placeholder="Ask about AI adoption, leadership, a specific project…" autocomplete="off" />
+                            <button id="ai-send" type="button">Ask</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- ========== ABOUT, STICKY DIORAMA ========== -->
         <section id="about" class="section section--wash section--about">
             <div class="diorama" id="diorama">

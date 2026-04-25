@@ -7,14 +7,15 @@ import { initCmdK } from './ui/cmdKPopover.js'
 
 let state = null
 
-export function init({ resumeData, chatRoot, handlers, suggestions }) {
+export function init({ resumeData, sectionRoot, chatRoot, handlers, suggestions }) {
     const chunks = chunkResume(resumeData)
     const search = createLexicalSearch(chunks)
 
     state = { resumeData, chunks, search, handlers, suggestions }
 
-    initChatAdapter({
-        ...chatRoot,
+    const chat = initChatAdapter({
+        primary: sectionRoot || chatRoot,
+        secondary: sectionRoot ? chatRoot : null,
         search,
         chunks,
         handlers,
@@ -32,6 +33,8 @@ export function init({ resumeData, chatRoot, handlers, suggestions }) {
         getRemaining,
         getMax
     })
+
+    return chat
 }
 
 export function destroy() {

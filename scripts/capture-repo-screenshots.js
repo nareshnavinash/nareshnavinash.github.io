@@ -2,7 +2,7 @@
  * Captures screenshots of GitHub repo homepages at build time.
  * Reads repo data from resume.json, captures each homepage with Playwright,
  * saves PNGs to static/screenshots/, and updates resume.json thumbnails.
- * Falls back gracefully — repos with failed captures keep their existing thumbnails.
+ * Falls back gracefully - repos with failed captures keep their existing thumbnails.
  */
 
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs'

@@ -8,7 +8,7 @@ export default class MediumArea extends BaseArea {
 
         this._createSign(0, -6, 'Medium', colors.blue.getHex())
 
-        // Open book — two tilted pages
+        // Open book - two tilted pages
         const pageMat = new THREE.MeshStandardMaterial({
             color: 0xeeeedd,
             side: THREE.DoubleSide,

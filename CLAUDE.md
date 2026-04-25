@@ -29,7 +29,7 @@ There are **two separate apps** in this repo:
 - **Vite root:** `sources/` (configured in `vite.config.js` with `root: 'sources/'`)
 - **Static assets:** `static/` (served as Vite's `publicDir`)
 - **Build output:** `docs/` (deployed to GitHub Pages)
-- **Original folio-2025 code:** `sources/Game/` — singleton-based architecture with subsystems (Physics, Rendering, Inputs, World, Weather, etc.)
+- **Original folio-2025 code:** `sources/Game/` - singleton-based architecture with subsystems (Physics, Rendering, Inputs, World, Weather, etc.)
 
 ### 2. Custom 3D Game Layer (`src/`)
 
@@ -48,9 +48,9 @@ There are **two separate apps** in this repo:
 
 ## Key Data Files
 
-- **`resume.json`** — Single source of truth for all portfolio content (personal info, career history, skills, publications, certifications, SEO metadata). Changes here propagate to both the 3D world and the profile page.
-- **`src/Data/portfolioData.js`** — Maps resume sections to 3D world area configs
-- **`src/Data/colorPalette.js`** / `src/Data/worldConfig.js` — Visual theming and world layout
+- **`resume.json`** - Single source of truth for all portfolio content (personal info, career history, skills, publications, certifications, SEO metadata). Changes here propagate to both the 3D world and the profile page.
+- **`src/Data/portfolioData.js`** - Maps resume sections to 3D world area configs
+- **`src/Data/colorPalette.js`** / `src/Data/worldConfig.js` - Visual theming and world layout
 
 ## Testing
 
@@ -58,7 +58,7 @@ There are **two separate apps** in this repo:
 - Test files: `tests/**/*.test.js`
 - Setup file: `tests/setup.js`
 - Coverage: 100% threshold on `js/main.js`, `js/resume-loader.js`, and `sources/Game/utilities/`
-- 3D/WebGL code (`three-scene.js`, `src/`, `sources/Game/`) is excluded from coverage — requires GPU context
+- 3D/WebGL code (`three-scene.js`, `src/`, `sources/Game/`) is excluded from coverage - requires GPU context
 
 ## Pre-commit Hook
 
@@ -70,6 +70,6 @@ The `.githooks/pre-commit` hook runs tests, builds, syncs profile files to `stat
 
 ## Environment Variables
 
-- `VITE_GITHUB_TOKEN` — GitHub PAT for fetching repo data (in `.env`, not committed)
-- `VITE_LOG` — Enable console logging in dev
-- `VITE_GAME_PUBLIC` — Expose game instance on `window.game`
+- `VITE_GITHUB_TOKEN` - GitHub PAT for fetching repo data (in `.env`, not committed)
+- `VITE_LOG` - Enable console logging in dev
+- `VITE_GAME_PUBLIC` - Expose game instance on `window.game`

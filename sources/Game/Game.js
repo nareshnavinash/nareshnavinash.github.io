@@ -413,7 +413,7 @@ export class Game {
         this.tornado = new Tornado()
         this.map = new Map()
         this.miniMap = new MiniMap()
-        // Title animation removed — keep static HTML <title> for SEO
+        // Title animation removed - keep static HTML <title> for SEO
         // this.monitoring = new Monitoring()
         this.world.step(1)
         this.overlay = new Overlay()

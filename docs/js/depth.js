@@ -1,4 +1,4 @@
-/* depth.js — Cinematic depth for Profile v2
+/* depth.js - Cinematic depth for Profile v2
    Replaces the old Three.js bubbles.
      1) Per-card mouse-follow glow (sets --mx/--my on hover)
      2) Tilt + inner parallax on cards
@@ -43,7 +43,7 @@
                 card.style.setProperty('--mx', px * 100 + '%')
                 card.style.setProperty('--my', py * 100 + '%')
 
-                // Skip tilt for the stage cards — they are already driven by the
+                // Skip tilt for the stage cards - they are already driven by the
                 // diorama scroll driver and fight with pointer tilt.
                 if (card.matches('.stage-card')) return
                 const rx = (0.5 - py) * 8
@@ -74,7 +74,7 @@
                 return { tx: -90, ty: -180, tz: -500, rot: -35, opacity: 0, scale: 0.7, z: 1 }
             }
             if (i === idx) {
-                // current — starts center, drifts out as frac→1
+                // current - starts center, drifts out as frac→1
                 return {
                     tx: -frac * 80,
                     ty: -frac * 140,
@@ -86,7 +86,7 @@
                 }
             }
             if (i === idx + 1) {
-                // incoming — arrives from below-right, recedes → centers
+                // incoming - arrives from below-right, recedes → centers
                 return {
                     tx: (1 - frac) * 90,
                     ty: (1 - frac) * 200,
@@ -192,7 +192,7 @@
         setTimeout(update, 200)
     }
 
-    // ---------- 3. sticky career — mirrors the About diorama ----------
+    // ---------- 3. sticky career - mirrors the About diorama ----------
     function initCareerDio() {
         const dio = document.getElementById('career-dio')
         if (!dio) return
@@ -308,7 +308,7 @@
         })
     }
 
-    // ---------- 7. writing column — rail progress + row reveal ----------
+    // ---------- 7. writing column - rail progress + row reveal ----------
     function initWritingCol() {
         const col = document.querySelector('.writing-col')
         if (!col) return
@@ -345,7 +345,7 @@
     // ---------- boot ----------
     // Static-content inits run as soon as the DOM is parsed.
     // Dynamic-content inits (cards/diorama/career/repos/writing) depend on
-    // app.js having populated the DOM from resume.json — they wait for the
+    // app.js having populated the DOM from resume.json - they wait for the
     // `resume-loaded` event it dispatches. A setTimeout fallback still runs
     // them if the event never fires (e.g. when prerendered HTML is all we have).
     let dynamicInited = false

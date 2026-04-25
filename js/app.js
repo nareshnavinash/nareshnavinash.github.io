@@ -1,4 +1,4 @@
-// app.js — Naresh Sekar Profile, cinematic redesign
+// app.js - Naresh Sekar Profile, cinematic redesign
 // Vanilla ES module. Handles: resume.json data loading, section rendering,
 // career modal, ask-me chat (stubbed for static hosting), FAB, nav scroll,
 // smooth scroll, count-up stats, theme toggle.
@@ -525,7 +525,7 @@ function renderCerts() {
     void track.scrollWidth
     track.style.animation = 'none'
     void track.offsetHeight
-    track.style.animation = ''
+    track.style.animation = 'certsDrift 48s linear infinite'
 }
 
 // ---------- ask-me chat (stubbed for static hosting) ----------
@@ -793,7 +793,6 @@ function setupChatFab() {
             <svg class="chat-fab__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <path fill="currentColor" d="M10 1L7.78 6.22 2 8l5.78 1.78L10 16l2.22-5.22L18 9l-5.78-1.78zm8 4l-1.5 3.5L13 10l3.5 1.5L18 15l1.5-3.5L23 10l-3.5-1.5zm-4 10l-1.34 3.16L9.5 19.5l3.16 1.34L14 24l1.34-3.16 3.16-1.34-3.16-1.34z"/>
             </svg>
-            <span class="chat-fab__dot" aria-hidden="true"></span>
         </button>
         <aside id="chat-panel" class="chat-panel" aria-hidden="true" aria-label="Ask naresh.ai" role="dialog">
             <div class="ask chat-panel__ask" role="region">
@@ -830,6 +829,82 @@ function setupChatFab() {
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && panel.classList.contains('is-open')) setOpen(false)
     })
+}
+
+// ---------- AI chat section (full-page) ----------
+let aiSectionSend = null
+
+function setupAiSection() {
+    const section = $('#ai-chat-section')
+    if (!section) return
+
+    const leftCol = section.querySelector('.ai-section__copy')
+    const rightCol = section.querySelector('.ai-section__chat')
+    const pills = section.querySelectorAll('.ai-section__pill')
+    const isMobile = window.innerWidth <= 900
+    const transition = 'opacity .7s ease, transform .7s cubic-bezier(.16,.84,.44,1)'
+    const pillTransition = 'opacity .5s ease, transform .5s cubic-bezier(.16,.84,.44,1)'
+
+    pills.forEach((pill) => {
+        pill.addEventListener('click', () => {
+            if (aiSectionSend) aiSectionSend(pill.textContent)
+        })
+    })
+
+    leftCol.style.opacity = 0
+    leftCol.style.transform = isMobile ? 'translateY(-20px)' : 'translateX(-30px)'
+    rightCol.style.opacity = 0
+    rightCol.style.transform = isMobile ? 'translateY(20px)' : 'translateX(30px)'
+    pills.forEach((pill, i) => {
+        pill.style.opacity = 0
+        if (isMobile) {
+            pill.style.transform = i % 2 === 0 ? 'translateX(-15px)' : 'translateX(15px)'
+        } else {
+            pill.style.transform = 'translateY(20px)'
+        }
+    })
+
+    void section.offsetHeight
+
+    const rect = section.getBoundingClientRect()
+    if (rect.top < window.innerHeight && rect.bottom > 0) {
+        leftCol.style.opacity = 1
+        leftCol.style.transform = 'none'
+        rightCol.style.opacity = 1
+        rightCol.style.transform = 'none'
+        pills.forEach((pill) => {
+            pill.style.opacity = 1
+            pill.style.transform = 'none'
+        })
+        return
+    }
+
+    leftCol.style.transition = transition
+    rightCol.style.transition = transition
+    pills.forEach((pill) => (pill.style.transition = pillTransition))
+
+    const io = new IntersectionObserver(
+        (ents) => {
+            if (ents[0].isIntersecting) {
+                leftCol.style.opacity = 1
+                leftCol.style.transform = 'none'
+                rightCol.style.opacity = 1
+                rightCol.style.transform = 'none'
+                pills.forEach((pill, i) => {
+                    setTimeout(
+                        () => {
+                            pill.style.opacity = 1
+                            pill.style.transform = 'none'
+                        },
+                        300 + i * 120
+                    )
+                })
+                io.disconnect()
+            }
+        },
+        { threshold: 0.15, rootMargin: '0px 0px -60px 0px' }
+    )
+    io.observe(section)
 }
 
 // ---------- snackbar ----------
@@ -994,13 +1069,20 @@ async function init() {
     setupTheme()
     setYear()
     setupChatFab()
+    setupAiSection()
     setupOnlyFans()
 
     // AI-powered chat + Cmd+K search (replaces the old stub makeChat)
     try {
         const nareshAI = await import('./naresh-ai.mjs')
-        nareshAI.init({
+        const result = nareshAI.init({
             resumeData: { ...adapted, rawResume },
+            sectionRoot: {
+                logEl: $('#ai-log'),
+                inputEl: $('#ai-input'),
+                sendEl: $('#ai-send'),
+                suggEl: $('#ai-sugg')
+            },
             chatRoot: {
                 logEl: $('#ask-log'),
                 inputEl: $('#ask-input'),
@@ -1018,13 +1100,14 @@ async function init() {
             },
             suggestions: SUGGESTIONS
         })
+        if (result?.send) aiSectionSend = result.send
     } catch (e) {
         console.warn('profile: AI module failed to load, falling back to stub chat.', e)
         makeChat({
-            logEl: $('#ask-log'),
-            inputEl: $('#ask-input'),
-            sendEl: $('#ask-send'),
-            suggEl: $('#ask-sugg')
+            logEl: $('#ai-log'),
+            inputEl: $('#ai-input'),
+            sendEl: $('#ai-send'),
+            suggEl: $('#ai-sugg')
         })
     }
 

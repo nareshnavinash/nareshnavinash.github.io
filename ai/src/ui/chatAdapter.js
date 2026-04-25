@@ -4,12 +4,9 @@ import { initTopicGuard, isOffTopic, getOffTopicResponse, GREETING_RESPONSE } fr
 
 let ctx = null
 
-export function initChatAdapter(config) {
-    const { logEl, inputEl, sendEl, suggEl, search, chunks, handlers, suggestions, queryRAG, getRemaining, getMax } =
-        config
-    if (!logEl || !inputEl || !sendEl) return
-
-    const headLeft = logEl.closest('.ask')?.querySelector('.ask__head-l')
+function initTarget(root, getRemaining, getMax) {
+    if (!root?.logEl) return null
+    const headLeft = root.logEl.closest('.ask')?.querySelector('.ask__head-l')
     let statusEl = null
     let rateEl = null
     if (headLeft) {
@@ -22,6 +19,25 @@ export function initChatAdapter(config) {
             if (rateEl && getRemaining) rateEl.textContent = `${getRemaining()}/${getMax()}`
         }
     }
+    return { ...root, statusEl, rateEl }
+}
+
+export function initChatAdapter(config) {
+    const { primary, secondary, search, chunks, handlers, suggestions, queryRAG, getRemaining, getMax } = config
+
+    const legacyMode = config.logEl !== undefined
+    const pri = legacyMode
+        ? initTarget(
+              { logEl: config.logEl, inputEl: config.inputEl, sendEl: config.sendEl, suggEl: config.suggEl },
+              getRemaining,
+              getMax
+          )
+        : initTarget(primary, getRemaining, getMax)
+    const sec = legacyMode ? null : initTarget(secondary, getRemaining, getMax)
+
+    if (!pri?.logEl || !pri?.inputEl || !pri?.sendEl) return
+
+    const targets = [pri, sec].filter(Boolean)
 
     const messages = [
         {
@@ -31,12 +47,7 @@ export function initChatAdapter(config) {
     ]
 
     ctx = {
-        logEl,
-        inputEl,
-        sendEl,
-        suggEl,
-        statusEl,
-        rateEl,
+        targets,
         messages,
         search,
         chunks,
@@ -48,9 +59,11 @@ export function initChatAdapter(config) {
     }
 
     const send = async (text) => {
-        const q = (text || inputEl.value || '').trim()
+        const q = (text || pri.inputEl.value || '').trim()
         if (!q) return
-        inputEl.value = ''
+        targets.forEach((t) => {
+            if (t.inputEl) t.inputEl.value = ''
+        })
         messages.push({ role: 'u', text: q })
         render()
 
@@ -63,7 +76,7 @@ export function initChatAdapter(config) {
             // Resolve intent
             const resolution = resolveIntent(q, search, handlers)
 
-            // Meta intent — canned response
+            // Meta intent - canned response
             if (resolution?.intent?.type === 'meta') {
                 popThinking()
                 messages.push({ role: 'a', text: resolution.intent.response })
@@ -95,7 +108,7 @@ export function initChatAdapter(config) {
                 return
             }
 
-            // Off-topic guard — catch before burning an API call
+            // Off-topic guard - catch before burning an API call
             const topicCheck = isOffTopic(q, search)
             if (topicCheck.greeting) {
                 popThinking()
@@ -161,25 +174,23 @@ export function initChatAdapter(config) {
         setStatus('ready')
     }
 
-    sendEl.addEventListener('click', () => send())
-    inputEl.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') send()
+    targets.forEach((t) => {
+        t.sendEl?.addEventListener('click', () => send())
+        t.inputEl?.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') send()
+        })
     })
 
     initTopicGuard(chunks)
 
-    // Initial suggestions
     renderSuggestions(suggestions, send)
     render()
 
     return { send }
 }
 
-function render() {
-    if (!ctx) return
-    const { logEl, messages, handlers } = ctx
+function renderToLog(logEl, messages, handlers) {
     logEl.innerHTML = ''
-
     messages.forEach((m) => {
         if (m.role === 'a') {
             const tag = document.createElement('div')
@@ -214,8 +225,12 @@ function render() {
             logEl.append(wrap)
         }
     })
-
     logEl.scrollTop = logEl.scrollHeight
+}
+
+function render() {
+    if (!ctx) return
+    ctx.targets.forEach((t) => renderToLog(t.logEl, ctx.messages, ctx.handlers))
 }
 
 function handleSourceClick(src, handlers) {
@@ -249,14 +264,22 @@ function handleSourceClick(src, handlers) {
 }
 
 function setStatus(state) {
-    if (!ctx?.statusEl) return
-    ctx.statusEl.dataset.state = state
-    ctx.statusEl.textContent = state === 'ready' ? 'ready' : state === 'thinking' ? 'thinking...' : state
+    if (!ctx) return
+    const label = state === 'ready' ? 'ready' : state === 'thinking' ? 'thinking...' : state
+    ctx.targets.forEach((t) => {
+        if (t.statusEl) {
+            t.statusEl.dataset.state = state
+            t.statusEl.textContent = label
+        }
+    })
 }
 
 function updateRate() {
-    if (!ctx?.rateEl || !ctx.getRemaining) return
-    ctx.rateEl.textContent = `${ctx.getRemaining()}/${ctx.getMax()}`
+    if (!ctx?.getRemaining) return
+    const text = `${ctx.getRemaining()}/${ctx.getMax()}`
+    ctx.targets.forEach((t) => {
+        if (t.rateEl) t.rateEl.textContent = text
+    })
 }
 
 function popThinking() {
@@ -275,17 +298,22 @@ function updateThinking(stage) {
 }
 
 function renderSuggestions(suggestions, send) {
-    if (!ctx?.suggEl) return
-    ctx.suggEl.innerHTML = ''
-    ;(suggestions || []).forEach((s) => {
-        const btn = document.createElement('button')
-        btn.className = 'sugg'
-        btn.textContent = s
-        btn.addEventListener('click', () => {
-            ctx.suggEl.innerHTML = ''
-            send(s)
+    if (!ctx) return
+    ctx.targets.forEach((t) => {
+        if (!t.suggEl) return
+        t.suggEl.innerHTML = ''
+        ;(suggestions || []).forEach((s) => {
+            const btn = document.createElement('button')
+            btn.className = 'sugg'
+            btn.textContent = s
+            btn.addEventListener('click', () => {
+                ctx.targets.forEach((tt) => {
+                    if (tt.suggEl) tt.suggEl.innerHTML = ''
+                })
+                send(s)
+            })
+            t.suggEl.append(btn)
         })
-        ctx.suggEl.append(btn)
     })
 }
 
@@ -320,21 +348,23 @@ const FOLLOW_UPS = {
 }
 
 function showFollowUps(intentId) {
-    if (!ctx?.suggEl) return
+    if (!ctx) return
     const followUps = FOLLOW_UPS[intentId] || FOLLOW_UPS['qa.general']
-    ctx.suggEl.innerHTML = ''
-    followUps.forEach((text) => {
-        const btn = document.createElement('button')
-        btn.className = 'sugg'
-        btn.textContent = text
-        btn.addEventListener('click', () => {
-            ctx.suggEl.innerHTML = ''
-            const sendFn = ctx.inputEl?.closest('.ask')?.querySelector('#ask-send')
-            if (sendFn) {
-                ctx.inputEl.value = text
-                sendFn.click()
-            }
+    ctx.targets.forEach((t) => {
+        if (!t.suggEl) return
+        t.suggEl.innerHTML = ''
+        followUps.forEach((text) => {
+            const btn = document.createElement('button')
+            btn.className = 'sugg'
+            btn.textContent = text
+            btn.addEventListener('click', () => {
+                ctx.targets.forEach((tt) => {
+                    if (tt.suggEl) tt.suggEl.innerHTML = ''
+                })
+                t.inputEl.value = text
+                t.sendEl.click()
+            })
+            t.suggEl.append(btn)
         })
-        ctx.suggEl.append(btn)
     })
 }

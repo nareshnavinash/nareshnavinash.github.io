@@ -215,7 +215,7 @@ function refreshGitHubRepos(thumbnailsByName) {
             renderOpenSourceGrids(starred, recent)
         })
         .catch(function () {
-            // Silently fail — pre-rendered content stays
+            // Silently fail - pre-rendered content stays
         })
 }
 

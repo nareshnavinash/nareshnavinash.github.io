@@ -28,7 +28,7 @@ const fixture = {
                     {
                         role: 'Engineering Manager',
                         shortRole: 'Engineering Manager',
-                        date: 'Aug 2023 — Present',
+                        date: 'Aug 2023 - Present',
                         headline: 'Shipping AI video interviews.',
                         sections: [
                             {
@@ -39,7 +39,7 @@ const fixture = {
                     },
                     {
                         role: 'Lead SDET',
-                        date: 'Apr 2022 — Aug 2023',
+                        date: 'Apr 2022 - Aug 2023',
                         sections: [{ title: 'CI/CD', points: ['5× daily releases.'] }]
                     }
                 ]
@@ -50,7 +50,7 @@ const fixture = {
                 roles: [
                     {
                         role: 'Senior SDET',
-                        date: 'Feb 2021 — Mar 2022',
+                        date: 'Feb 2021 - Mar 2022',
                         // no sections, just headline
                         headline: '45 → 15 min pipelines.'
                     }
@@ -240,7 +240,7 @@ describe('adaptResume', () => {
                 ]
             }
         })
-        // career stays full — modal paginates through every role with its own desc.
+        // career stays full - modal paginates through every role with its own desc.
         expect(d.career).toHaveLength(4)
         expect(d.career.map((c) => c.role)).toEqual(['Lead', 'Senior', 'Early', 'First'])
         expect(d.career.every((c) => !c.isTail)).toBe(true)

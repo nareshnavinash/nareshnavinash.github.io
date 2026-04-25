@@ -1,6 +1,6 @@
-// profile-render.js — pure data adapter for the cinematic profile.
+// profile-render.js - pure data adapter for the cinematic profile.
 // Used by js/app.js (browser) and scripts/prerender-profile.js (Node/JSDOM).
-// No DOM or browser-only APIs here — keep it unit-testable under vitest + jsdom.
+// No DOM or browser-only APIs here - keep it unit-testable under vitest + jsdom.
 
 export function formatMonthYear(iso) {
     if (!iso) return ''

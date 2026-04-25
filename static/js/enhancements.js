@@ -1,5 +1,5 @@
 /* ==========================================================================
-   enhancements.js — Profile v2 additions
+   enhancements.js - Profile v2 additions
    Intro splash · hero fly-in · magnetic buttons · end-card
    Reduced-motion awareness
    ========================================================================== */
@@ -229,7 +229,7 @@
 
         if (embedded) {
             // In embed mode (boot chooser iframe) skip the intro splash and hero
-            // fly-in — we are a blurred preview, not the interactive page.
+            // fly-in - we are a blurred preview, not the interactive page.
             return
         }
 

@@ -471,7 +471,7 @@
     },
     {
         "q": "how do you scale teams",
-        "a": "I scale teams by **building a clear growth roadmap** and **embedding a culture of ownership** from day one.  \n- Start with a **career framework** that maps roles, responsibilities, and promotion criteria.  \n- Create a **structured hiring pipeline** that scales with demand—using data‑driven sourcing, structured interviews, and a talent pool for rapid onboarding.  \n\nI also focus on **continuous improvement and AI literacy** so every engineer can contribute to product velocity.  \n- Implement **shift‑left quality practices**: test automation, CI/CD pipelines, and observability that grow with the team.  \n- Foster a culture where engineers own their code, run experiments, and iterate on processes, ensuring the team remains agile even as it expands.  \n\nBy combining these elements—clear career paths, scalable hiring, quality-first engineering, and an ownership mindset—I can grow a team from 5 to 30+ while maintaining high performance and innovation.",
+        "a": "I scale teams by **building a clear growth roadmap** and **embedding a culture of ownership** from day one.  \n- Start with a **career framework** that maps roles, responsibilities, and promotion criteria.  \n- Create a **structured hiring pipeline** that scales with demand-using data‑driven sourcing, structured interviews, and a talent pool for rapid onboarding.  \n\nI also focus on **continuous improvement and AI literacy** so every engineer can contribute to product velocity.  \n- Implement **shift‑left quality practices**: test automation, CI/CD pipelines, and observability that grow with the team.  \n- Foster a culture where engineers own their code, run experiments, and iterate on processes, ensuring the team remains agile even as it expands.  \n\nBy combining these elements-clear career paths, scalable hiring, quality-first engineering, and an ownership mindset-I can grow a team from 5 to 30+ while maintaining high performance and innovation.",
         "sources": [
             {
                 "id": "bio",
@@ -603,7 +603,7 @@
     },
     {
         "q": "how do you handle conflict",
-        "a": "I’m not seeing a specific example of conflict resolution in the material you’ve shared.  \nIf you’re looking for insights on how I approach disagreements or tough conversations, you might want to check the **Naresh Sekar** section of my portfolio, where I discuss leadership principles and team dynamics.  \n\nFeel free to let me know if there’s a particular scenario you have in mind—I’ll do my best to draw from the relevant parts of my experience.",
+        "a": "I’m not seeing a specific example of conflict resolution in the material you’ve shared.  \nIf you’re looking for insights on how I approach disagreements or tough conversations, you might want to check the **Naresh Sekar** section of my portfolio, where I discuss leadership principles and team dynamics.  \n\nFeel free to let me know if there’s a particular scenario you have in mind-I’ll do my best to draw from the relevant parts of my experience.",
         "sources": [
             {
                 "id": "article:pinned:1",
@@ -747,7 +747,7 @@
     },
     {
         "q": "startup vs scale-up experience",
-        "a": "I’ve spent the last decade moving between **startups** and **scale‑ups**, and each environment shapes my leadership style in distinct ways.\n\n**Startups**  \n- Small, cross‑functional teams where I often wore many hats—architecture, testing, and even product feedback.  \n- Decision‑making is fast, with a high tolerance for risk and experimentation.  \n- Resources are tight, so I focus on lightweight, high‑impact solutions (e.g., quick CI/CD prototypes, automated test suites that double as documentation).\n\n**Scale‑ups**  \n- Larger, more specialized teams that require clear ownership and scalable processes.  \n- My role shifts to building robust, repeatable systems—like the CI/CD pipeline at TestGorilla that moved releases from bi‑weekly to 5x daily.  \n- Emphasis on governance, performance baselines, and AI‑driven quality controls to keep growth sustainable.\n\nAcross both settings, I keep the same core focus: **multiplying impact through quality‑first engineering cultures and AI‑powered acceleration**.",
+        "a": "I’ve spent the last decade moving between **startups** and **scale‑ups**, and each environment shapes my leadership style in distinct ways.\n\n**Startups**  \n- Small, cross‑functional teams where I often wore many hats-architecture, testing, and even product feedback.  \n- Decision‑making is fast, with a high tolerance for risk and experimentation.  \n- Resources are tight, so I focus on lightweight, high‑impact solutions (e.g., quick CI/CD prototypes, automated test suites that double as documentation).\n\n**Scale‑ups**  \n- Larger, more specialized teams that require clear ownership and scalable processes.  \n- My role shifts to building robust, repeatable systems-like the CI/CD pipeline at TestGorilla that moved releases from bi‑weekly to 5x daily.  \n- Emphasis on governance, performance baselines, and AI‑driven quality controls to keep growth sustainable.\n\nAcross both settings, I keep the same core focus: **multiplying impact through quality‑first engineering cultures and AI‑powered acceleration**.",
         "sources": [
             {
                 "id": "bio",
@@ -861,7 +861,7 @@
     },
     {
         "q": "what makes you unique",
-        "a": "I’m a **hybrid engineer‑manager** who blends deep AI expertise with proven delivery discipline.  \n- I’ve spent 10 + years turning **AI prototypes into production‑ready products** at both startups and scale‑ups.  \n- My work on a terminal‑notification tool for Claude Code and the local‑AI Grammarly replacement (GhostEdit) shows I can **build practical, privacy‑first AI solutions** that actually save time and money.\n\nWhat sets me apart is the **holistic lens** I bring to every project.  \n- I design **quality‑first engineering cultures** that embed AI literacy, ownership, and continuous improvement.  \n- My focus on **AI governance, risk‑aware execution, and stakeholder alignment** ensures that new capabilities are safe, compliant, and aligned with business goals.\n\nIn short, I’m the person who can **scale engineering teams, integrate AI into product workflows, and deliver reliable software**—all while keeping the human element front and center.",
+        "a": "I’m a **hybrid engineer‑manager** who blends deep AI expertise with proven delivery discipline.  \n- I’ve spent 10 + years turning **AI prototypes into production‑ready products** at both startups and scale‑ups.  \n- My work on a terminal‑notification tool for Claude Code and the local‑AI Grammarly replacement (GhostEdit) shows I can **build practical, privacy‑first AI solutions** that actually save time and money.\n\nWhat sets me apart is the **holistic lens** I bring to every project.  \n- I design **quality‑first engineering cultures** that embed AI literacy, ownership, and continuous improvement.  \n- My focus on **AI governance, risk‑aware execution, and stakeholder alignment** ensures that new capabilities are safe, compliant, and aligned with business goals.\n\nIn short, I’m the person who can **scale engineering teams, integrate AI into product workflows, and deliver reliable software**-all while keeping the human element front and center.",
         "sources": [
             {
                 "id": "bio",
@@ -1105,7 +1105,7 @@
     },
     {
         "q": "how many years of experience do you have",
-        "a": "I’ve been in engineering for **over a decade**—more than ten years of building and scaling teams across startups and scale‑ups.  \n\nThat experience spans from hands‑on development to leading high‑frequency CI/CD pipelines and AI‑driven product iterations.  \n\nIf you’d like the exact timeline or specific roles, you can check the **Lead SDET at TestGorilla** section for dates (April 2022 – August 2023).",
+        "a": "I’ve been in engineering for **over a decade**-more than ten years of building and scaling teams across startups and scale‑ups.  \n\nThat experience spans from hands‑on development to leading high‑frequency CI/CD pipelines and AI‑driven product iterations.  \n\nIf you’d like the exact timeline or specific roles, you can check the **Lead SDET at TestGorilla** section for dates (April 2022 – August 2023).",
         "sources": [
             {
                 "id": "bio",

@@ -4,7 +4,7 @@ if (import.meta.env.VITE_LOG) console.log(...consoleLog)
 
 if (window.__embed) {
     // Embedded as a preview iframe (blurred behind boot chooser). Don't boot the
-    // full Three.js WebGPU + Rapier pipeline — it pegs the main thread for
+    // full Three.js WebGPU + Rapier pipeline - it pegs the main thread for
     // seconds and the user never sees the result crisply through the CSS blur.
     document.documentElement.classList.add('is-embedded')
 } else {

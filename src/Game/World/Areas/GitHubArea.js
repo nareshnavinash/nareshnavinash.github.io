@@ -8,7 +8,7 @@ export default class GitHubArea extends BaseArea {
 
         this._createSign(0, -6, 'GitHub', colors.mint.getHex())
 
-        // Server rack — 3 stacked boxes
+        // Server rack - 3 stacked boxes
         const boxColor = 0x1a1a2e
         for (let i = 0; i < 3; i++) {
             const geo = new THREE.BoxGeometry(1.6, 0.8, 1)

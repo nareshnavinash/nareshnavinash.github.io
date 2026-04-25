@@ -12,8 +12,8 @@ const loadReport = (p) => JSON.parse(readFileSync(resolve(p), 'utf8'))
 const before = loadReport(a)
 const after = loadReport(b)
 
-const fmtMs = (v) => (v == null ? '—' : `${Math.round(v)}ms`)
-const fmtScore = (s) => (s == null ? '—' : Math.round(s * 100))
+const fmtMs = (v) => (v == null ? '-' : `${Math.round(v)}ms`)
+const fmtScore = (s) => (s == null ? '-' : Math.round(s * 100))
 
 const arrow = (dx) => (dx === 0 ? '·' : dx > 0 ? '↑' : '↓')
 
@@ -35,7 +35,7 @@ const metricLine = (id, label) => {
     const av = aAudit?.numericValue ?? null
     const dx = (av ?? 0) - (bv ?? 0)
     const tag = id === 'cumulative-layout-shift' ? '' : 'ms'
-    const fmt = (v) => (v == null ? '—' : id === 'cumulative-layout-shift' ? v.toFixed(3) : fmtMs(v))
+    const fmt = (v) => (v == null ? '-' : id === 'cumulative-layout-shift' ? v.toFixed(3) : fmtMs(v))
     const delta =
         dx === 0
             ? '·'
@@ -65,7 +65,7 @@ for (const [id, label] of [
     if (line) console.log(line)
 }
 
-// Top wasteful audits (with numericValue) — sort by after's value, flag biggest regressions
+// Top wasteful audits (with numericValue) - sort by after's value, flag biggest regressions
 const auditRows = []
 for (const id of Object.keys(after.audits || {})) {
     const aAudit = after.audits[id]
