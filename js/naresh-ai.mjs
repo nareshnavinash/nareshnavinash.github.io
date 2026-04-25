@@ -1422,7 +1422,7 @@ class L {
   // across keys switches from "ANY key matches" to "ALL keys must match."
   // This is signaled by hasInverse on the SearchResult from ExtendedSearch.
   //
-  // For mixed patterns like "^hello !Syrup", a key failure is ambiguous -
+  // For mixed patterns like "^hello !Syrup", a key failure is ambiguous —
   // it could be the positive or inverse term that failed. In that case we
   // conservatively exclude the item, which is strictly better than the old
   // behavior of including it. See: https://github.com/krisk/Fuse/issues/712
