@@ -364,7 +364,7 @@ html.is-embedded body {
     position: absolute;
     left: 12px;
     top: 12px;
-    transform: translateY(-120%);
+    transform: translateY(-200%);
     background: var(--bg-card);
     color: var(--text-primary);
     padding: 10px 16px;
