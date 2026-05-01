@@ -1,8 +1,8 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["./rapier-Djdf5Dys.js","./MiniMap-zzNa36af.js","./three.core-RE2ucuTm.js","./preload-helper-PPVm8Dsz.js"])))=>i.map(i=>d[i]);
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["./rapier-CnhRxeOb.js","./MiniMap-D8PtR4wN.js","./three.core-RE2ucuTm.js","./preload-helper-PPVm8Dsz.js"])))=>i.map(i=>d[i]);
 import { _ as c } from "./preload-helper-PPVm8Dsz.js";
-import { D as m, R as w, Q as f, S as x, T, a as b, b as M, Y as y, I as F, A as v, N as u, c as k, V as S, M as P, d as R, e as K, O as C, f as I, g as L, h as E, i as V, W as G, j as W, k as A, L as U, F as Y, l as j, m as N, n as O, E as q, o as D, p as z, P as B, q as _, r as H, Z as Q, s as Z, C as J, t as X, K as $, u as ee, v as te, w as se, x as ae, y as ie, z as re, B as ne, __tla as __tla_0 } from "./MiniMap-zzNa36af.js";
+import { D as m, R as w, Q as f, S as x, T, a as b, b as M, Y as y, I as F, A as v, N as u, c as k, V as S, M as P, d as R, e as K, O as C, f as I, g as L, h as E, i as V, W as G, j as W, k as A, L as U, F as Y, l as j, m as N, n as O, E as q, o as D, p as z, P as B, q as _, r as H, Z as Q, s as Z, C as J, t as X, K as $, u as ee, v as te, w as se, x as ae, y as ie, z as re, B as ne, __tla as __tla_0 } from "./MiniMap-D8PtR4wN.js";
 import { S as le, a as n, N as s, R as i, L as t, C as a } from "./three.core-RE2ucuTm.js";
-import { __tla as __tla_1 } from "./Game-D1ZW8F1e.js";
+import { __tla as __tla_1 } from "./Game-gKxjALLf.js";
 let r;
 let __tla = Promise.all([
   (() => {
@@ -60,7 +60,7 @@ let __tla = Promise.all([
           }
         ]
       ]), this.options = new C(), this.respawns = new I("landing"), this.view = new L(), this.rendering.setPostprocessing(), this.rendering.start(), this.reveal = new E(), this.noises = new V(), this.weather = new G(), this.wind = new W(), this.tracks = new A(), this.lighting = new U(), this.fog = new Y(), this.water = new j(), this.materials = new N(), this.objects = new O(), this.explosions = new q(), this.world = new D();
-      const l = c(() => import("./rapier-Djdf5Dys.js").then(async (m2) => {
+      const l = c(() => import("./rapier-CnhRxeOb.js").then(async (m2) => {
         await m2.__tla;
         return m2;
       }), __vite__mapDeps([0,1,2,3]), import.meta.url), o = this.resourcesLoader.load([

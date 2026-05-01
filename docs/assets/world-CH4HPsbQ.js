@@ -1,9 +1,9 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["./Game-D1ZW8F1e.js","./preload-helper-PPVm8Dsz.js","./MiniMap-zzNa36af.js","./three.core-RE2ucuTm.js","./threejs-override-CR_l8rl2.js"])))=>i.map(i=>d[i]);
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["./Game-gKxjALLf.js","./preload-helper-PPVm8Dsz.js","./MiniMap-D8PtR4wN.js","./three.core-RE2ucuTm.js","./threejs-override-CR_l8rl2.js"])))=>i.map(i=>d[i]);
 import "./modulepreload-polyfill-B5Qt9EMX.js";
-import { _ as l } from "./preload-helper-PPVm8Dsz.js";
-import { b as c } from "./three.core-RE2ucuTm.js";
+import { _ as t } from "./preload-helper-PPVm8Dsz.js";
+import { b as n } from "./three.core-RE2ucuTm.js";
 (async () => {
-  const m = await fetch("/data/resume.json"), e = await m.json(), a = `
+  const r = await fetch("/data/resume.json"), e = await r.json(), a = `
 \u2588\u2588\u2588\u2557   \u2588\u2588\u2557 \u2588\u2588\u2588\u2588\u2588\u2557 \u2588\u2588\u2588\u2588\u2588\u2588\u2557 \u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2557\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2557\u2588\u2588\u2557  \u2588\u2588\u2557\u2588\u2588\u2557\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2557
 \u2588\u2588\u2588\u2588\u2557  \u2588\u2588\u2551\u2588\u2588\u2554\u2550\u2550\u2588\u2588\u2557\u2588\u2588\u2554\u2550\u2550\u2588\u2588\u2557\u2588\u2588\u2554\u2550\u2550\u2550\u2550\u255D\u2588\u2588\u2554\u2550\u2550\u2550\u2550\u255D\u2588\u2588\u2551  \u2588\u2588\u2551\u255A\u2550\u255D\u2588\u2588\u2554\u2550\u2550\u2550\u2550\u255D
 \u2588\u2588\u2554\u2588\u2588\u2557 \u2588\u2588\u2551\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2551\u2588\u2588\u2588\u2588\u2588\u2588\u2554\u255D\u2588\u2588\u2588\u2588\u2588\u2557  \u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2557\u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2551   \u2588\u2588\u2588\u2588\u2588\u2588\u2588\u2557
@@ -40,36 +40,22 @@ import { b as c } from "./three.core-RE2ucuTm.js";
 \u2554\u2550 Credits \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2557
 \u2551 This 3D world is based on folio-2025 by Bruno Simon (MIT license).
 \u2551 https://github.com/brunosimon/folio-2025
-\u2551 Built with Three.js (release: ${c}), Rapier physics, and Howler.js audio.
+\u2551 Built with Three.js (release: ${n}), Rapier physics, and Howler.js audio.
 \u2551 Music by Kounine (CC0 license) \u21D2 https://linktr.ee/Kounine
 \u255A\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u255D
 `;
-  let n = "", r = [];
-  const u = {
-    letter: "color: #ffffff; font: 400 1em monospace;",
-    pipe: "color: #D66FFF; font: 400 1em monospace;"
-  };
-  let i = null;
-  for (let o = 0; o < a.length; o++) {
-    const t = a[o], s = t.match(/[╔║═╗╚╝╔╝]/) ? "pipe" : "letter";
-    s !== i && (i = s, n += "%c", r.push(u[i])), n += t;
-  }
-  const d = [
-    n,
-    ...r
-  ];
-  console.log(...d);
+  for (let o = 0; o < a.length; o++) a[o].match(/[╔║═╗╚╝╔╝]/);
   if (window.__embed) document.documentElement.classList.add("is-embedded");
   else {
-    const { Game: o } = await l(async () => {
-      const { Game: t } = await import("./Game-D1ZW8F1e.js").then(async (m2) => {
-        await m2.__tla;
-        return m2;
+    const { Game: o } = await t(async () => {
+      const { Game: i } = await import("./Game-gKxjALLf.js").then(async (m) => {
+        await m.__tla;
+        return m;
       });
       return {
-        Game: t
+        Game: i
       };
     }, __vite__mapDeps([0,1,2,3]), import.meta.url);
-    await l(() => import("./threejs-override-CR_l8rl2.js"), __vite__mapDeps([4,3]), import.meta.url), new o();
+    await t(() => import("./threejs-override-CR_l8rl2.js"), __vite__mapDeps([4,3]), import.meta.url), new o();
   }
 })();
