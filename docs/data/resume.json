@@ -652,6 +652,31 @@
                     "thumbnail": "https://repository-images.githubusercontent.com/274968993/7d6f9e80-bed5-11ea-8ef9-835e418a3e42"
                 },
                 {
+                    "name": "bonsai",
+                    "description": "CLI for running prism-ml's 1-bit Bonsai models locally. Auto-manages llama.cpp server, downloads from HuggingFace, exposes OpenAI-compatible API.",
+                    "url": "https://github.com/nareshnavinash/bonsai",
+                    "stars": 7,
+                    "language": "Go",
+                    "homepage": "https://nareshnavinash.github.io/bonsai/",
+                    "hasPages": true,
+                    "createdAt": "2026-04-03T02:16:53Z",
+                    "topics": [
+                        "ai",
+                        "bonsai",
+                        "cli",
+                        "gguf",
+                        "go",
+                        "golang",
+                        "huggingface",
+                        "local-llm",
+                        "ollama",
+                        "on-device-ai",
+                        "privacy",
+                        "quantized-models"
+                    ],
+                    "thumbnail": "https://raw.githubusercontent.com/nareshnavinash/bonsai/main/assets/banner.png"
+                },
+                {
                     "name": "Postman-Newman-Framework",
                     "description": "Framework to manage and run multiple postman collections in a single run along with the allure reports.",
                     "url": "https://github.com/nareshnavinash/Postman-Newman-Framework",
@@ -689,31 +714,6 @@
                         "web-automation"
                     ],
                     "thumbnail": "https://repository-images.githubusercontent.com/234506707/b12a7500-3c63-11ea-908a-e274f6d3a7a4"
-                },
-                {
-                    "name": "bonsai",
-                    "description": "CLI for running prism-ml's 1-bit Bonsai models locally. Auto-manages llama.cpp server, downloads from HuggingFace, exposes OpenAI-compatible API.",
-                    "url": "https://github.com/nareshnavinash/bonsai",
-                    "stars": 6,
-                    "language": "Go",
-                    "homepage": "https://nareshnavinash.github.io/bonsai/",
-                    "hasPages": true,
-                    "createdAt": "2026-04-03T02:16:53Z",
-                    "topics": [
-                        "ai",
-                        "bonsai",
-                        "cli",
-                        "gguf",
-                        "go",
-                        "golang",
-                        "huggingface",
-                        "local-llm",
-                        "ollama",
-                        "on-device-ai",
-                        "privacy",
-                        "quantized-models"
-                    ],
-                    "thumbnail": "https://raw.githubusercontent.com/nareshnavinash/bonsai/main/assets/banner.png"
                 }
             ],
             "recent": [
@@ -833,7 +833,7 @@
                     "name": "GhostEdit",
                     "description": "Free, open-source AI grammar checker. Fix grammar, spelling, and punctuation in any app with a single hotkey. Privacy-first no accounts, no subscriptions. ",
                     "url": "https://github.com/nareshnavinash/GhostEdit",
-                    "stars": 2,
+                    "stars": 4,
                     "language": "TypeScript",
                     "homepage": "https://nareshnavinash.github.io/GhostEdit/",
                     "hasPages": true,
