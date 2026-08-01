@@ -611,7 +611,7 @@
                         "rest-api",
                         "snap-mode"
                     ],
-                    "thumbnail": "https://repository-images.githubusercontent.com/241552215/a625b000-57e0-11ea-9df2-15977adf8405"
+                    "thumbnail": "https://repository-images.githubusercontent.com/github-production-repository-image-32fea6/241552215/a625b000-57e0-11ea-9df2-15977adf8405?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20260801%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20260801T104932Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=c58cd0c36d02a1c3d4bb4fc0518749af5759590ca7d4e33488bc4e4e8a087eeb&amp;X-Amz-SignedHeaders=host&amp;jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoiaHR0cHM6Ly9yZXBvc2l0b3J5LWltYWdlcy5naXRodWJ1c2VyY29udGVudC5jb20vIiwia2V5Ijoia2V5MSIsImV4cCI6MTc4NTU4MTY3MiwibmJmIjoxNzg1NTgxMzcyLCJwYXRoIjoicmVwb3NpdG9yeS1pbWFnZXMuZ2l0aHVidXNlcmNvbnRlbnQuY29tIn0.JKp7NaojFbRw_3XZvJFceOaSk0Lls2gQMLifQWiPymY"
                 },
                 {
                     "name": "newman-run",
@@ -631,7 +631,7 @@
                         "postman",
                         "runner"
                     ],
-                    "thumbnail": "https://repository-images.githubusercontent.com/280851173/fa496d80-cabc-11ea-9011-d91bf1514a8e"
+                    "thumbnail": "https://repository-images.githubusercontent.com/github-production-repository-image-32fea6/280851173/fa496d80-cabc-11ea-9011-d91bf1514a8e?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20260801%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20260801T104933Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=a2b76906502b48539704671757c62a74dc6fffcdf320e2b1a3286d00a3cb3ea4&amp;X-Amz-SignedHeaders=host&amp;jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoiaHR0cHM6Ly9yZXBvc2l0b3J5LWltYWdlcy5naXRodWJ1c2VyY29udGVudC5jb20vIiwia2V5Ijoia2V5MSIsImV4cCI6MTc4NTU4MTY3MywibmJmIjoxNzg1NTgxMzczLCJwYXRoIjoicmVwb3NpdG9yeS1pbWFnZXMuZ2l0aHVidXNlcmNvbnRlbnQuY29tIn0.sTeHRpFpqTqbiWJsAuLuI8d9WUFcLkaVaFRa9xpccSY"
                 },
                 {
                     "name": "Cypress-PageObjectModel",
@@ -649,7 +649,7 @@
                         "page-object-model",
                         "ui-automation"
                     ],
-                    "thumbnail": "https://repository-images.githubusercontent.com/274968993/7d6f9e80-bed5-11ea-8ef9-835e418a3e42"
+                    "thumbnail": "https://repository-images.githubusercontent.com/github-production-repository-image-32fea6/274968993/7d6f9e80-bed5-11ea-8ef9-835e418a3e42?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20260801%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20260801T104933Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=cd33c9d54983972451abb96c45268e93a8259df70cc19f32a01d1f8568bff6b4&amp;X-Amz-SignedHeaders=host&amp;jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoiaHR0cHM6Ly9yZXBvc2l0b3J5LWltYWdlcy5naXRodWJ1c2VyY29udGVudC5jb20vIiwia2V5Ijoia2V5MSIsImV4cCI6MTc4NTU4MTY3MywibmJmIjoxNzg1NTgxMzczLCJwYXRoIjoicmVwb3NpdG9yeS1pbWFnZXMuZ2l0aHVidXNlcmNvbnRlbnQuY29tIn0.sTeHRpFpqTqbiWJsAuLuI8d9WUFcLkaVaFRa9xpccSY"
                 },
                 {
                     "name": "bonsai",
@@ -693,7 +693,7 @@
                         "postman-collection",
                         "postman-test"
                     ],
-                    "thumbnail": "https://repository-images.githubusercontent.com/280664062/cd189480-c9c2-11ea-98d0-0a79105a7020"
+                    "thumbnail": "https://repository-images.githubusercontent.com/github-production-repository-image-32fea6/280664062/cd189480-c9c2-11ea-98d0-0a79105a7020?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20260801%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20260801T104934Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=b823ad97dd7efe9572c272e37bfe48a2deddb8273940cc23bcf3560ef7e777cc&amp;X-Amz-SignedHeaders=host&amp;jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoiaHR0cHM6Ly9yZXBvc2l0b3J5LWltYWdlcy5naXRodWJ1c2VyY29udGVudC5jb20vIiwia2V5Ijoia2V5MSIsImV4cCI6MTc4NTU4MTY3NCwibmJmIjoxNzg1NTgxMzc0LCJwYXRoIjoicmVwb3NpdG9yeS1pbWFnZXMuZ2l0aHVidXNlcmNvbnRlbnQuY29tIn0.qhpoFqK6m5zlwNOI5KHdOUkxgLIrTkFHsxRv6o8X-aE"
                 },
                 {
                     "name": "Selpy-Python",
@@ -713,7 +713,7 @@
                         "snap-mode",
                         "web-automation"
                     ],
-                    "thumbnail": "https://repository-images.githubusercontent.com/234506707/b12a7500-3c63-11ea-908a-e274f6d3a7a4"
+                    "thumbnail": "https://repository-images.githubusercontent.com/github-production-repository-image-32fea6/234506707/b12a7500-3c63-11ea-908a-e274f6d3a7a4?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20260801%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20260801T104935Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=6f6c8de0043ba44ed2f82e5ffab69712b2cdab1551712c2b1993931471275713&amp;X-Amz-SignedHeaders=host&amp;jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoiaHR0cHM6Ly9yZXBvc2l0b3J5LWltYWdlcy5naXRodWJ1c2VyY29udGVudC5jb20vIiwia2V5Ijoia2V5MSIsImV4cCI6MTc4NTU4MTY3NSwibmJmIjoxNzg1NTgxMzc1LCJwYXRoIjoicmVwb3NpdG9yeS1pbWFnZXMuZ2l0aHVidXNlcmNvbnRlbnQuY29tIn0.Nxcvl8-faR8Bk5aqWKlerbmiTL8L3AzU-w1BxzO_BhQ"
                 }
             ],
             "recent": [
@@ -744,7 +744,7 @@
                     "name": "chirp",
                     "description": "Chirp - Free, cross-platform digital wellness app with smart break reminders, Pomodoro timer, blink & posture nudges, health score, and team dashboard. Zero tracking. MIT licensed.",
                     "url": "https://github.com/nareshnavinash/chirp",
-                    "stars": 0,
+                    "stars": 1,
                     "language": "Dart",
                     "homepage": "https://nareshnavinash.github.io/chirp/",
                     "hasPages": true,
@@ -833,7 +833,7 @@
                     "name": "GhostEdit",
                     "description": "Free, open-source AI grammar checker. Fix grammar, spelling, and punctuation in any app with a single hotkey. Privacy-first no accounts, no subscriptions. ",
                     "url": "https://github.com/nareshnavinash/GhostEdit",
-                    "stars": 4,
+                    "stars": 5,
                     "language": "TypeScript",
                     "homepage": "https://nareshnavinash.github.io/GhostEdit/",
                     "hasPages": true,

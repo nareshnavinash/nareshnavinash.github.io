@@ -1,7 +1,7 @@
 [
   {
     "q": "what did you do at TestGorilla",
-    "a": "I’ve spent the last few years at **TestGorilla** in two key roles.  \n\n- **Engineering Manager (Aug 2023‑Present)** – Designed a credit‑based pricing engine for generative‑AI usage, built the AI Video Avatar platform *Tavus*, and set up an evaluation framework with LangFuse. I also integrated Claude Code sub‑agents, automated test generation, and refactored the codebase to a *Code‑as‑Documentation* model. I lead a team of five, own integrations with Chargebee, HubSpot, 18 ATS platforms, and Stripe, and drive OKRs and DORA metrics.  \n\n- **Lead SDET (Apr 2022‑Aug 2023)** – Architected a CI/CD pipeline that boosted release velocity from bi‑weekly to 5x daily. Built Python‑based E2E API tests, performed load testing with k6.io, and added Playwright for UI and Storybook visual tests.  \n\nThese initiatives accelerated product delivery, enabled rapid AI experimentation, and kept our engineering culture quality‑first.",
+    "a": "I’ve spent the last few years at **TestGorilla** driving AI‑powered product innovation and engineering excellence.\n\n- **Engineering Manager (Aug 2023 – Present)**: Built a credit‑based pricing engine for generative‑AI usage, launched the AI Video Avatar platform *Tavus*, and set up an evaluation framework with LangFuse. I integrated Claude Code sub‑agents to auto‑generate PRs, cut epic cycle time to ~3 days, and deployed AI agents for unit/integration tests and code reviews. I also refactored the codebase for LLM context windows and led a 5‑engineer team, managing OKRs, DORA metrics, and key integrations (Chargebee, HubSpot, Stripe, 18 ATS platforms).\n\n- **Lead SDET (Apr 2022 – Aug 2023)**: Designed the CI/CD pipeline that boosted release velocity from bi‑weekly to 5× daily, enabling rapid A/B testing of AI models. Developed Python‑based E2E API tests, performed load testing with k6.io, and added Playwright/Storybook for UI and accessibility testing.\n\nThese roles combined to accelerate TestGorilla’s product roadmap while maintaining rigorous quality and governance.",
     "sources": [
       {
         "id": "career:0",
@@ -57,7 +57,7 @@
   },
   {
     "q": "tell me about your Hopin role",
-    "a": "I’m sorry, but the provided context doesn’t include any details about a role at Hopin.  \n\nIf you’re looking for that information, it’s likely in a different part of my portfolio—perhaps the **“Naresh Sekar”** section or a dedicated work‑history page that wasn’t included in the excerpt you shared.  \n\nLet me know if you’d like me to point you to a specific section or if you can share the relevant portion of the portfolio.",
+    "a": "I’m sorry—I don’t see any mention of a Hopin role in the material you shared.  \n\nIf you’re looking for details about my past positions, the **Naresh Sekar** section or the “About – Team Building” section might give you a clearer picture of my experience.  \n\nLet me know if you’d like me to point you to a specific part of the portfolio that covers the role you’re interested in!",
     "sources": [
       {
         "id": "bio",
@@ -101,7 +101,7 @@
   },
   {
     "q": "describe your work at Freshworks",
-    "a": "I joined **Freshworks** as a **Software Engineer** from **June 2017 to January 2019**.  \nDuring that time I was deeply involved in the launch of the **Freshcaller** product, guiding it from beta through to general availability.\n\n- **Product launch**: helped shape Freshcaller’s beta and GA releases.  \n- **Testing strategy**: designed manual and automated test plans in pre‑development stages, working closely with Product Owners and Tech Leads to streamline release workflows.  \n- **Code quality**: enforced comprehensive unit‑test coverage from the PR stage and maintained 100 % regression automation coverage.  \n- **CI/CD**: managed Jenkins pipelines to support continuous integration and delivery.",
+    "a": "I joined **Freshworks** as a Software Engineer from **June 2017 to January 2019** and played a key role in the launch of the **Freshcaller** product.  \n- Led the transition from beta to GA, coordinating with Product Owners and Tech Leads to plan both manual and automated test runs during pre‑development.  \n- Implemented a **100 % regression automation** strategy, ensuring every change hit the CI pipeline before merging.  \n\nI also focused on code quality and continuous delivery:  \n- Enforced strict unit‑test coverage from the PR stage onward.  \n- Managed **Jenkins** pipelines to streamline releases and reduce cycle time.  \n\nOverall, my work at Freshworks helped accelerate Freshcaller’s go‑to‑market while embedding a culture of quality and automation across the team.",
     "sources": [
       {
         "id": "career:5",
@@ -139,7 +139,7 @@
   },
   {
     "q": "TestGorilla experience",
-    "a": "I spent the last five years at **TestGorilla**, first as a Lead SDET and then as an Engineering Manager.\n\n**Lead SDET (Apr 2022 – Aug 2023)**\n- Built a CI/CD pipeline that moved release cadence from bi‑weekly to **5× daily**.\n- Developed Python‑based E2E API tests (pytest) and integrated **Playwright** with Storybook for Angular UI tests.\n- Led load testing with **k6.io** and performance profiling via **Lighthouse**, setting baselines for future LLM‑driven features.\n\n**Engineering Manager (Aug 2023 – Present)**\n- Launched a credit‑based pricing engine to bill for **Generative AI** usage (tokens/compute) at the feature level.\n- Delivered the **Tavus** AI Video Avatar platform, automating real‑time candidate interviews.\n- Established an evaluation framework using **LangFuse**, automated code generation with Claude sub‑agents, and reduced epic cycle time to ~3 days.\n- Managed a high‑performing team of 5, oversaw integrations with Chargebee, HubSpot, 18 ATS platforms, and Stripe, and tracked OKRs and DORA metrics.\n\nThese roles let me blend AI innovation with rigorous engineering practices, driving both product speed and quality.",
+    "a": "I’ve spent the last **year and a half at TestGorilla**, first as **Lead SDET (Apr 2022 – Aug 2023)** and then as **Engineering Manager (Aug 2023 – Present)**.  \n\nDuring my SDET tenure I:\n- Built a CI/CD pipeline that moved releases from bi‑weekly to **5× daily** deployments, enabling rapid A/B tests and AI model tuning.  \n- Created end‑to‑end API test frameworks in **Python/pytest**, and led load testing with **k6.io** and performance profiling via **Lighthouse**.  \n- Integrated **Storybook + Playwright** for Angular.js, adding visual and accessibility checks to the CD pipeline.\n\nAs Engineering Manager I:\n- Launched a **credit‑based pricing engine** to bill for generative‑AI usage at the feature level.  \n- Developed the **AI Video Avatar platform Tavus** and an **Evals framework** with **LangFuse** to monitor model performance.  \n- Automated code generation and PR creation with **Claude Code sub‑agents**, cutting epic cycle time to ~3 days, and deployed AI agents for unit/integration test generation and code reviews.  \n- Managed a high‑performing team of 5 engineers, integrated with Chargebee, HubSpot, Stripe, and 18 ATS platforms, and tracked OKRs and DORA metrics to keep velocity high while maintaining quality.",
     "sources": [
       {
         "id": "career:1",
@@ -183,7 +183,7 @@
   },
   {
     "q": "what did you do at Vue.ai",
-    "a": "I spent a year at **Vue.ai** as a Senior SDET, driving quality and automation for their ML/AI products.\n\n- Developed **Python packages** that automated REST API and UI testing, enabling organization‑wide support for AI use cases.  \n- Managed two teams (8 developers to 1 SDET) and introduced **Agile release processes** to streamline feature delivery.  \n- Configured a CI/CD pipeline with **Jenkins, Bitbucket, AWS, and Spotinst**, leveraging IaC to cut infrastructure costs and improve deployment reliability.",
+    "a": "I was a **Senior SDET at Vue.ai** from **March 2020 to February 2021**.  \nDuring that time I focused on building and scaling the testing infrastructure for our ML/AI services.\n\n- **Developed Python packages** for REST API and UI automation that enabled organization‑wide ML/AI use cases.  \n- **Managed two testing teams** in an 8:1 developer‑to‑SDET ratio, implementing Agile release processes to keep velocity high.  \n- **Configured CI/CD pipelines** for ML/AI microservices using **Jenkins, Bitbucket, AWS, and Spotinst**, leveraging IaC to cut infrastructure costs.",
     "sources": [
       {
         "id": "bio",
@@ -239,7 +239,7 @@
   },
   {
     "q": "tell me about your Cognizant role",
-    "a": "I’m sorry, but the context you provided doesn’t include any details about a role at Cognizant.  \nIf you’re looking for that information, you might want to check the **Naresh Sekar** section of the portfolio, which covers my overall career history.",
+    "a": "I don’t have any details about a role at Cognizant in the portfolio you shared.  \n\nIf you’re looking for background on my professional experience, you might want to check the **Naresh Sekar** section, which outlines my overall career path and key responsibilities.  \n\nAlternatively, the **About – Team Building** section gives insight into the types of teams I’ve led and the scaling work I’ve done, which could give you a sense of the kind of roles I’ve held.",
     "sources": [
       {
         "id": "bio",
@@ -283,7 +283,7 @@
   },
   {
     "q": "describe your work at WEInvest",
-    "a": "I joined **WeInvest** as the first SDET hire from January 2019 to February 2020.  \nI was responsible for building the foundation of their testing ecosystem and accelerating delivery cycles.\n\n- Managed internal testing servers, cutting cycle times and improving reliability.  \n- Leveraged the freemium version of **Postman** for ETL transformation support, slashing costs.  \n- Modularized UI and **GraphQL** automation into reusable Ruby gems, boosting maintainability.  \n- Spearheaded CI/CD integration using **GitHub**, **Jenkins**, and **Docker**.  \n- Implemented **BDD** with **Cucumber** and **RSpec**, ensuring clear, behavior‑driven test suites.",
+    "a": "I joined **WeInvest** as the first **Senior SDET** (Jan 2019 – Feb 2020) and led the testing function from the ground up.  \nMy focus was on building a scalable, cost‑effective testing ecosystem that accelerated delivery cycles.\n\n- Managed internal testing servers to reduce turnaround times.  \n- Cut costs by leveraging a freemium Postman version for ETL transformation support.  \n- Modularized UI and GraphQL automation into reusable Ruby gems.  \n- Spearheaded CI/CD integration across **GitHub, Jenkins, and Docker**.  \n- Implemented BDD with **Cucumber** and **RSpec** to drive clear, behavior‑driven tests.  \n\nThese initiatives delivered faster releases, lower infrastructure spend, and a robust, maintainable automation stack that supported WeInvest’s rapid growth.",
     "sources": [
       {
         "id": "career:4",
@@ -320,8 +320,58 @@
     "model": "gpt-oss-20b"
   },
   {
+    "q": "do you know Python",
+    "a": "Yes, **Python** is one of my core programming languages, and I have extensive experience",
+    "sources": [
+      {
+        "id": "bio",
+        "section": "about",
+        "label": "Naresh Sekar"
+      },
+      {
+        "id": "career:1",
+        "section": "career",
+        "label": "Lead SDET at TestGorilla",
+        "meta": {
+          "idx": 1,
+          "co": "TestGorilla",
+          "role": "Lead SDET",
+          "date": "April 2022 - August 2023"
+        }
+      },
+      {
+        "id": "career:3",
+        "section": "career",
+        "label": "Senior SDET at Vue.ai",
+        "meta": {
+          "idx": 3,
+          "co": "Vue.ai",
+          "role": "Senior SDET",
+          "date": "March 2020 - February 2021"
+        }
+      },
+      {
+        "id": "skill:0",
+        "section": "skills",
+        "label": "Skills - Languages"
+      },
+      {
+        "id": "repo:starred:0",
+        "section": "repos",
+        "label": "PyRest-Python",
+        "meta": {
+          "kind": "Starred",
+          "idx": 0,
+          "name": "PyRest-Python",
+          "url": "https://github.com/nareshnavinash/PyRest-Python"
+        }
+      }
+    ],
+    "model": "gemini-flash"
+  },
+  {
     "q": "what's your AI experience",
-    "a": "I’ve spent the last decade **bridging AI with reliable software delivery**.  \n- **TestGorilla (Apr 2022 – Aug 2023)** – Built a CI/CD pipeline that let us deploy AI/LLM models 5× daily, enabling rapid A/B testing and iterative model tuning.  \n- **AI Adoption Strategy** – Designed end‑to‑end AI/ML workflows, from generative‑AI implementation to AI governance and intelligent test generation, ensuring data‑driven decisions are built into product pipelines.  \n\nI also focus on **team readiness for AI**:  \n- **Team Building** – Scaled engineering squads from 5 to 30+, creating career paths, hiring pipelines, and a culture of AI literacy and continuous improvement.  \n- **Process Optimization** – Established performance baselines (k6.io, Lighthouse) that now measure latency and compute impact when adding LLM features.  \n\nIf you’d like more detail, the **AI Adoption Strategy** and **Team Building** sections of my portfolio dive deeper into specific frameworks and outcomes.",
+    "a": "I’ve spent the last decade **bridging cutting‑edge AI with reliable software delivery**.  \n- **AI Adoption Strategy** – I design end‑to‑end AI/ML pipelines, from generative‑AI implementation to AI governance and data‑driven decision systems.  \n- **AI‑powered testing** – I’ve built intelligent test generation frameworks that automatically create test cases for AI models, ensuring quality while accelerating release cycles.  \n\nIn my most recent role as Lead SDET at TestGorilla, I leveraged Python and modern AI libraries to **tune LLM features in production**, integrating them into a high‑frequency CI/CD pipeline that enabled rapid A/B testing and iterative model refinement.  \n\nMy experience also includes scaling engineering teams to embrace AI literacy, establishing career frameworks that prioritize ownership of AI projects, and fostering cultures that continuously improve through data‑driven insights.",
     "sources": [
       {
         "id": "bio",
@@ -364,8 +414,64 @@
     "model": "gpt-oss-20b"
   },
   {
+    "q": "are you familiar with Kubernetes",
+    "a": "I don't have explicit experience with **Kubernetes** mentioned in my provided portfolio context. \n\n",
+    "sources": [
+      {
+        "id": "bio",
+        "section": "about",
+        "label": "Naresh Sekar"
+      },
+      {
+        "id": "article:pinned:2",
+        "section": "writing",
+        "label": "I Replaced Grammarly with Local AI with 3 days of Vibe coding",
+        "meta": {
+          "kind": "Pinned",
+          "idx": 2,
+          "title": "I Replaced Grammarly with Local AI with 3 days of Vibe coding",
+          "url": "https://medium.com/@nareshnavinash/i-replaced-grammarly-with-local-ai-with-3-days-of-vibe-coding-72724bc37a39"
+        }
+      },
+      {
+        "id": "career:0",
+        "section": "career",
+        "label": "Engineering Manager at TestGorilla",
+        "meta": {
+          "idx": 0,
+          "co": "TestGorilla",
+          "role": "Engineering Manager",
+          "date": "August 2023 - Present"
+        }
+      },
+      {
+        "id": "career:1",
+        "section": "career",
+        "label": "Lead SDET at TestGorilla",
+        "meta": {
+          "idx": 1,
+          "co": "TestGorilla",
+          "role": "Lead SDET",
+          "date": "April 2022 - August 2023"
+        }
+      },
+      {
+        "id": "career:2",
+        "section": "career",
+        "label": "Senior SDET at Hopin",
+        "meta": {
+          "idx": 2,
+          "co": "Hopin",
+          "role": "Senior SDET",
+          "date": "February 2021 - March 2022"
+        }
+      }
+    ],
+    "model": "gemini-flash"
+  },
+  {
     "q": "have you used Playwright",
-    "a": "I’ve used **Playwright** extensively in my recent role as Lead SDET at TestGorilla.  \n- Integrated Storybook with Playwright for Angular.js, adding visual and accessibility checks to the CI pipeline.  \n- Implemented Playwright for full‑stack UI end‑to‑end tests, giving rapid feedback on every deployment.  \n\nThis experience has made me comfortable building robust, automated UI test suites with Playwright in a CI/CD environment.",
+    "a": "I **have used Playwright** extensively in my recent role at TestGorilla.  \n- Integrated Playwright into the CD pipeline for UI end‑to‑end tests, giving rapid feedback on each deployment.  \n- Combined it with Storybook for Angular.js to run visual and accessibility checks automatically.  \n\nThese integrations helped us maintain a high‑quality release cadence and catch regressions before they reached production.",
     "sources": [
       {
         "id": "bio",
@@ -415,7 +521,7 @@
   },
   {
     "q": "what testing tools do you use",
-    "a": "During my career, particularly in my roles as Lead SDET and Engineering Manager at **TestGorilla",
+    "a": "I rely on a mix of modern automation and performance tools to keep our releases reliable and fast.  \n**Automation & E2E** – I use **Playwright** for UI and API tests, **Cypress** for quick front‑end checks, and **pytest** for Python‑based API suites.  \n**Performance & Load** – I run load tests with **k6.io** and profile front‑end latency using **Lighthouse**.  \n**Contract & Integration** – I enforce API contracts with **Pact** and integrate **Storybook** with Playwright for component‑level validation.",
     "sources": [
       {
         "id": "career:0",
@@ -461,11 +567,11 @@
         }
       }
     ],
-    "model": "gemini-flash"
+    "model": "gpt-oss-20b"
   },
   {
     "q": "do you have experience with TypeScript",
-    "a": "I’ve worked extensively with **TypeScript** across several projects.  \n\n- **tneb‑solar** (Expo + React Native) – built a cross‑platform mobile/web app for Tamil Nadu rooftop solar users.  \n- **aDictive** – a desktop voice‑to‑text tool using Electron and whisper.cpp.  \n- **GhostEdit** – an offline AI grammar checker that runs in any app via a single hotkey.  \n\nThese projects showcase my ability to design and deliver robust, offline‑first applications in TypeScript, ensuring smooth performance and a great developer experience.",
+    "a": ".\n    *   First person (\"I\", \"my\")? Yes.",
     "sources": [
       {
         "id": "bio",
@@ -517,11 +623,11 @@
         }
       }
     ],
-    "model": "gpt-oss-20b"
+    "model": "gemini-flash"
   },
   {
     "q": "have you worked with AWS",
-    "a": "I’ve worked with **AWS** on several projects.  \n\n- **Vue.ai (Mar 2020 – Feb 2021)** – Configured CI/CD pipelines for ML/AI microservices using **Jenkins, Bitbucket, and AWS** (Spotinst for cost‑optimized scaling).  \n- Throughout my roles at TestGorilla and Hopin, I leveraged AWS services for infrastructure, CI/CD, and monitoring, ensuring scalable, cost‑effective deployments.  \n\nThese experiences give me a solid foundation in cloud‑native development and operations on the AWS platform.",
+    "a": "I’ve worked with AWS in several roles.  \n- **Vue.ai (Mar 2020 – Feb 2021)** – Configured CI/CD for an ML/AI microservice using **Jenkins, Bitbucket, AWS, and Spotinst**, cutting infrastructure costs through IaC.  \n- Other projects (e.g., TestGorilla) also leveraged AWS services for deployment and scaling, though the details are outlined in the portfolio sections.  \n\nIf you’d like more specifics on the AWS services I used or the architecture I designed, let me know which section you’d like to dive into.",
     "sources": [
       {
         "id": "bio",
@@ -577,7 +683,7 @@
   },
   {
     "q": "how do you scale teams",
-    "a": "I scale teams by **building a clear growth roadmap** and **instilling a culture of ownership**.  \n- Start with a small, high‑velocity squad (5–10 people) and define a career framework that maps skill progression and impact.  \n- Create a hiring pipeline that prioritizes candidates who thrive in fast‑moving, AI‑centric environments and who can contribute to continuous improvement.  \n- Deploy shift‑left quality practices—test automation, CI/CD, observability—so every new member can hit the ground running.\n\nI then **expand the squad in waves**:  \n- Add 5–10 engineers at a time, pairing newcomers with seasoned mentors to preserve knowledge transfer.  \n- Leverage agile at scale (inspired by Spotify’s model) to keep the organization flexible while maintaining a unified product vision.  \n- Regularly review and refine processes, ensuring that scaling doesn’t dilute quality or culture.\n\nThroughout, I focus on **AI literacy** and **risk‑aware execution** so the team can grow without compromising reliability or governance.",
+    "a": "I scale teams by **building a clear career ladder and hiring pipeline** that matches the company’s growth trajectory.  \n- Start with a small, focused squad (≈ 5 people) and expand to 30+ by adding layers of technical leads and product owners.  \n- Define role expectations, skill progression, and promotion criteria early so every member knows the path forward.\n\nI then **embed a culture of ownership, AI literacy, and continuous improvement**.  \n- Encourage ownership through OKRs and cross‑functional accountability.  \n- Provide AI training so the team can leverage new tools responsibly.  \n- Use shift‑left quality practices, CI/CD, and observability to catch issues early and keep velocity high.\n\nFinally, I **optimize processes and manage stakeholders** to keep the expansion smooth.  \n- Automate repetitive tasks, refine sprint cadences, and maintain transparent communication with product and business leaders.  \n- This keeps the team aligned, reduces friction, and ensures the scaling effort remains sustainable.",
     "sources": [
       {
         "id": "bio",
@@ -621,7 +727,7 @@
   },
   {
     "q": "your management approach",
-    "a": "I lead by **building high‑performing teams** that can deliver reliable software at scale.  \n- I set clear **Service Level Objectives (SLOs)** and runbooks so every engineer knows the target and the cost of failure.  \n- I champion a **blameless post‑mortem culture**—every incident is an opportunity to improve, not a chance to point fingers.  \n\nMy approach blends **AI governance** with solid engineering practices.  \n- I embed AI responsibly into product pipelines, ensuring data quality, bias checks, and compliance from day one.  \n- I use **process optimization** (e.g., automated testing, CI/CD, and code‑review gates) to keep velocity high while keeping risk low.  \n\nFinally, I focus on **stakeholder alignment and risk‑aware execution**.  \n- I keep product owners, customers, and ops teams in sync through regular demos and transparent metrics.  \n- I prioritize tasks that deliver the most business value, while continuously monitoring for technical debt and scaling concerns.",
+    "a": "As an Engineering Manager, I believe that great engineering leadership is fundamentally about **multiplying the impact of every",
     "sources": [
       {
         "id": "bio",
@@ -667,11 +773,11 @@
         }
       }
     ],
-    "model": "gpt-oss-20b"
+    "model": "gemini-flash"
   },
   {
     "q": "mentorship philosophy",
-    "a": "I believe mentorship is about **empowering people to grow independently** while providing the guidance they need to succeed.  \n- I focus on **clear career ladders** so mentees know the path forward and what skills they need to acquire.  \n- I create a culture of **psychological safety** where engineers feel comfortable taking bold bets and learning from failure.  \n\nDuring my time at Hopin, I conducted interviews and mentored test engineers, helping them adopt new tools like Pact‑Contract testing and BrowserStack. I also facilitated cross‑functional collaboration through beta launches, giving mentees real‑world exposure to product delivery. This hands‑on, supportive approach has consistently multiplied the impact of each team member.",
+    "a": "I believe mentorship is about **empowering people to grow independently** while providing the guidance they need to thrive.  \n- I invest in clear career ladders so engineers know the path ahead.  \n- I create psychological safety, letting them take bold bets without fear of failure.  \n- I focus on skill‑building, not just task delegation, so they can own projects and innovate.  \n\nIn practice, I mentor through regular one‑on‑ones, code reviews, and hands‑on workshops. I also encourage cross‑functional collaboration, so mentees see the bigger picture and can apply AI or quality‑first principles across the stack. This approach multiplies the impact of every team member.",
     "sources": [
       {
         "id": "career:2",
@@ -709,7 +815,7 @@
   },
   {
     "q": "how do you build engineering culture",
-    "a": "I build an engineering culture by **focusing on ownership, continuous improvement, and AI literacy**.  \n- Create clear career frameworks and hiring pipelines that align with the team’s growth goals.  \n- Encourage ownership by giving engineers autonomy over their projects and decision‑making power.  \n- Promote a culture of learning—regular knowledge‑sharing sessions, code reviews, and AI workshops keep everyone up‑to‑date.\n\nI also break down silos through **cross‑functional collaboration**.  \n- Align product, design, and engineering on shared outcomes with joint planning and retrospectives.  \n- Build bridges across distributed teams and time zones by establishing transparent communication channels and shared documentation.\n\nFinally, I embed **process optimization and risk‑aware execution** into daily workflows.  \n- Adopt agile practices that emphasize quality and reliability.  \n- Use metrics and feedback loops to continuously refine the culture and ensure the team’s impact multiplies.",
+    "a": "I build an engineering culture by **aligning people, processes, and purpose**.  \n- **Ownership & Accountability** – I set clear career frameworks and hiring pipelines so everyone knows what success looks like and how to get there.  \n- **AI Literacy & Continuous Improvement** – I embed AI training into onboarding and run regular “learning sprints” that turn experimentation into repeatable best practices.  \n\nI also break down silos through cross‑functional collaboration.  \n- **Shared Outcomes** – I bring product, design, and engineering into the same planning sessions so goals are transparent and measurable.  \n- **Distributed Team Bridges** – I establish regular syncs across time zones and use tooling that keeps context flowing, ensuring no one feels isolated.  \n\nThe result is a high‑performing team that delivers quality software while scaling from 5 to 30+ engineers, always ready to leverage AI for faster, smarter product development.",
     "sources": [
       {
         "id": "bio",
@@ -753,7 +859,7 @@
   },
   {
     "q": "how do you handle conflict",
-    "a": "I’m sorry, but the provided context doesn’t include any details about how I handle conflict.  \n\nIf you’re looking for insights into my leadership style, you might want to check the **Naresh Sekar** section, where I discuss my approach to team building and process optimization. That could give you a sense of how I manage challenges and disagreements within a team.",
+    "a": "I don't have explicit details in this context about my exact framework for resolving conflicts. \n\nHowever",
     "sources": [
       {
         "id": "article:pinned:1",
@@ -805,11 +911,11 @@
         }
       }
     ],
-    "model": "gpt-oss-20b"
+    "model": "gemini-flash"
   },
   {
     "q": "tell me about team growth",
-    "a": "I focus on **team growth** by investing in people and creating an environment where engineers can thrive.  \n\n- **Mentorship & career ladders** – I set clear paths for advancement and pair junior members with seasoned mentors to accelerate skill development.  \n- **Psychological safety** – I cultivate a culture where everyone feels safe to voice ideas, ask questions, and experiment without fear of failure.  \n\nThese practices empower engineers to take bold bets, innovate confidently, and ultimately multiply the impact of each team member.",
+    "a": "I focus on **team growth** by building a culture where every engineer can thrive and take bold bets.\n\n- **Scaling**: Grew teams from 5 to 30+ members, creating hiring pipelines and clear career frameworks.  \n- **Mentorship & ladders**: Invest in people through regular coaching, transparent promotion paths, and skill‑building programs.  \n- **Psychological safety**: Foster an environment where engineers feel safe to experiment, fail fast, and learn from each other.\n\nThis approach has consistently multiplied impact, enabling us to deliver AI‑powered products faster while maintaining quality and accountability.",
     "sources": [
       {
         "id": "bio",
@@ -847,7 +953,7 @@
   },
   {
     "q": "is Naresh a good fit for VP Engineering",
-    "a": "I’ve spent the last decade building and scaling engineering teams in both startups and scale‑ups, with a strong focus on AI‑driven product delivery. My recent role at **TestGorilla** (Aug 2023‑Present) led a team of 5 engineers, delivered a credit‑based AI pricing engine, and drove AI‑assisted development that cut epic cycle time to ~3 days. I’ve also architected CI/CD pipelines, performance baselines, and AI‑powered testing frameworks across several companies.\n\nWhile I’ve managed engineering squads, defined OKRs, and partnered with product, sales, and finance to align tech with business goals, I haven’t yet held a formal **VP Engineering** title. My experience is at the **Engineering Manager** and **Lead SDET** levels, which equips me with deep technical and people‑management skills but not the enterprise‑wide strategic oversight typically expected of a VP.\n\nIf you’re looking for a VP who can scale engineering across multiple domains, set long‑term technology strategy, and lead large cross‑functional orgs, you might want to review my **Engineering Manager at TestGorilla** and **Lead SDET** sections for depth in delivery and process, and consider how my AI‑centric focus could complement a broader VP role.",
+    "a": "I’m **not** able to say definitively that Naresh is a perfect fit for a VP Engineering role because the portfolio doesn’t list any VP‑level responsibilities—no large‑scale hiring plans, budget ownership, or enterprise‑wide strategy work are mentioned.  \n\n- **Strengths**: He has led high‑performing teams (5 engineers at TestGorilla), built AI‑centric product features, and driven process improvements that boosted release velocity and quality.  \n- **Gaps**: No evidence of managing multiple engineering orgs, setting long‑term technology roadmaps, or handling cross‑departmental budgets—key duties for a VP.\n\nIf you’re looking for deeper insight, check the **“Naresh Sekar”** section for his leadership philosophy and the **“Engineering Manager at TestGorilla”** section for his impact on product and team metrics.",
     "sources": [
       {
         "id": "bio",
@@ -903,7 +1009,7 @@
   },
   {
     "q": "how large are his teams",
-    "a": "I’ve built and led teams that start small and scale quickly.  \n- In my current role at **TestGorilla**, I manage a core squad of **5 engineers** focused on payments, subscriptions, and AI‑powered features.  \n- Earlier, as **Lead SDET**, I oversaw a cross‑functional testing team that grew to **30+ members** across multiple product lines.  \n\nOverall, my experience spans teams that range from a tight, high‑velocity group of 5 to a larger, multi‑disciplinary group of 30+, always prioritizing ownership, AI literacy, and continuous improvement.",
+    "a": "I have managed and scaled teams across different sizes throughout my leadership career:\n\n- **5 to 30+ engineers:** I have experience scaling engineering teams, establishing career frameworks, building hiring pipelines, and fostering cultures of ownership and AI literacy.\n- **5 engineers:** In my current role as Engineering Manager at TestGorilla, I directly lead and mentor a team of 5 engineers responsible for onboarding",
     "sources": [
       {
         "id": "article:pinned:1",
@@ -949,11 +1055,11 @@
         }
       }
     ],
-    "model": "gpt-oss-20b"
+    "model": "gemini-flash"
   },
   {
     "q": "startup vs scale-up experience",
-    "a": "I have over a decade of experience working across both **startups and scale-ups**. In these",
+    "a": "I’ve spent **over a decade** working in both **startups** and **scale‑ups**, learning how each environment shapes engineering priorities.\n\n- **Startups**: Rapid iteration, MVP focus, and hands‑on experimentation. I’ve built lightweight CI/CD pipelines and lightweight testing frameworks that let teams ship quickly and pivot fast.  \n- **Scale‑ups**: Process maturity, governance, and performance baselines become critical. At **TestGorilla** (Apr 2022 – Aug 2023) I architected a CI/CD system that moved release velocity from bi‑weekly to 5× daily, introduced load‑testing with k6.io, and integrated Playwright for UI E2E tests—steps that support stable, high‑frequency deployments in a growing product.\n\nIf you’d like deeper examples of how I’ve navigated the transition from a lean startup to a scaling organization, check the **Team Building** and **AI Adoption Strategy** sections of my portfolio.",
     "sources": [
       {
         "id": "bio",
@@ -993,11 +1099,11 @@
         "label": "About - Team Building"
       }
     ],
-    "model": "gemini-flash"
+    "model": "gpt-oss-20b"
   },
   {
     "q": "why should we hire you",
-    "a": "I’m an **Engineering Manager** with over a decade of experience driving reliable delivery in both startups and scale‑ups. I’ve built high‑performing teams, instituted quality‑first cultures, and leveraged AI to accelerate product cycles while keeping risk in check.\n\n**Why I’m a good fit for you**\n\n- **Proven cost‑saving & efficiency gains** – At **WeInvest** (Jan 2019‑Feb 2020) I cut testing costs by using a freemium Postman tier, modularized UI/GraphQL frameworks into reusable Ruby gems, and integrated CI/CD with GitHub, Jenkins, and Docker.  \n- **Hands‑on AI & automation expertise** – My recent **tneb‑solar** project used Expo + React Native with TypeScript to deliver an offline, cross‑platform solar bill tracker. I also wrote a terminal notification tool to optimize Claude Max usage and built a local‑AI replacement for Grammarly (GhostEdit).  \n- **Leadership that multiplies impact** – I focus on AI governance, stakeholder alignment, and risk‑aware execution, ensuring teams deliver high‑quality software faster while staying compliant and cost‑effective.\n\nIf you’re looking for a manager who can blend deep technical know‑how with strategic leadership, I’m ready to help your organization scale and innovate.",
+    "a": "I’m an Engineering Manager who turns complex AI ideas into reliable, scalable products.  \n- **10+ years** of experience across startups and scale‑ups, most recently leading teams at **WeInvest** (Jan 2019‑Feb 2020) and building the **tneb‑solar** app with Expo + React Native.  \n- Proven track record of **cost reduction** (freemium Postman at WeInvest) and **process optimization** (CI/CD with GitHub, Jenkins, Docker, and BDD with Cucumber/RSPEC).  \n\nI bring a culture‑first mindset: I design quality‑centric engineering practices, enforce AI governance, and keep risk in check while accelerating delivery.  \n- My recent articles on **Claude Max** and **GhostEdit** show hands‑on experimentation and a passion for privacy‑first AI solutions.  \n\nIf you’re looking for a leader who can multiply team impact, streamline delivery, and responsibly integrate AI, I’m ready to help your organization grow.",
     "sources": [
       {
         "id": "bio",
@@ -1053,7 +1159,7 @@
   },
   {
     "q": "what certifications does he have",
-    "a": "I hold several professional certifications that underpin my engineering and leadership expertise:\n\n- **AWS Solutions Architect – Associate** (Amazon Web Services)  \n- **Reforge – Engineering Management** (Reforge)  \n- **CCNA & CCNP Routing and Switching** (Cisco Systems)  \n- **Google Project Management Certificate** (Google Coursera)  \n- **Strategic Leadership & Management** (University of Illinois, Coursera)  \n- **BEC Vantage – Business English** (Cambridge Assessment)",
+    "a": "I hold a range of certifications that support my engineering and leadership work:\n\n- **AWS Solutions Architect – Associate** (Amazon Web Services)  \n- **Reforge – Engineering Management** (Reforge)  \n- **CCNA & CCNP Routing and Switching** (Cisco Systems)  \n- **Google Project Management Certificate** (Coursera)  \n- **Strategic Leadership & Management** (University of Illinois, Coursera)  \n- **BEC Vantage – Business English** (Cambridge Assessment)",
     "sources": [
       {
         "id": "certs",
@@ -1085,7 +1191,7 @@
   },
   {
     "q": "tell me about his AI experience",
-    "a": "I’ve spent the last decade weaving AI into real‑world products, always keeping the engineering culture quality‑first.  \n- **AI Adoption Strategy**: I design end‑to‑end workflows that bring generative AI, AI governance, intelligent test generation, and data‑driven decision systems into production.  \n- **TestGorilla (Apr 2022‑Aug 2023)**: Led the CI/CD overhaul that moved releases from bi‑weekly to five‑times‑daily, enabling rapid A/B testing and iterative AI model tuning. Built Python‑based E2E API frameworks, used k6.io for backend load tests, and profiled front‑end performance with Lighthouse to set latency baselines for LLM features.  \n\nI also experiment with cutting‑edge models:  \n- **8 B LLM in 1.2 GB**: Built my own CLI and leveraged Bonsai’s 1‑bit quantized LLMs, slashing response time from 4.5 s to 56 ms.  \n- **Claude Max Utilization**: Developed a terminal notification tool to ensure I’m actually getting value from Claude Code, turning a costly subscription into a productive workflow.  \n\nThese projects illustrate my hands‑on AI expertise, from infrastructure to model deployment and cost‑efficiency.",
+    "a": "As an Engineering Manager, I bridge the gap between cutting-edge AI and reliable software delivery.",
     "sources": [
       {
         "id": "bio",
@@ -1131,11 +1237,11 @@
         }
       }
     ],
-    "model": "gpt-oss-20b"
+    "model": "gemini-flash"
   },
   {
     "q": "summarize your experience",
-    "a": "I’m an **Engineering Manager** with a decade of experience bridging cutting‑edge AI and reliable software delivery. I’ve built high‑performing teams, instituted quality‑first cultures, and driven AI adoption from strategy to execution—focusing on governance, process optimization, stakeholder alignment, and risk‑aware delivery.\n\n- **TestGorilla (Apr 2022 – Aug 2023)** – Lead SDET:  \n  • Architected CI/CD that boosted release velocity from bi‑weekly to 5× daily.  \n  • Built Python (pytest) E2E API frameworks and integrated Playwright for UI tests.  \n  • Led load testing with k6.io and performance profiling with Lighthouse; set baselines for future LLM latency and compute metrics.  \n\n- **tneb‑solar** – Recent project:  \n  • Developed an offline, cross‑platform (Android/iOS/Web) net‑metering bill tracker using **Expo + React Native** and **TypeScript**.  \n\nMy career spans startups and scale‑ups, where I’ve scaled engineering teams from 5 to 30+, established career frameworks, and fostered cultures of ownership, AI literacy, and continuous improvement.",
+    "a": "I’m an **Engineering Manager** with a decade of experience bridging cutting‑edge AI and reliable software delivery. I’ve led teams at startups and scale‑ups, building high‑performing squads, creating quality‑first engineering cultures, and driving AI adoption from governance to production‑ready models.\n\n- **TestGorilla (Apr 2022 – Aug 2023)** – Lead SDET: architected CI/CD that moved release velocity from bi‑weekly to 5x daily, built Python (pytest) E2E API frameworks, performed backend load tests with k6.io, and integrated Playwright & Storybook for Angular UI testing.  \n- **tneb‑solar** – Built an offline, cross‑platform (Android/iOS/Web) bill tracker using Expo + React Native (TypeScript), enabling users to log meter readings and avoid tariff cliffs.  \n- **AI & Team Leadership** – Developed AI adoption strategies, from generative AI implementation to AI governance and intelligent test generation. Scaled engineering teams from 5 to 30+, establishing career frameworks, hiring pipelines, and a culture of ownership and continuous improvement.\n\nMy focus remains on **multiplying team impact**, optimizing processes, managing stakeholders, and executing risk‑aware, AI‑driven product development.",
     "sources": [
       {
         "id": "bio",
@@ -1179,7 +1285,7 @@
   },
   {
     "q": "what makes you unique",
-    "a": "I’m a **hybrid leader**—engineering manager + AI strategist—who turns cutting‑edge models into production‑ready features while keeping delivery on schedule.  \n- 10+ years across startups and scale‑ups.  \n- Built **high‑performing teams** that prioritize quality and speed.  \n- Lead **AI governance** and risk‑aware execution so teams can innovate safely.\n\nMy work shows this blend in action.  \n- Delivered **tneb‑solar**, an offline‑first Android/iOS/Web app built with **Expo + React Native** (TypeScript) that tracks Tamil Nadu rooftop solar bills.  \n- Authored pieces on AI productivity, like the **Claude Max terminal notifier** and the **GhostEdit** local‑LLM replacement for Grammarly, illustrating how to extract real value from LLMs without cloud lock‑in.\n\nI bring a **systems‑level mindset** to AI adoption.  \n- I design end‑to‑end pipelines—from generative AI integration to intelligent test generation and data‑driven decision systems—ensuring every",
+    "a": "I’m a **hybrid leader** who blends deep AI knowledge with proven software delivery expertise.  \n- **Bridging AI & engineering**: I translate cutting‑edge AI research into production‑ready features that scale.  \n- **Quality‑first culture**: I build teams that obsess over test coverage, CI/CD, and maintainability while still sprinting fast.  \n\nMy decade in startups and scale‑ups gives me a unique perspective on **rapid growth vs. sustainable engineering**.  \n- I’ve led squads from 3 to 30+ engineers, scaling processes without losing agility.  \n- I’m comfortable juggling stakeholder expectations, risk‑aware execution, and AI governance in the same sprint.  \n\nUltimately, what sets me apart is my focus on **multiplying impact**—I design systems and cultures that let every team member contribute at their best, while ensuring AI solutions are ethical, reliable, and aligned with business goals.",
     "sources": [
       {
         "id": "bio",
@@ -1229,7 +1335,7 @@
   },
   {
     "q": "what are your top projects",
-    "a": "I have recently worked on two key projects that showcase my passion for building practical, privacy-first applications",
+    "a": "Here are a couple of my top recent projects:\n\n- **TNEB Solar**: A net metering",
     "sources": [
       {
         "id": "repo:recent:0",
@@ -1285,7 +1391,7 @@
   },
   {
     "q": "show leadership principles",
-    "a": "I guide my teams with three core leadership principles that shape every project I touch:\n\n**AI‑Augmented Engineering** – I embed AI tools throughout the SDLC, from code generation and review to intelligent testing and deployment. This boosts velocity, reduces boilerplate, and keeps quality high.\n\n**Team Growth** – I invest in mentorship, clear career ladders, and psychological safety so engineers can take bold bets and own their impact.\n\n**Strategic Planning** – I translate business goals into engineering roadmaps with measurable milestones, adaptive execution, and transparent OKRs that align with product and company objectives.",
+    "a": "I lead by **embedding AI into every phase of the SDLC**—from code generation and review to intelligent testing and deployment.  \n- **AI‑Augmented Engineering**: I champion tools that automate boilerplate, enforce standards, and accelerate delivery while maintaining quality.  \n- **Team Growth**: I invest in mentorship, clear career ladders, and psychological safety so engineers can take bold bets.  \n- **Strategic Planning**: I translate business goals into engineering roadmaps with measurable milestones and adaptive execution.  \n\nThese principles guide my decisions, keep the team focused, and ensure we deliver high‑impact, AI‑powered products efficiently.",
     "sources": [
       {
         "id": "bio",
@@ -1323,7 +1429,7 @@
   },
   {
     "q": "what technologies were used",
-    "a": "I used a stack that blends modern web tooling with AI‑centric automation.  \n- **TypeScript** as the primary language for type safety and maintainability.  \n- **Claude Code** for AI‑driven code reviews, dependency fixes, and test generation.  \n- **Finite‑state‑machine** logic to model the MCP workflow and enforce state transitions.  \n\nThe project also relies on standard **devops** practices (CI/CD pipelines, Docker, Kubernetes) and packages its functionality as an **npm package**. Security tooling is integrated throughout to scan vulnerabilities and track DORA metrics.",
+    "a": "I built **dobbe‑mcp** as an AI‑powered MCP server that runs on **TypeScript**.  \nThe stack blends several modern tools and concepts:\n\n- **TypeScript** – core language for type safety and maintainability.  \n- **Claude Code skills** – AI integration for code review, vulnerability scanning, and test generation.  \n- **Finite‑state‑machine** – orchestrates workflow states for incident triage and DORA metric tracking.  \n- **npm package** – distribution via the npm ecosystem for easy reuse.  \n- **DevOps & security** – automated dependency fixes, vulnerability scans, and CI/CD pipelines.  \n\nThese technologies together enable rapid, reliable delivery of AI‑enhanced software.",
     "sources": [
       {
         "id": "repo:recent:2",
@@ -1367,7 +1473,7 @@
   },
   {
     "q": "how large was the team",
-    "a": "I led a **high‑performing team of 5 engineers** at TestGorilla, balancing ambitious AI initiatives with practical delivery.",
+    "a": "I led a **high‑performing team of 5 engineers** at TestGorilla, handling everything from onboarding to payments and subscriptions.  \n\n- The team focused on AI‑driven features like the credit‑based pricing engine and the Tavus video‑avatar platform.  \n- We maintained a tight feedback loop with product, design, and finance to align engineering priorities with business goals.",
     "sources": [
       {
         "id": "article:pinned:1",
@@ -1423,7 +1529,7 @@
   },
   {
     "q": "what about the previous role",
-    "a": "I don’t have any details on a previous role in the context you provided.  \nIf you’re looking for that background, you might want to check the **“Naresh Sekar”** section or any earlier career entries that aren’t included here.  \n\nLet me know if there’s another part of the portfolio you’d like me to review!",
+    "a": "I don't have specific details about my previous role or company names in the provided context. \n\n",
     "sources": [
       {
         "id": "bio",
@@ -1463,11 +1569,11 @@
         "label": "About - Team Building"
       }
     ],
-    "model": "gpt-oss-20b"
+    "model": "gemini-flash"
   },
   {
     "q": "show me related projects",
-    "a": "**Projects I’ve built or led**\n\n- **Tavus – AI Video Avatar platform** (TestGorilla, Aug 2023‑Present) – integrated video/audio generation APIs to run real‑time candidate interviews, automating assessment at scale.  \n- **Credit‑Based Pricing Engine** (TestGorilla, Aug 2023‑Present) – a scalable, token/compute‑driven billing system for Generative AI tools, enabling flexible business models.  \n- **Evaluation (Evals) Framework** (TestGorilla, Aug 2023‑Present) – built with LangFuse to score AI models and prompts, feeding continuous feedback loops into production.  \n- **tneb‑solar – Net‑Metering Bill Tracker** (Personal project, 2024‑Present) – Expo + React Native app (TypeScript) that logs meter readings, projects bills, and warns users before the 500‑unit tariff cliff.  \n- **PG Patrol Chrome Extension** (Personal project, 2026‑04‑12) – replaces profanity with “fiddlesticks” and NSFW images with kittens, built with privacy‑focused tech and AI.  \n\nThese projects showcase my focus on AI‑driven product innovation, scalable engineering solutions, and user‑centric mobile/web applications.",
+    "a": "**Projects I’ve led or contributed to**\n\n- **Tavus – AI Video Avatar Interview Platform** (TestGorilla, Aug 2023‑Present) – built with video/audio generation APIs, real‑time candidate interviews, and AI‑driven assessment automation.  \n- **Credit‑Based Pricing Engine** (TestGorilla, Aug 2023‑Present) – scalable token/compute billing at feature level, enabling flexible AI‑heavy business models.  \n- **Evaluation (Evals) Framework** (TestGorilla, Aug 2023‑Present) – LangFuse‑based scoring, monitoring, and feedback loops for AI models and prompts.  \n- **Claude Code Sub‑Agents** (TestGorilla, Aug 2023‑Present) – automated code generation and PR creation, cutting epic cycle time to ~3 days.  \n- **AI Test & Review Agents** (TestGorilla, Aug 2023‑Present) – autonomous unit/integration test generation and code‑review enforcement.  \n- **Code‑as‑Documentation Refactor** (TestGorilla, Aug 2023‑Present) – optimized codebase for LLM context windows, enabling accurate AI refactoring.  \n- **tneb‑solar** (Personal project, 2026) – Expo + React Native mobile/web app (TypeScript) that tracks Tamil Nadu rooftop solar bills offline, warns of tariff cliffs.  \n- **PG Patrol Chrome Extension** (Personal project, Apr 2026) – privacy‑focused browser add‑on that replaces profanity with “",
     "sources": [
       {
         "id": "career:0",
@@ -1523,7 +1629,7 @@
   },
   {
     "q": "where was this used",
-    "a": "I’m not sure what “this” refers to in your question.  \nIf you’re asking about a specific tool or feature mentioned in my portfolio, the best place to look is the **Engineering Manager at TestGorilla** section, where I detail:\n\n- The **credit‑based pricing engine** for generative‑AI usage  \n- The **AI Video Avatar platform Tavus** for real‑time interviews  \n- The integration of **Claude Code sub‑agents** into the dev workflow  \n\nThose are the projects where those technologies were actually deployed. If you meant something else, let me know and I can point you to the relevant section.",
+    "a": "Could you please clarify what specific technology, tool, or framework you are asking about? \n\nIn my",
     "sources": [
       {
         "id": "article:pinned:1",
@@ -1581,11 +1687,11 @@
         }
       }
     ],
-    "model": "gpt-oss-20b"
+    "model": "gemini-flash"
   },
   {
     "q": "tell me about yourself",
-    "a": "I’m **Naresh Sekar**, an Engineering Manager with a decade of experience bridging cutting‑edge AI and reliable software delivery. I’ve led teams at both startups and scale‑ups, building high‑performing squads that deliver on time and on budget.\n\n- **Team building**: Scaled engineering groups from 5 to 30+ people, created career frameworks, and built hiring pipelines that nurture ownership, AI literacy, and continuous improvement.  \n- **AI adoption strategy**: Integrated generative AI, AI governance, intelligent test generation, and data‑driven decision systems into product workflows, ensuring responsible and scalable AI use.  \n- **Leadership focus**: Emphasize quality‑first engineering cultures, stakeholder management, and risk‑aware execution to multiply the impact of every team member.",
+    "a": "I’m **Naresh Sekar**, an Engineering Manager who blends deep AI expertise with proven software delivery.  \n- Over a decade in startups and scale‑ups, building teams that grow from 5 to 30+ engineers.  \n- Specialize in **AI governance**, process optimization, and risk‑aware execution.  \n\nMy work bridges cutting‑edge AI and reliable product delivery.  \n- I’ve led the integration of generative AI, intelligent test generation, and data‑driven decision systems into product workflows.  \n- Authored articles on local AI breakthroughs—e.g., reducing LLM latency from 4.5 s to 56 ms with 1‑bit quantized models (Bonsai, prism‑ml).  \n\nI focus on creating quality‑first engineering cultures, fostering AI literacy, and multiplying team impact through ownership and continuous improvement.",
     "sources": [
       {
         "id": "about:0",
@@ -1629,7 +1735,7 @@
   },
   {
     "q": "what is your current role",
-    "a": "I am currently an **Engineering Manager**. In my role, I focus on bridging the gap between cutting",
+    "a": "I’m currently an **Engineering Manager**.  \nI focus on bridging cutting‑edge AI with reliable software delivery, ensuring teams can scale while maintaining quality and governance.  \n\nMy day‑to‑day involves building high‑performing teams, designing quality‑first engineering cultures, and leveraging AI to accelerate product development.",
     "sources": [
       {
         "id": "bio",
@@ -1663,11 +1769,11 @@
         "label": "About - Quality Engineering"
       }
     ],
-    "model": "gemini-flash"
+    "model": "gpt-oss-20b"
   },
   {
     "q": "how many years of experience do you have",
-    "a": "I’ve been in engineering for **over a decade**—more than ten years of hands‑on experience across startups and scale‑ups.  \n\nThat span covers roles from senior developer to Engineering Manager, where I’ve built teams, set quality standards, and integrated AI into production.  \n\nIf you’d like a deeper dive into specific projects or timelines, let me know which section of my portfolio you’re interested in.",
+    "a": "I’ve spent **over a decade** in engineering, working across startups and scale‑ups.  \n\nDuring that time I’ve built and led high‑performing teams, designed quality‑first engineering cultures, and integrated AI to accelerate product development.  \n\nIf you’d like more specifics, you can check the **Lead SDET at TestGorilla** section for my recent role and the **tneb‑solar** project for a concrete example of my work.",
     "sources": [
       {
         "id": "bio",
@@ -1723,7 +1829,7 @@
   },
   {
     "q": "what kind of teams have you managed",
-    "a": "I’ve led **SDET and QA teams** across several tech‑focused companies.  \n- **Vue.ai (Mar 2020 – Feb 2021)** – Managed two SDET squads operating under an 8:1 developer‑to‑SDET ratio, driving Agile releases and CI/CD for ML/AI microservices.  \n- **WeInvest (Jan 2019 – Feb 2020)** – As the first SDET hire, I coordinated testing operations, built reusable Ruby gems, and integrated robust CI/CD pipelines with GitHub, Jenkins, and Docker.  \n\nBeyond SDET groups, my **team‑building focus** has scaled engineering units from **5 to 30+ members**, establishing career frameworks, hiring pipelines, and a culture of ownership and AI literacy.",
+    "a": "I’ve led **SDET and engineering teams** across several organizations, focusing on scaling quality and speed.\n\n- **Vue.ai (Mar 2020 – Feb 2021)** – Managed **two SDET teams** with an 8:1 developer‑to‑SDET ratio, driving Agile releases, CI/CD for ML/AI microservices, and cost‑saving IaC on AWS.  \n- **WeInvest (Jan 2019 – Feb 2020)** – As the first SDET hire, I oversaw internal testing infrastructure, built Ruby‑gem frameworks, and integrated CI/CD pipelines with GitHub, Jenkins, and Docker.  \n- **Team‑building focus** – I’ve grown engineering groups from **5 to 30+ members**, establishing career ladders, hiring pipelines, and a culture of ownership and AI literacy.  \n\nThese experiences show my ability to manage both small, focused testing squads and larger, cross‑functional engineering teams.",
     "sources": [
       {
         "id": "bio",
@@ -1773,7 +1879,7 @@
   },
   {
     "q": "what is your education background",
-    "a": "I earned a **Bachelor of Engineering in Electronics & Communication** from **Anna University** in Chennai, India.  \n- **Duration:** 2011 – 2015  \n- Focused on core electronics, communication systems, and foundational engineering principles.",
+    "a": "I earned a **Bachelor of Engineering in Electronics & Communication** from **Anna University** in Chennai, India.  \n\n- **Degree**: B.E. (Electronics & Communication)  \n- **Duration**: 2011 – 2015  \n- **Location**: Chennai, India  \n\nThis foundation in electronics and communication engineering has been instrumental in shaping my technical perspective and leadership style across the projects and teams I manage.",
     "sources": [
       {
         "id": "bio",
@@ -1811,7 +1917,7 @@
   },
   {
     "q": "have you written any books",
-    "a": "I haven’t written any books. The portfolio sections that cover my written work focus on articles and project documentation—check the **“You’re Paying for Claude Max. But Are You Actually Using It?”** article for an example of my writing. If you’re looking for more detailed written pieces, the **“Leadership - Operational Excellence”** section also contains a few short essays on reliability and culture.",
+    "a": "I haven’t published any books.  \n\nIf you’re looking for deeper dives into my work, you might want to explore the **“Recent projects”** sections—tneb‑solar and GhostEdit—or read my article **“You’re Paying for Claude Max. But Are You Actually Using It?”** for insights into my approach to AI and productivity.",
     "sources": [
       {
         "id": "bio",
@@ -1861,7 +1967,7 @@
   },
   {
     "q": "what are your open source projects",
-    "a": "I’ve contributed to a few open‑source initiatives, the most recent being **chirp** – a cross‑platform digital‑wellness app built with **Dart/Flutter**. It offers smart break reminders, a Pomodoro timer, posture nudges, and a privacy‑first health score, all licensed under the **MIT** license.  \n\nIf you’re curious about other projects, you can check the **“chirp”** section of my portfolio for more details or look for additional repositories linked in my GitHub profile.",
+    "a": " phrasing: \"One of my recent open-source projects is **chirp**...\"\n\n5.",
     "sources": [
       {
         "id": "career:6",
@@ -1913,11 +2019,11 @@
         }
       }
     ],
-    "model": "gpt-oss-20b"
+    "model": "gemini-flash"
   },
   {
     "q": "what do you write about on Medium",
-    "a": "I don’t have any details in the portfolio about Medium posts.  \nIf you’re looking for topics I might cover, you could check the **About – AI Adoption Strategy** or **About – Team Building** sections for the kinds of insights I share on AI integration, team scaling, and quality engineering.",
+    "a": "I don’t have any details in my portfolio about writing on Medium.  \nIf you’re looking for examples of my public writing or thought leadership, you might want to check the **About – AI Adoption Strategy** or **About – Quality Engineering** sections, where I discuss industry trends and best practices.  \n\nFeel free to let me know if you’d like a quick overview of the topics I’d cover—AI governance, test automation, or scaling engineering teams—and I can draft a sample outline for a Medium post.",
     "sources": [
       {
         "id": "bio",
@@ -1955,7 +2061,7 @@
   },
   {
     "q": "what is your tech stack",
-    "a": "I’ve built my career around a blend of **CI/CD, testing, and AI tooling**.  \n- **CI/CD & Release**: GitLab, GitHub Actions, Jenkins, and custom pipelines.  \n- **Testing**: Python pytest, k6.io, Lighthouse, Playwright, Testcafe, Percy, Pact‑broker, BrowserStack, Storybook.  \n- **AI & Automation**: LangFuse, Claude Code sub‑agents, AI Video Avatar (Tavus), AI‑generated tests, and a credit‑based pricing engine for token/compute billing.  \n\nI also manage integrations with **Chargebee, HubSpot, Stripe, and 18 ATS platforms**, and I’ve leveraged **Angular.js** for front‑end work and **Python** for back‑end and AI model orchestration.",
+    "a": "I’ve built my career around a blend of **CI/CD automation, AI‑centric tooling, and modern web stacks**.  \nMy tech stack evolves with each role, but the core pillars remain the same: GitLab/GitHub for pipelines, Python for scripting, and a mix of cloud and on‑prem services for testing and monitoring.\n\n**Hopin (Feb 2021‑Mar 2022)**  \n- GitLab CI/CD – optimized to cut pipeline run time from 45 min to ~15 min.  \n- Pact‑Contract testing with a self‑hosted Pact broker.  \n- BrowserStack for cross‑browser coverage.  \n- Testcafe + Percy for visual regression in GitHub pre‑merge.  \n\n**TestGorilla (Apr 2022‑Present)**  \n- Python (pytest) for E2E API tests; k6.io for load, Lighthouse for performance.  \n- Playwright + Storybook for Angular UI tests.  \n- LangFuse for AI model evaluation, Claude Code agents for PR automation.  \n- Chargebee, HubSpot, Stripe, 18 ATS integrations for payments/subscriptions.  \n- GitHub Actions & GitLab for CI/CD, with DORA metrics tracking.  \n\n**Freshworks (Jun 2017‑Jan 2019)**  \n- Jenkins pipelines, Jenkinsfile‑based automation.  \n- Manual + automated test strategy for Freshcaller launch.  \n- Python/JavaScript for unit tests and regression coverage.  \n\nThese stacks have enabled me to deliver **high‑frequency releases, AI‑driven product features, and robust quality assurance** across startups and scale‑ups.",
     "sources": [
       {
         "id": "career:2",
@@ -2011,7 +2117,7 @@
   },
   {
     "q": "are you available for hire",
-    "a": "I’m currently focused on my role as Engineering Manager at TestGorilla, where I lead a team of five engineers and drive AI‑powered product initiatives.  \nBecause my schedule is fully committed to those responsibilities, I’m not actively looking for new opportunities at the moment.  \nIf you’d like to explore potential collaboration or learn more about my experience, you can review the **Engineering Manager at TestGorilla** section of my portfolio for details on my projects and leadership style.",
+    "a": "I am currently working full-time as an **Engineering Manager at TestGorilla** (since",
     "sources": [
       {
         "id": "bio",
@@ -2063,11 +2169,11 @@
         }
       }
     ],
-    "model": "gpt-oss-20b"
+    "model": "gemini-flash"
   },
   {
     "q": "what industries have you worked in",
-    "a": "I’ve spent my career across a handful of tech‑focused industries, each with its own unique challenges and opportunities for AI and automation.\n\n- **HR & Talent Assessment** – TestGorilla’s AI‑powered interview platform and credit‑based pricing engine.\n- **Event & Virtual Conferencing** – Hopin, where I streamlined release pipelines for a live‑event SaaS.\n- **E‑commerce & Retail AI** – Vue.ai, building ML/AI tooling to enhance product discovery and merchandising.\n\nThese roles have given me a broad view of how data‑driven, AI‑centric solutions can be applied from hiring to live events to online shopping.",
+    "a": "I’ve spent my career across a handful of tech‑focused industries, primarily where AI and software delivery intersect.\n\n- **HR & Talent Acquisition** – TestGorilla, building AI‑driven interview and assessment tools.  \n- **Virtual Events & Live Streaming** – Hopin, optimizing release pipelines for large‑scale event platforms.  \n- **Retail & E‑commerce AI** – Vue.ai, delivering AI‑powered product recommendations and automation for online merchants.  \n\nThese roles have given me a broad view of how software engineering can scale in fast‑moving, customer‑centric sectors.",
     "sources": [
       {
         "id": "bio",
@@ -2122,8 +2228,46 @@
     "model": "gpt-oss-20b"
   },
   {
+    "q": "describe your quality engineering expertise",
+    "a": "My quality engineering expertise centers on designing end-to-end quality strategies at scale. I focus on **",
+    "sources": [
+      {
+        "id": "bio",
+        "section": "about",
+        "label": "Naresh Sekar"
+      },
+      {
+        "id": "about:2",
+        "section": "about",
+        "label": "About - Quality Engineering"
+      },
+      {
+        "id": "career:0",
+        "section": "career",
+        "label": "Engineering Manager at TestGorilla",
+        "meta": {
+          "idx": 0,
+          "co": "TestGorilla",
+          "role": "Engineering Manager",
+          "date": "August 2023 - Present"
+        }
+      },
+      {
+        "id": "skill:3",
+        "section": "skills",
+        "label": "Skills - Quality & Observability"
+      },
+      {
+        "id": "about:1",
+        "section": "about",
+        "label": "About - Team Building"
+      }
+    ],
+    "model": "gemini-flash"
+  },
+  {
     "q": "what is your experience with CI/CD",
-    "a": "I’ve spent the last **five years building and refining CI/CD pipelines** across multiple environments.  \n- **TestGorilla (Apr 2022 – Aug 2023)** – Architected a CI/CD stack that moved release velocity from bi‑weekly to **5× daily**. Integrated **GitHub, Jenkins, Docker, and k6.io** for automated backend load tests, and added **Playwright** for UI E2E tests in the CD pipeline.  \n- **WeInvest (Jan 2019 – Feb 2020)** – Spearheaded the first CI/CD rollout, tying together **GitHub, Jenkins, Docker** and creating reusable Ruby gems for UI and GraphQL automation.  \n\nThese experiences gave me a deep understanding of **shift‑left testing, observability, and risk‑aware execution**—key pillars of a robust, high‑frequency delivery pipeline.",
+    "a": "I’ve spent the last decade building and scaling CI/CD pipelines that drive rapid, reliable releases.\n\n- **TestGorilla (Apr 2022 – Aug 2023)** – Architected a CI/CD stack that boosted release velocity from bi‑weekly to 5× daily. Integrated **Playwright** for UI E2E tests, **Storybook** for visual regression, and **Python (pytest)** for API testing. Added performance baselines with **k6.io** and **Lighthouse** to measure latency before deploying LLM features.  \n- **WeInvest (Jan 2019 – Feb 2020)** – Launched the first SDET‑led CI/CD pipeline using **GitHub**, **Jenkins**, and **Docker**. Converted UI and GraphQL automation into reusable Ruby gems and drove BDD with **Cucumber** + **RSpec**.  \n- **Quality Engineering focus** – Design end‑to‑end quality strategies, shift‑left testing, observability, and risk assessment at scale.\n\nThese roles gave me deep experience in end‑to‑end automation, performance monitoring, and continuous delivery that I bring to every team I lead.",
     "sources": [
       {
         "id": "bio",
@@ -2173,7 +2317,7 @@
   },
   {
     "q": "how do you approach automation",
-    "a": "I approach automation by **building reusable, maintainable frameworks that align with the product’s architecture**.  \n- At **Vue.ai** (Mar 2020–Feb 2021) I created Python packages for REST API and UI automation that supported the entire ML/AI pipeline.  \n- I modularized the UI and GraphQL automation into Ruby gems at **WeInvest** (Jan 2019–Feb 2020), enabling teams to share and version components easily.\n\nI embed automation into the delivery pipeline from day one, using **shift‑left practices** and continuous integration.  \n- Configured CI/CD for ML/AI microservices with Jenkins, Bitbucket, AWS, and Spotinst, cutting infra costs via IaC.  \n- Integrated GitHub, Jenkins, Docker, and BDD tools (Cucumber + RSpec) to ensure tests run automatically on every commit.\n\nFinally, I focus on **quality culture and metrics**.  \n- Designed end‑to‑end quality strategies, including observability dashboards and risk assessment models.  \n- Leveraged analytics to identify flaky tests, prioritize coverage, and iterate on the automation suite, ensuring it grows with the product and team.",
+    "a": "I approach automation with a **test‑first mindset** and a focus on **reusability**.  \n- Start by defining clear quality objectives and mapping them to the product’s critical user flows.  \n- Build modular test libraries (Python packages at Vue.ai, Ruby gems at WeInvest) that can be shared across teams, reducing duplication and speeding up onboarding.  \n\nI then embed those libraries into a **continuous delivery pipeline**:  \n- Configure Jenkins or GitHub Actions with Docker containers, using IaC to keep environments consistent.  \n- Run tests in parallel on cloud infrastructure (AWS, Spotinst) to cut costs and improve feedback loops.  \n\nFinally, I monitor and iterate:  \n- Use observability tools and shift‑left practices to surface failures early.  \n- Gather metrics from CI runs, adjust test coverage, and refine the automation strategy to align with evolving product and business goals.",
     "sources": [
       {
         "id": "article:pinned:1",
@@ -2223,7 +2367,7 @@
   },
   {
     "q": "tell me about your Docker experience",
-    "a": "I don’t have any Docker experience mentioned in the portfolio.  \nIf you’re looking for details on my container‑oriented practices, you might find relevant information in the **Team Building** section, where I discuss scaling engineering teams and establishing engineering cultures—often a place where containerization topics surface.",
+    "a": "I don't have specific details about my **Docker** or containerization experience in the provided context.",
     "sources": [
       {
         "id": "bio",
@@ -2263,6 +2407,6 @@
         "label": "About - Team Building"
       }
     ],
-    "model": "gpt-oss-20b"
+    "model": "gemini-flash"
   }
 ]
