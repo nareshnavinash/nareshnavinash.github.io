@@ -2,7 +2,7 @@ var __defProp = Object.defineProperty;
 var __defNormalProp = (obj, key2, value) => key2 in obj ? __defProp(obj, key2, { enumerable: true, configurable: true, writable: true, value }) : obj[key2] = value;
 var __publicField = (obj, key2, value) => __defNormalProp(obj, typeof key2 !== "symbol" ? key2 + "" : key2, value);
 import { w as warn$1, c as warnOnce$1, M as MeshBasicMaterial$1, T as Texture$1, d as CubeTexture$1, e as Color$1, f as Mesh$1, O as OrthographicCamera, g as MeshLambertMaterial, h as LineBasicMaterial, i as LineDashedMaterial, j as NoBlending$1, H as HalfFloatType, a as SRGBColorSpace$1, k as NoToneMapping$1, P as PCFShadowMap, S as Scene$1, l as error$1, m as ColorManagement$1, V as Vector2$1, n as RenderTarget$1, L as LinearFilter$1, o as RGBAFormat$1, p as Vector4$1, q as Matrix4$1, F as FrustumArray, r as Frustum, B as BackSide$1, s as FrontSide$1, D as DoubleSide$1, t as VSMShadowMap, W as WebGLCoordinateSystem$1, u as TimestampQuery, v as Compatibility$1, x as PointLight, y as DirectionalLight, z as RectAreaLight, A as SpotLight, E as AmbientLight, G as HemisphereLight, I as LightProbe, J as LinearToneMapping, K as ReinhardToneMapping, Q as CineonToneMapping, U as ACESFilmicToneMapping, X as AgXToneMapping, Y as NeutralToneMapping, Z as EventDispatcher$2, _ as FramebufferTexture$1, $ as DepthTexture$1, a0 as Material$1, a1 as AddOperation, a2 as MixOperation, a3 as MultiplyOperation$1, a4 as SRGBTransfer$1, a5 as Matrix3$1, a6 as GreaterEqualCompare, a7 as LessEqualCompare, a8 as PCFSoftShadowMap, N as NearestFilter$1, a9 as RGFormat$1, aa as NoColorSpace$1, ab as BasicShadowMap, ac as CubeDepthTexture, ad as WebGPUCoordinateSystem$1, ae as Vector3$1, af as Euler$1, ag as StaticDrawUsage$1, ah as InstancedBufferAttribute$1, ai as UVMapping$1, aj as DataTexture, C as ClampToEdgeWrapping$1, ak as BufferGeometry$1, al as Float32BufferAttribute$1, am as SpriteMaterial, an as PerspectiveCamera$1, ao as ArrayCamera, ap as PlaneGeometry, aq as UnsignedByteType$1, ar as UnsignedInt248Type, as as UnsignedIntType$1, at as DepthStencilFormat$1, au as DepthFormat$1, av as CustomBlending, aw as AddEquation$1, ax as ZeroFactor, ay as CylinderGeometry, az as Quaternion$1, aA as WebXRController, aB as EquirectangularReflectionMapping, aC as EquirectangularRefractionMapping, aD as CubeUVReflectionMapping, aE as DynamicDrawUsage$1, aF as SphereGeometry, aG as Plane, b as REVISION, aH as createCanvasElement, aI as isTypedArray$1, aJ as IntType$1, aK as MirroredRepeatWrapping$1, R as RepeatWrapping$1, aL as LinearMipmapLinearFilter$1, aM as LinearMipmapNearestFilter, aN as NearestMipmapLinearFilter, aO as NearestMipmapNearestFilter, aP as NotEqualCompare, aQ as GreaterCompare, aR as EqualCompare, aS as LessCompare$1, aT as AlwaysCompare, aU as NeverCompare, aV as LinearTransfer$1, aW as FloatType$1, aX as getByteLength, aY as ReverseSubtractEquation, aZ as SubtractEquation, a_ as OneMinusDstAlphaFactor, a$ as OneMinusDstColorFactor, b0 as OneMinusSrcAlphaFactor$1, b1 as OneMinusSrcColorFactor, b2 as DstAlphaFactor, b3 as DstColorFactor, b4 as SrcAlphaSaturateFactor, b5 as SrcAlphaFactor$1, b6 as SrcColorFactor, b7 as OneFactor, b8 as CullFaceNone, b9 as CullFaceBack, ba as CullFaceFront, bb as MaterialBlending, bc as MultiplyBlending, bd as SubtractiveBlending, be as AdditiveBlending, bf as NormalBlending$1, bg as NotEqualDepth, bh as GreaterDepth, bi as GreaterEqualDepth, bj as EqualDepth, bk as LessEqualDepth$1, bl as LessDepth, bm as AlwaysDepth, bn as NeverDepth, bo as UnsignedShort4444Type, bp as UnsignedShort5551Type, bq as UnsignedInt5999Type, br as UnsignedInt101111Type, bs as ByteType, bt as ShortType, bu as UnsignedShortType, bv as AlphaFormat, bw as RGBFormat, bx as RedFormat, by as RedIntegerFormat, bz as RGIntegerFormat, bA as RGBAIntegerFormat, bB as RGB_S3TC_DXT1_Format, bC as RGBA_S3TC_DXT1_Format, bD as RGBA_S3TC_DXT3_Format, bE as RGBA_S3TC_DXT5_Format, bF as RGB_PVRTC_4BPPV1_Format, bG as RGB_PVRTC_2BPPV1_Format, bH as RGBA_PVRTC_4BPPV1_Format, bI as RGBA_PVRTC_2BPPV1_Format, bJ as RGB_ETC1_Format, bK as RGB_ETC2_Format, bL as RGBA_ETC2_EAC_Format, bM as R11_EAC_Format, bN as SIGNED_R11_EAC_Format, bO as RG11_EAC_Format$1, bP as SIGNED_RG11_EAC_Format, bQ as RGBA_ASTC_4x4_Format, bR as RGBA_ASTC_5x4_Format, bS as RGBA_ASTC_5x5_Format, bT as RGBA_ASTC_6x5_Format, bU as RGBA_ASTC_6x6_Format, bV as RGBA_ASTC_8x5_Format, bW as RGBA_ASTC_8x6_Format, bX as RGBA_ASTC_8x8_Format, bY as RGBA_ASTC_10x5_Format, bZ as RGBA_ASTC_10x6_Format, b_ as RGBA_ASTC_10x8_Format, b$ as RGBA_ASTC_10x10_Format, c0 as RGBA_ASTC_12x10_Format, c1 as RGBA_ASTC_12x12_Format, c2 as RGBA_BPTC_Format, c3 as RED_RGTC1_Format, c4 as SIGNED_RED_RGTC1_Format, c5 as RED_GREEN_RGTC2_Format$1, c6 as SIGNED_RED_GREEN_RGTC2_Format, c7 as MeshPhongMaterial, c8 as MeshStandardMaterial, c9 as MeshPhysicalMaterial, ca as MeshToonMaterial, cb as MeshNormalMaterial, cc as MeshMatcapMaterial, cd as PointsMaterial, ce as ShadowMaterial, cf as NormalRGPacking$1, cg as MathUtils$1, ch as Matrix2$1, ci as Object3D$1, cj as LinearMipMapLinearFilter, ck as Sphere$1, cl as InstancedInterleavedBuffer$1, cm as log$3, cn as CubeReflectionMapping$1, co as CubeRefractionMapping$1, cp as BufferAttribute$1, cq as RAD2DEG$1, cr as Uint32BufferAttribute$1, cs as Uint16BufferAttribute$1, ct as NotEqualStencilFunc, cu as GreaterStencilFunc, cv as GreaterEqualStencilFunc, cw as EqualStencilFunc, cx as LessEqualStencilFunc, cy as LessStencilFunc, cz as AlwaysStencilFunc$1, cA as NeverStencilFunc, cB as DecrementWrapStencilOp, cC as IncrementWrapStencilOp, cD as DecrementStencilOp, cE as IncrementStencilOp, cF as InvertStencilOp, cG as ReplaceStencilOp, cH as ZeroStencilOp, cI as KeepStencilOp$1, cJ as MaxEquation, cK as MinEquation, cL as ReversedDepthFuncs, cM as Float16BufferAttribute, cN as RGBIntegerFormat, cO as DataArrayTexture$1, cP as InterleavedBufferAttribute$1, cQ as BoxGeometry$1, cR as CubeCamera$1, cS as InterleavedBuffer$1, cT as LinearSRGBColorSpace$1, cU as TangentSpaceNormalMap$1, cV as NoNormalPacking$1, cW as NormalGAPacking$1, cX as ObjectSpaceNormalMap$1, cY as Group, cZ as Loader, c_ as FileLoader, c$ as MaterialLoader, d0 as ObjectLoader, d1 as AdditiveAnimationBlendMode, d2 as AnimationAction, d3 as AnimationClip, d4 as AnimationLoader, d5 as AnimationMixer, d6 as AnimationObjectGroup, d7 as AnimationUtils, d8 as ArcCurve, d9 as ArrowHelper, da as AttachedBindMode, db as Audio$2, dc as AudioAnalyser, dd as AudioContext$1, de as AudioListener, df as AudioLoader, dg as AxesHelper, dh as BasicDepthPacking, di as BatchedMesh, dj as BezierInterpolant, dk as Bone, dl as BooleanKeyframeTrack, dm as Box2, dn as Box3$1, dp as Box3Helper, dq as BoxHelper, dr as BufferGeometryLoader, ds as Cache, dt as Camera$1, du as CameraHelper, dv as CanvasTexture, dw as CapsuleGeometry, dx as CatmullRomCurve3, dy as CircleGeometry, dz as Clock, dA as ColorKeyframeTrack, dB as CompressedArrayTexture, dC as CompressedCubeTexture, dD as CompressedTexture, dE as CompressedTextureLoader, dF as ConeGeometry, dG as ConstantAlphaFactor, dH as ConstantColorFactor, dI as Controls, dJ as CubeTextureLoader, dK as CubicBezierCurve, dL as CubicBezierCurve3, dM as CubicInterpolant, dN as CullFaceFrontBack, dO as Curve, dP as CurvePath, dQ as CustomToneMapping, dR as Cylindrical, dS as Data3DTexture, dT as DataTextureLoader, dU as DataUtils, dV as DefaultLoadingManager, dW as DetachedBindMode, dX as DirectionalLightHelper, dY as DiscreteInterpolant, dZ as DodecahedronGeometry, d_ as DynamicCopyUsage, d$ as DynamicReadUsage, e0 as EdgesGeometry, e1 as EllipseCurve, e2 as ExternalTexture, e3 as ExtrudeGeometry, e4 as Fog$1, e5 as FogExp2, e6 as GLBufferAttribute, e7 as GLSL1, e8 as GLSL3, e9 as GridHelper, ea as HemisphereLightHelper, eb as IcosahedronGeometry, ec as ImageBitmapLoader, ed as ImageLoader, ee as ImageUtils$1, ef as InstancedBufferGeometry, eg as InstancedMesh, eh as Int16BufferAttribute, ei as Int32BufferAttribute, ej as Int8BufferAttribute, ek as Interpolant, el as InterpolateBezier, em as InterpolateDiscrete, en as InterpolateLinear, eo as InterpolateSmooth, ep as InterpolationSamplingMode, eq as InterpolationSamplingType, er as KeyframeTrack, es as LOD, et as LatheGeometry, eu as Layers$1, ev as Light, ew as Line, ex as Line3, ey as LineCurve, ez as LineCurve3, eA as LineLoop, eB as LineSegments, eC as LinearInterpolant, eD as LinearMipMapNearestFilter, eE as LoaderUtils, eF as LoadingManager, eG as LoopOnce, eH as LoopPingPong, eI as LoopRepeat, eJ as MOUSE, eK as MeshDepthMaterial, eL as MeshDistanceMaterial, eM as NearestMipMapLinearFilter, eN as NearestMipMapNearestFilter, eO as NormalAnimationBlendMode, eP as NumberKeyframeTrack, eQ as OctahedronGeometry, eR as OneMinusConstantAlphaFactor, eS as OneMinusConstantColorFactor, eT as Path, eU as PlaneHelper, eV as PointLightHelper, eW as Points, eX as PolarGridHelper, eY as PolyhedronGeometry, eZ as PositionalAudio, e_ as PropertyBinding, e$ as PropertyMixer, f0 as QuadraticBezierCurve, f1 as QuadraticBezierCurve3, f2 as QuaternionKeyframeTrack, f3 as QuaternionLinearInterpolant, f4 as RGBADepthPacking, f5 as RGBDepthPacking, f6 as RGB_BPTC_SIGNED_Format, f7 as RGB_BPTC_UNSIGNED_Format, f8 as RGDepthPacking, f9 as RawShaderMaterial, fa as Ray$1, fb as Raycaster, fc as RenderTarget3D, fd as RingGeometry, fe as ShaderMaterial, ff as Shape, fg as ShapeGeometry, fh as ShapePath, fi as ShapeUtils, fj as Skeleton, fk as SkeletonHelper, fl as SkinnedMesh, fm as Source$1, fn as Spherical, fo as SphericalHarmonics3, fp as SplineCurve, fq as SpotLightHelper, fr as Sprite, fs as StaticCopyUsage, ft as StaticReadUsage, fu as StereoCamera, fv as StreamCopyUsage, fw as StreamDrawUsage, fx as StreamReadUsage, fy as StringKeyframeTrack, fz as TOUCH, fA as TetrahedronGeometry, fB as TextureLoader, fC as TextureUtils, fD as Timer, fE as TorusGeometry, fF as TorusKnotGeometry, fG as Triangle$1, fH as TriangleFanDrawMode, fI as TriangleStripDrawMode, fJ as TrianglesDrawMode, fK as TubeGeometry, fL as Uint8BufferAttribute, fM as Uint8ClampedBufferAttribute, fN as Uniform$1, fO as UniformsGroup$1, fP as VectorKeyframeTrack, fQ as VideoFrameTexture, fR as VideoTexture, fS as WebGL3DRenderTarget, fT as WebGLArrayRenderTarget, fU as WebGLRenderTarget, fV as WireframeGeometry, fW as WrapAroundEnding, fX as ZeroCurvatureEnding, fY as ZeroSlopeEnding, fZ as getConsoleFunction, f_ as setConsoleFunction } from "./three.core-RE2ucuTm.js";
-import { Game, __tla as __tla_0 } from "./Game-DO5yTo2S.js";
+import { Game, __tla as __tla_0 } from "./Game-Fr0KWT-R.js";
 let Audio$1, gsapWithCSS, ClosingManager, Debug, Explosions, Fog, Buffer, Inputs, KonamiCode, Lighting, Modals, Notifications, Options, Physics, Quality, ResourcesLoader, Server, Ticker, Viewport, Weather, YearCycles, Zones, Time, DayCycles, RayCursor, Menu, Rendering, Respawns, View, Reveal, Noises, Wind, Tracks, Water, Materials, Objects, World, Terrain, PhysicsWireframe, PhysicsVehicle, Player, InteractivePoints, Achievements, Tornado, Map$1, MiniMap, Overlay, PreRenderer;
 let __tla = Promise.all([
   (() => {
@@ -77087,51 +77087,58 @@ https://github.com/browserify/crypto-browserify`);
       this.lines = {}, this.lines.items = [], this.lines.activeElevation = 2.5, this.lines.padding = 0.25;
       const e = [
         ...this.references.items.get("line")
-      ], r = 17, s = /* @__PURE__ */ new Date(), o = s.getFullYear() + s.getMonth() / 12, a = careerEntries[0].start, h = o - a, c = r / h, d = careerEntries.length - e.length;
-      if (d > 0) {
-        const x = e.reduce((G, V) => G.position.z < V.position.z ? G : V), $ = Math.max(...e.map((G) => G.position.x)), P = this.references.items.get("year")[0].position.z, R = Math.min(...e.map((G) => G.position.z));
-        for (const G of careerEntries.slice(-d)) {
-          const V = x.clone(true), q = P - (G.start - a) * c;
-          V.position.x = $, V.position.z = Math.max(Math.min(q, R - 0.5), P - r + 0.5), V.userData = {
-            ...x.userData,
+      ], r = 17, s = 3, o = /* @__PURE__ */ new Date(), a = o.getFullYear() + o.getMonth() / 12, h = careerEntries[0].start, c = careerEntries.filter((G) => G.end === null), d = c.length ? Math.min(...c.map((G) => G.start)) : a, f = c.length ? r - s : r, m = Math.max(d - h, 1e-6), v = Math.max(a - d, 1e-6);
+      this.timeline = {
+        length: r,
+        startZ: this.references.items.get("year")[0].position.z,
+        toZ: (G) => G <= d ? (G - h) / m * f : f + Math.min(G - d, v) / v * (r - f),
+        toTime: (G) => G <= f ? h + G / f * m : d + (G - f) / (r - f) * v
+      };
+      const x = careerEntries.length - e.length;
+      if (x > 0) {
+        const G = e.reduce((q, H) => q.position.z < H.position.z ? q : H), V = Math.max(...e.map((q) => q.position.x));
+        for (let q = 1; q <= x; q++) {
+          const H = G.clone(true);
+          H.position.x = V, H.position.z = G.position.z - q, H.userData = {
+            ...G.userData,
             color: "green"
-          }, x.parent.add(V), e.push(V);
+          }, G.parent.add(H), e.push(H);
         }
       }
-      const f = {
+      const $ = {
         blue: uniform$1(color$1("#5390ff")),
         orange: uniform$1(color$1("#ff8039")),
         purple: uniform$1(color$1("#b65fff")),
         green: uniform$1(color$1("#a2ffab"))
-      }, m = [];
-      for (const x of e) m.push({
-        group: x,
-        originZ: x.position.z
+      }, P = [];
+      for (const G of e) P.push({
+        group: G,
+        originZ: G.position.z
       });
-      m.sort((x, $) => $.originZ - x.originZ);
-      let v = 0;
-      for (const { group: x } of m) {
-        const $ = {};
-        if ($.group = x, $.color = $.group.userData.color, $.index = v, v < careerEntries.length) {
-          const P = careerEntries[v], G = (P.end ?? o) - P.start;
-          $.size = G * c, $.hasEnd = P.end !== null, $.texture = this.generateCareerTexture(P.company, P.role);
-        } else $.size = parseFloat($.group.userData.size), $.hasEnd = $.group.userData.hasEnd, $.texture = this.game.resources[`${$.group.userData.texture}Texture`];
-        $.stone = $.group.children.find((P) => P.name.startsWith("stone")), $.stone.position.y = 0, $.origin = $.group.position.clone(), $.isIn = false, $.isUp = false, $.elevationTarget = 0, $.offsetTarget = 0, $.labelReveal = uniform$1(0);
+      P.sort((G, V) => V.originZ - G.originZ);
+      let R = 0;
+      for (const { group: G } of P) {
+        const V = {};
+        if (V.group = G, V.color = V.group.userData.color, V.index = R, R < careerEntries.length) {
+          const q = careerEntries[R], H = this.timeline.toZ(q.start);
+          V.group.position.z = this.timeline.startZ - H, V.size = this.timeline.toZ(q.end ?? a) - H, V.hasEnd = q.end !== null, V.texture = this.generateCareerTexture(q.company, q.role);
+        } else V.size = parseFloat(V.group.userData.size), V.hasEnd = V.group.userData.hasEnd, V.texture = this.game.resources[`${V.group.userData.texture}Texture`];
+        V.stone = V.group.children.find((q) => q.name.startsWith("stone")), V.stone.position.y = 0, V.origin = V.group.position.clone(), V.isIn = false, V.isUp = false, V.elevationTarget = 0, V.offsetTarget = 0, V.labelReveal = uniform$1(0);
         {
-          $.textMesh = $.stone.children.find((G) => G.name.startsWith("careerText"));
-          const P = new MeshLambertNodeMaterial({
+          V.textMesh = V.stone.children.find((z) => z.name.startsWith("careerText"));
+          const q = new MeshLambertNodeMaterial({
             transparent: true
-          }), R = f[$.color];
-          P.outputNode = Fn$1(() => {
-            const G = uv$2().toVar();
-            step$1(G.x, $.labelReveal).lessThan(0.5).discard();
-            const V = texture$1($.texture, G), q = step$1(0.1, max$2(V.r, V.g)), H = R.div(luminance(R)).mul(1.7), z = color$1("#251f2b"), Y = mix$1(z, H, V.r);
-            return vec4$1(Y, q);
-          })(), $.textMesh.castShadow = false, $.textMesh.receiveShadow = false, $.textMesh.material = P;
+          }), H = $[V.color];
+          q.outputNode = Fn$1(() => {
+            const z = uv$2().toVar();
+            step$1(z.x, V.labelReveal).lessThan(0.5).discard();
+            const Y = texture$1(V.texture, z), Z = step$1(0.1, max$2(Y.r, Y.g)), ie = H.div(luminance(H)).mul(1.7), se = color$1("#251f2b"), re = mix$1(se, ie, Y.r);
+            return vec4$1(re, Z);
+          })(), V.textMesh.castShadow = false, V.textMesh.receiveShadow = false, V.textMesh.material = q;
         }
-        this.lines.items.push($), v++;
+        this.lines.items.push(V), R++;
       }
-      this.game.debug.active && (this.game.debug.addThreeColorBinding(this.debugPanel, f.blue.value, "blue"), this.game.debug.addThreeColorBinding(this.debugPanel, f.orange.value, "orange"), this.game.debug.addThreeColorBinding(this.debugPanel, f.purple.value, "purple"), this.game.debug.addThreeColorBinding(this.debugPanel, f.green.value, "green"));
+      this.game.debug.active && (this.game.debug.addThreeColorBinding(this.debugPanel, $.blue.value, "blue"), this.game.debug.addThreeColorBinding(this.debugPanel, $.orange.value, "orange"), this.game.debug.addThreeColorBinding(this.debugPanel, $.purple.value, "purple"), this.game.debug.addThreeColorBinding(this.debugPanel, $.green.value, "green"));
     }
     generateCareerTexture(e, r) {
       const a = document.createElement("canvas");
@@ -77142,7 +77149,7 @@ https://github.com/browserify/crypto-browserify`);
       return c.flipY = false, c.minFilter = LinearFilter$1, c.magFilter = LinearFilter$1, c.generateMipmaps = false, c.wrapS = ClampToEdgeWrapping$1, c.wrapT = ClampToEdgeWrapping$1, c;
     }
     setYears() {
-      this.year = {}, this.year.group = this.references.items.get("year")[0], this.year.originZ = this.year.group.position.z, this.year.size = 17, this.year.offsetTarget = 0, this.year.start = 2015, this.year.end = (/* @__PURE__ */ new Date()).getFullYear(), this.year.current = this.year.start;
+      this.year = {}, this.year.group = this.references.items.get("year")[0], this.year.originZ = this.year.group.position.z, this.year.size = this.timeline.length, this.year.offsetTarget = 0, this.year.start = 2015, this.year.current = this.year.start;
       const e = 255, r = new Uint8Array([
         e,
         e,
@@ -77240,31 +77247,31 @@ https://github.com/browserify/crypto-browserify`);
       });
     }
     update() {
-      for (const a of this.lines.items) {
-        const h = a.origin.z - this.game.player.position.z;
-        h > -this.lines.padding && h < a.size + this.lines.padding * 2 ? a.isIn || (a.isIn = true, gsapWithCSS.to(a.labelReveal, {
+      for (const o of this.lines.items) {
+        const a = o.origin.z - this.game.player.position.z;
+        a > -this.lines.padding && a < o.size + this.lines.padding * 2 ? o.isIn || (o.isIn = true, gsapWithCSS.to(o.labelReveal, {
           value: 1,
           duration: 1,
           delay: 0.3,
           overwrite: true,
           ease: "power2.inOut"
-        })) : a.isIn && (a.isIn = false, gsapWithCSS.to(a.labelReveal, {
+        })) : o.isIn && (o.isIn = false, gsapWithCSS.to(o.labelReveal, {
           value: 0,
           duration: 1,
           overwrite: true,
           ease: "power2.inOut"
-        })), a.isIn ? a.isUp || (a.isUp = true, this.sounds.stoneOut.play(a)) : h > a.size ? a.hasEnd && a.isUp && (a.isUp = false, gsapWithCSS.delayedCall(0.3, () => {
-          this.sounds.stoneIn.play(a);
-        })) : a.isUp && (a.isUp = false, gsapWithCSS.delayedCall(0.3, () => {
-          this.sounds.stoneIn.play(a);
-        })), a.elevationTarget = a.isUp ? this.lines.activeElevation : 0, a.stone.position.y += (a.elevationTarget - a.stone.position.y) * this.game.ticker.deltaScaled * 3, a.isIn ? a.stone.position.y > 1 && (a.offsetTarget = -clamp$3(h, 0, a.size)) : h > a.size ? a.offsetTarget = -a.size : a.offsetTarget = 0, a.stone.position.z += (a.offsetTarget - a.stone.position.z) * this.game.ticker.deltaScaled * 10;
+        })), o.isIn ? o.isUp || (o.isUp = true, this.sounds.stoneOut.play(o)) : a > o.size ? o.hasEnd && o.isUp && (o.isUp = false, gsapWithCSS.delayedCall(0.3, () => {
+          this.sounds.stoneIn.play(o);
+        })) : o.isUp && (o.isUp = false, gsapWithCSS.delayedCall(0.3, () => {
+          this.sounds.stoneIn.play(o);
+        })), o.elevationTarget = o.isUp ? this.lines.activeElevation : 0, o.stone.position.y += (o.elevationTarget - o.stone.position.y) * this.game.ticker.deltaScaled * 3, o.isIn ? o.stone.position.y > 1 && (o.offsetTarget = -clamp$3(a, 0, o.size)) : a > o.size ? o.offsetTarget = -o.size : o.offsetTarget = 0, o.stone.position.z += (o.offsetTarget - o.stone.position.z) * this.game.ticker.deltaScaled * 10;
       }
       const e = this.year.originZ - this.game.player.position.z;
       e > this.year.size ? this.year.offsetTarget = this.year.size : e < 0 ? this.year.offsetTarget = 0 : this.year.offsetTarget = e;
       const r = this.year.originZ - this.year.offsetTarget;
       this.year.group.position.z += (r - this.year.group.position.z) * this.game.ticker.deltaScaled * 10;
-      const s = this.year.end - this.year.start, o = this.year.start + Math.floor(this.year.offsetTarget / this.year.size * s);
-      o !== this.year.current && (this.year.current = o, this.year.updateDigits(this.year.current));
+      const s = Math.floor(this.timeline.toTime(this.year.offsetTarget));
+      s !== this.year.current && (this.year.current = s, this.year.updateDigits(this.year.current));
     }
   }
   const res = await fetch("/data/resume.json"), resume = await res.json(), layoutConfig = [

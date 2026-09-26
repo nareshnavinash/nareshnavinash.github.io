@@ -653,7 +653,7 @@
                         "rest-api",
                         "snap-mode"
                     ],
-                    "thumbnail": "https://repository-images.githubusercontent.com/241552215/a625b000-57e0-11ea-9df2-15977adf8405"
+                    "thumbnail": "screenshots/PyRest-Python.png"
                 },
                 {
                     "name": "newman-run",
@@ -673,7 +673,7 @@
                         "postman",
                         "runner"
                     ],
-                    "thumbnail": "https://repository-images.githubusercontent.com/280851173/fa496d80-cabc-11ea-9011-d91bf1514a8e"
+                    "thumbnail": "screenshots/newman-run.png"
                 },
                 {
                     "name": "Cypress-PageObjectModel",
@@ -691,7 +691,7 @@
                         "page-object-model",
                         "ui-automation"
                     ],
-                    "thumbnail": "https://repository-images.githubusercontent.com/274968993/7d6f9e80-bed5-11ea-8ef9-835e418a3e42"
+                    "thumbnail": "screenshots/Cypress-PageObjectModel.png"
                 },
                 {
                     "name": "bonsai",
@@ -716,7 +716,7 @@
                         "privacy",
                         "quantized-models"
                     ],
-                    "thumbnail": "https://raw.githubusercontent.com/nareshnavinash/bonsai/main/assets/banner.png"
+                    "thumbnail": "screenshots/bonsai.png"
                 },
                 {
                     "name": "GhostEdit",
@@ -735,7 +735,7 @@
                         "offline-first",
                         "spell-checker"
                     ],
-                    "thumbnail": "https://raw.githubusercontent.com/nareshnavinash/GhostEdit/main/assets/AppIcon1024.png"
+                    "thumbnail": "screenshots/GhostEdit.png"
                 },
                 {
                     "name": "Postman-Newman-Framework",
@@ -754,7 +754,7 @@
                         "postman-collection",
                         "postman-test"
                     ],
-                    "thumbnail": "https://repository-images.githubusercontent.com/280664062/cd189480-c9c2-11ea-98d0-0a79105a7020"
+                    "thumbnail": "screenshots/Postman-Newman-Framework.png"
                 }
             ],
             "recent": [
@@ -779,7 +779,7 @@
                         "tneb",
                         "typescript"
                     ],
-                    "thumbnail": "https://raw.githubusercontent.com/nareshnavinash/tneb-solar/main/assets/logo-mark.svg"
+                    "thumbnail": "screenshots/tneb-solar.png"
                 },
                 {
                     "name": "chirp",
@@ -804,7 +804,7 @@
                         "pomodoro",
                         "privacy-first"
                     ],
-                    "thumbnail": "https://chirpapp.dev/images/og-image.png"
+                    "thumbnail": "screenshots/chirp.png"
                 },
                 {
                     "name": "dobbe-mcp",
@@ -825,7 +825,7 @@
                         "security",
                         "typescript"
                     ],
-                    "thumbnail": "https://raw.githubusercontent.com/nareshnavinash/dobbe-mcp/main/docs/banner.svg"
+                    "thumbnail": "screenshots/dobbe-mcp.png"
                 },
                 {
                     "name": "dobbe",
@@ -847,7 +847,7 @@
                         "security",
                         "vulnerability"
                     ],
-                    "thumbnail": "https://opengraph.githubassets.com/3a51d5e3e9be8cbac1725ecd35c9500b651236c6e92f0f1fe5f4cb30cdc07d70/nareshnavinash/dobbe"
+                    "thumbnail": "screenshots/dobbe.png"
                 },
                 {
                     "name": "aDictive",
@@ -868,7 +868,7 @@
                         "voice-to-text",
                         "whisper-cpp"
                     ],
-                    "thumbnail": "https://nareshnavinash.github.io/aDictive/social-card.png"
+                    "thumbnail": "screenshots/aDictive.png"
                 },
                 {
                     "name": "shelldone",
@@ -898,7 +898,7 @@
                         "wsl",
                         "zsh"
                     ],
-                    "thumbnail": "https://nareshnavinash.github.io/shelldone/og-image.png"
+                    "thumbnail": "screenshots/shelldone.png"
                 }
             ]
         },
