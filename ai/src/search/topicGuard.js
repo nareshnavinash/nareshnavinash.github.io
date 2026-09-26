@@ -1,11 +1,29 @@
 let onTopicKeywords = new Set()
 
 const STATIC_KEYWORDS = new Set([
-    'naresh', 'sekar', 'navinash',
-    'you', 'your', 'yourself', 'his', 'him', 'he',
-    'resume', 'portfolio', 'cv',
-    'career', 'experience', 'hire', 'recruit', 'interview', 'candidate', 'fit',
-    'team', 'management', 'engineering', 'leadership'
+    'naresh',
+    'sekar',
+    'navinash',
+    'you',
+    'your',
+    'yourself',
+    'his',
+    'him',
+    'he',
+    'resume',
+    'portfolio',
+    'cv',
+    'career',
+    'experience',
+    'hire',
+    'recruit',
+    'interview',
+    'candidate',
+    'fit',
+    'team',
+    'management',
+    'engineering',
+    'leadership'
 ])
 
 const GREETINGS = new Set(['hi', 'hello', 'hey', 'sup', 'yo', 'howdy', 'greetings', 'hola'])
@@ -91,7 +109,10 @@ export function isOffTopic(query, search) {
     const q = query.trim().toLowerCase()
     if (!q) return { offTopic: false }
 
-    const words = q.replace(/[!?,.'":;]/g, '').trim().split(/\s+/)
+    const words = q
+        .replace(/[!?,.'":;]/g, '')
+        .trim()
+        .split(/\s+/)
     if (words.length <= 2 && words.some((w) => GREETINGS.has(w))) {
         return { offTopic: false, greeting: true }
     }
