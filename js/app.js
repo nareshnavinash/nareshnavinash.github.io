@@ -693,7 +693,7 @@ function setYear() {
 
 // ---------- live timers ----------
 const CAREER_START = new Date('2015-06-30T00:00:00Z').getTime()
-const LEADING_START = new Date('2026-08-01T00:00:00Z').getTime()
+const LEADING_START = new Date('2023-08-01T00:00:00Z').getTime()
 function pad2(n) {
     return String(n).padStart(2, '0')
 }
