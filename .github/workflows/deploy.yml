@@ -3,6 +3,7 @@ name: Deploy to GitHub Pages
 on:
     push:
         branches: [main]
+    workflow_dispatch: # Redeploy after bot commits (e.g. Update Dynamic Content), which don't trigger push
 
 permissions:
     contents: read

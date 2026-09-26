@@ -85,7 +85,35 @@ export class CareerArea extends Area {
         this.lines.activeElevation = 2.5
         this.lines.padding = 0.25
 
-        const lineGroups = this.references.items.get('line')
+        const lineGroups = [...this.references.items.get('line')]
+
+        // Compute Z-units per year for proportional bar sizing
+        const TIMELINE_Z = 17
+        const now = new Date()
+        const currentYearFrac = now.getFullYear() + now.getMonth() / 12
+        const careerStartFrac = careerEntries[0].start
+        const totalYears = currentYearFrac - careerStartFrac
+        const zPerYear = TIMELINE_Z / totalYears
+
+        // The model only has 6 slabs: clone the latest one for any newer entries,
+        // placed chronologically on the timeline in the outer lane (free by then)
+        const extraCount = careerEntries.length - lineGroups.length
+        if (extraCount > 0) {
+            const template = lineGroups.reduce((a, b) => (a.position.z < b.position.z ? a : b))
+            const outerLaneX = Math.max(...lineGroups.map((group) => group.position.x))
+            const timelineStartZ = this.references.items.get('year')[0].position.z
+            const minZ = Math.min(...lineGroups.map((group) => group.position.z))
+
+            for (const entry of careerEntries.slice(-extraCount)) {
+                const group = template.clone(true)
+                const chronologicalZ = timelineStartZ - (entry.start - careerStartFrac) * zPerYear
+                group.position.x = outerLaneX
+                group.position.z = Math.max(Math.min(chronologicalZ, minZ - 0.5), timelineStartZ - TIMELINE_Z + 0.5)
+                group.userData = { ...template.userData, color: 'green' }
+                template.parent.add(group)
+                lineGroups.push(group)
+            }
+        }
 
         const colors = {
             blue: uniform(color('#5390ff')),
@@ -103,14 +131,6 @@ export class CareerArea extends Area {
             })
         }
         unsortedLines.sort((a, b) => b.originZ - a.originZ)
-
-        // Compute Z-units per year for proportional bar sizing
-        const TIMELINE_Z = 17
-        const now = new Date()
-        const currentYearFrac = now.getFullYear() + now.getMonth() / 12
-        const careerStartFrac = careerEntries[0].start
-        const totalYears = currentYearFrac - careerStartFrac
-        const zPerYear = TIMELINE_Z / totalYears
 
         // Second pass: create lines with correct career textures and sizes
         let lineIndex = 0

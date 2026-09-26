@@ -42,7 +42,7 @@
                     el('span', { class: 'typed', id: 'intro-typed' }, ''),
                     el('span', { class: 'cursor-pipe' })
                 ),
-                el('p', { class: 'intro-tag', id: 'intro-tag' }, 'engineering manager · ai adoption'),
+                el('p', { class: 'intro-tag', id: 'intro-tag' }, 'founding engineer · ai-native builder'),
                 el('p', { class: 'intro-hint', id: 'intro-hint' }, 'press any key or wait')
             ),
             el('button', { class: 'intro-skip', onclick: () => dismiss() }, 'skip →')

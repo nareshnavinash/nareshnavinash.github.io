@@ -191,7 +191,7 @@ export function adaptResume(resume) {
 
     const suggestions = r.site?.ask?.suggestions || [
         "What's your AI adoption philosophy?",
-        'Tell me about your work at TestGorilla',
+        'What are you building at Picari?',
         'How do you scale engineering teams?',
         'What open-source tools have you shipped?'
     ]

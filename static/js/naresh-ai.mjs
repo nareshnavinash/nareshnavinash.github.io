@@ -6,7 +6,7 @@ function lt(t) {
       id: "bio",
       section: "about",
       label: s.name,
-      text: `${s.name} is an ${s.title || "Engineering Manager"}. ${u}`
+      text: `${s.name} is an ${s.title || "Founding Engineer"}. ${u}`
     });
   }
   const r = t.rawResume || {}, o = r.about?.cards || [];
@@ -28,12 +28,12 @@ function lt(t) {
   }
   (t.career || []).forEach((u, b) => {
     if (u.isTail) return;
-    const k = ut(u.desc || ""), x = `${s.name || "Naresh Sekar"} worked as ${u.role} at ${u.co} (${u.date}). ${k}`;
+    const k = ut(u.desc || ""), _ = `${s.name || "Naresh Sekar"} worked as ${u.role} at ${u.co} (${u.date}). ${k}`;
     e.push({
       id: `career:${b}`,
       section: "career",
       label: `${u.role} at ${u.co}`,
-      text: x,
+      text: _,
       meta: { idx: b, co: u.co, role: u.role, date: u.date }
     });
   }), (t.skills || []).forEach((u, b) => {
@@ -240,11 +240,11 @@ const Et = {
   keys: [],
   shouldSort: !0,
   sortFn: (t, e) => t.score === e.score ? t.idx < e.idx ? -1 : 1 : t.score < e.score ? -1 : 1
-}, xt = {
+}, _t = {
   location: 0,
   threshold: 0.6,
   distance: 100
-}, _t = {
+}, xt = {
   useExtendedSearch: !1,
   useTokenSearch: !1,
   getFn: wt,
@@ -254,8 +254,8 @@ const Et = {
 }, m = Object.freeze({
   ...At,
   ...Et,
-  ...xt,
-  ..._t
+  ..._t,
+  ...xt
 }), vt = /[^ ]+/g;
 function It(t = 1, e = 3) {
   const s = /* @__PURE__ */ new Map(), n = Math.pow(10, e);
@@ -434,43 +434,43 @@ function Mt(t, e, s, {
     throw new Error(mt(O));
   const l = e.length, f = t.length, p = Math.max(0, Math.min(n, f));
   let h = o, g = p;
-  const y = (_, T) => {
-    const C = _ / l;
+  const y = (x, T) => {
+    const C = x / l;
     if (d) return C;
     const W = Math.abs(p - T);
     return r ? C + W / r : W ? 1 : C;
   }, u = i > 1 || c, b = u ? Array(f) : [];
   let k;
   for (; (k = t.indexOf(e, g)) > -1; ) {
-    const _ = y(0, k);
-    if (h = Math.min(_, h), g = k + l, u) {
+    const x = y(0, k);
+    if (h = Math.min(x, h), g = k + l, u) {
       let T = 0;
       for (; T < l; )
         b[k + T] = 1, T += 1;
     }
   }
   g = -1;
-  let x = [], E = 1, I = l + f;
+  let _ = [], E = 1, I = l + f;
   const ct = 1 << l - 1;
-  for (let _ = 0; _ < l; _ += 1) {
+  for (let x = 0; x < l; x += 1) {
     let T = 0, C = I;
     for (; T < C; )
-      y(_, p + C) <= h ? T = C : I = C, C = Math.floor((I - T) / 2 + T);
+      y(x, p + C) <= h ? T = C : I = C, C = Math.floor((I - T) / 2 + T);
     I = C;
     let W = Math.max(1, p - C + 1);
     const oe = a ? f : Math.min(p + C, f) + l, j = Array(oe + 2);
-    j[oe + 1] = (1 << _) - 1;
+    j[oe + 1] = (1 << x) - 1;
     for (let M = oe; M >= W; M -= 1) {
       const G = M - 1, De = s[t[G]];
-      if (u && (b[G] = +!!De), j[M] = (j[M + 1] << 1 | 1) & De, _ && (j[M] |= (x[M + 1] | x[M]) << 1 | 1 | x[M + 1]), j[M] & ct && (E = y(_, G), E <= h)) {
+      if (u && (b[G] = +!!De), j[M] = (j[M + 1] << 1 | 1) & De, x && (j[M] |= (_[M + 1] | _[M]) << 1 | 1 | _[M + 1]), j[M] & ct && (E = y(x, G), E <= h)) {
         if (h = E, g = G, g <= p)
           break;
         W = Math.max(1, 2 * p - g);
       }
     }
-    if (y(_ + 1, p) > h)
+    if (y(x + 1, p) > h)
       break;
-    x = j;
+    _ = j;
   }
   const ie = {
     isMatch: g >= 0,
@@ -478,8 +478,8 @@ function Mt(t, e, s, {
     score: Math.max(1e-3, E)
   };
   if (u) {
-    const _ = St(b, i);
-    _.length ? c && (ie.indices = _) : ie.isMatch = !1;
+    const x = St(b, i);
+    x.length ? c && (ie.indices = x) : ie.isMatch = !1;
   }
   return ie;
 }
@@ -599,7 +599,7 @@ class Ce {
     }) => {
       const {
         isMatch: k,
-        score: x,
+        score: _,
         indices: E
       } = Mt(e, y, u, {
         location: o + b,
@@ -610,7 +610,7 @@ class Ce {
         includeMatches: r,
         ignoreLocation: l
       });
-      k && (h = !0), p += x, k && E && f.push(...E);
+      k && (h = !0), p += _, k && E && f.push(...E);
     });
     const g = {
       isMatch: h,
@@ -948,8 +948,8 @@ class Wt {
         } = y.search(e);
         if (u) {
           a += 1, c += k;
-          const x = y.constructor.type;
-          x.startsWith("inverse") && (d = !0), n && (Ht.has(x) ? i.push(...b) : i.push(b));
+          const _ = y.constructor.type;
+          _.startsWith("inverse") && (d = !0), n && (Ht.has(_) ? i.push(...b) : i.push(b));
         } else {
           c = 0, a = 0, i.length = 0, d = !1;
           break;
@@ -1739,6 +1739,7 @@ const tt = [
     id: "qa.career_detail",
     type: "query",
     keywords: [
+      "picari",
       "testgorilla",
       "hopin",
       "vue.ai",
@@ -1750,6 +1751,7 @@ const tt = [
       "work at"
     ],
     examples: [
+      "what are you building at Picari",
       "what did you do at TestGorilla",
       "tell me about your Hopin role",
       "describe your work at Freshworks",
@@ -1855,7 +1857,7 @@ function os(t, e, s) {
       return n === l || n.includes(l);
     }) && (n.split(/\s+/).length <= 4 || !Pe(n)))
       return { intent: i, confidence: 0.9 };
-  const o = ["testgorilla", "hopin", "vue.ai", "weinvest", "freshworks", "cognizant"].find((i) => n.includes(i));
+  const o = ["picari", "testgorilla", "hopin", "vue.ai", "weinvest", "freshworks", "cognizant"].find((i) => n.includes(i));
   if (o && Pe(n))
     return {
       intent: ke.find((i) => i.id === "qa.career_detail"),
@@ -1979,7 +1981,7 @@ function ks() {
 function Ae() {
   return se - rt().count;
 }
-function xe() {
+function _e() {
   return se;
 }
 const je = 1500;
@@ -2014,7 +2016,7 @@ async function As() {
 function ce(t) {
   return t.toLowerCase().replace(/[?!.,;:'"]/g, "").replace(/\s+/g, " ").trim();
 }
-function xs(t, e) {
+function _s(t, e) {
   if (!e || !e.length) return null;
   const s = ce(t);
   for (const a of e)
@@ -2039,13 +2041,13 @@ function ze(t) {
       break;
   return s;
 }
-async function _s(t, e, s) {
+async function xs(t, e, s) {
   const n = e.search(t, 5), r = n.length >= 3 ? n : n.length ? [...n, ...ze(s).filter((l) => !n.some((f) => f.id === l.id))].slice(0, 5) : ze(s), o = r.map((l) => ({
     id: l.id,
     section: l.section,
     label: l.label,
     meta: l.meta
-  })), a = await As(), i = xs(t, a);
+  })), a = await As(), i = _s(t, a);
   if (i)
     return {
       type: "answer",
@@ -2073,7 +2075,7 @@ async function _s(t, e, s) {
   } catch (l) {
     const f = l.message || "UNKNOWN";
     let p = "I couldn't reach the AI. Here's what I found locally:";
-    return f === "DAILY_LIMIT" ? p = `You've reached the daily limit (${Ae()}/${xe()}). Come back tomorrow! Here's what I found locally:` : f === "RATE_LIMITED" ? p = "naresh.ai is popular today - I've hit the rate limit. Here's what I found locally:" : f === "NO_API_KEY" && (p = "AI answers aren't configured. Here's what I found in the resume:"), {
+    return f === "DAILY_LIMIT" ? p = `You've reached the daily limit (${Ae()}/${_e()}). Come back tomorrow! Here's what I found locally:` : f === "RATE_LIMITED" ? p = "naresh.ai is popular today - I've hit the rate limit. Here's what I found locally:" : f === "NO_API_KEY" && (p = "AI answers aren't configured. Here's what I found in the resume:"), {
       type: "fallback",
       text: p,
       sources: o,
@@ -2130,7 +2132,7 @@ const vs = /* @__PURE__ */ new Set([
   /\b(travel|flight|hotel|booking)\b/,
   /\b(who (is|was) (the|a) )/
 ], He = [
-  "That's a great question, but I'm specifically built to talk about Naresh's career, skills, and projects. Try asking about his experience at TestGorilla, his leadership approach, or his tech stack!",
+  "That's a great question, but I'm specifically built to talk about Naresh's career, skills, and projects. Try asking about his work at Picari, his leadership approach, or his tech stack!",
   "I appreciate the curiosity! I'm best at answering questions about Naresh's professional background. Want to know about his AI experience, open-source work, or team leadership?",
   "I'm naresh.ai - I stick to what I know best: Naresh's professional journey. Ask me about his career, technical skills, or management philosophy!"
 ], Ss = "Hey! I'm naresh.ai. I can tell you about Naresh's career, skills, leadership style, or projects. What would you like to know?";
@@ -2233,12 +2235,12 @@ function Ds(t) {
           }), $(), N("ready"), o.scrollTo?.(I);
           return;
         }
-        const x = $s(b, n);
-        if (x.greeting) {
+        const _ = $s(b, n);
+        if (_.greeting) {
           z(), g.push({ role: "a", text: Ss }), $(), N("ready");
           return;
         }
-        if (x.offTopic) {
+        if (_.offTopic) {
           z(), g.push({ role: "a", text: Ts() }), $(), qe("qa.general"), N("ready");
           return;
         }
@@ -2393,7 +2395,7 @@ function qe(t) {
     }));
   });
 }
-let D = null, P = null, L = null, _e = null, S = 0, $e = [], Te = null, J = null, H = null, Z = null;
+let D = null, P = null, L = null, xe = null, S = 0, $e = [], Te = null, J = null, H = null, Z = null;
 function Os({ resumeData: t, search: e, handlers: s, getRemaining: n, getMax: r }) {
   Z = { getRemaining: n, getMax: r };
   const o = Ps(t);
@@ -2495,7 +2497,7 @@ function js() {
                     <span class="cmdk__rate"></span>
                 </div>
             </div>
-        </div>`), D = document.getElementById("cmdk-overlay"), P = document.getElementById("cmdk-input"), L = document.getElementById("cmdk-results"), _e = D.querySelector(".cmdk__rate"), D.querySelector(".cmdk__backdrop").addEventListener("click", ne);
+        </div>`), D = document.getElementById("cmdk-overlay"), P = document.getElementById("cmdk-input"), L = document.getElementById("cmdk-results"), xe = D.querySelector(".cmdk__rate"), D.querySelector(".cmdk__backdrop").addEventListener("click", ne);
   let e = null;
   P.addEventListener("input", () => {
     clearTimeout(e), e = setTimeout(() => {
@@ -2514,7 +2516,7 @@ function zs(t) {
   e && e.addEventListener("click", () => Ye());
 }
 function Ye() {
-  D && (J = document.activeElement, D.classList.add("open"), D.setAttribute("aria-hidden", "false"), document.body.classList.add("cmdk-open"), P.value = "", S = 0, ot(""), _e && Z?.getRemaining && (_e.textContent = `${Z.getRemaining()}/${Z.getMax()} AI queries today`), setTimeout(() => P.focus(), 50));
+  D && (J = document.activeElement, D.classList.add("open"), D.setAttribute("aria-hidden", "false"), document.body.classList.add("cmdk-open"), P.value = "", S = 0, ot(""), xe && Z?.getRemaining && (xe.textContent = `${Z.getRemaining()}/${Z.getMax()} AI queries today`), setTimeout(() => P.focus(), 50));
 }
 function ne() {
   D && (D.classList.remove("open"), D.setAttribute("aria-hidden", "true"), document.body.classList.remove("cmdk-open"), J && (J.focus(), J = null));
@@ -2600,16 +2602,16 @@ function qs({ resumeData: t, sectionRoot: e, chatRoot: s, handlers: n, suggestio
     chunks: o,
     handlers: n,
     suggestions: r,
-    queryRAG: (c) => _s(c, a, o),
+    queryRAG: (c) => xs(c, a, o),
     getRemaining: Ae,
-    getMax: xe
+    getMax: _e
   });
   return Os({
     resumeData: t,
     search: a,
     handlers: n,
     getRemaining: Ae,
-    getMax: xe
+    getMax: _e
   }), i;
 }
 function Ys() {

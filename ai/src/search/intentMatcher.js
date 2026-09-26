@@ -37,7 +37,7 @@ export function resolveIntent(query, search, handlers) {
     }
 
     // 3. Check for company-name matches (career detail)
-    const companyNames = ['testgorilla', 'hopin', 'vue.ai', 'weinvest', 'freshworks', 'cognizant']
+    const companyNames = ['picari', 'testgorilla', 'hopin', 'vue.ai', 'weinvest', 'freshworks', 'cognizant']
     const matchedCompany = companyNames.find((c) => q.includes(c))
     if (matchedCompany && looksLikeQuestion(q)) {
         return {

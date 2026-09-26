@@ -34,7 +34,7 @@ const OFF_TOPIC_PATTERNS = [
 ]
 
 const OFF_TOPIC_RESPONSES = [
-    "That's a great question, but I'm specifically built to talk about Naresh's career, skills, and projects. Try asking about his experience at TestGorilla, his leadership approach, or his tech stack!",
+    "That's a great question, but I'm specifically built to talk about Naresh's career, skills, and projects. Try asking about his work at Picari, his leadership approach, or his tech stack!",
     "I appreciate the curiosity! I'm best at answering questions about Naresh's professional background. Want to know about his AI experience, open-source work, or team leadership?",
     "I'm naresh.ai - I stick to what I know best: Naresh's professional journey. Ask me about his career, technical skills, or management philosophy!"
 ]
