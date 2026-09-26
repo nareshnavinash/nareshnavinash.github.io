@@ -10,7 +10,7 @@ export function chunkResume(adapted) {
             id: 'bio',
             section: 'about',
             label: personal.name,
-            text: `${personal.name} is an ${personal.title || 'Engineering Manager'}. ${bio}`
+            text: `${personal.name} is an ${personal.title || 'Founding Engineer'}. ${bio}`
         })
     }
 

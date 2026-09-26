@@ -1,11 +1,29 @@
 let onTopicKeywords = new Set()
 
 const STATIC_KEYWORDS = new Set([
-    'naresh', 'sekar', 'navinash',
-    'you', 'your', 'yourself', 'his', 'him', 'he',
-    'resume', 'portfolio', 'cv',
-    'career', 'experience', 'hire', 'recruit', 'interview', 'candidate', 'fit',
-    'team', 'management', 'engineering', 'leadership'
+    'naresh',
+    'sekar',
+    'navinash',
+    'you',
+    'your',
+    'yourself',
+    'his',
+    'him',
+    'he',
+    'resume',
+    'portfolio',
+    'cv',
+    'career',
+    'experience',
+    'hire',
+    'recruit',
+    'interview',
+    'candidate',
+    'fit',
+    'team',
+    'management',
+    'engineering',
+    'leadership'
 ])
 
 const GREETINGS = new Set(['hi', 'hello', 'hey', 'sup', 'yo', 'howdy', 'greetings', 'hola'])
@@ -34,7 +52,7 @@ const OFF_TOPIC_PATTERNS = [
 ]
 
 const OFF_TOPIC_RESPONSES = [
-    "That's a great question, but I'm specifically built to talk about Naresh's career, skills, and projects. Try asking about his experience at TestGorilla, his leadership approach, or his tech stack!",
+    "That's a great question, but I'm specifically built to talk about Naresh's career, skills, and projects. Try asking about his work at Picari, his leadership approach, or his tech stack!",
     "I appreciate the curiosity! I'm best at answering questions about Naresh's professional background. Want to know about his AI experience, open-source work, or team leadership?",
     "I'm naresh.ai - I stick to what I know best: Naresh's professional journey. Ask me about his career, technical skills, or management philosophy!"
 ]
@@ -91,7 +109,10 @@ export function isOffTopic(query, search) {
     const q = query.trim().toLowerCase()
     if (!q) return { offTopic: false }
 
-    const words = q.replace(/[!?,.'":;]/g, '').trim().split(/\s+/)
+    const words = q
+        .replace(/[!?,.'":;]/g, '')
+        .trim()
+        .split(/\s+/)
     if (words.length <= 2 && words.some((w) => GREETINGS.has(w))) {
         return { offTopic: false, greeting: true }
     }

@@ -4,21 +4,21 @@
         "firstName": "Naresh",
         "email": "nareshnavinash@gmail.com",
         "photo": "/profile.jpg",
-        "title": "Engineering Manager",
-        "tagline": "I build teams that ship quality software, powered by AI.",
+        "title": "Founding Engineer",
+        "tagline": "I build products end to end, with AI agents as my team.",
         "roleTags": [
-            "Engineering Manager",
+            "Founding Engineer",
             "AI",
             "Builder"
         ],
-        "bio": "Engineering leader focused on AI adoption strategy and quality.",
-        "mission": "I'm an Engineering Manager who bridges the gap between cutting-edge AI and reliable software delivery. With over a decade of experience across startups and scale-ups, I specialize in building high-performing teams, designing quality-first engineering cultures, and leveraging AI to accelerate product development. My focus includes AI governance, process optimization, stakeholder management, and risk-aware execution. I believe great engineering leadership is about multiplying the impact of every person on your team."
+        "bio": "Founding engineer building products end to end, with AI agents as my team.",
+        "mission": "I'm the founding and sole engineer at Picari, where my work spans the whole stack - from design system and website to recommendation engine, security, performance, and cloud infrastructure. I deliver with the help of AI coding agents so that one engineer can operate like a team. Before that, I spent over a decade across startups and scale-ups, most recently as an Engineering Manager at TestGorilla leading AI product work and AI-augmented development. That background in engineering leadership and quality-first delivery shapes how I build today: explainable systems, rigorous evals, automated guardrails, and production-grade infrastructure from day one."
     },
     "site": {
         "seo": {
-            "title": "Naresh Sekar | Engineering Manager - AI Adoption & Leadership",
-            "description": "Naresh Sekar - Engineering Manager with 11+ years in software engineering. Specializing in AI adoption strategy, AI-augmented development, and building high-performing engineering teams.",
-            "keywords": "Engineering Manager, Software Engineering Manager, AI adoption strategy, AI governance, AI literacy, AI-augmented development, Generative AI strategy, Engineering leadership, Team leadership, Process optimization, Stakeholder management",
+            "title": "Naresh Sekar | Founding Engineer - AI-Native Product Engineering",
+            "description": "Naresh Sekar - Founding Engineer at Picari with 11+ years in software engineering. Builds products end to end - from design systems and recommendation engines to AWS infrastructure - with AI coding agents as his team. Former Engineering Manager at TestGorilla.",
+            "keywords": "Founding Engineer, Full-Stack Engineer, AI-native product engineering, AI coding agents, AI-augmented development, Recommendation engine, MCP, OAuth 2.1, Design systems, AWS, Terraform, Infrastructure as code, Node.js, Engineering Manager, Engineering leadership",
             "author": "Naresh Sekar",
             "robots": "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
             "themeColor": "#080818",
@@ -31,22 +31,22 @@
             "ogUrl": "https://nareshnavinash.github.io/profile.html",
             "imageWidth": "1200",
             "imageHeight": "630",
-            "imageAlt": "Naresh Sekar - Engineering Manager",
-            "schemaProfileName": "Naresh Sekar | Engineering Manager Portfolio",
-            "schemaJobTitle": "Engineering Manager",
-            "schemaPersonDescription": "Engineering Manager focused on AI adoption strategy, AI-augmented development, and engineering leadership at scale.",
+            "imageAlt": "Naresh Sekar - Founding Engineer",
+            "schemaProfileName": "Naresh Sekar | Founding Engineer Portfolio",
+            "schemaJobTitle": "Founding Engineer",
+            "schemaPersonDescription": "Founding Engineer at Picari building products end to end with AI agents as his team; former Engineering Manager focused on AI adoption and engineering leadership.",
             "schemaKnowsAbout": [
-                "Engineering Management",
-                "Software Engineering Management",
-                "AI Adoption Strategy",
-                "AI Literacy",
+                "Full-Stack Product Engineering",
                 "AI-Augmented Development",
+                "AI Coding Agents",
                 "LLM Development and Application",
-                "AI Governance",
-                "Engineering Leadership",
-                "Process Optimization",
-                "Stakeholder Management",
-                "Team Building"
+                "Recommendation Systems",
+                "Model Context Protocol (MCP)",
+                "Design Systems",
+                "Cloud Infrastructure (AWS, Terraform)",
+                "CI/CD and Observability",
+                "Engineering Management",
+                "Engineering Leadership"
             ]
         },
         "navigation": {
@@ -103,7 +103,7 @@
         "hero": {
             "greetingPrefix": "Hey there, I'm ",
             "greetingSuffix": " -",
-            "headingHtml": "I build <span class=\"text-outline\">teams</span> that ship quality software, powered by <span class=\"text-outline\">AI.</span>"
+            "headingHtml": "I build <span class=\"text-outline\">products</span> end to end, with <span class=\"text-outline\">AI agents</span> as my team."
         },
         "contact": {
             "primarySocialKeys": [
@@ -161,26 +161,26 @@
     },
     "about": {
         "title": "About.",
-        "subtitle": "Engineering Manager focused on AI adoption strategy, AI literacy, and quality engineering at scale.",
+        "subtitle": "Founding Engineer building products end to end with AI agents - backed by a decade of engineering leadership and quality engineering.",
         "cards": [
             {
-                "title": "AI Adoption Strategy",
-                "description": "Integrating AI/ML capabilities into product workflows - from generative AI implementation to AI governance, intelligent test generation, and data-driven decision systems."
+                "title": "End-to-End Product Engineering",
+                "description": "Owning the whole stack as a founding engineer - design system and website, recommendation engine, security, performance, analytics, and AWS infrastructure-as-code."
             },
             {
-                "title": "Team Building",
-                "description": "Scaling engineering teams from 5 to 30+, establishing career frameworks, hiring pipelines, and fostering cultures of ownership, AI literacy, and continuous improvement."
+                "title": "AI Agents as a Team",
+                "description": "Delivering with AI coding agents so one engineer operates like a team - plus shipping AI into the product itself: agent pipelines, evals, and MCP integrations."
             },
             {
-                "title": "Quality Engineering",
-                "description": "Designing end-to-end quality strategies - test automation frameworks, CI/CD pipelines, observability, and risk assessment with shift-left quality practices at scale."
+                "title": "Engineering Leadership & Quality",
+                "description": "A decade of scaling teams from 5 to 30+ and building quality-first delivery - test automation, CI/CD, observability, and risk-aware execution at scale."
             }
         ]
     },
     "career": {
         "title": "Experience.",
-        "subtitle": "A decade of growth - from hands-on engineering to leading teams.",
-        "recentCount": 3,
+        "subtitle": "A decade of growth - from quality engineering to leading teams to building products end to end.",
+        "recentCount": 4,
         "tailCard": {
             "role": "Before that",
             "teaser": "~5 years as SDET and early-career engineer across four companies",
@@ -188,17 +188,59 @@
         },
         "positions": [
             {
+                "company": "Picari",
+                "url": "https://picari.ai",
+                "roles": [
+                    {
+                        "role": "Founding Engineer",
+                        "shortRole": "Founding Engineer",
+                        "date": "August 2026 - Present",
+                        "startYear": 2026,
+                        "startMonth": 8,
+                        "endYear": null,
+                        "endMonth": null,
+                        "location": "Remote",
+                        "sections": [
+                            {
+                                "title": "Platform & Infrastructure",
+                                "points": [
+                                    "Founding and sole engineer, working across the whole stack - from design system and website to recommendation engine, security, performance, and cloud infrastructure - delivering with AI coding agents to operate like a team.",
+                                    "Moved the platform from Lovable to AWS with infrastructure-as-code (Terraform) and a single Node.js backend.",
+                                    "Set up CI/CD, staging, per-PR preview environments, gated production deploys with rollback, and observability."
+                                ]
+                            },
+                            {
+                                "title": "AI & Product Engineering",
+                                "points": [
+                                    "Built a deterministic, explainable vendor recommendation engine, with an evaluation harness to measure its quality.",
+                                    "Shipped an MCP integration with OAuth 2.1, so customers can use Picari from their own AI assistants.",
+                                    "Built AI-agent pipelines that research and enrich vendor profiles."
+                                ]
+                            },
+                            {
+                                "title": "Design System, Web & Data",
+                                "points": [
+                                    "Built the component library and design system (tokens, Storybook, accessibility checks in CI).",
+                                    "Redesigned the marketing website and rebuilt the public vendor directory.",
+                                    "Built in-house product analytics with an admin BI console."
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
                 "company": "TestGorilla",
                 "url": "https://www.testgorilla.com",
                 "roles": [
                     {
                         "role": "Engineering Manager",
                         "shortRole": "Engineering Manager",
-                        "date": "August 2023 - Present",
+                        "date": "August 2023 - August 2026",
                         "startYear": 2023,
                         "startMonth": 8,
-                        "endYear": null,
-                        "endMonth": null,
+                        "endYear": 2026,
+                        "endMonth": 8,
                         "location": "Remote",
                         "sections": [
                             {
@@ -611,7 +653,7 @@
                         "rest-api",
                         "snap-mode"
                     ],
-                    "thumbnail": "https://repository-images.githubusercontent.com/241552215/a625b000-57e0-11ea-9df2-15977adf8405"
+                    "thumbnail": "screenshots/PyRest-Python.png"
                 },
                 {
                     "name": "newman-run",
@@ -631,7 +673,7 @@
                         "postman",
                         "runner"
                     ],
-                    "thumbnail": "https://repository-images.githubusercontent.com/280851173/fa496d80-cabc-11ea-9011-d91bf1514a8e"
+                    "thumbnail": "screenshots/newman-run.png"
                 },
                 {
                     "name": "Cypress-PageObjectModel",
@@ -649,13 +691,13 @@
                         "page-object-model",
                         "ui-automation"
                     ],
-                    "thumbnail": "https://repository-images.githubusercontent.com/274968993/7d6f9e80-bed5-11ea-8ef9-835e418a3e42"
+                    "thumbnail": "screenshots/Cypress-PageObjectModel.png"
                 },
                 {
                     "name": "bonsai",
                     "description": "CLI for running prism-ml's 1-bit Bonsai models locally. Auto-manages llama.cpp server, downloads from HuggingFace, exposes OpenAI-compatible API.",
                     "url": "https://github.com/nareshnavinash/bonsai",
-                    "stars": 7,
+                    "stars": 8,
                     "language": "Go",
                     "homepage": "https://nareshnavinash.github.io/bonsai/",
                     "hasPages": true,
@@ -674,7 +716,26 @@
                         "privacy",
                         "quantized-models"
                     ],
-                    "thumbnail": "https://raw.githubusercontent.com/nareshnavinash/bonsai/main/assets/banner.png"
+                    "thumbnail": "screenshots/bonsai.png"
+                },
+                {
+                    "name": "GhostEdit",
+                    "description": "Free, open-source AI grammar checker. Fix grammar, spelling, and punctuation in any app with a single hotkey. Privacy-first no accounts, no subscriptions. ",
+                    "url": "https://github.com/nareshnavinash/GhostEdit",
+                    "stars": 8,
+                    "language": "TypeScript",
+                    "homepage": "https://nareshnavinash.github.io/GhostEdit/",
+                    "hasPages": true,
+                    "createdAt": "2026-03-17T09:54:57Z",
+                    "topics": [
+                        "ai-writing-assistant",
+                        "electron-app",
+                        "grammar-checker",
+                        "grammarly-alternative",
+                        "offline-first",
+                        "spell-checker"
+                    ],
+                    "thumbnail": "screenshots/GhostEdit.png"
                 },
                 {
                     "name": "Postman-Newman-Framework",
@@ -693,27 +754,7 @@
                         "postman-collection",
                         "postman-test"
                     ],
-                    "thumbnail": "https://repository-images.githubusercontent.com/280664062/cd189480-c9c2-11ea-98d0-0a79105a7020"
-                },
-                {
-                    "name": "Selpy-Python",
-                    "description": "Page Object Model Framework for Selenium in pytest, python and allure reporting with snapshot feature",
-                    "url": "https://github.com/nareshnavinash/Selpy-Python",
-                    "stars": 7,
-                    "language": "Python",
-                    "homepage": "https://nareshnavinash.github.io/Selpy-Python/",
-                    "hasPages": true,
-                    "createdAt": "2020-01-17T08:39:04Z",
-                    "topics": [
-                        "framework",
-                        "page-object-framework",
-                        "pytest",
-                        "python",
-                        "selenium",
-                        "snap-mode",
-                        "web-automation"
-                    ],
-                    "thumbnail": "https://repository-images.githubusercontent.com/234506707/b12a7500-3c63-11ea-908a-e274f6d3a7a4"
+                    "thumbnail": "screenshots/Postman-Newman-Framework.png"
                 }
             ],
             "recent": [
@@ -738,13 +779,13 @@
                         "tneb",
                         "typescript"
                     ],
-                    "thumbnail": "https://raw.githubusercontent.com/nareshnavinash/tneb-solar/main/assets/logo-mark.svg"
+                    "thumbnail": "screenshots/tneb-solar.png"
                 },
                 {
                     "name": "chirp",
                     "description": "Chirp - Free, cross-platform digital wellness app with smart break reminders, Pomodoro timer, blink & posture nudges, health score, and team dashboard. Zero tracking. MIT licensed.",
                     "url": "https://github.com/nareshnavinash/chirp",
-                    "stars": 1,
+                    "stars": 2,
                     "language": "Dart",
                     "homepage": "https://nareshnavinash.github.io/chirp/",
                     "hasPages": true,
@@ -763,7 +804,7 @@
                         "pomodoro",
                         "privacy-first"
                     ],
-                    "thumbnail": "https://chirpapp.dev/images/og-image.png"
+                    "thumbnail": "screenshots/chirp.png"
                 },
                 {
                     "name": "dobbe-mcp",
@@ -784,7 +825,7 @@
                         "security",
                         "typescript"
                     ],
-                    "thumbnail": "https://raw.githubusercontent.com/nareshnavinash/dobbe-mcp/main/docs/banner.svg"
+                    "thumbnail": "screenshots/dobbe-mcp.png"
                 },
                 {
                     "name": "dobbe",
@@ -806,7 +847,7 @@
                         "security",
                         "vulnerability"
                     ],
-                    "thumbnail": "https://opengraph.githubassets.com/3a51d5e3e9be8cbac1725ecd35c9500b651236c6e92f0f1fe5f4cb30cdc07d70/nareshnavinash/dobbe"
+                    "thumbnail": "screenshots/dobbe.png"
                 },
                 {
                     "name": "aDictive",
@@ -827,26 +868,37 @@
                         "voice-to-text",
                         "whisper-cpp"
                     ],
-                    "thumbnail": "https://nareshnavinash.github.io/aDictive/social-card.png"
+                    "thumbnail": "screenshots/aDictive.png"
                 },
                 {
-                    "name": "GhostEdit",
-                    "description": "Free, open-source AI grammar checker. Fix grammar, spelling, and punctuation in any app with a single hotkey. Privacy-first no accounts, no subscriptions. ",
-                    "url": "https://github.com/nareshnavinash/GhostEdit",
-                    "stars": 6,
-                    "language": "TypeScript",
-                    "homepage": "https://nareshnavinash.github.io/GhostEdit/",
+                    "name": "shelldone",
+                    "description": "shelldone - terminal notifications for long-running commands. Desktop alerts, sounds, Slack, Discord, Telegram, Email, WhatsApp. Pure bash, zero deps. AI CLI hooks for Claude Code, Codex, Gemini, Copilot, Cursor.",
+                    "url": "https://github.com/nareshnavinash/shelldone",
+                    "stars": 2,
+                    "language": "Shell",
+                    "homepage": "https://nareshnavinash.github.io/shelldone/",
                     "hasPages": true,
-                    "createdAt": "2026-03-17T09:54:57Z",
+                    "createdAt": "2026-03-16T04:35:50Z",
                     "topics": [
-                        "ai-writing-assistant",
-                        "electron-app",
-                        "grammar-checker",
-                        "grammarly-alternative",
-                        "offline-first",
-                        "spell-checker"
+                        "bash",
+                        "claude-code",
+                        "cli",
+                        "developer-tools",
+                        "devops",
+                        "discord-bot",
+                        "dotfiles",
+                        "linux",
+                        "macos",
+                        "notifications",
+                        "productivity",
+                        "shell",
+                        "slack-notifications",
+                        "telegram-bot",
+                        "terminal",
+                        "wsl",
+                        "zsh"
                     ],
-                    "thumbnail": "https://raw.githubusercontent.com/nareshnavinash/GhostEdit/main/assets/AppIcon1024.png"
+                    "thumbnail": "screenshots/shelldone.png"
                 }
             ]
         },
@@ -864,41 +916,41 @@
     },
     "skills": {
         "title": "Skills.",
-        "subtitle": "A full-stack quality & engineering toolkit honed over a decade.",
+        "subtitle": "A full-stack product & engineering toolkit honed over a decade.",
         "categories": [
             {
                 "name": "Languages",
                 "items": [
+                    "TypeScript / Node.js",
                     "Python",
-                    "TypeScript",
                     "Ruby"
                 ]
             },
             {
                 "name": "AI Stack",
                 "items": [
-                    "AI Agents (Claude Code workflows)",
-                    "Prompt Engineering",
+                    "AI Coding Agents (Claude Code workflows)",
+                    "Agent Pipelines & MCP (OAuth 2.1)",
                     "LLM Evals & RAG Architecture",
-                    "Anthropic APIs · n8n · Zapier"
+                    "Recommendation Engines & Eval Harnesses"
                 ]
             },
             {
                 "name": "Cloud & Infrastructure",
                 "items": [
                     "AWS (Solutions Architect)",
-                    "Serverless Architecture",
+                    "Infrastructure as Code (Terraform)",
                     "Docker & Kubernetes",
-                    "CI/CD (CircleCI, GitLab, GitHub)"
+                    "CI/CD, Preview Envs & Gated Deploys"
                 ]
             },
             {
                 "name": "Quality & Observability",
                 "items": [
-                    "Data Observability (Mixpanel, Holistics, Snowflake)",
+                    "Design Systems (Tokens, Storybook, a11y in CI)",
+                    "Product Analytics & BI (Mixpanel, Snowflake)",
                     "Performance Engineering (k6, Lighthouse)",
-                    "Automation (Playwright, Cypress)",
-                    "Contract Testing (Pact)"
+                    "Automation (Playwright, Cypress)"
                 ]
             }
         ]
@@ -989,6 +1041,19 @@
         "intro": "Say hello."
     },
     "projects": [
+        {
+            "title": "Picari",
+            "titleSmall": [
+                "Picari"
+            ],
+            "url": "https://picari.ai",
+            "shortRole": "Founding Engineer",
+            "images": [
+                "picari-platform",
+                "picari-ai",
+                "picari-product"
+            ]
+        },
         {
             "title": "TestGorilla",
             "titleSmall": [

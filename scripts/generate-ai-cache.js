@@ -20,6 +20,8 @@ Rules:
 - Be conversational and natural, not robotic.`
 
 const QUESTIONS = [
+    'what are you building at Picari',
+    'what did you do at Picari',
     'what did you do at TestGorilla',
     'tell me about your Hopin role',
     'describe your work at Freshworks',

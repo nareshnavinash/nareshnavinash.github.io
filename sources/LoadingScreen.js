@@ -108,7 +108,7 @@ export default class LoadingScreen {
 
     _buildHTML() {
         const name = this.game.resumeData?.personal?.name || 'Naresh Sekar'
-        const roleTags = this.game.resumeData?.personal?.roleTags || ['Engineering Manager', 'AI', 'Builder']
+        const roleTags = this.game.resumeData?.personal?.roleTags || ['Founding Engineer', 'AI', 'Builder']
 
         const nameLetters = name
             .split('')

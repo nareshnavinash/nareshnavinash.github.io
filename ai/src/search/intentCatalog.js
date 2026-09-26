@@ -69,6 +69,7 @@ export const QUERY_INTENTS = [
         id: 'qa.career_detail',
         type: 'query',
         keywords: [
+            'picari',
             'testgorilla',
             'hopin',
             'vue.ai',
@@ -80,6 +81,7 @@ export const QUERY_INTENTS = [
             'work at'
         ],
         examples: [
+            'what are you building at Picari',
             'what did you do at TestGorilla',
             'tell me about your Hopin role',
             'describe your work at Freshworks',

@@ -530,7 +530,7 @@ function renderCerts() {
 
 // ---------- ask-me chat (stubbed for static hosting) ----------
 const STUB_REPLY =
-    "Short version: Naresh leads engineering at TestGorilla, specialising in AI-augmented development. He ships AI video interviews and a credit-based pricing engine, runs open-source dev tools on weekends, and writes about it on Medium. Scroll down to the socials if you'd like to say hi, he loves engineering leadership and AI conversations."
+    "Short version: Naresh is the founding engineer at Picari, building the whole product end to end with AI coding agents as his team - from the design system and recommendation engine to AWS infrastructure. Before that he led engineering at TestGorilla. He open-source dev tools on weekends, and writes about it on Medium. Scroll down to the socials if you'd like to say hi, he loves engineering leadership and AI conversations."
 
 function renderSuggestions(host, onPick) {
     host.innerHTML = ''
@@ -693,7 +693,7 @@ function setYear() {
 
 // ---------- live timers ----------
 const CAREER_START = new Date('2015-06-30T00:00:00Z').getTime()
-const LEADING_START = new Date('2023-08-01T00:00:00Z').getTime()
+const LEADING_START = new Date('2026-08-01T00:00:00Z').getTime()
 function pad2(n) {
     return String(n).padStart(2, '0')
 }

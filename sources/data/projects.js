@@ -3,6 +3,7 @@ const resume = await res.json()
 
 // Display-only metadata per company (3D world visual config)
 const companyDisplay = {
+    Picari: { titleSmall: ['Picari'], images: ['picari-platform', 'picari-ai', 'picari-product'] },
     TestGorilla: { titleSmall: ['Test', 'Gorilla'], images: ['tg-em-ai', 'tg-em-devex', 'tg-em-lead', 'tg-lead-sdet'] },
     Hopin: { titleSmall: ['Hopin'], images: ['hopin-1'] },
     'Vue.ai': { titleSmall: ['Vue.ai'], images: ['vueai-1'] },
