@@ -87,28 +87,45 @@ export class CareerArea extends Area {
 
         const lineGroups = [...this.references.items.get('line')]
 
-        // Compute Z-units per year for proportional bar sizing
+        // Timeline mapping (time <-> distance along the lane), shared with the year counter.
+        // The current role gets a fixed stretch at the end so a recent start stays readable
         const TIMELINE_Z = 17
+        const CURRENT_Z = 3
         const now = new Date()
         const currentYearFrac = now.getFullYear() + now.getMonth() / 12
         const careerStartFrac = careerEntries[0].start
-        const totalYears = currentYearFrac - careerStartFrac
-        const zPerYear = TIMELINE_Z / totalYears
+        const currentEntries = careerEntries.filter((entry) => entry.end === null)
+        const splitTime = currentEntries.length
+            ? Math.min(...currentEntries.map((entry) => entry.start))
+            : currentYearFrac
+        const pastZ = currentEntries.length ? TIMELINE_Z - CURRENT_Z : TIMELINE_Z
+        const pastYears = Math.max(splitTime - careerStartFrac, 1e-6)
+        const currentYears = Math.max(currentYearFrac - splitTime, 1e-6)
+
+        this.timeline = {
+            length: TIMELINE_Z,
+            startZ: this.references.items.get('year')[0].position.z,
+            toZ: (time) =>
+                time <= splitTime
+                    ? ((time - careerStartFrac) / pastYears) * pastZ
+                    : pastZ + (Math.min(time - splitTime, currentYears) / currentYears) * (TIMELINE_Z - pastZ),
+            toTime: (z) =>
+                z <= pastZ
+                    ? careerStartFrac + (z / pastZ) * pastYears
+                    : splitTime + ((z - pastZ) / (TIMELINE_Z - pastZ)) * currentYears
+        }
 
         // The model only has 6 slabs: clone the latest one for any newer entries,
-        // placed chronologically on the timeline in the outer lane (free by then)
+        // in the outer lane (free by then) and sorted after the baked ones
         const extraCount = careerEntries.length - lineGroups.length
         if (extraCount > 0) {
             const template = lineGroups.reduce((a, b) => (a.position.z < b.position.z ? a : b))
             const outerLaneX = Math.max(...lineGroups.map((group) => group.position.x))
-            const timelineStartZ = this.references.items.get('year')[0].position.z
-            const minZ = Math.min(...lineGroups.map((group) => group.position.z))
 
-            for (const entry of careerEntries.slice(-extraCount)) {
+            for (let i = 1; i <= extraCount; i++) {
                 const group = template.clone(true)
-                const chronologicalZ = timelineStartZ - (entry.start - careerStartFrac) * zPerYear
                 group.position.x = outerLaneX
-                group.position.z = Math.max(Math.min(chronologicalZ, minZ - 0.5), timelineStartZ - TIMELINE_Z + 0.5)
+                group.position.z = template.position.z - i
                 group.userData = { ...template.userData, color: 'green' }
                 template.parent.add(group)
                 lineGroups.push(group)
@@ -141,11 +158,12 @@ export class CareerArea extends Area {
             line.index = lineIndex
 
             // Override size and texture with actual career data
+            // Place each slab at its real dates (baked lanes are kept, their roles don't overlap)
             if (lineIndex < careerEntries.length) {
                 const entry = careerEntries[lineIndex]
-                const entryEnd = entry.end ?? currentYearFrac
-                const duration = entryEnd - entry.start
-                line.size = duration * zPerYear
+                const startZ = this.timeline.toZ(entry.start)
+                line.group.position.z = this.timeline.startZ - startZ
+                line.size = this.timeline.toZ(entry.end ?? currentYearFrac) - startZ
                 line.hasEnd = entry.end !== null
                 line.texture = this.generateCareerTexture(entry.company, entry.role)
             } else {
@@ -248,10 +266,9 @@ export class CareerArea extends Area {
         this.year = {}
         this.year.group = this.references.items.get('year')[0]
         this.year.originZ = this.year.group.position.z
-        this.year.size = 17
+        this.year.size = this.timeline.length
         this.year.offsetTarget = 0
         this.year.start = 2015
-        this.year.end = new Date().getFullYear()
         this.year.current = this.year.start
 
         //    Digit indexes
@@ -494,8 +511,7 @@ export class CareerArea extends Area {
         const finalPositionZ = this.year.originZ - this.year.offsetTarget
         this.year.group.position.z += (finalPositionZ - this.year.group.position.z) * this.game.ticker.deltaScaled * 10
 
-        const yearRange = this.year.end - this.year.start
-        const yearCurrent = this.year.start + Math.floor((this.year.offsetTarget / this.year.size) * yearRange)
+        const yearCurrent = Math.floor(this.timeline.toTime(this.year.offsetTarget))
 
         if (yearCurrent !== this.year.current) {
             this.year.current = yearCurrent
