@@ -1,17 +1,117 @@
 [
   {
-    "q": "what did you do at TestGorilla",
-    "a": "I’ve spent the last few years at **TestGorilla** in two key roles:\n\n- **Engineering Manager (Aug 2023 – Present)** – Designed a scalable credit‑based pricing engine for Generative AI usage, built the AI Video Avatar platform *Tavus* for real‑time candidate interviews, and set up an evaluation framework with LangFuse. I also integrated Claude Code agents to auto‑generate code, PRs, and tests, cutting epic cycle times to ~3 days. I led a team of five, managed critical integrations (Chargebee, HubSpot, Stripe, 18 ATS platforms), and drove OKRs and DORA metrics that reflected AI‑augmented velocity.\n\n- **Lead SDET (Apr 2022 – Aug 2023)** – Architected a CI/CD pipeline that boosted release frequency from bi‑weekly to five times daily, enabling rapid A/B testing of AI models. Built robust E2E API tests in Python (pytest), performed load testing with k6.io, and added Playwright/Storybook for Angular UI testing, ensuring high‑quality, high‑velocity deployments.\n\nThese experiences show my blend of **AI‑driven product innovation** and **engineering excellence**.",
+    "q": "what are you building at Picari",
+    "a": "I’m the **founding and sole engineer at Picari** (since August 2026).  \nI build the entire stack—from the front‑end design system and marketing site to the back‑end recommendation engine and cloud infra—using tools like **Node.js**, **Terraform**, **Storybook**, and **AWS**.\n\nKey deliverables include:\n- **Vendor recommendation engine** that’s deterministic and explainable, with a built‑in evaluation harness.  \n- **MCP integration** with **OAuth 2.1** so customers can launch Picari from their own AI assistants.  \n- **AI‑agent pipelines** that research and enrich vendor profiles, and an in‑house **product analytics** dashboard.  \n\nI also set up **CI/CD**, per‑PR preview environments, gated production deploys with rollback, and full observability, all powered by AI coding agents so one engineer can operate like a team.",
     "sources": [
+      {
+        "id": "bio",
+        "section": "about",
+        "label": "Naresh Sekar"
+      },
+      {
+        "id": "about:2",
+        "section": "about",
+        "label": "About - Engineering Leadership & Quality"
+      },
       {
         "id": "career:0",
         "section": "career",
-        "label": "Engineering Manager at TestGorilla",
+        "label": "Founding Engineer at Picari",
         "meta": {
           "idx": 0,
+          "co": "Picari",
+          "role": "Founding Engineer",
+          "date": "August 2026 - Present"
+        }
+      },
+      {
+        "id": "leadership:3",
+        "section": "leadership",
+        "label": "Leadership - Cross-functional Collaboration"
+      },
+      {
+        "id": "article:pinned:0",
+        "section": "writing",
+        "label": "An 8B Model That Fits in 1.2 GB Changed How I Think About Local AI",
+        "meta": {
+          "kind": "Pinned",
+          "idx": 0,
+          "title": "An 8B Model That Fits in 1.2 GB Changed How I Think About Local AI",
+          "url": "https://medium.com/@nareshnavinash/an-8b-model-that-fits-in-1-2-gb-changed-how-i-think-about-local-ai-78665d154f74"
+        }
+      }
+    ],
+    "model": "gpt-oss-20b"
+  },
+  {
+    "q": "what did you do at Picari",
+    "a": "I’m the **founding and sole engineer** at Picari, working across the entire stack since **August 2026**.  \n- Migrated the platform from Lovable to **AWS** using **Terraform** and a single **Node.js** backend.  \n- Set up **CI/CD**, per‑PR preview environments, gated production deploys with rollback, and full observability.  \n- Built a deterministic, explainable **vendor recommendation engine** with an evaluation harness to measure quality.  \n\nI also shipped an **MCP integration** with **OAuth 2.1** so customers can use Picari from their own AI assistants, and created AI‑agent pipelines that research and enrich vendor profiles.  \n- Developed the component library and design system (tokens, Storybook, CI accessibility checks).  \n- Redesigned the marketing website and rebuilt the public vendor directory.  \n- Built in‑house product analytics with an admin BI console.",
+    "sources": [
+      {
+        "id": "bio",
+        "section": "about",
+        "label": "Naresh Sekar"
+      },
+      {
+        "id": "career:0",
+        "section": "career",
+        "label": "Founding Engineer at Picari",
+        "meta": {
+          "idx": 0,
+          "co": "Picari",
+          "role": "Founding Engineer",
+          "date": "August 2026 - Present"
+        }
+      },
+      {
+        "id": "career:1",
+        "section": "career",
+        "label": "Engineering Manager at TestGorilla",
+        "meta": {
+          "idx": 1,
           "co": "TestGorilla",
           "role": "Engineering Manager",
-          "date": "August 2023 - Present"
+          "date": "August 2023 - August 2026"
+        }
+      },
+      {
+        "id": "repo:recent:0",
+        "section": "repos",
+        "label": "tneb-solar",
+        "meta": {
+          "kind": "Recent",
+          "idx": 0,
+          "name": "tneb-solar",
+          "url": "https://github.com/nareshnavinash/tneb-solar"
+        }
+      },
+      {
+        "id": "repo:recent:5",
+        "section": "repos",
+        "label": "shelldone",
+        "meta": {
+          "kind": "Recent",
+          "idx": 5,
+          "name": "shelldone",
+          "url": "https://github.com/nareshnavinash/shelldone"
+        }
+      }
+    ],
+    "model": "gpt-oss-20b"
+  },
+  {
+    "q": "what did you do at TestGorilla",
+    "a": "I spent three years at **TestGorilla**—first as **Lead SDET (Apr 2022 – Aug 2023)** and then as **Engineering Manager (Aug 2023 – Aug 2026)**.  \n\n- As Lead SDET I built the CI/CD pipeline that boosted release velocity from bi‑weekly to 5× daily, and created Python‑based E2E API tests, k6 load tests, and Playwright UI tests.  \n- As Engineering Manager I led a team of five engineers to launch a credit‑based pricing engine for generative‑AI usage, built the AI Video Avatar platform Tavus, and implemented an evaluation framework with LangFuse. I also integrated Claude Code agents, automated unit/test generation, and refactored the codebase for LLM context windows.  \n\nThroughout, I owned integrations with Chargebee, HubSpot, 18 ATS platforms, and Stripe, defined OKRs and DORA metrics, and collaborated cross‑functionally to align engineering with business goals.",
+    "sources": [
+      {
+        "id": "career:1",
+        "section": "career",
+        "label": "Engineering Manager at TestGorilla",
+        "meta": {
+          "idx": 1,
+          "co": "TestGorilla",
+          "role": "Engineering Manager",
+          "date": "August 2023 - August 2026"
         }
       },
       {
@@ -20,11 +120,11 @@
         "label": "Naresh Sekar"
       },
       {
-        "id": "career:1",
+        "id": "career:2",
         "section": "career",
         "label": "Lead SDET at TestGorilla",
         "meta": {
-          "idx": 1,
+          "idx": 2,
           "co": "TestGorilla",
           "role": "Lead SDET",
           "date": "April 2022 - August 2023"
@@ -42,14 +142,14 @@
         }
       },
       {
-        "id": "article:pinned:1",
-        "section": "writing",
-        "label": "You’re Paying for Claude Max. But Are You Actually Using It?",
+        "id": "repo:recent:5",
+        "section": "repos",
+        "label": "shelldone",
         "meta": {
-          "kind": "Pinned",
-          "idx": 1,
-          "title": "You’re Paying for Claude Max. But Are You Actually Using It?",
-          "url": "https://medium.com/@nareshnavinash/youre-paying-for-claude-max-but-are-you-actually-using-it-8125696d96f8"
+          "kind": "Recent",
+          "idx": 5,
+          "name": "shelldone",
+          "url": "https://github.com/nareshnavinash/shelldone"
         }
       }
     ],
@@ -57,18 +157,8 @@
   },
   {
     "q": "tell me about your Hopin role",
-    "a": "I’m not aware of a Hopin role in the material you’ve shared.  \nIf you’re looking for details about past positions, you might want to check the **“Naresh Sekar”** section of the portfolio, which outlines my overall career and key responsibilities.  \n\nLet me know if there’s another part of the portfolio you’d like me to reference!",
+    "a": "I’m not seeing any mention of a Hopin role in the sections you’ve shared.  \nIf you’re looking for details about my experience at Hopin, you might want to check the **“About – End-to-End Product Engineering”** section or any other part of the portfolio that lists past company roles.",
     "sources": [
-      {
-        "id": "bio",
-        "section": "about",
-        "label": "Naresh Sekar"
-      },
-      {
-        "id": "about:0",
-        "section": "about",
-        "label": "About - AI Adoption Strategy"
-      },
       {
         "id": "article:pinned:0",
         "section": "writing",
@@ -92,23 +182,33 @@
         }
       },
       {
+        "id": "about:0",
+        "section": "about",
+        "label": "About - End-to-End Product Engineering"
+      },
+      {
         "id": "about:1",
         "section": "about",
-        "label": "About - Team Building"
+        "label": "About - AI Agents as a Team"
+      },
+      {
+        "id": "about:2",
+        "section": "about",
+        "label": "About - Engineering Leadership & Quality"
       }
     ],
     "model": "gpt-oss-20b"
   },
   {
     "q": "describe your work at Freshworks",
-    "a": "I worked as a **Software Engineer at Freshworks** from **June 2017 to January 2019**.  \nDuring that time I helped launch the **Freshcaller** product, guiding it from beta through its general‑availability release.\n\n- **Test strategy**: Designed both manual and automated test plans in early development stages, collaborating closely with Product Owners and Tech Leads to streamline release cycles.  \n- **Quality focus**: Maintained high code quality by enforcing comprehensive unit test coverage from the pull‑request stage onward.  \n- **Automation & CI**: Achieved **100 % regression automation coverage** and managed **Jenkins pipelines** to ensure reliable, repeatable deployments.",
+    "a": "I joined **Freshworks** as a Software Engineer from **June 2017 to January 2019**.  \nDuring that period I helped launch the **Freshcaller** product, moving it from beta through general availability.\n\n**Key contributions**\n\n- **Product launch** – coordinated the beta and GA roll‑outs of Freshcaller, working closely with Product Owners and Tech Leads.  \n- **Testing strategy** – designed manual and automated test plans for pre‑development stages, boosting release efficiency.  \n- **Code quality** – enforced strict unit‑test coverage from the PR stage, achieving **100 % regression automation coverage**.  \n- **CI/CD** – managed Jenkins pipelines to support continuous integration and rapid, reliable deployments.",
     "sources": [
       {
-        "id": "career:5",
+        "id": "career:6",
         "section": "career",
         "label": "Software Engineer at Freshworks",
         "meta": {
-          "idx": 5,
+          "idx": 6,
           "co": "Freshworks",
           "role": "Software Engineer",
           "date": "June 2017 - January 2019"
@@ -120,33 +220,51 @@
         "label": "Naresh Sekar"
       },
       {
-        "id": "about:0",
-        "section": "about",
-        "label": "About - AI Adoption Strategy"
+        "id": "career:0",
+        "section": "career",
+        "label": "Founding Engineer at Picari",
+        "meta": {
+          "idx": 0,
+          "co": "Picari",
+          "role": "Founding Engineer",
+          "date": "August 2026 - Present"
+        }
       },
       {
-        "id": "about:1",
-        "section": "about",
-        "label": "About - Team Building"
+        "id": "career:1",
+        "section": "career",
+        "label": "Engineering Manager at TestGorilla",
+        "meta": {
+          "idx": 1,
+          "co": "TestGorilla",
+          "role": "Engineering Manager",
+          "date": "August 2023 - August 2026"
+        }
       },
       {
-        "id": "about:2",
-        "section": "about",
-        "label": "About - Quality Engineering"
+        "id": "career:2",
+        "section": "career",
+        "label": "Lead SDET at TestGorilla",
+        "meta": {
+          "idx": 2,
+          "co": "TestGorilla",
+          "role": "Lead SDET",
+          "date": "April 2022 - August 2023"
+        }
       }
     ],
     "model": "gpt-oss-20b"
   },
   {
     "q": "TestGorilla experience",
-    "a": "I spent **April 2022 – August 2023** as Lead SDET at TestGorilla, where I drove the end‑to‑end quality and delivery pipeline.  \n- Architected a CI/CD stack that boosted release velocity from bi‑weekly to **5× daily**, enabling rapid A/B testing and AI model iteration.  \n- Built a Python‑based E2E API framework (pytest) and integrated **Playwright** for UI tests, adding Storybook for visual and accessibility checks.  \n- Led performance testing with **k6.io** (backend) and **Lighthouse** (frontend), setting baselines for future LLM‑feature latency and compute impact.\n\nIn **August 2023 – Present** I transitioned to Engineering Manager, steering a team of 5 engineers and launching key AI‑centric products:  \n- Designed a credit‑based pricing engine for generative‑AI usage, and built the **Tavus AI Video Avatar** platform for real‑time candidate interviews.  \n- Implemented an evaluation framework with **LangFuse**, automated code generation via Claude agents, and deployed AI agents for unit/integration test creation.  \n- Managed critical integrations (Chargebee, HubSpot, Stripe, 18 ATS platforms) and defined OKRs/DORA metrics to align engineering output with business goals.",
+    "a": "I spent **April 2022 – August 2023** as Lead SDET at TestGorilla, where I drove the end‑to‑end quality and delivery pipeline.\n\n- **CI/CD & Release Velocity** – Designed a new CI/CD stack that moved us from bi‑weekly releases to **5× daily** deployments, enabling rapid A/B testing and AI model iteration.  \n- **Testing Frameworks** – Built a Python (pytest) E2E API suite and integrated Playwright for Angular.js UI tests, plus Storybook + Playwright for visual and accessibility checks.  \n- **Performance & Load** – Led backend load tests with **k6.io** and front‑end profiling via **Lighthouse**, establishing baselines that later measured LLM latency and compute impact.\n\nThese initiatives laid the foundation for TestGorilla’s AI‑centric product evolution and set the stage for my later role as Engineering Manager, where I focused on AI product work and AI‑augmented development.",
     "sources": [
       {
-        "id": "career:1",
+        "id": "career:2",
         "section": "career",
         "label": "Lead SDET at TestGorilla",
         "meta": {
-          "idx": 1,
+          "idx": 2,
           "co": "TestGorilla",
           "role": "Lead SDET",
           "date": "April 2022 - August 2023"
@@ -158,55 +276,50 @@
         "label": "Naresh Sekar"
       },
       {
-        "id": "career:0",
+        "id": "career:1",
         "section": "career",
         "label": "Engineering Manager at TestGorilla",
         "meta": {
-          "idx": 0,
+          "idx": 1,
           "co": "TestGorilla",
           "role": "Engineering Manager",
-          "date": "August 2023 - Present"
+          "date": "August 2023 - August 2026"
         }
       },
       {
         "id": "about:0",
         "section": "about",
-        "label": "About - AI Adoption Strategy"
+        "label": "About - End-to-End Product Engineering"
       },
       {
         "id": "about:1",
         "section": "about",
-        "label": "About - Team Building"
+        "label": "About - AI Agents as a Team"
       }
     ],
     "model": "gpt-oss-20b"
   },
   {
     "q": "what did you do at Vue.ai",
-    "a": "I worked as a **Senior SDET at Vue.ai** from **March 2020 to February 2021**.  \nDuring that time I focused on building robust automation for their ML/AI stack:\n\n- Developed **Python packages** for REST API and UI automation that were used across the organization’s AI projects.  \n- Managed two SDET teams in an **8:1 developer‑to‑SDET** ratio, introducing Agile release cadences and improving delivery predictability.  \n- Configured a full **CI/CD pipeline** for ML/AI microservices using **Jenkins, Bitbucket, AWS, and Spotinst**, and leveraged IaC to cut infrastructure costs.",
+    "a": "I joined Vue.ai as a **Senior SDET** from March 2020 to February 2021.  \nDuring that time I focused on building the testing foundation for their ML/AI stack:\n\n- Developed **Python packages** for REST API and UI automation that were used across the organization to validate AI/ML use cases.  \n- Managed two teams with an 8:1 developer‑to‑SDET ratio, implementing **Agile release processes** that accelerated feature delivery.  \n- Configured a **CI/CD pipeline** for ML/AI microservices using Jenkins, Bitbucket, AWS, and Spotinst, leveraging IaC to cut infrastructure costs.\n\nThese efforts helped Vue.ai scale its AI services while maintaining high quality and cost efficiency.",
     "sources": [
       {
-        "id": "bio",
-        "section": "about",
-        "label": "Naresh Sekar"
-      },
-      {
-        "id": "career:0",
+        "id": "career:1",
         "section": "career",
         "label": "Engineering Manager at TestGorilla",
         "meta": {
-          "idx": 0,
+          "idx": 1,
           "co": "TestGorilla",
           "role": "Engineering Manager",
-          "date": "August 2023 - Present"
+          "date": "August 2023 - August 2026"
         }
       },
       {
-        "id": "career:3",
+        "id": "career:4",
         "section": "career",
         "label": "Senior SDET at Vue.ai",
         "meta": {
-          "idx": 3,
+          "idx": 4,
           "co": "Vue.ai",
           "role": "Senior SDET",
           "date": "March 2020 - February 2021"
@@ -221,6 +334,17 @@
           "idx": 0,
           "name": "tneb-solar",
           "url": "https://github.com/nareshnavinash/tneb-solar"
+        }
+      },
+      {
+        "id": "repo:recent:5",
+        "section": "repos",
+        "label": "shelldone",
+        "meta": {
+          "kind": "Recent",
+          "idx": 5,
+          "name": "shelldone",
+          "url": "https://github.com/nareshnavinash/shelldone"
         }
       },
       {
@@ -239,18 +363,8 @@
   },
   {
     "q": "tell me about your Cognizant role",
-    "a": "I don’t have any details about a role at **Cognizant** in the information you shared.  \nIf you’re looking for a similar experience, you might want to check the **Naresh Sekar** section or the **About – Team Building** section, which outline my experience scaling teams and managing engineering projects.  \n\nFeel free to let me know if there’s another part of the portfolio you’d like me to reference!",
+    "a": "I’m sorry, but the context you shared doesn’t mention a role at Cognizant.  \n\nIf you’re looking for details about my past positions, you might want to check the **“About”** sections of the portfolio—especially the parts that cover my experience in product engineering, AI agent integration, and leadership. Those sections give a good overview of the teams I’ve built and the projects I’ve led.",
     "sources": [
-      {
-        "id": "bio",
-        "section": "about",
-        "label": "Naresh Sekar"
-      },
-      {
-        "id": "about:0",
-        "section": "about",
-        "label": "About - AI Adoption Strategy"
-      },
       {
         "id": "article:pinned:0",
         "section": "writing",
@@ -274,119 +388,64 @@
         }
       },
       {
-        "id": "about:1",
-        "section": "about",
-        "label": "About - Team Building"
-      }
-    ],
-    "model": "gpt-oss-20b"
-  },
-  {
-    "q": "describe your work at WEInvest",
-    "a": "I joined **WeInvest** as the first **Senior SDET** (Jan 2019 – Feb 2020) and led the entire testing function from the ground up.  \n\n- Built and managed internal test servers, cutting cycle times and boosting test reliability.  \n- Cut costs by adopting a freemium Postman tier for ETL transformation support.  \n- Modularized UI and GraphQL automation into reusable Ruby gems, streamlining future test development.  \n\nI also drove a robust **CI/CD pipeline** using GitHub, Jenkins, and Docker, and implemented **BDD** with Cucumber and RSpec to keep tests readable and maintainable. This foundation accelerated delivery and improved quality across the product line.",
-    "sources": [
-      {
-        "id": "career:4",
-        "section": "career",
-        "label": "Senior SDET at WeInvest",
-        "meta": {
-          "idx": 4,
-          "co": "WeInvest",
-          "role": "Senior SDET",
-          "date": "January 2019 - February 2020"
-        }
-      },
-      {
-        "id": "bio",
-        "section": "about",
-        "label": "Naresh Sekar"
-      },
-      {
         "id": "about:0",
         "section": "about",
-        "label": "About - AI Adoption Strategy"
+        "label": "About - End-to-End Product Engineering"
       },
       {
         "id": "about:1",
         "section": "about",
-        "label": "About - Team Building"
+        "label": "About - AI Agents as a Team"
       },
       {
         "id": "about:2",
         "section": "about",
-        "label": "About - Quality Engineering"
+        "label": "About - Engineering Leadership & Quality"
       }
     ],
     "model": "gpt-oss-20b"
   },
   {
-    "q": "what's your AI experience",
-    "a": "I’ve spent the last decade weaving AI into the core of product delivery.  \n- **AI governance & strategy**: Built frameworks that guide responsible AI use, from data privacy to model explainability.  \n- **AI‑driven testing**: Leveraged Python (pytest) to create end‑to‑end API tests that support rapid A/B testing of LLM‑powered features.  \n- **Model tuning in production**: Established a 5× daily CI/CD pipeline at TestGorilla that lets us iterate on AI models, measure latency, and quantify compute impact in real time.  \n\nI also lead teams that adopt generative AI, design intelligent test generation, and embed data‑driven decision systems into workflows. My focus is on scaling these capabilities while maintaining quality, ownership, and continuous improvement.",
+    "q": "do you know Python",
+    "a": "I **do** know Python.  \n- I’ve built robust E2E API testing frameworks with **pytest** at TestGorilla.  \n- Developed Python packages for REST API & UI automation at Vue.ai, supporting ML/AI use cases.  \n- Created the open‑source **PyRest‑Python** framework, a Python‑based REST automation tool with image‑comparison features.",
     "sources": [
       {
-        "id": "bio",
-        "section": "about",
-        "label": "Naresh Sekar"
-      },
-      {
-        "id": "career:1",
+        "id": "career:2",
         "section": "career",
         "label": "Lead SDET at TestGorilla",
         "meta": {
-          "idx": 1,
+          "idx": 2,
           "co": "TestGorilla",
           "role": "Lead SDET",
           "date": "April 2022 - August 2023"
         }
       },
       {
-        "id": "repo:recent:0",
-        "section": "repos",
-        "label": "tneb-solar",
-        "meta": {
-          "kind": "Recent",
-          "idx": 0,
-          "name": "tneb-solar",
-          "url": "https://github.com/nareshnavinash/tneb-solar"
-        }
-      },
-      {
-        "id": "about:0",
-        "section": "about",
-        "label": "About - AI Adoption Strategy"
-      },
-      {
-        "id": "about:1",
-        "section": "about",
-        "label": "About - Team Building"
-      }
-    ],
-    "model": "gpt-oss-20b"
-  },
-  {
-    "q": "have you used Playwright",
-    "a": "I **have used Playwright** extensively.  \n- While at TestGorilla, I integrated Playwright into the CI pipeline for UI end‑to‑end tests.  \n- I also paired it with Storybook for Angular.js to run visual and accessibility checks automatically.\n\nThese integrations helped us catch regressions faster and keep our release cadence high.",
-    "sources": [
-      {
-        "id": "bio",
-        "section": "about",
-        "label": "Naresh Sekar"
-      },
-      {
-        "id": "career:1",
+        "id": "career:4",
         "section": "career",
-        "label": "Lead SDET at TestGorilla",
+        "label": "Senior SDET at Vue.ai",
         "meta": {
-          "idx": 1,
-          "co": "TestGorilla",
-          "role": "Lead SDET",
-          "date": "April 2022 - August 2023"
+          "idx": 4,
+          "co": "Vue.ai",
+          "role": "Senior SDET",
+          "date": "March 2020 - February 2021"
         }
       },
       {
-        "id": "skill:3",
+        "id": "skill:0",
         "section": "skills",
-        "label": "Skills - Quality & Observability"
+        "label": "Skills - Languages"
+      },
+      {
+        "id": "repo:starred:0",
+        "section": "repos",
+        "label": "PyRest-Python",
+        "meta": {
+          "kind": "Starred",
+          "idx": 0,
+          "name": "PyRest-Python",
+          "url": "https://github.com/nareshnavinash/PyRest-Python"
+        }
       },
       {
         "id": "repo:recent:0",
@@ -397,6 +456,107 @@
           "idx": 0,
           "name": "tneb-solar",
           "url": "https://github.com/nareshnavinash/tneb-solar"
+        }
+      }
+    ],
+    "model": "gpt-oss-20b"
+  },
+  {
+    "q": "are you familiar with Kubernetes",
+    "a": "I’m not seeing any mention of Kubernetes in the portfolio sections I have. If you’re looking for details on container orchestration or cloud infrastructure, you might want to check the **Founding Engineer at Picari** section, where I moved the platform to AWS and set up infrastructure‑as‑code with Terraform. That part covers the broader cloud stack, though it doesn’t specifically list Kubernetes.",
+    "sources": [
+      {
+        "id": "article:pinned:2",
+        "section": "writing",
+        "label": "I Replaced Grammarly with Local AI with 3 days of Vibe coding",
+        "meta": {
+          "kind": "Pinned",
+          "idx": 2,
+          "title": "I Replaced Grammarly with Local AI with 3 days of Vibe coding",
+          "url": "https://medium.com/@nareshnavinash/i-replaced-grammarly-with-local-ai-with-3-days-of-vibe-coding-72724bc37a39"
+        }
+      },
+      {
+        "id": "bio",
+        "section": "about",
+        "label": "Naresh Sekar"
+      },
+      {
+        "id": "career:0",
+        "section": "career",
+        "label": "Founding Engineer at Picari",
+        "meta": {
+          "idx": 0,
+          "co": "Picari",
+          "role": "Founding Engineer",
+          "date": "August 2026 - Present"
+        }
+      },
+      {
+        "id": "career:1",
+        "section": "career",
+        "label": "Engineering Manager at TestGorilla",
+        "meta": {
+          "idx": 1,
+          "co": "TestGorilla",
+          "role": "Engineering Manager",
+          "date": "August 2023 - August 2026"
+        }
+      },
+      {
+        "id": "career:2",
+        "section": "career",
+        "label": "Lead SDET at TestGorilla",
+        "meta": {
+          "idx": 2,
+          "co": "TestGorilla",
+          "role": "Lead SDET",
+          "date": "April 2022 - August 2023"
+        }
+      }
+    ],
+    "model": "gpt-oss-20b"
+  },
+  {
+    "q": "what testing tools do you use",
+    "a": "I rely on a mix of open‑source and AI‑powered tools to keep our code quality high and release cycles fast.\n\n**Testing stack**\n\n- **Python pytest** – for unit and integration tests across our API layers.  \n- **Playwright** – runs UI end‑to‑end tests in the CD pipeline and is integrated with Storybook for visual regression and accessibility checks.  \n- **k6.io** – performs backend load testing to benchmark API throughput and latency.  \n- **Lighthouse** – profiles frontend performance and tracks key metrics over time.  \n- **AI‑generated tests** – Claude Code and other LLM agents automatically produce unit and integration tests, and even conduct preliminary code reviews.\n\nThese tools, combined with a robust CI/CD pipeline, let us push five‑day releases and iterate quickly on AI features.",
+    "sources": [
+      {
+        "id": "career:1",
+        "section": "career",
+        "label": "Engineering Manager at TestGorilla",
+        "meta": {
+          "idx": 1,
+          "co": "TestGorilla",
+          "role": "Engineering Manager",
+          "date": "August 2023 - August 2026"
+        }
+      },
+      {
+        "id": "career:2",
+        "section": "career",
+        "label": "Lead SDET at TestGorilla",
+        "meta": {
+          "idx": 2,
+          "co": "TestGorilla",
+          "role": "Lead SDET",
+          "date": "April 2022 - August 2023"
+        }
+      },
+      {
+        "id": "leadership:0",
+        "section": "leadership",
+        "label": "Leadership - AI-Augmented Engineering"
+      },
+      {
+        "id": "repo:recent:5",
+        "section": "repos",
+        "label": "shelldone",
+        "meta": {
+          "kind": "Recent",
+          "idx": 5,
+          "name": "shelldone",
+          "url": "https://github.com/nareshnavinash/shelldone"
         }
       },
       {
@@ -414,69 +574,18 @@
     "model": "gpt-oss-20b"
   },
   {
-    "q": "do you have experience with TypeScript",
-    "a": "I do have hands‑on experience with **TypeScript**.  \n- **tneb‑solar** – built the entire mobile/Web app in TypeScript using Expo + React Native, handling offline data sync and bill projections.  \n- **aDictive** – developed the desktop dictation tool in TypeScript with Electron, integrating whisper.cpp for offline speech‑to‑text.  \n- **GhostEdit** – created a privacy‑first AI grammar checker in TypeScript, running inside an Electron shell.\n\nIn each of these projects I leveraged TypeScript’s static typing to enforce robust API contracts, improve developer ergonomics, and catch bugs early in the build pipeline.",
-    "sources": [
-      {
-        "id": "bio",
-        "section": "about",
-        "label": "Naresh Sekar"
-      },
-      {
-        "id": "repo:recent:0",
-        "section": "repos",
-        "label": "tneb-solar",
-        "meta": {
-          "kind": "Recent",
-          "idx": 0,
-          "name": "tneb-solar",
-          "url": "https://github.com/nareshnavinash/tneb-solar"
-        }
-      },
-      {
-        "id": "career:1",
-        "section": "career",
-        "label": "Lead SDET at TestGorilla",
-        "meta": {
-          "idx": 1,
-          "co": "TestGorilla",
-          "role": "Lead SDET",
-          "date": "April 2022 - August 2023"
-        }
-      },
-      {
-        "id": "repo:recent:4",
-        "section": "repos",
-        "label": "aDictive",
-        "meta": {
-          "kind": "Recent",
-          "idx": 4,
-          "name": "aDictive",
-          "url": "https://github.com/nareshnavinash/aDictive"
-        }
-      },
-      {
-        "id": "repo:recent:5",
-        "section": "repos",
-        "label": "GhostEdit",
-        "meta": {
-          "kind": "Recent",
-          "idx": 5,
-          "name": "GhostEdit",
-          "url": "https://github.com/nareshnavinash/GhostEdit"
-        }
-      }
-    ],
-    "model": "gpt-oss-20b"
-  },
-  {
     "q": "how do you scale teams",
-    "a": "I’ve led teams from **5 to 30+ engineers** by focusing on a few core pillars:\n\n- **Career frameworks** that give clear progression paths and ownership signals.  \n- **Hiring pipelines** that blend technical rigor with cultural fit, ensuring each new hire accelerates the team’s velocity.  \n- A **culture of ownership, AI literacy, and continuous improvement** that turns every engineer into a product advocate.\n\nBy aligning people, process, and purpose, I keep scaling smooth and sustainable while maintaining high quality and rapid delivery.",
+    "a": "I’ve spent a decade scaling engineering teams from **5 to 30+ people** while keeping delivery quality high.  \n- Start with a *small, cross‑functional squad* that owns a clear product slice.  \n- Build a **test‑automation suite** and CI/CD pipeline early—this gives instant feedback and reduces technical debt.  \n\nOnce the foundation is solid, I expand by adding *dedicated SDETs or platform engineers* who replicate the same practices in new squads. I also focus on **observability and risk‑aware execution** so every new team can hit the ground running without compromising reliability. This approach has worked at Picari, TestGorilla, and earlier startups, ensuring that growth never sacrifices quality.",
     "sources": [
       {
         "id": "bio",
         "section": "about",
         "label": "Naresh Sekar"
+      },
+      {
+        "id": "about:2",
+        "section": "about",
+        "label": "About - Engineering Leadership & Quality"
       },
       {
         "id": "article:pinned:1",
@@ -501,27 +610,23 @@
         }
       },
       {
-        "id": "about:1",
-        "section": "about",
-        "label": "About - Team Building"
-      },
-      {
-        "id": "about:2",
-        "section": "about",
-        "label": "About - Quality Engineering"
+        "id": "career:4",
+        "section": "career",
+        "label": "Senior SDET at Vue.ai",
+        "meta": {
+          "idx": 4,
+          "co": "Vue.ai",
+          "role": "Senior SDET",
+          "date": "March 2020 - February 2021"
+        }
       }
     ],
     "model": "gpt-oss-20b"
   },
   {
     "q": "your management approach",
-    "a": "I lead by **building high‑performing teams** that thrive on clear ownership and measurable impact.  \n- **Operational Excellence**: I set SLOs, run incident‑management playbooks, and enforce blameless post‑mortems to turn every outage into a learning loop.  \n- **Process & Culture**: I champion a quality‑first engineering culture, where code reviews, automated testing, and continuous delivery are non‑negotiable.  \n\nI also blend **AI with reliable delivery**:  \n- **AI Governance**: I ensure models are auditable, bias‑checked, and aligned with business goals.  \n- **Stakeholder Management**: I translate technical trade‑offs into business value, keeping executives and users aligned.  \n- **Risk‑Aware Execution**: I prioritize experiments that accelerate product while keeping risk in check, so the team can innovate without compromising stability.",
+    "a": "I steer teams around **operational excellence**.  \n- I set clear **Service Level Objectives (SLOs)** and use them to measure reliability.  \n- Incident response is governed by documented runbooks and a blameless post‑mortem culture that turns every failure into a learning loop.  \n- Continuous improvement is baked into the workflow—metrics drive decisions, and teams own the entire incident lifecycle.\n\nFrom my experience with **Spotify’s agile rewrite** (2025‑10‑13) I learned that scaling agility requires autonomous squads, clear ownership, and a culture that rewards experimentation. I apply those principles by:\n\n- Empowering small, cross‑functional units to own features end‑to‑end.  \n- Encouraging rapid iteration and frequent retrospectives.  \n- Maintaining transparent communication across layers so that decisions flow from the ground up.\n\nTogether, these practices keep projects on track, teams motivated, and delivery predictable.",
     "sources": [
-      {
-        "id": "bio",
-        "section": "about",
-        "label": "Naresh Sekar"
-      },
       {
         "id": "leadership:4",
         "section": "leadership",
@@ -559,23 +664,89 @@
           "title": "Beyond the Box: Domino’s Recipe for a Successful Project Landing",
           "url": "https://medium.com/@nareshnavinash/beyond-the-box-dominos-recipe-for-a-successful-project-landing-e9b3f0458e9f"
         }
+      },
+      {
+        "id": "article:recent:3",
+        "section": "writing",
+        "label": "Vision Without Sight: The Google Glass Lesson in Project Landings",
+        "meta": {
+          "kind": "Recent",
+          "idx": 3,
+          "title": "Vision Without Sight: The Google Glass Lesson in Project Landings",
+          "url": "https://medium.com/@nareshnavinash/vision-without-sight-the-google-glass-lesson-in-project-landings-eb2974180a09"
+        }
       }
     ],
     "model": "gpt-oss-20b"
   },
   {
-    "q": "how do you build engineering culture",
-    "a": "I build engineering culture by **multiplying the impact of every team member** and ensuring everyone feels ownership over the product.  \n- Create clear **career frameworks** and transparent hiring pipelines so people know where they’re headed.  \n- Foster a culture of **AI literacy**—regular workshops, code reviews, and shared learning sessions keep the team ahead of the curve.  \n\nI also break down silos between product, design, and engineering.  \n- Align on shared outcomes through cross‑functional roadmaps and frequent syncs.  \n- Build bridges across distributed teams and time zones with asynchronous tools and clear communication norms.  \n\nFinally, I embed **continuous improvement** into the day‑to‑day workflow.  \n- Use retrospectives, data‑driven metrics, and rapid experimentation to iterate on processes.  \n- Encourage risk‑aware execution so the team can innovate confidently while delivering reliable software.",
+    "q": "mentorship philosophy",
+    "a": "I believe mentorship is about **empowering people to grow independently** while providing the guidance they need to succeed.\n\n- **Clear career ladders** – I map out concrete steps and skill sets for each role, so engineers know where they’re headed and what they need to learn.  \n- **Psychological safety** – I create an environment where it’s safe to fail, ask questions, and take bold bets.  \n- **Hands‑on coaching** – I pair with engineers on real problems, review their code, and help them build automated guardrails and rigorous tests.\n\nAt Hopin I mentored test engineers, introduced contract testing, and guided them through cross‑browser and visual regression strategies, ensuring they could take ownership of the entire release pipeline. This approach keeps teams productive, confident, and continuously improving.",
     "sources": [
+      {
+        "id": "career:3",
+        "section": "career",
+        "label": "Senior SDET at Hopin",
+        "meta": {
+          "idx": 3,
+          "co": "Hopin",
+          "role": "Senior SDET",
+          "date": "February 2021 - March 2022"
+        }
+      },
+      {
+        "id": "leadership:1",
+        "section": "leadership",
+        "label": "Leadership - Team Growth"
+      },
       {
         "id": "bio",
         "section": "about",
         "label": "Naresh Sekar"
       },
       {
+        "id": "about:0",
+        "section": "about",
+        "label": "About - End-to-End Product Engineering"
+      },
+      {
         "id": "about:1",
         "section": "about",
-        "label": "About - Team Building"
+        "label": "About - AI Agents as a Team"
+      }
+    ],
+    "model": "gpt-oss-20b"
+  },
+  {
+    "q": "how do you handle conflict",
+    "a": "I’m not seeing any details in the portfolio about how I handle conflict.  \nIf you’re looking for insights into my leadership style, the **Naresh Sekar** section—where I discuss my decade of engineering leadership and quality‑first delivery—might give you a hint.  \n\nFeel free to let me know if you’d like more context from that section!",
+    "sources": [
+      {
+        "id": "article:pinned:1",
+        "section": "writing",
+        "label": "You’re Paying for Claude Max. But Are You Actually Using It?",
+        "meta": {
+          "kind": "Pinned",
+          "idx": 1,
+          "title": "You’re Paying for Claude Max. But Are You Actually Using It?",
+          "url": "https://medium.com/@nareshnavinash/youre-paying-for-claude-max-but-are-you-actually-using-it-8125696d96f8"
+        }
+      },
+      {
+        "id": "bio",
+        "section": "about",
+        "label": "Naresh Sekar"
+      },
+      {
+        "id": "repo:recent:0",
+        "section": "repos",
+        "label": "tneb-solar",
+        "meta": {
+          "kind": "Recent",
+          "idx": 0,
+          "name": "tneb-solar",
+          "url": "https://github.com/nareshnavinash/tneb-solar"
+        }
       },
       {
         "id": "article:pinned:0",
@@ -589,19 +760,14 @@
         }
       },
       {
-        "id": "leadership:3",
-        "section": "leadership",
-        "label": "Leadership - Cross-functional Collaboration"
-      },
-      {
-        "id": "article:pinned:1",
+        "id": "article:pinned:2",
         "section": "writing",
-        "label": "You’re Paying for Claude Max. But Are You Actually Using It?",
+        "label": "I Replaced Grammarly with Local AI with 3 days of Vibe coding",
         "meta": {
           "kind": "Pinned",
-          "idx": 1,
-          "title": "You’re Paying for Claude Max. But Are You Actually Using It?",
-          "url": "https://medium.com/@nareshnavinash/youre-paying-for-claude-max-but-are-you-actually-using-it-8125696d96f8"
+          "idx": 2,
+          "title": "I Replaced Grammarly with Local AI with 3 days of Vibe coding",
+          "url": "https://medium.com/@nareshnavinash/i-replaced-grammarly-with-local-ai-with-3-days-of-vibe-coding-72724bc37a39"
         }
       }
     ],
@@ -609,22 +775,17 @@
   },
   {
     "q": "tell me about team growth",
-    "a": "**Team growth is a core pillar of my leadership philosophy.**  \nI focus on building environments where every engineer can thrive and take bold bets.\n\n- **Mentorship & Career Ladders** – I invest in one‑on‑one coaching and clear progression paths so team members know how to advance.  \n- **Psychological Safety** – I create a culture where failure is seen as learning, encouraging experimentation and ownership.  \n- **Empowerment** – By giving engineers autonomy and the resources to innovate, I multiply their impact across the organization.",
+    "a": "I focus on **investing in people** rather than just expanding headcount.  \n- **Mentorship**: Pair senior engineers with newer hires to share knowledge and accelerate skill growth.  \n- **Clear career ladders**: Define transparent promotion criteria so engineers know what’s required to advance.  \n- **Psychological safety**: Foster an environment where engineers feel comfortable taking bold bets and speaking up.  \n\nBy building these foundations, teams grow from 5 to 30+ members while maintaining high morale and innovation. The result is a culture where every engineer can contribute as if they were part of a larger, cohesive unit.",
     "sources": [
-      {
-        "id": "bio",
-        "section": "about",
-        "label": "Naresh Sekar"
-      },
-      {
-        "id": "about:0",
-        "section": "about",
-        "label": "About - AI Adoption Strategy"
-      },
       {
         "id": "about:1",
         "section": "about",
-        "label": "About - Team Building"
+        "label": "About - AI Agents as a Team"
+      },
+      {
+        "id": "about:2",
+        "section": "about",
+        "label": "About - Engineering Leadership & Quality"
       },
       {
         "id": "leadership:1",
@@ -641,13 +802,24 @@
           "title": "An 8B Model That Fits in 1.2 GB Changed How I Think About Local AI",
           "url": "https://medium.com/@nareshnavinash/an-8b-model-that-fits-in-1-2-gb-changed-how-i-think-about-local-ai-78665d154f74"
         }
+      },
+      {
+        "id": "article:pinned:4",
+        "section": "writing",
+        "label": "A Fine-Tuned Grammar Model Lost to a 1-Bit LLM With a Two-Sentence Prompt",
+        "meta": {
+          "kind": "Pinned",
+          "idx": 4,
+          "title": "A Fine-Tuned Grammar Model Lost to a 1-Bit LLM With a Two-Sentence Prompt",
+          "url": "https://medium.com/@nareshnavinash/a-fine-tuned-grammar-model-lost-to-a-1-bit-llm-with-a-two-sentence-prompt-bf1a6376f03b"
+        }
       }
     ],
     "model": "gpt-oss-20b"
   },
   {
     "q": "how large are his teams",
-    "a": "I’ve built and led teams that range from **5 to 30+** engineers.  \n\n- At TestGorilla, I managed a **5‑person** engineering squad focused on payments, subscriptions, and AI‑powered features.  \n- In my broader team‑building work, I’ve scaled engineering groups from **5 to 30+** members, establishing career frameworks, hiring pipelines, and a culture of ownership and AI literacy.  \n\nThese sizes reflect the scale at which I’ve delivered high‑velocity, AI‑driven products while maintaining quality and governance.",
+    "a": "I’ve led teams that vary in size depending on the stage of the product.  \n\n- **TestGorilla (Aug 2023 – Aug 2026)** – I managed a high‑performing squad of **5 engineers** focused on AI product development, payments, and integrations.  \n- **Earlier roles** – I’ve scaled engineering groups from **5 to 30+** members, building quality‑first delivery pipelines and observability at scale.  \n\nThese ranges reflect the growth phases of the companies I’ve worked with and the depth of responsibility I’ve carried in each.",
     "sources": [
       {
         "id": "article:pinned:1",
@@ -664,171 +836,51 @@
         "id": "bio",
         "section": "about",
         "label": "Naresh Sekar"
-      },
-      {
-        "id": "about:1",
-        "section": "about",
-        "label": "About - Team Building"
-      },
-      {
-        "id": "career:0",
-        "section": "career",
-        "label": "Engineering Manager at TestGorilla",
-        "meta": {
-          "idx": 0,
-          "co": "TestGorilla",
-          "role": "Engineering Manager",
-          "date": "August 2023 - Present"
-        }
-      },
-      {
-        "id": "career:1",
-        "section": "career",
-        "label": "Lead SDET at TestGorilla",
-        "meta": {
-          "idx": 1,
-          "co": "TestGorilla",
-          "role": "Lead SDET",
-          "date": "April 2022 - August 2023"
-        }
-      }
-    ],
-    "model": "gpt-oss-20b"
-  },
-  {
-    "q": "startup vs scale-up experience",
-    "a": "I’ve spent the last decade moving between **startups** and **scale‑ups**, learning how each environment shapes engineering priorities.\n\n- **Startups** (e.g., TestGorilla, Apr 2022‑Aug 2023) demand rapid iteration and low‑overhead tooling. I built a CI/CD pipeline that pushed releases from bi‑weekly to 5× daily, enabling quick A/B tests and AI model tuning in production. The focus is on experimentation, minimal bureaucracy, and close collaboration with product and data teams.\n\n- **Scale‑ups** require scaling those experiments into reliable, repeatable processes. I’ve led teams from 5 to 30+ people, establishing career frameworks, hiring pipelines, and an AI‑literacy culture. I also introduced AI governance, intelligent test generation, and data‑driven decision systems to keep quality high while the product grows.\n\nIn short, **startups** are about speed and flexibility, while **scale‑ups** focus on building sustainable engineering practices that can handle larger teams and more complex systems.",
-    "sources": [
-      {
-        "id": "bio",
-        "section": "about",
-        "label": "Naresh Sekar"
-      },
-      {
-        "id": "career:1",
-        "section": "career",
-        "label": "Lead SDET at TestGorilla",
-        "meta": {
-          "idx": 1,
-          "co": "TestGorilla",
-          "role": "Lead SDET",
-          "date": "April 2022 - August 2023"
-        }
-      },
-      {
-        "id": "article:recent:1",
-        "section": "writing",
-        "label": "How Spotify Rewrote the Rules of Agile at Scale",
-        "meta": {
-          "kind": "Recent",
-          "idx": 1,
-          "title": "How Spotify Rewrote the Rules of Agile at Scale",
-          "url": "https://medium.com/@nareshnavinash/how-spotify-rewrote-the-rules-of-agile-at-scale-90b6f870823c"
-        }
-      },
-      {
-        "id": "about:0",
-        "section": "about",
-        "label": "About - AI Adoption Strategy"
-      },
-      {
-        "id": "about:1",
-        "section": "about",
-        "label": "About - Team Building"
-      }
-    ],
-    "model": "gpt-oss-20b"
-  },
-  {
-    "q": "what certifications does he have",
-    "a": "I hold a range of certifications that support my engineering and leadership work:\n\n- **AWS Solutions Architect Associate** – Amazon Web Services  \n- **Reforge – Engineering Management** – Reforge  \n- **CCNA & CCNP Routing and Switching** – Cisco Systems  \n- **Google Project Management Certificate** – Google (Coursera)  \n- **Strategic Leadership & Management** – University of Illinois (Coursera)  \n- **BEC Vantage (Business English)** – Cambridge Assessment  \n\nThese credentials reinforce my focus on AI governance, quality engineering, and scaling high‑performing teams.",
-    "sources": [
-      {
-        "id": "certs",
-        "section": "certs",
-        "label": "Certifications"
-      },
-      {
-        "id": "bio",
-        "section": "about",
-        "label": "Naresh Sekar"
-      },
-      {
-        "id": "about:0",
-        "section": "about",
-        "label": "About - AI Adoption Strategy"
-      },
-      {
-        "id": "about:1",
-        "section": "about",
-        "label": "About - Team Building"
       },
       {
         "id": "about:2",
         "section": "about",
-        "label": "About - Quality Engineering"
-      }
-    ],
-    "model": "gpt-oss-20b"
-  },
-  {
-    "q": "tell me about his AI experience",
-    "a": "I’ve spent the last decade weaving AI into real‑world products and processes.  \n- **AI Adoption Strategy**: I design end‑to‑end workflows that bring generative AI, AI governance, intelligent test generation, and data‑driven decision systems into production.  \n- **TestGorilla (Apr 2022 – Aug 2023)**: As Lead SDET I built a CI/CD pipeline that boosted release velocity from bi‑weekly to 5× daily, enabling rapid A/B testing and iterative AI model tuning. I engineered Python‑based E2E API tests (pytest), performed backend load testing with k6.io, and profiled frontend performance via Lighthouse. I also integrated Storybook with Playwright for Angular.js and added UI E2E tests to the CD pipeline, ensuring quick feedback on AI‑enhanced features.\n\nI’m also a hands‑on AI developer.  \n- **Local LLMs**: In April 2026 I engineered an 8 B model that fits in 1.2 GB, cutting inference latency from 4.5 s to 56 ms by leveraging 1‑bit quantization with Bonsai.  \n- **Claude Max**: In March 2026 I built a terminal notification tool that stops the need to babysit Claude Code, improving productivity and ensuring I’m actually using the service.  \n\nThese experiences show my blend of **engineering leadership**, **AI integration**, and **performance optimization**.",
-    "sources": [
-      {
-        "id": "bio",
-        "section": "about",
-        "label": "Naresh Sekar"
-      },
-      {
-        "id": "about:0",
-        "section": "about",
-        "label": "About - AI Adoption Strategy"
+        "label": "About - Engineering Leadership & Quality"
       },
       {
         "id": "career:1",
         "section": "career",
-        "label": "Lead SDET at TestGorilla",
+        "label": "Engineering Manager at TestGorilla",
         "meta": {
           "idx": 1,
           "co": "TestGorilla",
+          "role": "Engineering Manager",
+          "date": "August 2023 - August 2026"
+        }
+      },
+      {
+        "id": "career:2",
+        "section": "career",
+        "label": "Lead SDET at TestGorilla",
+        "meta": {
+          "idx": 2,
+          "co": "TestGorilla",
           "role": "Lead SDET",
           "date": "April 2022 - August 2023"
-        }
-      },
-      {
-        "id": "article:pinned:0",
-        "section": "writing",
-        "label": "An 8B Model That Fits in 1.2 GB Changed How I Think About Local AI",
-        "meta": {
-          "kind": "Pinned",
-          "idx": 0,
-          "title": "An 8B Model That Fits in 1.2 GB Changed How I Think About Local AI",
-          "url": "https://medium.com/@nareshnavinash/an-8b-model-that-fits-in-1-2-gb-changed-how-i-think-about-local-ai-78665d154f74"
-        }
-      },
-      {
-        "id": "article:pinned:1",
-        "section": "writing",
-        "label": "You’re Paying for Claude Max. But Are You Actually Using It?",
-        "meta": {
-          "kind": "Pinned",
-          "idx": 1,
-          "title": "You’re Paying for Claude Max. But Are You Actually Using It?",
-          "url": "https://medium.com/@nareshnavinash/youre-paying-for-claude-max-but-are-you-actually-using-it-8125696d96f8"
         }
       }
     ],
     "model": "gpt-oss-20b"
   },
   {
-    "q": "what makes you unique",
-    "a": "I’m **Naresh Sekar**, an Engineering Manager who blends deep AI expertise with a proven track record of delivering reliable software at scale.  \n- **Decade‑long experience** across startups and scale‑ups, building high‑performing teams that grow together.  \n- **AI‑first mindset**: from generative‑AI implementation to rigorous AI governance and risk‑aware execution.  \n- **Process‑oriented**: I design quality‑first engineering cultures that keep delivery on time and on budget.\n\nWhat sets me apart is my knack for turning complex AI concepts into tangible products that users love.  \n- Built **tneb‑solar**, an offline‑first net‑metering tracker for Tamil Nadu rooftop solar users, using **Expo + React Native + TypeScript**.  \n- Authored tools like a **terminal notification system** for Claude Max and a **local‑AI Grammarly replacement (GhostEdit)**, proving I can ship AI solutions that respect privacy and cost.\n\nIn short, I bring **strategic AI integration**, **team empowerment**, and a **practical engineering discipline** that together multiply the impact of every person on the team.",
+    "q": "why should we hire you",
+    "a": "I’m a hands‑on engineer who turns complex problems into reliable, cost‑effective solutions.  \n- **Senior SDET at WeInvest (Jan 2019 – Feb 2020)** – first SDET hire, built Ruby‑gem frameworks for UI & GraphQL, cut testing costs with Postman’s freemium ETL, and integrated CI/CD via GitHub, Jenkins, Docker.  \n- **Behavior‑Driven Development** – used Cucumber + RSpec to drive feature tests that caught regressions early and kept releases on schedule.\n\nI also bring end‑to‑end product ownership.  \n- **tneb‑solar (2026)** – designed an offline, no‑account mobile/web bill tracker for Tamil Nadu rooftop solar users. Built with **Expo + React Native** and **TypeScript**, it imports/export logs, projects bills, and alerts users before the 500‑unit tariff cliff.  \n- Delivered a cross‑platform experience (Android, iOS, Web) that runs completely offline, ensuring reliability for users without constant connectivity.\n\nFinally, I’m passionate about AI‑driven productivity tools.  \n- **Claude Max terminal notifier (Mar 2026)** – built a lightweight tool to stop “babysitting” Claude, improving workflow",
     "sources": [
       {
-        "id": "bio",
-        "section": "about",
-        "label": "Naresh Sekar"
+        "id": "career:5",
+        "section": "career",
+        "label": "Senior SDET at WeInvest",
+        "meta": {
+          "idx": 5,
+          "co": "WeInvest",
+          "role": "Senior SDET",
+          "date": "January 2019 - February 2020"
+        }
       },
       {
         "id": "repo:recent:0",
@@ -864,16 +916,122 @@
         }
       },
       {
+        "id": "article:pinned:3",
+        "section": "writing",
+        "label": "Why I Ditched Grammarly to Build My Own AI Writing Assistant",
+        "meta": {
+          "kind": "Pinned",
+          "idx": 3,
+          "title": "Why I Ditched Grammarly to Build My Own AI Writing Assistant",
+          "url": "https://medium.com/@nareshnavinash/why-i-ditched-grammarly-to-build-my-own-ai-writing-assistant-6504278ca754"
+        }
+      }
+    ],
+    "model": "gpt-oss-20b"
+  },
+  {
+    "q": "summarize your experience",
+    "a": "I’m a **founding engineer** who has spent the last decade building end‑to‑end products from design systems to cloud infrastructure.  \n- **Picari** – sole engineer, handling the full stack: design system, recommendation engine, security, performance, analytics, and AWS IaC.  \n- **TestGorilla** (Apr 2022 – Aug 2023) – Lead SDET, architected a CI/CD pipeline that boosted release velocity from bi‑weekly to 5× daily, built Python (pytest) E2E API frameworks, led k6.io load tests, Lighthouse profiling, and integrated Storybook + Playwright for Angular UI testing.\n\nI also built **tneb‑solar**, a cross‑platform (Expo + React Native) offline bill tracker for Tamil Nadu rooftop solar users, using TypeScript and modern mobile‑web stacks. My focus is on **explainable, production‑grade systems** with rigorous evaluation, automated guardrails, and AI‑augmented development.",
+    "sources": [
+      {
+        "id": "career:2",
+        "section": "career",
+        "label": "Lead SDET at TestGorilla",
+        "meta": {
+          "idx": 2,
+          "co": "TestGorilla",
+          "role": "Lead SDET",
+          "date": "April 2022 - August 2023"
+        }
+      },
+      {
+        "id": "repo:recent:0",
+        "section": "repos",
+        "label": "tneb-solar",
+        "meta": {
+          "kind": "Recent",
+          "idx": 0,
+          "name": "tneb-solar",
+          "url": "https://github.com/nareshnavinash/tneb-solar"
+        }
+      },
+      {
+        "id": "bio",
+        "section": "about",
+        "label": "Naresh Sekar"
+      },
+      {
         "id": "about:0",
         "section": "about",
-        "label": "About - AI Adoption Strategy"
+        "label": "About - End-to-End Product Engineering"
+      },
+      {
+        "id": "about:1",
+        "section": "about",
+        "label": "About - AI Agents as a Team"
+      }
+    ],
+    "model": "gpt-oss-20b"
+  },
+  {
+    "q": "what makes you unique",
+    "a": "I’m **Naresh Sekar**, a founding engineer who thrives on building end‑to‑end solutions with a single‑engineer mindset.  \n- At **Picari** I own the entire stack—design system, website, recommendation engine, security, performance, and cloud infra—while leveraging AI coding agents to scale a solo team.  \n- My decade‑long journey from startups to a **Engineering Manager at TestGorilla** gave me deep experience in AI product work and AI‑augmented development.\n\nWhat sets me apart is a **quality‑first delivery philosophy**:  \n- I design **explainable systems** and run **rigorous evaluations** before launch.  \n- I embed **automated guardrails** and production‑grade infrastructure from day one, ensuring reliability and compliance.\n\nThese principles have powered projects like **tneb‑solar** (offline, cross‑platform bill tracker) and **shelldone** (zero‑dependency terminal notifications), proving that a single engineer can deliver complex, AI‑enhanced products with speed and confidence.",
+    "sources": [
+      {
+        "id": "repo:recent:0",
+        "section": "repos",
+        "label": "tneb-solar",
+        "meta": {
+          "kind": "Recent",
+          "idx": 0,
+          "name": "tneb-solar",
+          "url": "https://github.com/nareshnavinash/tneb-solar"
+        }
+      },
+      {
+        "id": "repo:recent:5",
+        "section": "repos",
+        "label": "shelldone",
+        "meta": {
+          "kind": "Recent",
+          "idx": 5,
+          "name": "shelldone",
+          "url": "https://github.com/nareshnavinash/shelldone"
+        }
+      },
+      {
+        "id": "article:pinned:1",
+        "section": "writing",
+        "label": "You’re Paying for Claude Max. But Are You Actually Using It?",
+        "meta": {
+          "kind": "Pinned",
+          "idx": 1,
+          "title": "You’re Paying for Claude Max. But Are You Actually Using It?",
+          "url": "https://medium.com/@nareshnavinash/youre-paying-for-claude-max-but-are-you-actually-using-it-8125696d96f8"
+        }
+      },
+      {
+        "id": "article:pinned:2",
+        "section": "writing",
+        "label": "I Replaced Grammarly with Local AI with 3 days of Vibe coding",
+        "meta": {
+          "kind": "Pinned",
+          "idx": 2,
+          "title": "I Replaced Grammarly with Local AI with 3 days of Vibe coding",
+          "url": "https://medium.com/@nareshnavinash/i-replaced-grammarly-with-local-ai-with-3-days-of-vibe-coding-72724bc37a39"
+        }
+      },
+      {
+        "id": "bio",
+        "section": "about",
+        "label": "Naresh Sekar"
       }
     ],
     "model": "gpt-oss-20b"
   },
   {
     "q": "show leadership principles",
-    "a": "I lead with three core principles that guide every decision and team interaction:\n\n**1. AI‑Augmented Engineering** – I embed AI tools at every SDLC stage—code generation, review, testing, and deployment—so the team can focus on high‑value problem solving rather than repetitive tasks.  \n**2. Team Growth & Psychological Safety** – I invest in mentorship, clear career ladders, and a culture where engineers feel safe to take bold bets, ensuring continuous learning and high engagement.  \n**3. Strategic Planning & Outcome Focus** – I translate business goals into measurable roadmaps, set OKRs and DORA metrics, and adapt execution to deliver tangible results that align with stakeholder priorities.  \n\nThese principles have driven successes at TestGorilla, from launching a credit‑based AI pricing engine to reducing epic cycle times to ~3 days with AI‑generated architecture and PRs.",
+    "a": "I’ve built my leadership style around three core principles that show up across every role I’ve held:\n\n- **Quality‑first delivery** – I scale teams from 5 to 30+ while embedding test automation, CI/CD, observability, and risk‑aware execution at every stage.  \n- **AI‑augmented engineering** – I embed AI tools into the SDLC—code generation, PR reviews, automated testing, and even unit‑test creation—so one engineer can operate like a team.  \n- **People‑first growth** – I mentor engineers, create clear career ladders, and foster psychological safety so they can take bold bets and own their projects.\n\nThese principles guided my work at **TestGorilla** (Aug 2023‑Aug 2026) and continue to shape my approach as the founding engineer at **Picari**.",
     "sources": [
       {
         "id": "bio",
@@ -881,14 +1039,19 @@
         "label": "Naresh Sekar"
       },
       {
-        "id": "career:0",
+        "id": "about:2",
+        "section": "about",
+        "label": "About - Engineering Leadership & Quality"
+      },
+      {
+        "id": "career:1",
         "section": "career",
         "label": "Engineering Manager at TestGorilla",
         "meta": {
-          "idx": 0,
+          "idx": 1,
           "co": "TestGorilla",
           "role": "Engineering Manager",
-          "date": "August 2023 - Present"
+          "date": "August 2023 - August 2026"
         }
       },
       {
@@ -900,19 +1063,19 @@
         "id": "leadership:1",
         "section": "leadership",
         "label": "Leadership - Team Growth"
-      },
-      {
-        "id": "leadership:2",
-        "section": "leadership",
-        "label": "Leadership - Strategic Planning"
       }
     ],
     "model": "gpt-oss-20b"
   },
   {
     "q": "how large was the team",
-    "a": "I’m currently leading a **high‑performing team of 5 engineers** at TestGorilla.  \n\n- The squad handles everything from payments and subscriptions to AI‑powered features like the credit‑based pricing engine and the Tavus video‑avatar platform.  \n- We balance ambitious AI initiatives with pragmatic delivery, ensuring each member can focus on high‑impact work while maintaining rigorous quality standards.",
+    "a": "I’m the **founding and sole engineer** at Picari, so the team size is **one**.  \nAll of the design system, website, recommendation engine, security, performance, and cloud infrastructure work is handled by me, with the help of AI coding agents that let a single engineer operate like a team.  \n\nIf you’re curious about how the rest of the organization is structured, you might want to look at the **“About – AI Agents as a Team”** section for more context on how AI augments our workflow.",
     "sources": [
+      {
+        "id": "bio",
+        "section": "about",
+        "label": "Naresh Sekar"
+      },
       {
         "id": "article:pinned:1",
         "section": "writing",
@@ -936,99 +1099,37 @@
         }
       },
       {
-        "id": "bio",
+        "id": "about:1",
         "section": "about",
-        "label": "Naresh Sekar"
+        "label": "About - AI Agents as a Team"
       },
       {
         "id": "career:0",
         "section": "career",
-        "label": "Engineering Manager at TestGorilla",
+        "label": "Founding Engineer at Picari",
         "meta": {
           "idx": 0,
-          "co": "TestGorilla",
-          "role": "Engineering Manager",
-          "date": "August 2023 - Present"
-        }
-      },
-      {
-        "id": "article:pinned:0",
-        "section": "writing",
-        "label": "An 8B Model That Fits in 1.2 GB Changed How I Think About Local AI",
-        "meta": {
-          "kind": "Pinned",
-          "idx": 0,
-          "title": "An 8B Model That Fits in 1.2 GB Changed How I Think About Local AI",
-          "url": "https://medium.com/@nareshnavinash/an-8b-model-that-fits-in-1-2-gb-changed-how-i-think-about-local-ai-78665d154f74"
+          "co": "Picari",
+          "role": "Founding Engineer",
+          "date": "August 2026 - Present"
         }
       }
     ],
     "model": "gpt-oss-20b"
   },
   {
-    "q": "show me related projects",
-    "a": "**Here are the key projects highlighted in my portfolio:**\n\n- **Credit‑Based Pricing Engine (TestGorilla, Aug 2023‑Present)** – Scalable, token‑/compute‑based billing for Generative AI at the feature level. Built on cloud‑native microservices, integrated with Chargebee, Stripe, and HubSpot.  \n- **AI Video Avatar Platform “Tavus” (TestGorilla, Aug 2023‑Present)** – Real‑time candidate interviews using video/audio generation APIs (e.g., OpenAI, ElevenLabs). Delivered a fully automated assessment workflow.  \n- **Evaluation (Evals) Framework with LangFuse (TestGorilla, Aug 2023‑Present)** – Continuous scoring and monitoring of AI models and prompts, feeding back into production tuning.  \n- **Claude Code Sub‑Agents & AI‑Assisted Development (TestGorilla, Aug 2023‑Present)** – Automated code generation, PR creation, unit/integration test generation, and code‑review agents. Cut epic cycle time to ~3 days.  \n- **Code‑as‑Documentation Refactor (TestGorilla, Aug 2023‑Present)** – Structured codebase for LLM context windows, enabling autonomous refactoring of legacy code.  \n- **tneb‑solar – Net‑Metering Bill Tracker (2024‑Present)** – Expo + React Native (TypeScript) app for Tamil Nadu rooftop solar users, offline‑first, cross‑platform.  \n- **PG Patrol Chrome Extension (2026‑04‑12)** – Browser extension replacing profanity with “fiddlesticks” and NSFW images with kittens, built with modern web‑extension APIs and privacy‑focused design.  \n\nThese projects showcase my blend of AI‑driven innovation, scalable engineering, and cross‑platform development.",
-    "sources": [
-      {
-        "id": "career:0",
-        "section": "career",
-        "label": "Engineering Manager at TestGorilla",
-        "meta": {
-          "idx": 0,
-          "co": "TestGorilla",
-          "role": "Engineering Manager",
-          "date": "August 2023 - Present"
-        }
-      },
-      {
-        "id": "career:6",
-        "section": "career",
-        "label": "Programmer Analyst at Cognizant",
-        "meta": {
-          "idx": 6,
-          "co": "Cognizant",
-          "role": "Programmer Analyst",
-          "date": "June 2015 - June 2017"
-        }
-      },
-      {
-        "id": "repo:recent:0",
-        "section": "repos",
-        "label": "tneb-solar",
-        "meta": {
-          "kind": "Recent",
-          "idx": 0,
-          "name": "tneb-solar",
-          "url": "https://github.com/nareshnavinash/tneb-solar"
-        }
-      },
-      {
-        "id": "article:recent:0",
-        "section": "writing",
-        "label": "My Daughter Asked Why Those Fans Were Showing Their Fingers.",
-        "meta": {
-          "kind": "Recent",
-          "idx": 0,
-          "title": "My Daughter Asked Why Those Fans Were Showing Their Fingers.",
-          "url": "https://medium.com/@nareshnavinash/my-daughter-asked-why-those-fans-were-showing-their-fingers-91c1bd419f14"
-        }
-      },
-      {
-        "id": "bio",
-        "section": "about",
-        "label": "Naresh Sekar"
-      }
-    ],
-    "model": "gpt-oss-20b"
-  },
-  {
-    "q": "tell me about yourself",
-    "a": "I’m **Naresh Sekar**, an Engineering Manager with **over a decade of experience** spanning startups and scale‑ups. I specialize in **building high‑performing teams** and creating a **quality‑first engineering culture** that thrives on ownership, AI literacy, and continuous improvement. My leadership style is all about **multiplying the impact** of every team member while keeping risk in check and stakeholders aligned.\n\n- **AI Adoption Strategy**: I integrate AI/ML into product workflows—from generative AI implementation to AI governance, intelligent test generation, and data‑driven decision systems.  \n- **Team Building**: I’ve scaled teams from 5 to 30+ people, set up career frameworks, and built hiring pipelines that nurture ownership and AI fluency.  \n- **Product Innovation**: I’ve built a CLI for **prism‑ml’s Bonsai 1‑bit LLMs**, cutting response times from 4.5 s (Ollama) to 56 ms, and explored 8 B models that fit in 1.2 GB.\n\nI’m passionate about **leveraging AI to accelerate product development** while maintaining robust engineering practices and governance. If you’re looking for a leader who can bridge cutting‑edge AI with",
+    "q": "what about the previous role",
+    "a": "I spent **over a decade** across startups and scale‑ups, most recently as **Engineering Manager at TestGorilla**.  \n- Led the AI product team, driving end‑to‑end development of AI‑powered assessment tools.  \n- Implemented AI‑augmented development workflows, integrating automated guardrails and rigorous evaluation pipelines.  \n\nThis experience sharpened my focus on **explainable systems** and **production‑grade infrastructure**, which I now bring to my role as the sole engineer at Picari.",
     "sources": [
       {
         "id": "about:0",
         "section": "about",
-        "label": "About - AI Adoption Strategy"
+        "label": "About - End-to-End Product Engineering"
+      },
+      {
+        "id": "about:1",
+        "section": "about",
+        "label": "About - AI Agents as a Team"
       },
       {
         "id": "article:pinned:0",
@@ -1056,24 +1157,14 @@
         "id": "bio",
         "section": "about",
         "label": "Naresh Sekar"
-      },
-      {
-        "id": "about:1",
-        "section": "about",
-        "label": "About - Team Building"
       }
     ],
     "model": "gpt-oss-20b"
   },
   {
-    "q": "how many years of experience do you have",
-    "a": "I’ve spent **over a decade** honing my craft in engineering management, working across both startups and scale‑ups.  \n\nThat experience spans more than ten years of building high‑performing teams, designing quality‑first cultures, and integrating AI into production systems.  \n\nIf you’d like to see the specific roles and timelines, you can check the **Career** section of my portfolio.",
+    "q": "where was this used",
+    "a": "I’m not seeing a specific place mentioned in the portfolio where the terminal notification tool from the “You’re Paying for Claude Max. But Are You Actually Using It?” article was deployed.  \nIf you’re looking for details on where that tool was put to use, the **article section** itself is the best place to start— it describes the context and the environment in which I built and tested the tool.  \n\nIf you need more context on how I integrate such utilities into production workflows, you might also check the **Engineering Manager at TestGorilla** section, where I discuss AI‑augmented development and tooling.",
     "sources": [
-      {
-        "id": "bio",
-        "section": "about",
-        "label": "Naresh Sekar"
-      },
       {
         "id": "article:pinned:1",
         "section": "writing",
@@ -1086,17 +1177,51 @@
         }
       },
       {
+        "id": "bio",
+        "section": "about",
+        "label": "Naresh Sekar"
+      },
+      {
         "id": "career:1",
+        "section": "career",
+        "label": "Engineering Manager at TestGorilla",
+        "meta": {
+          "idx": 1,
+          "co": "TestGorilla",
+          "role": "Engineering Manager",
+          "date": "August 2023 - August 2026"
+        }
+      },
+      {
+        "id": "career:2",
         "section": "career",
         "label": "Lead SDET at TestGorilla",
         "meta": {
-          "idx": 1,
+          "idx": 2,
           "co": "TestGorilla",
           "role": "Lead SDET",
           "date": "April 2022 - August 2023"
         }
       },
       {
+        "id": "article:pinned:4",
+        "section": "writing",
+        "label": "A Fine-Tuned Grammar Model Lost to a 1-Bit LLM With a Two-Sentence Prompt",
+        "meta": {
+          "kind": "Pinned",
+          "idx": 4,
+          "title": "A Fine-Tuned Grammar Model Lost to a 1-Bit LLM With a Two-Sentence Prompt",
+          "url": "https://medium.com/@nareshnavinash/a-fine-tuned-grammar-model-lost-to-a-1-bit-llm-with-a-two-sentence-prompt-bf1a6376f03b"
+        }
+      }
+    ],
+    "model": "gpt-oss-20b"
+  },
+  {
+    "q": "what is your current role",
+    "a": "I’m the **founding and sole engineer at Picari**.  \n- I own the entire stack—from design system and website to recommendation engine, security, performance, analytics, and AWS infrastructure‑as‑code.  \n- I deliver with AI coding agents, letting one engineer operate like a full team and ship AI directly into the product.",
+    "sources": [
+      {
         "id": "repo:recent:0",
         "section": "repos",
         "label": "tneb-solar",
@@ -1108,70 +1233,92 @@
         }
       },
       {
-        "id": "article:pinned:0",
-        "section": "writing",
-        "label": "An 8B Model That Fits in 1.2 GB Changed How I Think About Local AI",
+        "id": "repo:recent:5",
+        "section": "repos",
+        "label": "shelldone",
         "meta": {
-          "kind": "Pinned",
-          "idx": 0,
-          "title": "An 8B Model That Fits in 1.2 GB Changed How I Think About Local AI",
-          "url": "https://medium.com/@nareshnavinash/an-8b-model-that-fits-in-1-2-gb-changed-how-i-think-about-local-ai-78665d154f74"
+          "kind": "Recent",
+          "idx": 5,
+          "name": "shelldone",
+          "url": "https://github.com/nareshnavinash/shelldone"
         }
+      },
+      {
+        "id": "bio",
+        "section": "about",
+        "label": "Naresh Sekar"
+      },
+      {
+        "id": "about:0",
+        "section": "about",
+        "label": "About - End-to-End Product Engineering"
+      },
+      {
+        "id": "about:1",
+        "section": "about",
+        "label": "About - AI Agents as a Team"
+      }
+    ],
+    "model": "gpt-oss-20b"
+  },
+  {
+    "q": "what kind of teams have you managed",
+    "a": "I’ve led **SDET and QA teams** across multiple product domains.  \n\n- At **Vue.ai** (Mar 2020–Feb 2021) I managed two SDET squads in an 8:1 developer‑to‑SDET ratio, driving Agile releases and CI/CD for ML/AI microservices.  \n- At **WeInvest** (Jan 2019–Feb 2020) I was the first SDET hire, building and overseeing the testing infrastructure that accelerated our testing cycles and cut costs.  \n\nI’ve also scaled engineering groups from **5 to 30+ members**, focusing on quality‑first delivery, test automation, and risk‑aware execution.",
+    "sources": [
+      {
+        "id": "career:4",
+        "section": "career",
+        "label": "Senior SDET at Vue.ai",
+        "meta": {
+          "idx": 4,
+          "co": "Vue.ai",
+          "role": "Senior SDET",
+          "date": "March 2020 - February 2021"
+        }
+      },
+      {
+        "id": "about:2",
+        "section": "about",
+        "label": "About - Engineering Leadership & Quality"
+      },
+      {
+        "id": "career:5",
+        "section": "career",
+        "label": "Senior SDET at WeInvest",
+        "meta": {
+          "idx": 5,
+          "co": "WeInvest",
+          "role": "Senior SDET",
+          "date": "January 2019 - February 2020"
+        }
+      },
+      {
+        "id": "career:6",
+        "section": "career",
+        "label": "Software Engineer at Freshworks",
+        "meta": {
+          "idx": 6,
+          "co": "Freshworks",
+          "role": "Software Engineer",
+          "date": "June 2017 - January 2019"
+        }
+      },
+      {
+        "id": "leadership:3",
+        "section": "leadership",
+        "label": "Leadership - Cross-functional Collaboration"
       }
     ],
     "model": "gpt-oss-20b"
   },
   {
     "q": "what is your education background",
-    "a": "I earned a **Bachelor of Engineering in Electronics & Communication** from **Anna University** in Chennai, India.  \n- **Duration:** 2011 – 2015  \n- Focused on electronics design, signal processing, and communication systems.  \n\nThis foundation has helped me blend hardware knowledge with software engineering, especially when leading AI‑driven product teams.",
+    "a": "I earned a **Bachelor of Engineering in Electronics & Communication** from **Anna University** in Chennai, India.  \nThe program spanned from **2011 to 2015**, giving me a solid foundation in electrical engineering principles and hands‑on project experience.  \n\nThis academic background has been a springboard for my career in full‑stack engineering and AI‑augmented product development.",
     "sources": [
       {
         "id": "bio",
         "section": "about",
         "label": "Naresh Sekar"
-      },
-      {
-        "id": "repo:recent:0",
-        "section": "repos",
-        "label": "tneb-solar",
-        "meta": {
-          "kind": "Recent",
-          "idx": 0,
-          "name": "tneb-solar",
-          "url": "https://github.com/nareshnavinash/tneb-solar"
-        }
-      },
-      {
-        "id": "education",
-        "section": "education",
-        "label": "Education"
-      },
-      {
-        "id": "about:0",
-        "section": "about",
-        "label": "About - AI Adoption Strategy"
-      },
-      {
-        "id": "about:1",
-        "section": "about",
-        "label": "About - Team Building"
-      }
-    ],
-    "model": "gpt-oss-20b"
-  },
-  {
-    "q": "have you written any books",
-    "a": "I haven’t written any books.  \nIf you’re looking for my written work, the **Articles** section of my portfolio lists the pieces I’ve published, like the piece on Claude Max. That’s where you’ll find my longer‑form writing.",
-    "sources": [
-      {
-        "id": "bio",
-        "section": "about",
-        "label": "Naresh Sekar"
-      },
-      {
-        "id": "leadership:4",
-        "section": "leadership",
-        "label": "Leadership - Operational Excellence"
       },
       {
         "id": "repo:recent:0",
@@ -1187,61 +1334,84 @@
       {
         "id": "repo:recent:5",
         "section": "repos",
-        "label": "GhostEdit",
+        "label": "shelldone",
         "meta": {
           "kind": "Recent",
           "idx": 5,
-          "name": "GhostEdit",
-          "url": "https://github.com/nareshnavinash/GhostEdit"
+          "name": "shelldone",
+          "url": "https://github.com/nareshnavinash/shelldone"
         }
       },
       {
-        "id": "article:pinned:1",
-        "section": "writing",
-        "label": "You’re Paying for Claude Max. But Are You Actually Using It?",
-        "meta": {
-          "kind": "Pinned",
-          "idx": 1,
-          "title": "You’re Paying for Claude Max. But Are You Actually Using It?",
-          "url": "https://medium.com/@nareshnavinash/youre-paying-for-claude-max-but-are-you-actually-using-it-8125696d96f8"
-        }
+        "id": "education",
+        "section": "education",
+        "label": "Education"
+      },
+      {
+        "id": "about:0",
+        "section": "about",
+        "label": "About - End-to-End Product Engineering"
       }
     ],
     "model": "gpt-oss-20b"
   },
   {
-    "q": "what do you write about on Medium",
-    "a": "I don’t see any Medium posts listed in the portfolio you shared.  \nIf you’re looking for my writing topics, the sections that might give you a hint are:\n\n- **About – AI Adoption Strategy** – I often explore how generative AI, governance, and data‑driven decision systems can be integrated into product workflows.  \n- **About – Team Building** – I write about scaling engineering teams, career frameworks, and fostering AI literacy.  \n- **About – Quality Engineering** – I cover test automation, CI/CD, observability, and shift‑left quality practices.  \n\nFeel free to let me know which area interests you, and I can point you to any relevant Medium articles if they exist.",
+    "q": "what are your open source projects",
+    "a": "I’ve contributed to a couple of open‑source projects that you can find on GitHub:\n\n- **chirp** – a cross‑platform digital‑wellness app written in **Dart/Flutter**. It offers Pomodoro timers, smart break reminders, posture nudges, and a privacy‑first health score. The repo is MIT‑licensed and includes a team dashboard for collaborative wellness tracking.\n\n- **PyRest‑Python** – a **Python** REST‑API automation framework. It supports a “snap mode” for stateful testing and includes image‑comparison utilities for visual regression. The project is geared toward quick, repeatable API test suites and is also open‑source.",
     "sources": [
       {
-        "id": "bio",
-        "section": "about",
-        "label": "Naresh Sekar"
+        "id": "career:7",
+        "section": "career",
+        "label": "Programmer Analyst at Cognizant",
+        "meta": {
+          "idx": 7,
+          "co": "Cognizant",
+          "role": "Programmer Analyst",
+          "date": "June 2015 - June 2017"
+        }
       },
       {
-        "id": "about:0",
-        "section": "about",
-        "label": "About - AI Adoption Strategy"
-      },
-      {
-        "id": "about:1",
-        "section": "about",
-        "label": "About - Team Building"
-      },
-      {
-        "id": "about:2",
-        "section": "about",
-        "label": "About - Quality Engineering"
-      },
-      {
-        "id": "repo:recent:0",
+        "id": "repo:recent:1",
         "section": "repos",
-        "label": "tneb-solar",
+        "label": "chirp",
         "meta": {
           "kind": "Recent",
+          "idx": 1,
+          "name": "chirp",
+          "url": "https://github.com/nareshnavinash/chirp"
+        }
+      },
+      {
+        "id": "career:1",
+        "section": "career",
+        "label": "Engineering Manager at TestGorilla",
+        "meta": {
+          "idx": 1,
+          "co": "TestGorilla",
+          "role": "Engineering Manager",
+          "date": "August 2023 - August 2026"
+        }
+      },
+      {
+        "id": "career:3",
+        "section": "career",
+        "label": "Senior SDET at Hopin",
+        "meta": {
+          "idx": 3,
+          "co": "Hopin",
+          "role": "Senior SDET",
+          "date": "February 2021 - March 2022"
+        }
+      },
+      {
+        "id": "repo:starred:0",
+        "section": "repos",
+        "label": "PyRest-Python",
+        "meta": {
+          "kind": "Starred",
           "idx": 0,
-          "name": "tneb-solar",
-          "url": "https://github.com/nareshnavinash/tneb-solar"
+          "name": "PyRest-Python",
+          "url": "https://github.com/nareshnavinash/PyRest-Python"
         }
       }
     ],
@@ -1249,14 +1419,14 @@
   },
   {
     "q": "what is your tech stack",
-    "a": "**My tech stack spans both traditional CI/CD tooling and cutting‑edge AI‑centric solutions.**  \n\n- **CI/CD & Release** – GitLab, GitHub Actions, Jenkins, GitLab pipelines, Pact broker, BrowserStack, Percy, Testcafe, Playwright, Lighthouse, k6.io.  \n- **Languages & Frameworks** – Python (pytest), Angular.js, Storybook, JavaScript/TypeScript for UI, and Python‑centric AI/LLM libraries.  \n- **AI & Automation** – LangFuse for evaluation, Claude Code sub‑agents for code generation, AI Video Avatar platform (video/audio APIs), AI agents for unit/integration test generation, and a credit‑based pricing engine for generative‑AI usage.  \n\nThese tools enable rapid, high‑frequency releases, robust cross‑browser testing, and AI‑driven product features across my teams.",
+    "a": "I’ve built and maintained a mix of modern, cloud‑native tools across my roles.  \n- **Hopin (Feb 2021–Mar 2022)** – GitLab CI/CD, Pact (self‑hosted broker), BrowserStack, Testcafe + Percy, GitHub pre‑merge checks.  \n- **Picari (Aug 2026–Present)** – Node.js backend, Terraform IaC on AWS, CI/CD with per‑PR preview environments, OAuth 2.1 MCP integration, AI‑agent pipelines (Claude, LangFuse), Storybook design system, in‑house BI console.  \n- **TestGorilla (Aug 2023–Aug 2026)** – Terraform, AWS, Stripe, Chargebee, HubSpot, 18 ATS integrations, Claude Code sub‑agents, LangFuse evaluation framework, AI‑generated tests and PR reviews.  \n\nOverall, I focus on **cloud‑first infrastructure (AWS/Terraform)**, **JavaScript/Node.js** for services, **CI/CD pipelines** (GitLab, GitHub Actions), **AI tooling** (Claude, LangFuse), and **modern front‑end stacks** (Storybook, design tokens).",
     "sources": [
       {
-        "id": "career:2",
+        "id": "career:3",
         "section": "career",
         "label": "Senior SDET at Hopin",
         "meta": {
-          "idx": 2,
+          "idx": 3,
           "co": "Hopin",
           "role": "Senior SDET",
           "date": "February 2021 - March 2022"
@@ -1268,36 +1438,30 @@
         "label": "Naresh Sekar"
       },
       {
+        "id": "about:0",
+        "section": "about",
+        "label": "About - End-to-End Product Engineering"
+      },
+      {
         "id": "career:0",
         "section": "career",
-        "label": "Engineering Manager at TestGorilla",
+        "label": "Founding Engineer at Picari",
         "meta": {
           "idx": 0,
-          "co": "TestGorilla",
-          "role": "Engineering Manager",
-          "date": "August 2023 - Present"
+          "co": "Picari",
+          "role": "Founding Engineer",
+          "date": "August 2026 - Present"
         }
       },
       {
         "id": "career:1",
         "section": "career",
-        "label": "Lead SDET at TestGorilla",
+        "label": "Engineering Manager at TestGorilla",
         "meta": {
           "idx": 1,
           "co": "TestGorilla",
-          "role": "Lead SDET",
-          "date": "April 2022 - August 2023"
-        }
-      },
-      {
-        "id": "career:5",
-        "section": "career",
-        "label": "Software Engineer at Freshworks",
-        "meta": {
-          "idx": 5,
-          "co": "Freshworks",
-          "role": "Software Engineer",
-          "date": "June 2017 - January 2019"
+          "role": "Engineering Manager",
+          "date": "August 2023 - August 2026"
         }
       }
     ],
@@ -1305,7 +1469,7 @@
   },
   {
     "q": "describe your quality engineering expertise",
-    "a": "I specialize in **end‑to‑end quality engineering**—from strategy to execution.  \n- Design and launch test automation frameworks (Playwright, Cypress) and CI/CD pipelines that scale with product growth.  \n- Implement observability and performance monitoring using Mixpanel, Holistics, Snowflake, k6, and Lighthouse.  \n- Enforce contract testing (Pact) and shift‑left quality practices to catch defects early.\n\nAt TestGorilla I built a **AI‑driven quality loop**:  \n- Deployed agents that automatically generate unit and integration tests, perform preliminary code reviews, and enforce coding standards.  \n- Created a rigorous Evaluation (Evals) framework with LangFuse to score AI models and prompts, feeding continuous feedback into production.  \n- Reduced epic cycle times to ~3 days by shifting developers from boilerplate to review, while maintaining strict quality gates.\n\nOverall, my focus is on **building a culture of quality**—integrating observability, automation, and AI to deliver reliable software faster and with higher confidence.",
+    "a": "I’ve built a **quality-first mindset** that spans the entire product lifecycle—from design systems to production infrastructure. At **TestGorilla** (Aug 2023‑Aug 2026) I led a team that implemented **test automation, CI/CD, and observability** pipelines that reduced release cycle times and caught regressions before they hit users. I introduced a rigorous **Evaluation (Evals) framework** with LangFuse to continuously score AI models and prompts, turning data into actionable feedback loops.\n\nMy toolkit is heavily focused on **automation and performance**:\n\n- **Design Systems**: Tokens, Storybook, and automated a11y checks in CI  \n- **Product Analytics & BI**: Mixpanel dashboards, Snowflake data pipelines  \n- **Performance Engineering**: k6 load tests, Lighthouse audits for web and mobile  \n- **Automation**: Playwright & Cypress for end‑to‑end tests, AI‑generated unit and integration tests via Claude Code agents  \n\nThese practices are underpinned by **DORA metrics** and OKRs that align engineering velocity with business outcomes, ensuring that quality is baked in from day one.",
     "sources": [
       {
         "id": "bio",
@@ -1315,17 +1479,17 @@
       {
         "id": "about:2",
         "section": "about",
-        "label": "About - Quality Engineering"
+        "label": "About - Engineering Leadership & Quality"
       },
       {
-        "id": "career:0",
+        "id": "career:1",
         "section": "career",
         "label": "Engineering Manager at TestGorilla",
         "meta": {
-          "idx": 0,
+          "idx": 1,
           "co": "TestGorilla",
           "role": "Engineering Manager",
-          "date": "August 2023 - Present"
+          "date": "August 2023 - August 2026"
         }
       },
       {
@@ -1334,44 +1498,45 @@
         "label": "Skills - Quality & Observability"
       },
       {
-        "id": "about:1",
+        "id": "about:0",
         "section": "about",
-        "label": "About - Team Building"
+        "label": "About - End-to-End Product Engineering"
       }
     ],
     "model": "gpt-oss-20b"
   },
   {
     "q": "what is your experience with CI/CD",
-    "a": "I’ve spent the last decade building and refining CI/CD pipelines that power high‑frequency releases and reliable AI deployments.\n\n- **TestGorilla (Apr 2022‑Aug 2023)** – Architected a CI/CD stack that moved releases from bi‑weekly to **5× daily**. Integrated Playwright for UI E2E tests, Storybook for visual regression, and k6.io for load testing into the CD pipeline, giving instant feedback on performance and quality.  \n- **WeInvest (Jan 2019‑Feb 2020)** – Designed a robust CI/CD workflow with **GitHub, Jenkins, and Docker**. Converted UI and GraphQL automation into reusable Ruby gems, and added Cucumber‑RSpec BDD to catch defects early.  \n- **General focus** – Building end‑to‑end quality strategies: test automation frameworks, observability, shift‑left testing, and risk assessment at scale.\n\nThese experiences give me a solid foundation for delivering fast, safe, and AI‑ready software.",
+    "a": "I’ve built and refined CI/CD pipelines across every role I’ve held, always aiming for speed, reliability, and observability.\n\n**TestGorilla (Apr 2022 – Aug 2023)** – Architected a 5× daily release cadence by integrating GitHub Actions, Docker, and a custom Python (pytest) test harness. Added Playwright for UI E2E tests and Storybook for visual regression, all running in the CD pipeline. I also set up k6.io load tests and Lighthouse profiling to enforce performance baselines before every merge.\n\n**Picari (Aug 2026 – Present)** – As the sole engineer, I moved the stack to AWS via Terraform, created per‑PR preview environments, and implemented gated production deploys with rollback. CI/CD now powers the recommendation engine, AI‑agent pipelines, and the public vendor directory, with full observability and automated security checks.\n\n**WeInvest (Jan 2019 – Feb 2020)** – Launched the first SDET‑owned pipeline, integrating GitHub, Jenkins, and Docker. I modularized UI and GraphQL automation into Ruby gems and used Cucumber/RSPEC for BDD, ensuring every change was automatically tested before promotion.",
     "sources": [
       {
-        "id": "bio",
-        "section": "about",
-        "label": "Naresh Sekar"
-      },
-      {
-        "id": "career:1",
+        "id": "career:2",
         "section": "career",
         "label": "Lead SDET at TestGorilla",
         "meta": {
-          "idx": 1,
+          "idx": 2,
           "co": "TestGorilla",
           "role": "Lead SDET",
           "date": "April 2022 - August 2023"
         }
       },
       {
-        "id": "about:2",
-        "section": "about",
-        "label": "About - Quality Engineering"
+        "id": "career:0",
+        "section": "career",
+        "label": "Founding Engineer at Picari",
+        "meta": {
+          "idx": 0,
+          "co": "Picari",
+          "role": "Founding Engineer",
+          "date": "August 2026 - Present"
+        }
       },
       {
-        "id": "career:4",
+        "id": "career:5",
         "section": "career",
         "label": "Senior SDET at WeInvest",
         "meta": {
-          "idx": 4,
+          "idx": 5,
           "co": "WeInvest",
           "role": "Senior SDET",
           "date": "January 2019 - February 2020"
@@ -1387,24 +1552,19 @@
           "name": "tneb-solar",
           "url": "https://github.com/nareshnavinash/tneb-solar"
         }
+      },
+      {
+        "id": "bio",
+        "section": "about",
+        "label": "Naresh Sekar"
       }
     ],
     "model": "gpt-oss-20b"
   },
   {
     "q": "tell me about your Docker experience",
-    "a": "I don’t have any Docker experience detailed in the portfolio sections you provided.  \n\nIf you’re looking for information on my container or deployment background, the **About - AI Adoption Strategy** or **About - Team Building** sections might contain relevant details about how I integrate tooling into workflows.  \n\nFeel free to let me know which part of the portfolio you’d like me to explore next!",
+    "a": "I don’t see any mention of Docker in the portfolio excerpts you provided.  \nIf you’re looking for details on containerization or infrastructure tooling, the **“About – End‑to‑End Product Engineering”** section might contain relevant insights, as it covers AWS infrastructure‑as‑code and performance.  \n\nAlternatively, the **“About – Engineering Leadership & Quality”** section could touch on CI/CD pipelines where Docker is often used. Feel free to let me know if you’d like me to dive into those sections!",
     "sources": [
-      {
-        "id": "bio",
-        "section": "about",
-        "label": "Naresh Sekar"
-      },
-      {
-        "id": "about:0",
-        "section": "about",
-        "label": "About - AI Adoption Strategy"
-      },
       {
         "id": "article:pinned:0",
         "section": "writing",
@@ -1428,9 +1588,19 @@
         }
       },
       {
+        "id": "about:0",
+        "section": "about",
+        "label": "About - End-to-End Product Engineering"
+      },
+      {
         "id": "about:1",
         "section": "about",
-        "label": "About - Team Building"
+        "label": "About - AI Agents as a Team"
+      },
+      {
+        "id": "about:2",
+        "section": "about",
+        "label": "About - Engineering Leadership & Quality"
       }
     ],
     "model": "gpt-oss-20b"
