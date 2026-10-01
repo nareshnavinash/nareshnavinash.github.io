@@ -785,7 +785,7 @@
                     "name": "chirp",
                     "description": "Chirp - Free, cross-platform digital wellness app with smart break reminders, Pomodoro timer, blink & posture nudges, health score, and team dashboard. Zero tracking. MIT licensed.",
                     "url": "https://github.com/nareshnavinash/chirp",
-                    "stars": 2,
+                    "stars": 3,
                     "language": "Dart",
                     "homepage": "https://nareshnavinash.github.io/chirp/",
                     "hasPages": true,
