@@ -676,6 +676,25 @@
                     "thumbnail": "https://repository-images.githubusercontent.com/280851173/fa496d80-cabc-11ea-9011-d91bf1514a8e"
                 },
                 {
+                    "name": "GhostEdit",
+                    "description": "Free, open-source AI grammar checker. Fix grammar, spelling, and punctuation in any app with a single hotkey. Privacy-first no accounts, no subscriptions. ",
+                    "url": "https://github.com/nareshnavinash/GhostEdit",
+                    "stars": 15,
+                    "language": "TypeScript",
+                    "homepage": "https://nareshnavinash.github.io/GhostEdit/",
+                    "hasPages": true,
+                    "createdAt": "2026-03-17T09:54:57Z",
+                    "topics": [
+                        "ai-writing-assistant",
+                        "electron-app",
+                        "grammar-checker",
+                        "grammarly-alternative",
+                        "offline-first",
+                        "spell-checker"
+                    ],
+                    "thumbnail": "https://raw.githubusercontent.com/nareshnavinash/GhostEdit/main/assets/AppIcon1024.png"
+                },
+                {
                     "name": "Cypress-PageObjectModel",
                     "description": "Page Object Model framework using Cypress",
                     "url": "https://github.com/nareshnavinash/Cypress-PageObjectModel",
@@ -719,42 +738,34 @@
                     "thumbnail": "https://raw.githubusercontent.com/nareshnavinash/bonsai/main/assets/banner.png"
                 },
                 {
-                    "name": "GhostEdit",
-                    "description": "Free, open-source AI grammar checker. Fix grammar, spelling, and punctuation in any app with a single hotkey. Privacy-first no accounts, no subscriptions. ",
-                    "url": "https://github.com/nareshnavinash/GhostEdit",
-                    "stars": 8,
-                    "language": "TypeScript",
-                    "homepage": "https://nareshnavinash.github.io/GhostEdit/",
-                    "hasPages": true,
-                    "createdAt": "2026-03-17T09:54:57Z",
-                    "topics": [
-                        "ai-writing-assistant",
-                        "electron-app",
-                        "grammar-checker",
-                        "grammarly-alternative",
-                        "offline-first",
-                        "spell-checker"
-                    ],
-                    "thumbnail": "https://raw.githubusercontent.com/nareshnavinash/GhostEdit/main/assets/AppIcon1024.png"
-                },
-                {
-                    "name": "Postman-Newman-Framework",
-                    "description": "Framework to manage and run multiple postman collections in a single run along with the allure reports.",
-                    "url": "https://github.com/nareshnavinash/Postman-Newman-Framework",
+                    "name": "GhostEdit-mac-app",
+                    "description": "Free, open-source AI grammar checker for macOS. Fix grammar, spelling, and punctuation in any app with a single hotkey. Privacy-first no accounts, no subscriptions. Powered by Claude, OpenAI Codex, or Gemini.",
+                    "url": "https://github.com/nareshnavinash/GhostEdit-mac-app",
                     "stars": 7,
-                    "language": "JavaScript",
-                    "homepage": "https://nareshnavinash.github.io/Postman-Newman-Framework/",
+                    "language": "Swift",
+                    "homepage": "https://nareshnavinash.github.io/GhostEdit-mac-app/",
                     "hasPages": true,
-                    "createdAt": "2020-07-18T13:39:33Z",
+                    "createdAt": "2026-02-22T02:30:06Z",
                     "topics": [
-                        "api-automation",
-                        "framework",
-                        "newman",
-                        "postman",
-                        "postman-collection",
-                        "postman-test"
+                        "ai-writing",
+                        "claude",
+                        "gemini",
+                        "grammar-checker",
+                        "grammar-correction",
+                        "macos",
+                        "macos-app",
+                        "menubar-app",
+                        "open-source",
+                        "openai",
+                        "privacy",
+                        "productivity",
+                        "proofreading",
+                        "spelling-checker",
+                        "swift",
+                        "text-correction",
+                        "writing-assistant"
                     ],
-                    "thumbnail": "https://repository-images.githubusercontent.com/280664062/cd189480-c9c2-11ea-98d0-0a79105a7020"
+                    "thumbnail": "https://raw.githubusercontent.com/nareshnavinash/GhostEdit-mac-app/main/remotion/out/TwitterBanner.png"
                 }
             ],
             "recent": [
@@ -785,7 +796,7 @@
                     "name": "chirp",
                     "description": "Chirp - Free, cross-platform digital wellness app with smart break reminders, Pomodoro timer, blink & posture nudges, health score, and team dashboard. Zero tracking. MIT licensed.",
                     "url": "https://github.com/nareshnavinash/chirp",
-                    "stars": 3,
+                    "stars": 4,
                     "language": "Dart",
                     "homepage": "https://nareshnavinash.github.io/chirp/",
                     "hasPages": true,
@@ -853,7 +864,7 @@
                     "name": "aDictive",
                     "description": "Free, open-source alternative to Wispr Flow, local-first voice-to-text with whisper.cpp (offline) and optional Groq cloud transcription",
                     "url": "https://github.com/nareshnavinash/aDictive",
-                    "stars": 0,
+                    "stars": 1,
                     "language": "TypeScript",
                     "homepage": "https://nareshnavinash.github.io/aDictive/",
                     "hasPages": true,
