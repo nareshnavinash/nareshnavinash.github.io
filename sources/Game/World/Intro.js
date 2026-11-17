@@ -225,6 +225,7 @@ export class Intro {
             canvasTexture.minFilter = THREE.LinearFilter
             canvasTexture.magFilter = THREE.LinearFilter
             canvasTexture.generateMipmaps = false
+            this.text.texture = canvasTexture
 
             // Update material
             material.outputNode = Fn(() => {
@@ -407,9 +408,7 @@ export class Intro {
         // Textures
         this.game.resources.soundTexture.dispose()
 
-        this.text.textures.forEach((value, key) => {
-            value.dispose()
-        })
+        if (this.text.texture) this.text.texture.dispose()
 
         // Events
         this.game.inputs.gamepad.events.off('typeChange', this.text.updateTexture)
