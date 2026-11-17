@@ -33,7 +33,7 @@ const QUESTIONS = [
     "what's your AI experience",
     'are you familiar with Kubernetes',
     'have you used Playwright',
-    'what testing tools do you use',
+    'what tools do you use for CI/CD and automation',
     'do you have experience with TypeScript',
     'have you worked with AWS',
     'how do you scale teams',
@@ -68,7 +68,7 @@ const QUESTIONS = [
     'what is your tech stack',
     'are you available for hire',
     'what industries have you worked in',
-    'describe your quality engineering expertise',
+    'describe your software engineering and delivery expertise',
     'what is your experience with CI/CD',
     'how do you approach automation',
     'tell me about your Docker experience'
