@@ -12,7 +12,7 @@
             "Builder"
         ],
         "bio": "Founding engineer building products end to end, with AI agents as my team.",
-        "mission": "I'm the founding and sole engineer at Picari, where my work spans the whole stack - from design system and website to recommendation engine, security, performance, and cloud infrastructure. I deliver with the help of AI coding agents so that one engineer can operate like a team. Before that, I spent over a decade across startups and scale-ups, most recently as an Engineering Manager at TestGorilla leading AI product work and AI-augmented development. That background in engineering leadership and quality-first delivery shapes how I build today: explainable systems, rigorous evals, automated guardrails, and production-grade infrastructure from day one."
+        "mission": "I'm the founding and sole engineer at Picari, where my work spans the whole stack - from design system and website to recommendation engine, security, performance, and cloud infrastructure. I deliver with the help of AI coding agents so that one engineer can operate like a team. Before that, I spent over a decade across startups and scale-ups, most recently as an Engineering Manager at TestGorilla leading AI product work and AI-augmented development. That background in engineering leadership and shipping reliably at speed shapes how I build today: explainable systems, rigorous evals, automated guardrails, and production-grade infrastructure from day one."
     },
     "site": {
         "seo": {
@@ -161,7 +161,7 @@
     },
     "about": {
         "title": "About.",
-        "subtitle": "Founding Engineer building products end to end with AI agents - backed by a decade of engineering leadership and quality engineering.",
+        "subtitle": "Founding Engineer building products end to end with AI agents - backed by a decade of software development and engineering leadership.",
         "cards": [
             {
                 "title": "End-to-End Product Engineering",
@@ -172,19 +172,19 @@
                 "description": "Delivering with AI coding agents so one engineer operates like a team - plus shipping AI into the product itself: agent pipelines, evals, and MCP integrations."
             },
             {
-                "title": "Engineering Leadership & Quality",
-                "description": "A decade of scaling teams from 5 to 30+ and building quality-first delivery - test automation, CI/CD, observability, and risk-aware execution at scale."
+                "title": "Engineering Leadership & Delivery",
+                "description": "A decade of scaling teams from 5 to 30+ and shipping fast without breaking things - CI/CD, release engineering, observability, and risk-aware execution at scale."
             }
         ]
     },
     "career": {
         "title": "Experience.",
-        "subtitle": "A decade of growth - from quality engineering to leading teams to building products end to end.",
+        "subtitle": "A decade of growth - from software engineering to leading teams to building products end to end.",
         "recentCount": 4,
         "tailCard": {
             "role": "Before that",
-            "teaser": "~5 years as SDET and early-career engineer across four companies",
-            "dateLabel": "June 2015 - March 2020"
+            "teaser": "~6 years as a software engineer across four companies",
+            "dateLabel": "June 2015 - February 2021"
         },
         "positions": [
             {
@@ -271,8 +271,8 @@
                         ]
                     },
                     {
-                        "role": "Lead Software Development Engineer in Test",
-                        "shortRole": "Lead SDET",
+                        "role": "Lead Software Development Engineer",
+                        "shortRole": "Lead SDE",
                         "date": "April 2022 - August 2023",
                         "startYear": 2022,
                         "startMonth": 4,
@@ -298,8 +298,8 @@
                 "url": "https://hopin.com",
                 "roles": [
                     {
-                        "role": "Senior Software Development Engineer in Test",
-                        "shortRole": "Senior SDET",
+                        "role": "Senior Software Development Engineer",
+                        "shortRole": "Senior SDE",
                         "date": "February 2021 - March 2022",
                         "startYear": 2021,
                         "startMonth": 2,
@@ -313,7 +313,7 @@
                                     "Optimized release pipeline in GitLab, reducing execution time from 45 to ~15 mins, enabling ~20 daily releases.",
                                     "Introduced Pact-Contract testing with self-hosted pact broker, ensuring stable pipeline and frequent deployments.",
                                     "Implemented Browserstack for cross-browser testing, minimizing compatibility concerns.",
-                                    "Conducted interviews at Hopin and provided technical mentorship to test engineers.",
+                                    "Conducted interviews at Hopin and provided technical mentorship to engineers.",
                                     "Facilitated cross-functional collaboration via closed and open beta launch.",
                                     "Deployed Visual Regression Tests with Testcafe and Percy in GitHub pre-merge state, empowering team autonomy."
                                 ]
@@ -327,8 +327,8 @@
                 "url": "https://vue.ai",
                 "roles": [
                     {
-                        "role": "Software Development Engineer in Test",
-                        "shortRole": "Senior SDET",
+                        "role": "Software Development Engineer",
+                        "shortRole": "SDE",
                         "date": "March 2020 - February 2021",
                         "startYear": 2020,
                         "startMonth": 3,
@@ -340,7 +340,7 @@
                                 "title": null,
                                 "points": [
                                     "Developed Python packages for REST API & UI automation, supporting ML/AI use cases organization-wide.",
-                                    "Managed two teams in an 8:1 Dev to SDET ratio, implementing Agile release processes.",
+                                    "Worked across two product teams (~8 developers each), implementing Agile release processes.",
                                     "Configured CI/CD for ML/AI microservice using Jenkins, Bitbucket, AWS, and Spotinst, reducing infrastructure costs via IaC."
                                 ]
                             }
@@ -353,8 +353,8 @@
                 "url": "https://weinvest.net",
                 "roles": [
                     {
-                        "role": "Software Development Engineer in Test",
-                        "shortRole": "Senior SDET",
+                        "role": "Software Development Engineer",
+                        "shortRole": "SDE",
                         "date": "January 2019 - February 2020",
                         "startYear": 2019,
                         "startMonth": 1,
@@ -365,7 +365,7 @@
                             {
                                 "title": null,
                                 "points": [
-                                    "As a first SDET hire, managed internal testing servers to accelerate testing cycles.",
+                                    "Managed internal testing servers to accelerate testing cycles.",
                                     "Reduced costs by leveraging a freemium version of Postman for ETL transformation support.",
                                     "Modularized and transformed UI and GraphQL automation frameworks into Ruby gems.",
                                     "Spearheaded robust CI/CD integration with GitHub, Jenkins, and Docker.",
@@ -679,7 +679,7 @@
                     "name": "GhostEdit",
                     "description": "Free, open-source AI grammar checker. Fix grammar, spelling, and punctuation in any app with a single hotkey. Privacy-first no accounts, no subscriptions. ",
                     "url": "https://github.com/nareshnavinash/GhostEdit",
-                    "stars": 15,
+                    "stars": 17,
                     "language": "TypeScript",
                     "homepage": "https://nareshnavinash.github.io/GhostEdit/",
                     "hasPages": true,
@@ -796,7 +796,7 @@
                     "name": "chirp",
                     "description": "Chirp - Free, cross-platform digital wellness app with smart break reminders, Pomodoro timer, blink & posture nudges, health score, and team dashboard. Zero tracking. MIT licensed.",
                     "url": "https://github.com/nareshnavinash/chirp",
-                    "stars": 4,
+                    "stars": 5,
                     "language": "Dart",
                     "homepage": "https://nareshnavinash.github.io/chirp/",
                     "hasPages": true,
@@ -921,7 +921,7 @@
         "points": [
             "Management In Action: A hands-on guide to effective engineering management.",
             "Covers team building, decision-making, stakeholder alignment, and leadership.",
-            "Regular contributor on Medium about engineering management and quality.",
+            "Regular contributor on Medium about engineering management, AI, and software delivery.",
             "Topics include AI in engineering, test automation, and leadership practices."
         ]
     },
@@ -956,12 +956,12 @@
                 ]
             },
             {
-                "name": "Quality & Observability",
+                "name": "Design Systems, Data & Performance",
                 "items": [
                     "Design Systems (Tokens, Storybook, a11y in CI)",
                     "Product Analytics & BI (Mixpanel, Snowflake)",
                     "Performance Engineering (k6, Lighthouse)",
-                    "Automation (Playwright, Cypress)"
+                    "E2E Automation (Playwright, Cypress)"
                 ]
             }
         ]
@@ -1014,28 +1014,48 @@
         "subtitle": "Continuous learning across engineering, cloud, and leadership.",
         "items": [
             {
-                "name": "AWS Solutions Architect Associate",
-                "issuer": "Amazon Web Services"
+                "name": "AWS Certified Solutions Architect - Associate",
+                "issuer": "Amazon Web Services (AWS)"
             },
             {
-                "name": "Reforge - Engineering Management",
+                "name": "Strategic Business Analytics",
+                "issuer": "ESSEC Business School"
+            },
+            {
+                "name": "AI For Business Specialization",
+                "issuer": "University of Pennsylvania"
+            },
+            {
+                "name": "Google Project Management Specialization",
+                "issuer": "Google"
+            },
+            {
+                "name": "Engineering Project Management",
+                "issuer": "Rice University"
+            },
+            {
+                "name": "Strategic Technology Management Specialization",
+                "issuer": "Gies College of Business - University of Illinois Urbana-Champaign"
+            },
+            {
+                "name": "Strategic Leadership and Management Specialization",
+                "issuer": "Gies College of Business - University of Illinois Urbana-Champaign"
+            },
+            {
+                "name": "Engineering Management, Technical Strategy & Scaling Product Delivery",
                 "issuer": "Reforge"
             },
             {
-                "name": "CCNA & CCNP Routing and Switching",
-                "issuer": "Cisco Systems"
+                "name": "Cisco Certified Network Professional (CCNP)",
+                "issuer": "Cisco Networking Academy"
             },
             {
-                "name": "Google Project Management Certificate",
-                "issuer": "Google (Coursera)"
+                "name": "Cisco Certified Network Associate Industrial (CCNA I)",
+                "issuer": "Cisco Networking Academy"
             },
             {
-                "name": "Strategic Leadership & Management",
-                "issuer": "University of Illinois (Coursera)"
-            },
-            {
-                "name": "BEC Vantage (Business English)",
-                "issuer": "Cambridge Assessment"
+                "name": "Business English Certificate - Vantage",
+                "issuer": "University of Cambridge"
             }
         ]
     },
@@ -1074,7 +1094,7 @@
             "url": "https://www.testgorilla.com",
             "shortRole": [
                 "Engineering Manager",
-                "Lead SDET"
+                "Lead SDE"
             ],
             "images": [
                 "tg-em-ai",
@@ -1089,7 +1109,7 @@
                 "Hopin"
             ],
             "url": "https://hopin.com",
-            "shortRole": "Senior SDET",
+            "shortRole": "Senior SDE",
             "images": [
                 "hopin-1"
             ]
@@ -1100,7 +1120,7 @@
                 "Vue.ai"
             ],
             "url": "https://vue.ai",
-            "shortRole": "Senior SDET",
+            "shortRole": "SDE",
             "images": [
                 "vueai-1"
             ]
@@ -1111,7 +1131,7 @@
                 "WeInvest"
             ],
             "url": "https://weinvest.net",
-            "shortRole": "Senior SDET",
+            "shortRole": "SDE",
             "images": [
                 "weinvest-1"
             ]

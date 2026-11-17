@@ -13,9 +13,9 @@ const HEIGHT = 60
 const careers = [
     { filename: 'careerFreelancer', company: 'Cognizant', role: 'Programmer Analyst', color: '#5390ff' },
     { filename: 'careerHetic', company: 'Freshworks', role: 'Software Engineer', color: '#ff8039' },
-    { filename: 'careerImmersiveGarden', company: 'WeInvest', role: 'Senior SDET', color: '#b65fff' },
-    { filename: 'careerIRLTeacher', company: 'Vue.ai', role: 'Lead SDET', color: '#a2ffab' },
-    { filename: 'careerOnlineTeacher', company: 'Hopin', role: 'Senior SDET', color: '#5390ff' },
+    { filename: 'careerImmersiveGarden', company: 'WeInvest', role: 'SDE', color: '#b65fff' },
+    { filename: 'careerIRLTeacher', company: 'Vue.ai', role: 'SDE', color: '#a2ffab' },
+    { filename: 'careerOnlineTeacher', company: 'Hopin', role: 'Senior SDE', color: '#5390ff' },
     { filename: 'careerUzik', company: 'TestGorilla', role: 'Engineering Manager', color: '#ff8039' }
 ]
 
