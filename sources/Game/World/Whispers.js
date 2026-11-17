@@ -34,7 +34,8 @@ export class Whispers {
     constructor() {
         this.game = Game.getInstance()
 
-        this.count = parseInt(import.meta.env.VITE_WHISPERS_COUNT)
+        // Unset env var used to yield NaN, which WebGPU rejects in drawIndexed (black screen after the intro)
+        this.count = parseInt(import.meta.env.VITE_WHISPERS_COUNT, 10) || 30
 
         this.setSounds()
         this.setFlames()
