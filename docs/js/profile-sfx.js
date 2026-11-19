@@ -314,12 +314,6 @@
         })
     }
 
-    function wireConfetti() {
-        document.addEventListener('click', (e) => {
-            if (e.target.closest('#only-fans-btn')) play('reward')
-        })
-    }
-
     function wireDioramas() {
         const dios = [
             { id: 'diorama', sel: '.stage-card' },
@@ -568,7 +562,6 @@
         wireModalNav()
         wireThemeToggle()
         wireChatFab()
-        wireConfetti()
         wireDioramas()
         wireSectionReveal()
         wireSearch()

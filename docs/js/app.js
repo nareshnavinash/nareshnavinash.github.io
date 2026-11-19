@@ -935,85 +935,6 @@ function showSnackbar(message, { duration = 5000, variant } = {}) {
     setTimeout(dismiss, duration)
 }
 
-// ---------- confetti (birthday popper) ----------
-function burstConfetti(anchor) {
-    const rect =
-        anchor && anchor.getBoundingClientRect
-            ? anchor.getBoundingClientRect()
-            : { left: window.innerWidth / 2, top: window.innerHeight / 2, width: 0, height: 0 }
-    const isMobile = window.innerWidth < 640
-    const originX = rect.left + rect.width / 2
-    const originY = rect.top + rect.height / 2
-    const root = window.getComputedStyle(document.documentElement)
-    const palette = [
-        root.getPropertyValue('--color-mint').trim() || '#00b880',
-        root.getPropertyValue('--color-peach').trim() || '#e85a2a',
-        root.getPropertyValue('--color-lavender').trim() || '#7744cc',
-        root.getPropertyValue('--color-gold').trim() || '#d4a010',
-        root.getPropertyValue('--color-blue').trim() || '#3366dd'
-    ]
-    const count = isMobile ? 50 : 90
-    const duration = 2400
-    const pieces = []
-    for (let i = 0; i < count; i++) {
-        const piece = document.createElement('div')
-        const isStreamer = Math.random() < 0.25
-        piece.className = 'confetti-piece' + (isStreamer ? ' streamer' : '')
-        piece.style.background = palette[i % palette.length]
-        piece.style.left = `${originX}px`
-        piece.style.top = `${originY}px`
-        document.body.appendChild(piece)
-        const angle = -Math.PI / 2 + (Math.random() - 0.5) * Math.PI * 1.1
-        const speed = 380 + Math.random() * 460
-        pieces.push({
-            node: piece,
-            x: 0,
-            y: 0,
-            vx: Math.cos(angle) * speed,
-            vy: Math.sin(angle) * speed,
-            rot: Math.random() * 360,
-            spin: (Math.random() - 0.5) * 720,
-            drift: (Math.random() - 0.5) * 60
-        })
-    }
-    const gravity = isMobile ? 600 : 900
-    let last
-    let startTs
-    const tick = (ts) => {
-        if (!startTs) {
-            startTs = ts
-            last = ts
-        }
-        const dt = Math.min(0.032, (ts - last) / 1000)
-        last = ts
-        const elapsed = (ts - startTs) / duration
-        pieces.forEach((p) => {
-            p.vy += gravity * dt
-            p.vx += Math.sin((ts + p.drift) / 300) * 30 * dt
-            p.x += p.vx * dt
-            p.y += p.vy * dt
-            p.rot += p.spin * dt
-            p.node.style.transform = `translate(${p.x}px, ${p.y}px) rotate(${p.rot}deg)`
-            p.node.style.opacity = String(Math.max(0, 1 - elapsed * 1.1))
-        })
-        if (elapsed < 1) {
-            requestAnimationFrame(tick)
-        } else {
-            pieces.forEach((p) => p.node.remove())
-        }
-    }
-    requestAnimationFrame(tick)
-}
-
-function setupOnlyFans() {
-    const btn = document.getElementById('only-fans-btn')
-    if (!btn) return
-    btn.addEventListener('click', () => {
-        burstConfetti(btn)
-        showSnackbar('You are my only fan. Thank you for clicking.', { variant: 'of', duration: 4000 })
-    })
-}
-
 // ---------- boot ----------
 async function init() {
     let totalMediumPosts = 0
@@ -1070,7 +991,6 @@ async function init() {
     setYear()
     setupChatFab()
     setupAiSection()
-    setupOnlyFans()
 
     // AI-powered chat + Cmd+K search (replaces the old stub makeChat)
     try {

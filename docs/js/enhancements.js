@@ -181,11 +181,6 @@
                     { href: 'https://www.linkedin.com/in/nareshnavinash/', target: '_blank', rel: 'noreferrer' },
                     'linkedin'
                 ),
-                el(
-                    'button',
-                    { id: 'only-fans-btn', class: 'of-btn', type: 'button', 'aria-label': 'Only Fans' },
-                    'Only Fans'
-                ),
                 el('a', { href: 'https://github.com/nareshnavinash', target: '_blank', rel: 'noreferrer' }, 'github'),
                 el('a', { href: 'https://medium.com/@nareshnavinash', target: '_blank', rel: 'noreferrer' }, 'medium'),
                 el('a', { href: 'https://x.com/navinashnaresh', target: '_blank', rel: 'noreferrer' }, 'x')
