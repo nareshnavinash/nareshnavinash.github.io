@@ -262,7 +262,7 @@
                             {
                                 "title": "Team Leadership & Core Operations",
                                 "points": [
-                                    "Led and mentored a high-performing team of 5 engineers, responsible for onboarding, payments, & subscriptions, by balancing ambitious AI technology goals with pragmatic delivery targets.",
+                                    "Led and mentored engineers across Europe, Asia and the Americas, working across multiple time zones, responsible for onboarding, payments, & subscriptions, by balancing ambitious AI technology goals with pragmatic delivery targets.",
                                     "Owned critical integrations like Chargebee, HubSpot, 18 ATS platforms, and Stripe, ensuring seamless data flow alongside new AI capabilities.",
                                     "Defined and tracked team OKRs and DORA metrics, adapting them to account for the increased velocity provided by AI-assisted development tools.",
                                     "Collaborated with Product, Design, Sales, Marketing, GTM, and Finance to scope and prioritize projects aligned with business goals and advocated for engineering needs at the leadership level."
@@ -281,12 +281,17 @@
                         "location": "Remote",
                         "sections": [
                             {
-                                "title": null,
+                                "title": "Integrations",
                                 "points": [
-                                    "Architected the CI/CD infrastructure that transformed release velocity from bi-weekly to 5x daily. This high-frequency deployment model established the necessary foundation for rapid A/B testing and iterative AI model tuning in production.",
-                                    "Developed sophisticated E2E API testing frameworks using Python (pytest). This deep Python infrastructure experience laid the technical groundwork for seamless integration with modern Python-centric AI/LLM libraries.",
-                                    "Led backend load testing using k6.io and frontend performance profiling with Lighthouse. Established performance baselines critical for later measuring the latency and compute impact of integrating LLM features.",
-                                    "Integrated Storybook with Playwright for Angular.js, enhancing CI visual and accessibility tests and implemented Playwright for UI E2E tests in the CD pipeline, ensuring rapid feedback."
+                                    "Built and maintained the HubSpot and Chargebee integrations, syncing customer, subscription and billing data between the product and the sales and finance systems.",
+                                    "Built integrations with Apollo.io and in-house sales platforms that track product-usage metrics for every customer, so the sales team can find and work accounts without engineering help."
+                                ]
+                            },
+                            {
+                                "title": "Delivery",
+                                "points": [
+                                    "Rebuilt CI/CD to take releases from bi-weekly to 5× a day, the base for fast A/B testing.",
+                                    "Set performance baselines with k6 load tests and Lighthouse profiling."
                                 ]
                             }
                         ]
@@ -308,14 +313,18 @@
                         "location": "Remote",
                         "sections": [
                             {
-                                "title": null,
+                                "title": "Event registration & ticketing",
                                 "points": [
-                                    "Optimized release pipeline in GitLab, reducing execution time from 45 to ~15 mins, enabling ~20 daily releases.",
-                                    "Introduced Pact-Contract testing with self-hosted pact broker, ensuring stable pipeline and frequent deployments.",
-                                    "Implemented Browserstack for cross-browser testing, minimizing compatibility concerns.",
-                                    "Conducted interviews at Hopin and provided technical mentorship to engineers.",
-                                    "Facilitated cross-functional collaboration via closed and open beta launch.",
-                                    "Deployed Visual Regression Tests with Testcafe and Percy in GitHub pre-merge state, empowering team autonomy."
+                                    "Replaced the legacy event registration system, which had security and performance problems, with a new registration and ticketing platform.",
+                                    "Built a drag-and-drop, canvas-based page builder so organisers design their own registration pages from configurable, dynamic UI blocks.",
+                                    "Built per-event ticketing that routes registered attendees into only the events they can join, with automated confirmation and reminder emails."
+                                ]
+                            },
+                            {
+                                "title": "Delivery & team",
+                                "points": [
+                                    "Cut the release pipeline from 45 to ~15 min, enabling ~20 releases a day.",
+                                    "Interviewed candidates and mentored engineers."
                                 ]
                             }
                         ]
@@ -337,11 +346,16 @@
                         "location": "Chennai, India",
                         "sections": [
                             {
-                                "title": null,
+                                "title": "Computer vision in product",
                                 "points": [
-                                    "Developed Python packages for REST API & UI automation, supporting ML/AI use cases organization-wide.",
-                                    "Worked across two product teams (~8 developers each), implementing Agile release processes.",
-                                    "Configured CI/CD for ML/AI microservice using Jenkins, Bitbucket, AWS, and Spotinst, reducing infrastructure costs via IaC."
+                                    "Integrated computer-vision (deep learning) models into the product to auto-tag fashion product images on upload with attributes such as category, colour, pattern and sleeve, varying by garment type.",
+                                    "Made retailer catalogues searchable by those attributes, replacing the manual tagging and data entry done for every product listed online."
+                                ]
+                            },
+                            {
+                                "title": "Platform",
+                                "points": [
+                                    "Set up CI/CD for ML microservices on AWS with Jenkins and Spotinst, cutting infrastructure costs."
                                 ]
                             }
                         ]
@@ -363,13 +377,12 @@
                         "location": "Chennai, India",
                         "sections": [
                             {
-                                "title": null,
+                                "title": "Wealth-tech product",
                                 "points": [
-                                    "Managed internal testing servers to accelerate testing cycles.",
-                                    "Reduced costs by leveraging a freemium version of Postman for ETL transformation support.",
-                                    "Modularized and transformed UI and GraphQL automation frameworks into Ruby gems.",
-                                    "Spearheaded robust CI/CD integration with GitHub, Jenkins, and Docker.",
-                                    "Utilized Cucumber alongside RSpec for effective Behavior Driven Development (BDD)."
+                                    "Built personalised portfolio dashboards so investors track their mutual fund and stock holdings every day.",
+                                    "Built the dashboard's GraphQL API so clients request only the data they need, keeping it fast as portfolio data grew.",
+                                    "Built daily data syncs from mutual fund (NAV) and Singapore stock market feeds so portfolio values and gains or losses stay accurate.",
+                                    "Shipped retirement-planning and gold-investment trackers."
                                 ]
                             }
                         ]
@@ -391,12 +404,20 @@
                         "location": "Chennai, India",
                         "sections": [
                             {
-                                "title": null,
+                                "title": "Freshcaller: cloud contact-centre SaaS",
                                 "points": [
-                                    "Been part of the launch of Freshcaller product in beta and GA phases.",
-                                    "Strategized manual and automation test execution in pre-development stages through collaboration with Product Owner and Tech Leads, optimizing release processes.",
-                                    "Upheld code quality and comprehensive unit test coverage starting from the PR stage.",
-                                    "Achieved 100% regression automation coverage and managed Jenkins pipelines."
+                                    "Core engineer on Freshcaller, taking it from beta to GA as a standalone Freshworks product.",
+                                    "Built browser-based calling on Twilio Voice APIs so support agents take and make calls in the browser, with no desk phone or mobile.",
+                                    "Turned every call into a trackable ticket so support teams keep all customer conversations in one place.",
+                                    "Moved customers from the legacy phone system to Freshcaller."
+                                ]
+                            },
+                            {
+                                "title": "Multi-tenant platform & integrations",
+                                "points": [
+                                    "Worked on a multi-tenant Ruby on Rails platform hosted in regional data centres in the US, EU, India and Australia, for data residency and low latency.",
+                                    "Kept each tenant's data isolated at the query level, and gave the largest customers, such as Ola, dedicated databases to meet their scale.",
+                                    "Delivered the Freshdesk integration Freshcaller launched with, worked on the Freshsales integration, and moved login to Freshworks' company-wide single sign-on (SSO)."
                                 ]
                             }
                         ]
@@ -418,11 +439,11 @@
                         "location": "Chennai, India",
                         "sections": [
                             {
-                                "title": null,
+                                "title": "Mainframe modernisation for Chubb Insurance",
                                 "points": [
-                                    "Ensured adherence to CMMI Level 5 practices across all projects.",
-                                    "Spearheaded web application automation using HP's UFT tool. Proactively automated tasks to streamline operations and save time.",
-                                    "Reduced testing costs in a data server migration project with an automation script, earning recognition as Best Automation Resource for the Year 2016."
+                                    "Moved Chubb Insurance's legacy mainframe claims and billing applications to a Java web application, rebuilding the business workflows as web screens and services.",
+                                    "Built dynamic forms with AJAX that auto-fill fields from back-end lookups, cutting manual data entry for claims and billing users.",
+                                    "Delivered under CMMI Level 5 processes: requirements, design, code review, testing and release."
                                 ]
                             }
                         ]
@@ -673,7 +694,7 @@
                     "name": "GhostEdit",
                     "description": "Free, open-source AI grammar checker. Fix grammar, spelling, and punctuation in any app with a single hotkey. Privacy-first no accounts, no subscriptions. ",
                     "url": "https://github.com/nareshnavinash/GhostEdit",
-                    "stars": 17,
+                    "stars": 18,
                     "language": "TypeScript",
                     "homepage": "https://nareshnavinash.github.io/GhostEdit/",
                     "hasPages": true,
@@ -735,7 +756,7 @@
                     "name": "GhostEdit-mac-app",
                     "description": "Free, open-source AI grammar checker for macOS. Fix grammar, spelling, and punctuation in any app with a single hotkey. Privacy-first no accounts, no subscriptions. Powered by Claude, OpenAI Codex, or Gemini.",
                     "url": "https://github.com/nareshnavinash/GhostEdit-mac-app",
-                    "stars": 7,
+                    "stars": 8,
                     "language": "Swift",
                     "homepage": "https://nareshnavinash.github.io/GhostEdit-mac-app/",
                     "hasPages": true,
