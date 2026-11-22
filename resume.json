@@ -205,6 +205,7 @@
                                 "title": "Platform & Infrastructure",
                                 "points": [
                                     "Founding and sole engineer, working across the whole stack - from design system and website to recommendation engine, security, performance, and cloud infrastructure - delivering with AI coding agents to operate like a team.",
+                                    "Built the three core services from scratch: the recommendation engine, the backend for vendors and buyers, and the internal admin platform.",
                                     "Moved the platform from Lovable to AWS with infrastructure-as-code (Terraform) and a single Node.js backend.",
                                     "Set up CI/CD, staging, per-PR preview environments, gated production deploys with rollback, and observability."
                                 ]
@@ -222,7 +223,7 @@
                                 "points": [
                                     "Built the component library and design system (tokens, Storybook, accessibility checks in CI).",
                                     "Redesigned the marketing website and rebuilt the public vendor directory.",
-                                    "Built in-house product analytics with an admin BI console."
+                                    "Run a self-hosted ClickHouse server as the single source for user analytics, production events and logs, cutting observability cost, with an admin BI console on top."
                                 ]
                             }
                         ]
@@ -264,8 +265,18 @@
                                 "points": [
                                     "Led and mentored engineers across Europe, Asia and the Americas, working across multiple time zones, responsible for onboarding, payments, & subscriptions, by balancing ambitious AI technology goals with pragmatic delivery targets.",
                                     "Owned critical integrations like Chargebee, HubSpot, 18 ATS platforms, and Stripe, ensuring seamless data flow alongside new AI capabilities.",
-                                    "Defined and tracked team OKRs and DORA metrics, adapting them to account for the increased velocity provided by AI-assisted development tools.",
+                                    "Led the team that worked as the company platform team: it owned every third-party integration used by all teams, plus shared platforms such as pricing and login.",
+                                    "Ran weekly 1:1s, wrote performance reviews, built career-growth plans and promotion cases, and was hiring manager for the team.",
+                                    "Defined and tracked team OKRs and DORA metrics to keep releases small and frequent, adapting them to account for the increased velocity provided by AI-assisted development tools.",
                                     "Collaborated with Product, Design, Sales, Marketing, GTM, and Finance to scope and prioritize projects aligned with business goals and advocated for engineering needs at the leadership level."
+                                ]
+                            },
+                            {
+                                "title": "Reliability & Operations",
+                                "points": [
+                                    "Set reliability targets per service: zero tolerance for failed payments and billing errors on Stripe and Chargebee, and 8–24 hour SLAs for HubSpot and ATS integrations.",
+                                    "Ran observability on Datadog and Sentry with automatic Slack alerts and an on-call rotation, so no payment or integration issue affecting customers or Sales went unnoticed.",
+                                    "Made the HubSpot sync fault-tolerant with Amazon SQS and dead-letter queues: failed events, including those during HubSpot outages, are kept and replayed from the backlog."
                                 ]
                             }
                         ]
@@ -349,7 +360,8 @@
                                 "title": "Computer vision in product",
                                 "points": [
                                     "Integrated computer-vision (deep learning) models into the product to auto-tag fashion product images on upload with attributes such as category, colour, pattern and sleeve, varying by garment type.",
-                                    "Made retailer catalogues searchable by those attributes, replacing the manual tagging and data entry done for every product listed online."
+                                    "Made retailer catalogues searchable by those attributes, replacing the manual tagging and data entry done for every product listed online.",
+                                    "Stored and served each product's tags in Amazon DynamoDB, keyed by product ID."
                                 ]
                             },
                             {
@@ -967,14 +979,16 @@
                     "AWS (Solutions Architect)",
                     "Infrastructure as Code (Terraform)",
                     "Docker & Kubernetes",
-                    "CI/CD, Preview Envs & Gated Deploys"
+                    "CI/CD, Preview Envs & Gated Deploys",
+                    "Amazon SQS & DynamoDB",
+                    "Observability & On-call (Datadog, Sentry)"
                 ]
             },
             {
                 "name": "Design Systems, Data & Performance",
                 "items": [
                     "Design Systems (Tokens, Storybook, a11y in CI)",
-                    "Product Analytics & BI (Mixpanel, Snowflake)",
+                    "Product Analytics & BI (ClickHouse, Mixpanel, Snowflake)",
                     "Performance Engineering (k6, Lighthouse)",
                     "E2E Automation (Playwright, Cypress)"
                 ]
